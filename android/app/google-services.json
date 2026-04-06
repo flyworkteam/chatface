@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "976035654057",
+    "project_id": "chatface-af028",
+    "storage_bucket": "chatface-af028.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:976035654057:android:70d54079b5088bc186fcb8",
+        "android_client_info": {
+          "package_name": "com.flywork.chatface"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "976035654057-nh6utqvfdofnierm03dhoa6esspe745c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVVLZdBFUIJ8od093THkEH9Ucs0IXgUdc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "976035654057-nh6utqvfdofnierm03dhoa6esspe745c.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "976035654057-brjcquei2iu47vatnknne384uss94ola.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.flywork.chatface"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:976035654057:android:a1b59f00762aa7b586fcb8",
+        "android_client_info": {
+          "package_name": "flywork.chatface"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "976035654057-nh6utqvfdofnierm03dhoa6esspe745c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVVLZdBFUIJ8od093THkEH9Ucs0IXgUdc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "976035654057-nh6utqvfdofnierm03dhoa6esspe745c.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "976035654057-brjcquei2iu47vatnknne384uss94ola.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.flywork.chatface"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

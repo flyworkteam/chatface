@@ -1,0 +1,86 @@
+name: chatface
+description: "A new Flutter project."
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.9
+  google_fonts: ^8.0.2
+  flutter_svg: ^2.2.4
+  flutter_hooks: ^0.21.3+1
+  cached_network_image: ^3.4.1
+  dio: ^5.9.2
+  purchases_flutter: ^9.16.0
+  flutter_riverpod: ^3.3.1
+  flutter_secure_storage: ^10.0.0
+  google_sign_in: ^7.2.0
+  sign_in_with_apple: ^7.0.1
+  crypto: ^3.0.7
+  onesignal_flutter: ^5.5.0
+  flutter_localizations:
+    sdk: flutter
+  firebase_core: ^4.6.0
+  slang: ^4.14.0
+  flutter_launcher_icons: ^0.14.4
+  hooks_riverpod: ^3.3.1
+  cross_fade: ^0.5.0
+  flutter_native_splash: ^2.4.7
+  slang_flutter: ^4.14.0
+  purchases_ui_flutter: ^9.16.0
+  intl: ^0.20.2
+  flutter_local_notifications: ^21.0.0
+  permission_handler: ^12.0.1
+  flutter_card_swiper: ^7.2.0
+  image_picker: ^1.2.1
+  infinite_scroll_pagination: ^5.1.1
+  country_picker: ^2.0.27
+  camerawesome: ^2.5.0
+  rive: ^0.14.5
+  web_socket_channel: ^3.0.3
+  audioplayers: ^6.6.0
+  uuid: ^4.5.3
+  riverpod: ^3.2.1
+  record: ^6.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^6.0.0
+  build_runner: ^2.13.1
+  slang_build_runner: ^4.14.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/
+    - assets/images/
+    - assets/icons/
+    - assets/icons/flags/
+
+flutter_native_splash:
+  background_image: assets/images/splashscreen1.png
+  fullscreen: true
+  android_12:
+    background_image: assets/images/splashscreen1.png
+  android: true
+  ios: true
+  ios_content_mode: scaleAspectFill
+  web: false
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  min_sdk_android: 21
+  image_path: "assets/app-logo.png"
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "assets/app-logo-adaptive.png"

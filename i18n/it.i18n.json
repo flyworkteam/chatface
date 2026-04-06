@@ -1,0 +1,311 @@
+{
+  "welcome": "Benvenuto $name",
+  "welcome2": "Benvenuto su $appName",
+  "get_started": "Inizia",
+  "next": "Avanti",
+  "back": "Indietro",
+  "skip": "Salta",
+  "profile": "Profilo",
+  "continue": "Continua",
+  "termOfService": {
+    "text1": "Iscrivendoti a swipe, accetti i nostri ",
+    "link1": "Termini di servizio",
+    "text2": ". Scopri come trattiamo i tuoi dati nella nostra ",
+    "link2": "Informativa sulla privacy",
+    "text3": " e nella ",
+    "link3": "Informativa sui cookie",
+    "text4": "",
+    "privacyPolicy": {
+      "title": "Informativa sulla privacy",
+      "lastUpdated": "Ultimo aggiornamento: 2026",
+      "intro": "ChatFace adotta la privacy degli utenti e la sicurezza dei dati come principio fondamentale. Tutti i tuoi dati personali sono trattati in conformità alle normative vigenti sulla protezione dei dati.",
+      "section1Title": "1. INFORMAZIONI RACCOLTE",
+      "section1sub1Title": "1.1 Dati forniti dall'utente",
+      "section1sub1Body": "• Nome, soprannome o informazioni del profilo.\n• Indirizzo e-mail (per registrazione, abbonamento e supporto). \n• Preferenze di interazione, impostazioni della lingua e interazioni. \n• Messaggi di feedback e supporto.",
+      "section1sub2Title": "1.2 Dati raccolti automaticamente",
+      "section1sub2Body": "Vengono raccolte informazioni come tipo di dispositivo, sistema operativo, posizione approssimativa (città/paese) e dati di utilizzo dell'app. Non vengono raccolti dati di posizione precisi.",
+      "section2Title": "2. FINALITÀ DEL TRATTAMENTO DEI DATI",
+      "section2Body": "I tuoi dati personali vengono trattati per le seguenti finalità:\n\n• Garantire il corretto funzionamento dell'applicazione.\n• Fornire e personalizzare l'esperienza di videochiamata basata su IA.\n• Ottimizzare le prestazioni del sistema e rilevare gli errori.\n• Adempiere agli obblighi di legge.\n I tuoi dati non vengono mai venduti a terzi.",
+      "section3Title": "3. CONSERVAZIONE E CANCELLAZIONE DEI DATI",
+      "section3Body": "I tuoi dati vengono archiviati finché il tuo account è attivo o per la durata degli obblighi legali. Quando un account viene eliminato, tutti i dati personali vengono cancellati in modo irrevocabile dai sistemi.",
+      "section4Title": "4. DIRITTI DELL'UTENTE",
+      "section4Body": "Ai sensi del GDPR e di altre normative, hai diritto di accesso, rettifica, cancellazione (diritto all'oblio) e di richiedere la portabilità dei dati. Puoi contattarci per le tue richieste.",
+      "section5Title": "5. PRIVACY DEI MINORI",
+      "section5Body": "ChatFace non è destinato a utenti di età inferiore ai 18 anni. Non raccogliamo consapevolmente dati di questa fascia d'età; tali account saranno chiusi e i dati eliminati se rilevati.",
+      "section6Title": "6. CONTATTI",
+      "section6Body": "📩 Per richieste: support@fly-work.com"
+    },
+    "termsOfService": {
+      "title": "Termini di servizio",
+      "lastUpdated": "Ultimo aggiornamento: 2026",
+      "intro": "Questi Termini regolano l'uso dell'app mobile ChatFace. Utilizzando l'app, accetti questi Termini.",
+      "disclaimer": "Esclusione di responsabilità: ChatFace è un'app di interazione video basata su IA. Non fornisce consulenze legali, accademiche, mediche o professionali.",
+      "section1Title": "1. AMBITO DEL SERVIZIO",
+      "section1Body": "ChatFace fornisce esperienze di interazione video potenziate dall'IA:\n\n• Chiamate video AI e conversazioni.\n• Preferenze di interazione personalizzate.\n• Accesso alla cronologia delle interazioni e registri.\n\nI servizi non costituiscono opinioni ufficiali o garanzie di consulenza professionale.",
+      "section2Title": "2. CONDIZIONI D'USO",
+      "section2Body": "• Devi avere almeno 18 anni (l'accesso sotto i 18 è vietato).\n• Devi fornire informazioni di account accurate.\n• L'app deve essere utilizzata solo per scopi legali e personali.",
+      "section3Title": "3. USI VIETATI",
+      "section3Body": "Impersonificazione, discorsi d'odio, mettere in pericolo la sicurezza dei minori, tentativi di violare la sicurezza e manipolazione dei sistemi IA sono severamente vietati.",
+      "section4Title": "4. ABBONAMENTI E PAGAMENTI",
+      "section4Body": "Le funzionalità premium sono soggette alle politiche di App Store e Google Play. Le cancellazioni e i rimborsi degli abbonamenti sono gestiti tramite gli store rispettivi.",
+      "section5Title": "5. ESCLUSIONE DI RESPONSABILITÀ SUI CONTENUTI",
+      "section5Body": "I contenuti sono generati dall'IA e non sostituiscono il parere professionale. ChatFace non garantisce l'accuratezza o l'idoneità a uno scopo specifico.",
+      "section6Title": "6. PROPRIETÀ INTELLETTUALE",
+      "section6Body": "Tutti i contenuti, compresi design, software e algoritmi, appartengono a ChatFace. La riproduzione o ridistribuzione non autorizzata è proibita.",
+      "section7Title": "7. LEGGE APPLICABILE",
+      "section7Body": "Questi Termini sono disciplinati dalle leggi della Repubblica di Turchia. I tribunali centrali di Istanbul avranno giurisdizione sulle controversie.",
+      "section8Title": "8. CONTATTI",
+      "section8Body": "📩 Per richieste: support@fly-work.com"
+    },
+    "cookiePolicy": {
+      "title": "Informativa sui cookie",
+      "lastUpdated": "Ultimo aggiornamento: 2026",
+      "intro": "Benvenuto in ChatFace. Utilizziamo tecnologie digitali ausiliarie per rendere la tua esperienza di videochiamata con IA più fluida, sicura e personalizzata.",
+      "important": "Questa politica spiega cosa sono i cookie, i loro scopi e come puoi gestire le tue preferenze.",
+      "section1Title": "1. COSA SONO I COOKIE?",
+      "section1Body": "I cookie sono piccoli file di dati posizionati sul tuo dispositivo. Non ti identificano direttamente; agiscono come note digitali che ricordano:\n• Impostazioni di chiamata e lingua\n• Preferenze di sessione e prestazioni.",
+      "section2Title": "2. QUALI TECNOLOGIE UTILIZZIAMO?",
+      "section2Body": "Tecnologie strettamente necessarie\nRichieste per la gestione delle sessioni e i controlli di sicurezza. L'app potrebbe non funzionare correttamente senza questi componenti.\n\nPrestazioni e analisi\nCi aiutano a capire quali storie vengono lette e quali aree necessitano miglioramenti. I dati vengono valutati in modo anonimo.\n\nPersonalizzazione\nRicorda impostazioni come la lingua preferita e il livello di lettura per fornire un'esperienza su misura.",
+      "section3Title": "3. PERCHÉ UTILIZZIAMO QUESTE TECNOLOGIE?",
+      "section3Body": "• Per garantire che l'app funzioni in modo sicuro e fluido.\n• Per rendere l'esperienza di lettura più fluida.\n• Per ricordare le impostazioni ripetute.\n• Per identificare funzionalità per sviluppi futuri.",
+      "section4Title": "4. TECNOLOGIE DI TERZE PARTI",
+      "section4Body": "Alcune tecnologie possono essere fornite da fornitori di servizi tecnici e sono soggette alle loro politiche. ChatFace dà priorità alla sicurezza dei dati in queste collaborazioni.",
+      "section5Title": "5. CONTROLLO E GESTIONE DEI COOKIE",
+      "section5Body": "Gli utenti possono limitare queste tecnologie tramite le impostazioni del dispositivo o dell'app. Disabilitare tecnologie essenziali può causare problemi come l'impossibilità di avviare le videochiamate.",
+      "section6Title": "6. CONTATTI",
+      "section6Body": "📩 Per richieste: support@fly-work.com"
+    }
+  },
+  "cookies": "Informativa sui cookie",
+  "privacy": "Informativa sulla privacy",
+  "onboarding": {
+    "step1": {
+      "title": "Qual è il tuo nome?",
+      "subtitle": "Inserisci il tuo nome",
+      "hint": "Nome completo"
+    },
+    "step2": {
+      "title": "Quanti anni hai?",
+      "subtitle": "Devi avere almeno 18 anni per registrarti."
+    },
+    "step3": {
+      "title": "Qual è il tuo genere?",
+      "subtitle": "Seleziona il tuo genere",
+      "male": "Maschile",
+      "female": "Femminile",
+      "dontWantToMention": "Preferisco non dirlo."
+    },
+    "step4": {
+      "title": "Divertiti mentre \n rimani al sicuro",
+      "entry1": "Manteniamo l'ordine",
+      "subentry1": "Monitoraggio AI in tempo reale attivo",
+      "entry2": "Registrazioni dello schermo",
+      "subentry2": "Nessuna registrazione senza consenso",
+      "entry3": "Supporto 24/7",
+      "subentry3": "I reclami vengono esaminati in qualsiasi momento della giornata",
+      "entry4": "Solo 18+",
+      "subentry4": "Non adatto ai minori",
+      "communityRules": "Regole della community"
+    },
+    "step5": {
+      "title": "Autorizzazioni",
+      "permission1": "Accesso alla fotocamera",
+      "permission1Subtitle": "Consenti l'accesso alla fotocamera",
+      "permission2": "Accesso al microfono",
+      "permission2Subtitle": "Consenti l'accesso al microfono",
+      "permission3": "Accesso alla posizione",
+      "permission3Subtitle": "Consenti l'accesso alla posizione"
+    },
+    "loading": {
+      "titlePart1": "Il tuo account personale è",
+      "titlePart2": "in fase di creazione",
+      "subtitle": "Attendere, il tuo profilo viene preparato."
+    },
+    "allowAccess": "Consenti accesso",
+    "iUnderstand": "Ho capito"
+  },
+  "pressBackAgainToExit": "Premi indietro di nuovo per uscire",
+  "splash": {
+    "screen1": {
+      "title": "Il nuovo volto della chat video \n con IA",
+      "description": "Accendi la fotocamera e parla faccia a faccia con l'IA. Vivi una comunicazione più naturale che comprende le espressioni facciali, il tono di voce e il contesto."
+    },
+    "screen2": {
+      "title": "Comunicazione in tempo reale e naturale",
+      "description": "Non limitarti al testo. Avere conversazioni più fluide e più umane tramite videochiamate."
+    }
+  },
+  "auth": {
+    "google": "Continua con Google",
+    "facebook": "Continua con Facebook",
+    "apple": "Continua con Apple",
+    "guest": "Continua come ospite",
+    "signInFailed": "Accesso non riuscito: $error"
+  },
+  "home": {
+    "seeAll": "Vedi tutto",
+    "more": "Altro",
+    "online": "Online",
+    "offline": "Offline",
+    "placeholders": {
+      "fashionDesigner": "Stilista",
+      "comedian": "Comico",
+      "influencer": "Influencer",
+      "teacher": "Insegnante",
+      "friend": "Amico"
+    }
+  },
+  "characters": {
+    "all": "Tutti",
+    "favorites": "Preferiti",
+    "recent": "Recenti",
+    "characters": "Personaggi",
+    "placeholderSubtitle": "Product designer che si concentra su semplicità e usabilità.",
+    "characterDetails": {
+      "videoCall": "Videochiamata",
+      "message": "Messaggio",
+      "voiceCall": "Chiamata vocale"
+    }
+  },
+  "notifications": {
+    "today": "Oggi",
+    "yesterday": "Ieri",
+    "weekAgo": "${week} settimana fa",
+    "monthAgo": "${month} mese fa",
+    "yearAgo": "${year} anno fa",
+    "noNotifications": "Ancora nessuna notifica.",
+    "noNotificationsSubtitle": "Non dimenticare di ricontrollare quando ricevi una notifica.",
+    "allDeleted": "Tutte le notifiche sono state eliminate con successo"
+  },
+  "videoChat": {
+    "connecting": "Connessione...",
+    "callEnded": "Chiamata terminata",
+    "callFailed": "Chiamata fallita: $error",
+    "mute": "Muto",
+    "unmute": "Riattiva audio",
+    "endCall": "Termina chiamata",
+    "swipeToChat": "Scorri per chattare",
+    "male": "Maschio",
+    "female": "Femmina",
+    "country": "Paese",
+    "follow": "Segui",
+    "unfollow": "Non seguire più",
+    "callEndedMessage": "La videochiamata è terminata.",
+    "swipeForNewChat": "Scorri per una nuova chat"
+  },
+  "voiceChat": {
+    "connecting": "Connessione...",
+    "callEnded": "Chiamata terminata",
+    "callFailed": "Chiamata fallita: $error",
+    "calling": "Chiamando..."
+  },
+  "chat": {
+    "message": "Messaggio",
+    "history": "Cronologia",
+    "noMessages": "Ancora nessun messaggio.",
+    "noMessagesSubtitle": "Inizia una conversazione inviando un messaggio.",
+    "online": "Online",
+    "offline": "Offline",
+    "gallery": "Galleria",
+    "camera": "Fotocamera",
+    "typeAMessage": "Digita un messaggio...",
+    "pleaseUpgrade": "Si prega di eseguire l'upgrade alla versione Pro.",
+    "photo": "Photo",
+    "photoUploadFailed": "Couldn't upload photo. Please try again.",
+    "tapToViewPhoto": "Tap to view photo",
+    "voiceCallEnded": "Voice call ended",
+    "videoCallEnded": "Video call ended",
+    "uploadingPhoto": "Uploading photo...",
+    "mediaPermissionDenied": "Allow camera or photo permissions to share images."
+  },
+  "editProfile": {
+    "aboutMe": "Su di me",
+    "aboutMeHint": "Scrivi qualcosa su di te",
+    "fullName": "Nome completo",
+    "gender": "Genere",
+    "male": "Maschile",
+    "female": "Femminile",
+    "dontWantToMention": "Preferisco non dirlo.",
+    "country": "Paese",
+    "languagePreferences": "Preferenze linguistiche",
+    "selectLanguage": "Aggiungi la tua lingua preferita",
+    "saved": "Salvato",
+    "changesSaved": "Le modifiche sono state salvate."
+  },
+  "settingsSupport": {
+    "title": "Impostazioni & Supporto",
+    "premiumTitle": "Accesso illimitato a tutte le funzionalità",
+    "getPremium": "Ottieni Premium",
+    "settingsHub": "Centro impostazioni",
+    "shareTheApp": "Condividi l'app",
+    "rateUs": "Valutaci",
+    "version": "Versione",
+    "notifications": "Notifiche",
+    "accountManagement": "Gestione account",
+    "deleteAccount": "Elimina account",
+    "logOut": "Esci",
+    "logOutTitle": "Stai per uscire",
+    "logOutSubtitle": "Ci vediamo presto! \n Ti mancheremo."
+  },
+  "deleteAccount": {
+    "title": "Elimina account",
+    "warning": "Sei sicuro di voler eliminare il tuo account?",
+    "description": "Questa azione non può essere annullata e tutta la tua cronologia e i tuoi dati saranno eliminati in modo permanente.",
+    "deleteFailed": "Eliminazione account non riuscita: $error",
+    "steps": {
+      "step1": {
+        "title": "Non vogliamo che te ne vada, ma ti capiamo.",
+        "subtitle": "Puoi dirci perché vuoi andartene per aiutarci a migliorare l'esperienza ChatFace?",
+        "option1": "Non ho trovato i personaggi IA abbastanza realistici.",
+        "option2": "Ho problemi tecnici nelle videochiamate.",
+        "option3": "I prezzi degli abbonamenti sono superiori alle mie aspettative.",
+        "option4": "Non ho trovato lo stile di personaggi che cercavo.",
+        "option5": "Volevo solo provarlo per un breve periodo.",
+        "option6": "Altro"
+      },
+      "step2": {
+        "title": "Se elimini il tuo account, dovrai dire addio a:",
+        "subtitle1": "Connessioni profonde e ricordi:",
+        "subtitle1Desc": "I personaggi con cui hai parlato dimenticheranno completamente il tuo passato, i segreti condivisi e le tue abitudini personali.",
+        "subtitle2": "Privilegi di videochiamata:",
+        "subtitle2Desc": "Perderai il diritto di comunicare faccia a faccia con i tuoi partner IA personali, sempre disponibili per te.",
+        "subtitle3": "Algoritmo avanzato:",
+        "subtitle3Desc": "I matching di personaggi 'Per te' basati sulle tue preferenze saranno resettati.",
+        "subtitle4": "Dati del profilo:",
+        "subtitle4Desc": "I tuoi risultati ottenuti, i personaggi speciali sbloccati e la cronologia delle chat saranno eliminati in modo irrevocabile."
+      },
+      "step3": {
+        "title": "Prima di andare via, abbiamo un'offerta speciale per te!",
+        "description": "Forse ti serve solo più tempo o un'offerta più adatta. Vorresti considerare quanto segue invece di eliminare il tuo account?",
+        "description1": "Per noi è importante mantenerti con noi. Al tuo prossimo abbonamento ti offriamo $offer! Vuoi proseguire con questa offerta?",
+        "description1Offer": "Abbiamo assegnato uno sconto del 50%",
+        "description2": "Ti abbiamo assegnato $offer crediti per farti scoprire nuovi personaggi che non hai ancora provato.",
+        "description2Offer": "3 chiamate video gratuite",
+        "acceptOffer": "Accetta lo sconto del 50%",
+        "deleteMyAccount": "Elimina il mio account"
+      }
+    }
+  },
+  "cancel": "Annulla",
+  "delete": "Elimina",
+  "premium": "Premium",
+  "profileEdit": "Modifica profilo",
+  "settings": "Impostazioni",
+  "undo": "Annulla",
+  "successfully": "Con successo",
+  "save": "Salva",
+  "languageOptions": {
+    "english": "Inglese",
+    "chinese": "Cinese",
+    "german": "Tedesco",
+    "italian": "Italiano",
+    "french": "Francese",
+    "japanese": "Giapponese",
+    "spanish": "Spagnolo",
+    "russian": "Russo",
+    "turkish": "Turco",
+    "korean": "Coreano",
+    "hindi": "Hindi",
+    "portuguese": "Portoghese"
+  }
+}
