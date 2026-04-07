@@ -1,6 +1,7 @@
 import 'package:chatface/Core/Routes/app_routes.dart';
 import 'package:chatface/Models/ai_message_model.dart';
 import 'package:chatface/Models/persona_model.dart';
+import 'package:chatface/Models/ai_session_model.dart';
 import 'package:chatface/Riverpod/Providers/all_providers.dart';
 import 'package:chatface/Riverpod/Providers/chat_controller_provider.dart';
 import 'package:chatface/Riverpod/Providers/persona_provider.dart';
@@ -8,6 +9,7 @@ import 'package:chatface/Riverpod/Providers/tts_playback_provider.dart';
 import 'package:chatface/Riverpod/Providers/user_provider.dart';
 import 'package:chatface/gen/strings.g.dart';
 import 'package:chatface/shared/blurred_gradient_background.dart';
+import 'package:chatface/theme/app_text_styles.dart';
 import 'package:chatface/utils/print.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -24,10 +26,18 @@ import 'widgets/locked_input_bar.dart';
 import 'widgets/typing_indicator.dart';
 
 class ChatView extends HookConsumerWidget {
-  const ChatView({super.key, required this.persona, this.sessionId});
+  const ChatView({
+    super.key,
+    required this.persona,
+    this.sessionId,
+    this.sessionMode,
+    this.sessionLanguage,
+  });
 
   final PersonaProfile persona;
   final String? sessionId;
+  final String? sessionMode;
+  final String? sessionLanguage;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -51,11 +61,18 @@ class ChatView extends HookConsumerWidget {
         body: Center(
           child: Text(
             'Failed to load companion: ${personasAsync.error}',
-            style: const TextStyle(color: Colors.white70),
+            style: AppTextStyles.body(14, color: Colors.white70),
           ),
         ),
       );
     }
+
+    final personas = personasAsync.asData?.value;
+    final resolvedPersona = personas?.firstWhere(
+      (p) => p.id == persona.id,
+      orElse: () => persona,
+    );
+    final activePersona = chatState.persona ?? resolvedPersona ?? persona;
 
     void sendMessage() {
       final text = textController.text.trim();
@@ -89,20 +106,30 @@ class ChatView extends HookConsumerWidget {
 
     useEffect(() {
       if (chatStarted.value) return null;
-      final personas = personasAsync.asData?.value;
-      if (personas == null || personas.isEmpty) return null;
-
-      final resolvedPersona = personas.firstWhere(
-        (p) => p.id == persona.id,
-        orElse: () => persona,
-      );
+      if (resolvedPersona == null) return null;
 
       chatStarted.value = true;
       Future.microtask(() {
-        ref.read(chatControllerProvider.notifier).startChat(resolvedPersona);
+        final chatController = ref.read(chatControllerProvider.notifier);
+        if (sessionId != null &&
+            sessionMode != null &&
+            sessionLanguage != null) {
+          chatController.attachSession(
+            AiSession(
+              id: sessionId!,
+              personaId: resolvedPersona.id,
+              languageCode: sessionLanguage!,
+              mode: sessionMode!,
+              persona: resolvedPersona,
+            ),
+            persona: resolvedPersona,
+          );
+          return;
+        }
+        chatController.startChat(resolvedPersona);
       });
       return null;
-    }, [personasAsync.asData?.value, persona.id]);
+    }, [resolvedPersona, persona.id, sessionId, sessionMode, sessionLanguage]);
     Future<void> fetchOfferings() async {
       if (isFetchingOfferings.value) return;
       isFetchingOfferings.value = true;
@@ -149,15 +176,15 @@ class ChatView extends HookConsumerWidget {
             child: Column(
               children: [
                 ChatAppBar(
-                  characterName: persona.name,
-                  characterImageUrl: persona.displayImagePath,
+                  characterName: activePersona.name,
+                  characterImageUrl: activePersona.displayImagePath,
                   onCallTap: () {
                     !user!.isPremium
                         ? handlePremiumBannerTap()
                         : Navigator.pushNamed(
                             context,
                             AppRoutes.call,
-                            arguments: {'character': persona},
+                            arguments: {'character': activePersona},
                           );
                   },
                   onVideoCallTap: () {
@@ -169,7 +196,7 @@ class ChatView extends HookConsumerWidget {
                             (route) => false,
                             arguments: <String, dynamic>{
                               'initialIndex': 1,
-                              'initialVideoCharacter': persona,
+                              'initialVideoCharacter': activePersona,
                             },
                           );
                   },
@@ -195,7 +222,11 @@ class ChatView extends HookConsumerWidget {
                               return ChatBubble(
                                 message: message,
                                 isListening: isListening,
-                                onListen: message.role == 'assistant'
+                                onListen:
+                                    message.role == 'assistant' &&
+                                        message.isPersisted &&
+                                        !message.isStreaming &&
+                                        !message.isMarker
                                     ? () => chatNotifier.requestTts(message.id)
                                     : null,
                               );
@@ -214,10 +245,13 @@ class ChatView extends HookConsumerWidget {
                                     child: CircularProgressIndicator(),
                                   ),
                                 ),
-                            noItemsFoundIndicatorBuilder: (_) => const Center(
+                            noItemsFoundIndicatorBuilder: (_) => Center(
                               child: Text(
                                 'Start the conversation ✨',
-                                style: TextStyle(color: Colors.white54),
+                                style: AppTextStyles.body(
+                                  14,
+                                  color: Colors.white54,
+                                ),
                               ),
                             ),
                           ),

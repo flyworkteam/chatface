@@ -81,7 +81,7 @@ class _NameTextField extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(50),
         border: Border.all(
           color: Colors.white.withValues(alpha: 0.12),
           width: 1,

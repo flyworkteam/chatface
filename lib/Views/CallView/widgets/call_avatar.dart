@@ -46,7 +46,7 @@ class CallAvatar extends StatelessWidget {
             child: isNetworkImage
                 ? Image.network(
                     avatarImagePath,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                     errorBuilder: (context, error, stackTrace) =>
                         _placeholderAvatar(),
                   )
@@ -85,11 +85,7 @@ class CallAvatar extends StatelessWidget {
   Widget _placeholderAvatar() {
     return Container(
       color: Colors.grey.shade800,
-      child: const Icon(
-        Icons.person,
-        size: 80,
-        color: Colors.white54,
-      ),
+      child: const Icon(Icons.person, size: 80, color: Colors.white54),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:chatface/gen/strings.g.dart';
+import 'package:chatface/theme/app_text_styles.dart';
 import 'package:chatface/utils/app_assets.dart';
 import 'package:flutter/material.dart';
 
@@ -21,9 +22,9 @@ class LockedInputBar extends StatelessWidget {
             Expanded(
               child: Text(
                 context.t.chat.pleaseUpgrade,
-                style: TextStyle(
+                style: AppTextStyles.body(
+                  14,
                   color: Colors.white.withValues(alpha: 0.75),
-                  fontSize: 14,
                 ),
               ),
             ),

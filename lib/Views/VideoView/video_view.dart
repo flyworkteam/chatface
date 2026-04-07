@@ -7,18 +7,21 @@ import 'package:chatface/Riverpod/Providers/call_session_controller_provider.dar
 import 'package:chatface/Riverpod/Providers/persona_provider.dart';
 import 'package:chatface/Riverpod/Providers/stt_controller_provider.dart';
 import 'package:chatface/Riverpod/Providers/tts_playback_provider.dart';
+import 'package:chatface/Services/secure_storage_service.dart';
 import 'package:chatface/Services/streaming_stt_service.dart';
 import 'package:chatface/Views/CallView/widgets/call_avatar.dart';
-import 'package:chatface/Views/CallView/widgets/call_language_picker.dart';
 import 'package:chatface/Views/ChatView/chat_view.dart';
 import 'package:chatface/Views/VideoView/widgets/video_active_screen.dart';
+import 'package:chatface/Views/VideoView/widgets/video_ended_screen.dart';
 import 'package:chatface/Views/VideoView/widgets/video_filter_bar.dart';
 import 'package:chatface/Views/VideoView/widgets/video_idle_screen.dart';
 import 'package:chatface/Views/VideoView/widgets/video_page_header.dart';
 import 'package:chatface/Views/VideoView/widgets/video_sidebar.dart';
 import 'package:chatface/config/stt_config.dart';
+import 'package:chatface/gen/strings.g.dart';
+import 'package:chatface/theme/app_text_styles.dart';
+import 'package:chatface/utils/app_assets.dart';
 import 'package:chatface/utils/permission_helper.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -30,9 +33,9 @@ class VideoView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final container = ProviderScope.containerOf(context, listen: false);
     final personasAsync = ref.watch(personaListProvider);
     final filteredPersonasAsync = ref.watch(filteredPersonaListProvider);
-    final sttState = ref.watch(sttControllerProvider);
     final ttsState = ref.watch(ttsPlaybackProvider);
     final callSession = ref.watch(callSessionControllerProvider);
     final callSessionNotifier = ref.read(
@@ -40,8 +43,26 @@ class VideoView extends HookConsumerWidget {
     );
     final sttResumeTimer = useRef<Timer?>(null);
 
+    String normalizeConversationLanguage(String? value) {
+      final normalized = value?.trim().toLowerCase();
+      if (normalized == null || normalized.isEmpty) {
+        return 'en';
+      }
+
+      return switch (normalized) {
+        'ch' || 'cn' => 'zh',
+        'jp' => 'ja',
+        'kr' => 'ko',
+        'br' => 'pt',
+        _ => normalized,
+      };
+    }
+
     useEffect(() {
-      ref.listen<SttState>(sttControllerProvider, (prev, next) {
+      final subscription = container.listen<SttState>(sttControllerProvider, (
+        prev,
+        next,
+      ) {
         if (!context.mounted) return;
         if (prev?.streamStatus != StreamingSttStatus.error &&
             next.streamStatus == StreamingSttStatus.error) {
@@ -52,7 +73,10 @@ class VideoView extends HookConsumerWidget {
           );
         }
       });
-      return () => sttResumeTimer.value?.cancel();
+      return () {
+        sttResumeTimer.value?.cancel();
+        subscription.close();
+      };
     }, const []);
     if (personasAsync.isLoading || filteredPersonasAsync.isLoading) {
       return const Center(child: CircularProgressIndicator());
@@ -61,7 +85,7 @@ class VideoView extends HookConsumerWidget {
       return Center(
         child: Text(
           'Failed to load companions: ${personasAsync.error ?? filteredPersonasAsync.error}',
-          style: const TextStyle(color: Colors.white70),
+          style: AppTextStyles.body(14, color: Colors.white70),
         ),
       );
     }
@@ -71,81 +95,148 @@ class VideoView extends HookConsumerWidget {
     final currentCharacter = useState<PersonaProfile?>(null);
     final isCameraEnabled = useState(true);
     final activeCameraPosition = useState(SensorPosition.front);
-    final selectedCameraFilter = useState<AwesomeFilter>(
-      awesomePresetFiltersList.first,
+    final cameraAwesomeFilters = useMemoized(
+      () => List<AwesomeFilter>.unmodifiable(awesomePresetFiltersList),
+      const [],
     );
+    final selectedCameraFilter = useState<AwesomeFilter>(
+      cameraAwesomeFilters.first,
+    );
+    final cameraRuntimeState = useRef<CameraState?>(null);
+    final lastAppliedCameraFilterId = useRef<String?>(null);
     final filters = ref.watch(personaFilterProvider);
     final isFollowLoading = useState(false);
+    final isCharacterSwitching = useState(false);
     final characters =
         filteredPersonasAsync.value?.map((persona) {
-          final resolvedLanguage = persona.resolveLanguage(filters.language);
+          final resolvedLanguage = normalizeConversationLanguage(
+            filters.language ??
+                persona.selectedLanguage ??
+                persona.defaultLanguage,
+          );
           return persona.copyWith(selectedLanguage: resolvedLanguage);
         }).toList() ??
         const [];
 
-    useEffect(() {
-      ref.listen<TtsPlaybackState>(ttsPlaybackProvider, (prev, next) {
-        if (SttConfig.fullDuplexEnabled) {
-          sttResumeTimer.value?.cancel();
-          return;
+    PersonaProfile? resolveCharacterById(String personaId) {
+      for (final character in characters) {
+        if (character.id == personaId) {
+          return character;
         }
+      }
 
-        final hasActivePlayback = next.hasActivePlayback;
-        sttResumeTimer.value?.cancel();
-
-        final sttNotifier = ref.read(sttControllerProvider.notifier);
-        final sttSnapshot = ref.read(sttControllerProvider);
-        final latestCallSession = ref.read(callSessionControllerProvider);
-
-        if (hasActivePlayback) {
-          if (sttSnapshot.isListening) {
-            unawaited(sttNotifier.stopListening());
-          }
-          return;
+      final allPersonas = personasAsync.value ?? const <PersonaProfile>[];
+      for (final persona in allPersonas) {
+        if (persona.id == personaId) {
+          return persona;
         }
+      }
 
-        final activeCharacter = currentCharacter.value;
-        final shouldResume =
-            activeCharacter != null &&
-            (latestCallSession?.isMicMuted != true) &&
-            (callState.value == CallState.active ||
-                callState.value == CallState.connecting);
-        if (!shouldResume) {
-          return;
-        }
+      if (initialCharacter?.id == personaId) {
+        return initialCharacter;
+      }
 
-        sttResumeTimer.value = Timer(SttConfig.resumeDelay, () {
-          final latestCharacter = currentCharacter.value;
-          if (latestCharacter == null) {
-            return;
-          }
-
-          final latestTts = ref.read(ttsPlaybackProvider);
-          final latestStt = ref.read(sttControllerProvider);
-          if (latestStt.isListening) {
-            return;
-          }
-
-          if (latestTts.hasActivePlayback) {
-            return;
-          }
-
-          if (ref.read(callSessionControllerProvider)?.isMicMuted == true) {
-            return;
-          }
-
-          if (callState.value != CallState.active &&
-              callState.value != CallState.connecting) {
-            return;
-          }
-
-          final language =
-              ref.read(callSessionControllerProvider)?.selectedLanguage ??
-              latestCharacter.resolveLanguage(latestCharacter.selectedLanguage);
-          unawaited(sttNotifier.startListening(localeId: language));
-        });
-      });
       return null;
+    }
+
+    PersonaProfile? resolveCharacterForCall(CallSession session) {
+      final persona = resolveCharacterById(session.characterId);
+      if (persona == null) {
+        return null;
+      }
+
+      final selectedLanguage = normalizeConversationLanguage(
+        session.selectedLanguage ??
+            persona.selectedLanguage ??
+            persona.defaultLanguage,
+      );
+
+      return persona.copyWith(selectedLanguage: selectedLanguage);
+    }
+
+    useEffect(() {
+      final subscription = container.listen<TtsPlaybackState>(
+        ttsPlaybackProvider,
+        (prev, next) {
+          if (!context.mounted) {
+            sttResumeTimer.value?.cancel();
+            return;
+          }
+
+          if (SttConfig.fullDuplexEnabled) {
+            sttResumeTimer.value?.cancel();
+            return;
+          }
+
+          final hasActivePlayback = next.hasActivePlayback;
+          sttResumeTimer.value?.cancel();
+
+          final sttNotifier = container.read(sttControllerProvider.notifier);
+          final sttSnapshot = container.read(sttControllerProvider);
+          final latestCallSession = container.read(
+            callSessionControllerProvider,
+          );
+
+          if (hasActivePlayback) {
+            if (sttSnapshot.isListening) {
+              unawaited(sttNotifier.stopListening());
+            }
+            return;
+          }
+
+          final activeCharacter = currentCharacter.value;
+          final shouldResume =
+              activeCharacter != null &&
+              (latestCallSession?.isMicMuted != true) &&
+              (callState.value == CallState.active ||
+                  callState.value == CallState.connecting);
+          if (!shouldResume) {
+            return;
+          }
+
+          sttResumeTimer.value = Timer(SttConfig.resumeDelay, () {
+            if (!context.mounted) {
+              return;
+            }
+
+            final latestCharacter = currentCharacter.value;
+            if (latestCharacter == null) {
+              return;
+            }
+
+            final latestTts = container.read(ttsPlaybackProvider);
+            final latestStt = container.read(sttControllerProvider);
+            if (latestStt.isListening) {
+              return;
+            }
+
+            if (latestTts.hasActivePlayback) {
+              return;
+            }
+
+            if (container.read(callSessionControllerProvider)?.isMicMuted ==
+                true) {
+              return;
+            }
+
+            if (callState.value != CallState.active &&
+                callState.value != CallState.connecting) {
+              return;
+            }
+
+            final language = normalizeConversationLanguage(
+              container.read(callSessionControllerProvider)?.selectedLanguage ??
+                  latestCharacter.selectedLanguage ??
+                  latestCharacter.defaultLanguage,
+            );
+            unawaited(sttNotifier.startListening(localeId: language));
+          });
+        },
+      );
+      return () {
+        sttResumeTimer.value?.cancel();
+        subscription.close();
+      };
     }, [callState.value, currentCharacter.value?.id, callSession?.isMicMuted]);
 
     useEffect(() {
@@ -164,6 +255,42 @@ class VideoView extends HookConsumerWidget {
       return timer.cancel;
     }, [callState.value, currentCharacter.value?.id]);
 
+    useEffect(
+      () {
+        final activeSession = callSession;
+        if (activeSession == null) {
+          return null;
+        }
+
+        final resolvedCharacter = resolveCharacterForCall(activeSession);
+        final current = currentCharacter.value;
+        if (resolvedCharacter != null &&
+            (current == null ||
+                current.id != resolvedCharacter.id ||
+                current.selectedLanguage !=
+                    resolvedCharacter.selectedLanguage)) {
+          currentCharacter.value = resolvedCharacter;
+        }
+
+        final targetState = activeSession.state == CallState.ended
+            ? CallState.ended
+            : CallState.active;
+        if (callState.value != targetState) {
+          callState.value = targetState;
+        }
+
+        return null;
+      },
+      [
+        callSession?.sessionId,
+        callSession?.characterId,
+        callSession?.selectedLanguage,
+        callSession?.state,
+        characters.length,
+        initialCharacter?.id,
+      ],
+    );
+
     List<PersonaProfile> filteredCharacters() {
       return characters.where((character) {
         if (filters.gender != null &&
@@ -172,23 +299,19 @@ class VideoView extends HookConsumerWidget {
                 filters.gender!.toLowerCase()) {
           return false;
         }
-        if (filters.language != null &&
-            filters.language!.isNotEmpty &&
-            !character.availableLanguageCodes
-                .map((code) => code.toLowerCase())
-                .contains(filters.language!.toLowerCase()) &&
-            character.resolveLanguage().toLowerCase() !=
-                filters.language!.toLowerCase()) {
-          return false;
-        }
+
         return true;
       }).toList();
     }
 
     // Yeni sohbet başlat (izin kontrolü ile)
-    Future<void> startChatWithCharacter(PersonaProfile character) async {
-      if (callState.value == CallState.connecting ||
-          callState.value == CallState.active) {
+    Future<void> startChatWithCharacter(
+      PersonaProfile character, {
+      bool forceRestart = false,
+    }) async {
+      if (!forceRestart &&
+          (callState.value == CallState.connecting ||
+              callState.value == CallState.active)) {
         return;
       }
 
@@ -230,19 +353,49 @@ class VideoView extends HookConsumerWidget {
               callType: CallType.video,
             );
         if (session == null) {
-          if (context.mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text(
-                  'Camera and microphone permissions are needed for video calls.',
-                ),
-              ),
-            );
-          }
           callState.value = CallState.idle;
           currentCharacter.value = null;
           return;
         }
+      }
+    }
+
+    Future<void> switchCharacterBySwipe({required bool forward}) async {
+      if (isCharacterSwitching.value) {
+        return;
+      }
+
+      if (callState.value != CallState.active &&
+          callState.value != CallState.connecting) {
+        return;
+      }
+
+      final activeCharacter = currentCharacter.value;
+      if (activeCharacter == null) {
+        return;
+      }
+
+      final filtered = filteredCharacters();
+      final source = filtered.isEmpty ? characters : filtered;
+      if (source.length < 2) {
+        return;
+      }
+
+      final currentIndex = source.indexWhere((p) => p.id == activeCharacter.id);
+      final baseIndex = currentIndex >= 0 ? currentIndex : 0;
+      final targetIndex = forward
+          ? (baseIndex + 1) % source.length
+          : (baseIndex - 1 + source.length) % source.length;
+      final target = source[targetIndex];
+      if (target.id == activeCharacter.id) {
+        return;
+      }
+
+      isCharacterSwitching.value = true;
+      try {
+        await startChatWithCharacter(target, forceRestart: true);
+      } finally {
+        isCharacterSwitching.value = false;
       }
     }
 
@@ -285,7 +438,7 @@ class VideoView extends HookConsumerWidget {
 
     useEffect(() {
       final character = initialCharacter;
-      if (character != null) {
+      if (character != null && callSession == null) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           if (context.mounted) {
             startChatWithCharacter(character);
@@ -293,13 +446,7 @@ class VideoView extends HookConsumerWidget {
         });
       }
       return null;
-    }, [initialCharacter?.id]);
-
-    useEffect(() {
-      return () {
-        unawaited(callSessionNotifier.endCall());
-      };
-    }, [callSessionNotifier]);
+    }, [initialCharacter?.id, callSession?.sessionId]);
 
     // Sohbet bitir
     void endChat() {
@@ -307,12 +454,48 @@ class VideoView extends HookConsumerWidget {
       currentCharacter.value = null;
       isCameraEnabled.value = true;
       activeCameraPosition.value = SensorPosition.front;
-      selectedCameraFilter.value = awesomePresetFiltersList.first;
+      selectedCameraFilter.value = cameraAwesomeFilters.first;
+      final cameraState = cameraRuntimeState.value;
+      if (cameraState != null) {
+        unawaited(
+          cameraState
+              .setFilter(cameraAwesomeFilters.first)
+              .then((_) {
+                lastAppliedCameraFilterId.value = cameraAwesomeFilters.first.id;
+              })
+              .catchError((_) {}),
+        );
+      }
       callSessionNotifier.endCall();
     }
 
     Future<void> showCameraFilterPicker() async {
-      final currentFilter = selectedCameraFilter.value;
+      String filterDisplayName(AwesomeFilter filter) {
+        final localeCode = Localizations.localeOf(
+          context,
+        ).languageCode.toLowerCase();
+        if (localeCode != 'tr') {
+          return filter.name;
+        }
+
+        const turkishNames = <String, String>{
+          'ORIGINAL': 'Orijinal',
+          'ADDICTIVE_BLUE': 'Bağımlılık Mavisi',
+          'ADDICTIVE_RED': 'Bağımlılık Kırmızısı',
+        };
+
+        return turkishNames[filter.id] ?? filter.name;
+      }
+
+      final isTurkish =
+          Localizations.localeOf(context).languageCode.toLowerCase() == 'tr';
+
+      final currentFilter =
+          cameraAwesomeFilters.any(
+            (filter) => filter.id == selectedCameraFilter.value.id,
+          )
+          ? selectedCameraFilter.value
+          : cameraAwesomeFilters.first;
       final result = await showModalBottomSheet<AwesomeFilter>(
         context: context,
         backgroundColor: const Color(0xFF111111),
@@ -332,18 +515,20 @@ class VideoView extends HookConsumerWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Camera filters',
-                      style: TextStyle(
+                    Text(
+                      isTurkish ? 'Kamera filtreleri' : 'Camera filters',
+                      style: AppTextStyles.body(
+                        18,
                         color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
+                        weight: FontWeight.w700,
                       ),
                     ),
                     const SizedBox(height: 8),
-                    const Text(
-                      'Choose the look for your camera preview.',
-                      style: TextStyle(color: Colors.white70, fontSize: 14),
+                    Text(
+                      isTurkish
+                          ? 'Kamera önizlemesi için bir görünüm seç.'
+                          : 'Choose the look for your camera preview.',
+                      style: AppTextStyles.body(14, color: Colors.white70),
                     ),
                     const SizedBox(height: 18),
                     Expanded(
@@ -352,17 +537,18 @@ class VideoView extends HookConsumerWidget {
                           spacing: 10,
                           runSpacing: 10,
                           children: [
-                            for (final filter in awesomePresetFiltersList)
+                            for (final filter in cameraAwesomeFilters)
                               ChoiceChip(
-                                label: Text(filter.name),
+                                label: Text(filterDisplayName(filter)),
                                 selected: filter.id == currentFilter.id,
                                 onSelected: (_) =>
                                     Navigator.of(context).pop(filter),
-                                labelStyle: TextStyle(
+                                labelStyle: AppTextStyles.body(
+                                  14,
                                   color: filter.id == currentFilter.id
                                       ? Colors.black
                                       : Colors.white,
-                                  fontWeight: FontWeight.w600,
+                                  weight: FontWeight.w600,
                                 ),
                                 selectedColor: Colors.white,
                                 backgroundColor: Colors.white12,
@@ -389,22 +575,27 @@ class VideoView extends HookConsumerWidget {
         return;
       }
 
-      selectedCameraFilter.value = result;
+      selectedCameraFilter.value = cameraAwesomeFilters.firstWhere(
+        (filter) => filter.id == result.id,
+        orElse: () => cameraAwesomeFilters.first,
+      );
+
+      final cameraState = cameraRuntimeState.value;
+      if (cameraState != null) {
+        unawaited(
+          cameraState
+              .setFilter(selectedCameraFilter.value)
+              .then((_) {
+                lastAppliedCameraFilterId.value = selectedCameraFilter.value.id;
+              })
+              .catchError((_) {}),
+        );
+      }
     }
 
     Future<void> toggleCameraPreview() async {
       final nextValue = !isCameraEnabled.value;
       isCameraEnabled.value = nextValue;
-      if (!context.mounted) return;
-      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            nextValue ? 'Camera preview enabled.' : 'Camera preview disabled.',
-          ),
-          duration: const Duration(milliseconds: 1400),
-        ),
-      );
     }
 
     Future<void> rotateCamera() async {
@@ -412,185 +603,190 @@ class VideoView extends HookConsumerWidget {
           ? SensorPosition.back
           : SensorPosition.front;
       activeCameraPosition.value = nextPosition;
-
-      if (!context.mounted) return;
-      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            nextPosition == SensorPosition.front
-                ? 'Front camera selected.'
-                : 'Back camera selected.',
-          ),
-          duration: const Duration(milliseconds: 1400),
-        ),
-      );
-    }
-
-    Future<void> showGenderPicker() async {
-      final result = await showModalBottomSheet<String>(
-        context: context,
-        backgroundColor: Colors.transparent,
-        builder: (context) => Padding(
-          padding: const EdgeInsets.all(16),
-          child: GenderPickerSheet(selectedGender: filters.gender),
-        ),
-      );
-      if (result != null && context.mounted) {
-        await ref.read(personaFilterProvider.notifier).setGender(result);
-      }
-    }
-
-    Future<void> showLanguagePicker() async {
-      final result = await showModalBottomSheet<String>(
-        context: context,
-        backgroundColor: Colors.transparent,
-        builder: (context) => Padding(
-          padding: const EdgeInsets.all(16),
-          child: LanguagePickerSheet(selectedLanguage: filters.language),
-        ),
-      );
-      if (result != null && context.mounted) {
-        await ref.read(personaFilterProvider.notifier).setLanguage(result);
-      }
     }
 
     if (characters.isEmpty) {
-      return const Center(
+      return Center(
         child: Text(
           'No companions available yet.',
-          style: TextStyle(color: Colors.white70),
+          style: AppTextStyles.body(14, color: Colors.white70),
         ),
       );
     }
 
     final isCompanionSpeaking = ttsState.avatarSpeech.isTalking;
 
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: Stack(
-        children: [
-          // Ana içerik
-          if ((callState.value == CallState.active ||
-                  callState.value == CallState.connecting) &&
-              currentCharacter.value != null)
-            Stack(
-              children: [
-                VideoActiveScreen(
-                  character: currentCharacter.value!,
-                  onSceneReady: () {
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      if (!context.mounted) return;
-                      if (callState.value == CallState.connecting) {
-                        callState.value = CallState.active;
-                      }
-                    });
-                  },
-                  onClose: endChat,
-                  onFollow: toggleFollow,
-                  isFollowed: currentCharacter.value!.isFollowed,
-                  onSwipeToChat: () {
-                    if (currentCharacter.value != null) {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) =>
-                              ChatView(persona: currentCharacter.value!),
-                        ),
-                      );
-                    }
-                  },
-                  onFilterTapped: showCameraFilterPicker,
-                  onCameraToggle: toggleCameraPreview,
-                  onRotate: rotateCamera,
-                  onCameraStateChanged: (_) {},
-                  isCameraEnabled: isCameraEnabled.value,
-                  cameraPosition: activeCameraPosition.value,
-                  selectedFilter: selectedCameraFilter.value,
-                  isMicMuted: callSession?.isMicMuted ?? false,
-                  isCompanionSpeaking: isCompanionSpeaking,
-                  activeVisemeId: ttsState.avatarSpeech.visemeId,
-                  activeVisemeDurationMs: ttsState.avatarSpeech.durationMs,
-                  onLanguageTap: () async {
-                    final callSession = ref.read(callSessionControllerProvider);
-                    final selected = await showCallLanguagePicker(
-                      context,
-                      currentLanguage: callSession?.selectedLanguage ?? 'en',
-                      supportedLanguages:
-                          currentCharacter.value?.availableLanguageCodes,
-                    );
-                    if (selected != null && context.mounted) {
-                      ref
-                          .read(callSessionControllerProvider.notifier)
-                          .changeLanguage(selected);
-                      currentCharacter.value = currentCharacter.value!.copyWith(
-                        selectedLanguage: selected,
-                      );
-                    }
-                  },
-                ),
-                if (callState.value == CallState.connecting)
-                  _VideoConnectingOverlay(character: currentCharacter.value!),
-              ],
-            )
-          else
-            VideoIdleScreen(onSwipeForNewChat: startNewChat),
+    return PopScope(
+      onPopInvokedWithResult: (didPop, result) {
+        if (!didPop) {
+          return;
+        }
+        unawaited(callSessionNotifier.endCall());
+      },
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        body: Stack(
+          children: [
+            // Ana içerik
+            if ((callState.value == CallState.active ||
+                    callState.value == CallState.connecting) &&
+                currentCharacter.value != null)
+              GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onHorizontalDragEnd: (details) {
+                  final velocity = details.primaryVelocity;
+                  if (velocity == null || velocity.abs() < 250) {
+                    return;
+                  }
 
-          // Idle state'te sidebar (aktif state'te VideoActiveScreen içinde)
-          if (callState.value == CallState.idle)
+                  if (velocity < 0) {
+                    unawaited(switchCharacterBySwipe(forward: true));
+                    return;
+                  }
+
+                  unawaited(switchCharacterBySwipe(forward: false));
+                },
+                child: Stack(
+                  children: [
+                    VideoActiveScreen(
+                      character: currentCharacter.value!,
+                      onSceneReady: () {
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          if (!context.mounted) return;
+                          if (callState.value == CallState.connecting) {
+                            callState.value = CallState.active;
+                          }
+                        });
+                      },
+                      onClose: endChat,
+                      onFollow: toggleFollow,
+                      isFollowed: currentCharacter.value!.isFollowed,
+                      onSwipeToChat: () {
+                        if (currentCharacter.value != null) {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) =>
+                                  ChatView(persona: currentCharacter.value!),
+                            ),
+                          );
+                        }
+                      },
+                      onCameraStateChanged: (state) {
+                        cameraRuntimeState.value = state;
+                        final selectedFilterId = selectedCameraFilter.value.id;
+                        if (lastAppliedCameraFilterId.value ==
+                            selectedFilterId) {
+                          return;
+                        }
+                        unawaited(
+                          state
+                              .setFilter(selectedCameraFilter.value)
+                              .then((_) {
+                                lastAppliedCameraFilterId.value =
+                                    selectedFilterId;
+                              })
+                              .catchError((_) {}),
+                        );
+                      },
+                      isCameraEnabled: isCameraEnabled.value,
+                      cameraPosition: activeCameraPosition.value,
+                      selectedFilter: selectedCameraFilter.value,
+                      isMicMuted: callSession?.isMicMuted ?? false,
+                      isCompanionSpeaking: isCompanionSpeaking,
+                      activeVisemeId: ttsState.avatarSpeech.visemeId,
+                      activeVisemeDurationMs: ttsState.avatarSpeech.durationMs,
+                    ),
+                    if (callState.value == CallState.connecting)
+                      _VideoConnectingOverlay(
+                        character: currentCharacter.value!,
+                      ),
+                  ],
+                ),
+              )
+            else if (callState.value == CallState.ended)
+              VideoEndedScreen(onSwipeForNewChat: startNewChat)
+            else
+              VideoIdleScreen(
+                onSwipeForNewChat: startNewChat,
+                cameraPosition: activeCameraPosition.value,
+                selectedFilter: selectedCameraFilter.value,
+              ),
+
+            // Üst bar: Profil avatarı + Premium badge
+            Positioned(
+              top: MediaQuery.of(context).padding.top + 10,
+              left: 16,
+              right: 16,
+              child: VideoPageHeader(
+                onClose: endChat,
+                isCallEnded: callState.value == CallState.ended,
+                isInCall: callState.value != CallState.idle,
+              ),
+            ),
+            // Sol sidebar
             Positioned(
               left: 12,
               top: MediaQuery.of(context).size.height * 0.35,
               child: VideoSidebar(
-                onFilterTapped: () {},
-                onCameraTap: () {},
-                onRotateTap: () {},
+                onFilterTapped: showCameraFilterPicker,
+                onCameraTap: toggleCameraPreview,
+                onRotateTap: rotateCamera,
+                cameraIconAsset: isCameraEnabled.value
+                    ? AppIcons.videoCall
+                    : AppIcons.cameraslash,
               ),
             ),
-
-          // Üst bar: Profil avatarı + Premium badge
-          Positioned(
-            top: MediaQuery.of(context).padding.top + 10,
-            left: 16,
-            right: 16,
-            child: VideoPageHeader(
-              onClose: endChat,
-              isInCall: callState.value != CallState.idle,
-            ),
-          ),
-
-          // Alt: Filtre bar (her iki durumda da göster)
-          if (callState.value == CallState.idle)
             Positioned(
               bottom: MediaQuery.of(context).padding.bottom,
               left: 0,
               right: 0,
               child: VideoFilterBar(
                 selectedGender: filters.gender,
-                selectedLanguage: filters.language,
-                onGenderTap: showGenderPicker,
-                onLanguageTap: showLanguagePicker,
+                selectedLanguage:
+                    callSession?.selectedLanguage ??
+                    currentCharacter.value?.selectedLanguage ??
+                    filters.language,
+                onGenderChanged: (value) {
+                  if (value != null) {
+                    unawaited(
+                      ref.read(personaFilterProvider.notifier).setGender(value),
+                    );
+                  }
+                },
+                onLanguageChanged: (value) {
+                  if (value != null) {
+                    final normalizedLanguage = normalizeConversationLanguage(
+                      value,
+                    );
+                    LocaleSettings.setLocale(
+                      AppLocale.values.byName(normalizedLanguage),
+                    );
+                    unawaited(
+                      SecureStorageService().saveLanguage(normalizedLanguage),
+                    );
+                    final activeCharacter = currentCharacter.value;
+                    if (activeCharacter != null) {
+                      currentCharacter.value = activeCharacter.copyWith(
+                        selectedLanguage: normalizedLanguage,
+                      );
+                    }
+                    if (callSession != null) {
+                      unawaited(
+                        callSessionNotifier.changeLanguage(normalizedLanguage),
+                      );
+                    } else {
+                      unawaited(
+                        ref
+                            .read(personaFilterProvider.notifier)
+                            .setLanguage(normalizedLanguage),
+                      );
+                    }
+                  }
+                },
               ),
             ),
-          if (!kReleaseMode && sttState.debugStatus != null)
-            Positioned(
-              left: 16,
-              bottom: kToolbarHeight * 1.2,
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 6,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.black.withValues(alpha: 0.35),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Text(
-                  'STT: ${sttState.debugStatus}',
-                  style: const TextStyle(color: Colors.white38, fontSize: 12),
-                ),
-              ),
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -619,7 +815,7 @@ class _VideoConnectingOverlay extends StatelessWidget {
                   CallAvatar(
                     avatarImagePath: avatarPath,
                     name: character.name,
-                    statusText: 'Connecting...',
+                    statusText: context.t.videoChat.connecting,
                     isNetworkImage: isNetworkAvatar,
                     avatarSize: 150,
                   ),

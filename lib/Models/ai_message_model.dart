@@ -70,6 +70,7 @@ class AiMessage {
     this.conversationStatus = 'active',
     this.metadata = const <String, dynamic>{},
     this.isMarker = false,
+    this.isPersisted = true,
   });
 
   final int id;
@@ -85,6 +86,7 @@ class AiMessage {
   final String conversationStatus;
   final Map<String, dynamic> metadata;
   final bool isMarker;
+  final bool isPersisted;
 
   factory AiMessage.fromJson(Map<String, dynamic> json) {
     final metadata = Map<String, dynamic>.from(
@@ -95,12 +97,21 @@ class AiMessage {
     final isCall = convoType == 'voice_call' || convoType == 'video_call';
 
     return AiMessage(
-      id: json['id'] is int ? json['id'] as int : int.parse(json['id'].toString()),
+      id: json['id'] is int
+          ? json['id'] as int
+          : int.parse(json['id'].toString()),
       text: json['text'] as String? ?? '',
       role: json['role'] as String? ?? 'user',
-      createdAt: DateTime.tryParse(json['createdAt'] as String? ?? '') ?? DateTime.now(),
-      attachments: (json['attachments'] as List?)
-              ?.map((raw) => AiAttachment.fromJson(Map<String, dynamic>.from(raw as Map)))
+      createdAt:
+          DateTime.tryParse(json['createdAt'] as String? ?? '') ??
+          DateTime.now(),
+      attachments:
+          (json['attachments'] as List?)
+              ?.map(
+                (raw) => AiAttachment.fromJson(
+                  Map<String, dynamic>.from(raw as Map),
+                ),
+              )
               .toList() ??
           const <AiAttachment>[],
       metadata: metadata,
@@ -108,6 +119,7 @@ class AiMessage {
       conversationStatus: convoStatus,
       isMarker: isCall && convoStatus == 'ended',
       kind: _messageKindFromRole(json['role'] as String? ?? 'user'),
+      isPersisted: true,
     );
   }
 
@@ -118,6 +130,7 @@ class AiMessage {
     List<AiAttachment>? attachments,
     Map<String, dynamic>? metadata,
     String? conversationStatus,
+    bool? isPersisted,
   }) {
     return AiMessage(
       id: id,
@@ -133,15 +146,13 @@ class AiMessage {
       conversationStatus: conversationStatus ?? this.conversationStatus,
       metadata: metadata ?? this.metadata,
       isMarker: isMarker,
+      isPersisted: isPersisted ?? this.isPersisted,
     );
   }
 }
 
 class ConversationMessagesPage {
-  ConversationMessagesPage({
-    required this.messages,
-    this.nextBeforeId,
-  });
+  ConversationMessagesPage({required this.messages, this.nextBeforeId});
 
   final List<AiMessage> messages;
   final int? nextBeforeId;
@@ -156,6 +167,8 @@ class ConversationSummary {
     required this.previewType,
     required this.lastConversationType,
     required this.updatedAt,
+    required this.sessionMode,
+    required this.sessionLanguage,
   });
 
   final String sessionId;
@@ -165,8 +178,15 @@ class ConversationSummary {
   final String previewType;
   final String lastConversationType;
   final DateTime updatedAt;
+  final String sessionMode;
+  final String sessionLanguage;
 
   factory ConversationSummary.fromJson(Map<String, dynamic> json) {
+    final session = json['session'] is Map<String, dynamic>
+        ? json['session'] as Map<String, dynamic>
+        : json['session'] is Map
+        ? Map<String, dynamic>.from(json['session'] as Map)
+        : const <String, dynamic>{};
     return ConversationSummary(
       sessionId: json['sessionId']?.toString() ?? json['session_id'].toString(),
       personaId: json['persona'] is Map
@@ -175,13 +195,33 @@ class ConversationSummary {
       personaName: json['persona'] is Map
           ? (json['persona']['name'] as String? ?? 'Companion')
           : json['persona_name'] as String? ?? 'Companion',
-      previewText: json['previewText'] as String? ?? json['preview_text'] as String? ?? '',
-      previewType: json['previewType'] as String? ?? json['preview_type'] as String? ?? 'text',
-      lastConversationType: json['lastConversationType'] as String? ??
+      previewText:
+          json['previewText'] as String? ??
+          json['preview_text'] as String? ??
+          '',
+      previewType:
+          json['previewType'] as String? ??
+          json['preview_type'] as String? ??
+          'text',
+      lastConversationType:
+          json['lastConversationType'] as String? ??
           json['last_conversation_type'] as String? ??
           'chat',
-      updatedAt: DateTime.tryParse(json['updatedAt'] as String? ?? json['updated_at'] as String? ?? '') ??
+      updatedAt:
+          DateTime.tryParse(
+            json['updatedAt'] as String? ?? json['updated_at'] as String? ?? '',
+          ) ??
           DateTime.now(),
+      sessionMode:
+          session['mode']?.toString() ??
+          json['mode']?.toString() ??
+          json['session_mode']?.toString() ??
+          'chat',
+      sessionLanguage:
+          session['language']?.toString() ??
+          json['language']?.toString() ??
+          json['session_language']?.toString() ??
+          'en',
     );
   }
 }

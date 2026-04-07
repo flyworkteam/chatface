@@ -213,8 +213,8 @@
     "photo": "Photo",
     "photoUploadFailed": "Couldn't upload photo. Please try again.",
     "tapToViewPhoto": "Tap to view photo",
-    "voiceCallEnded": "Voice call ended",
-    "videoCallEnded": "Video call ended",
+    "voiceCallEnded": "वॉइस कॉल समाप्त",
+    "videoCallEnded": "वीडियो कॉल समाप्त",
     "uploadingPhoto": "Uploading photo...",
     "mediaPermissionDenied": "Allow camera or photo permissions to share images."
   },
@@ -234,7 +234,7 @@
   },
   "settingsSupport": {
     "title": "सेटिंग्स और सहायता",
-    "premiumTitle": "सभी सुविधाओं तक असीमित पहुँच",
+    "premiumTitle": "सभी सुविधाओं तक \nअसीमित पहुँच",
     "getPremium": "प्रीमियम प्राप्त करें",
     "settingsHub": "सेटिंग्स हब",
     "shareTheApp": "ऐप साझा करें",

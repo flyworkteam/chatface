@@ -7,6 +7,7 @@ import 'package:chatface/Views/HomeView/widgets/home_filter_sheet.dart';
 import 'package:chatface/Views/shared/widgets/character_grid_card.dart';
 import 'package:chatface/gen/strings.g.dart';
 import 'package:chatface/shared/blurred_gradient_background.dart';
+import 'package:chatface/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -16,74 +17,104 @@ class CharactersView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = context.t;
-    final personasAsync = ref.watch(filteredPersonaListProvider);
 
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
         children: [
           const Positioned.fill(child: BlurredGradientBackground()),
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CharactersAppBar(
-                    onBack: () => Navigator.of(context).pop(),
-                    onAction: () => _openFilterSheet(context),
-                  ),
-                  const SizedBox(height: 20),
-                  Expanded(
-                    child: personasAsync.when(
-                      loading: () =>
-                          const Center(child: CircularProgressIndicator()),
-                      error: (error, stack) => Center(
-                        child: Text(
-                          'Failed to load companions: $error',
-                          style: const TextStyle(color: Colors.white70),
-                        ),
+          CustomScrollView(
+            slivers: [
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                sliver: SliverAppBar(
+                  pinned: false,
+                  floating: false,
+                  backgroundColor: Colors.transparent,
+                  elevation: 0,
+                  automaticallyImplyLeading: false,
+                  toolbarHeight: kToolbarHeight,
+                  flexibleSpace: FlexibleSpaceBar(
+                    collapseMode: CollapseMode.pin,
+                    background: Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: CharactersAppBar(
+                        onBack: () => Navigator.of(context).pop(),
+                        onAction: () => _openFilterSheet(context),
                       ),
-                      data: (personas) {
-                        final characters = personas.toList(growable: false);
-                        if (characters.isEmpty) {
-                          return const Center(
-                            child: Text(
-                              'No companions available.',
-                              style: TextStyle(color: Colors.white54),
-                            ),
-                          );
-                        }
-                        return GridView.builder(
-                          padding: const EdgeInsets.only(bottom: 12),
-                          itemCount: characters.length,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 16,
-                                mainAxisSpacing: 16,
-                                childAspectRatio: 0.63,
-                              ),
-                          itemBuilder: (context, index) {
-                            final character = characters[index];
-                            return CharacterGridCard(
-                              character: character,
-                              actionLabel: context.t.profile,
-                              subtitle: t.characters.placeholderSubtitle,
-                              onTap: () =>
-                                  _openCharacterDetail(context, character),
-                            );
-                          },
-                        );
-                      },
                     ),
                   ),
-                ],
+                ),
               ),
-            ),
+
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                sliver: _buildGridSliver(ref, t),
+              ),
+              SliverPadding(
+                padding: const EdgeInsets.only(bottom: kToolbarHeight + 24),
+                sliver: SliverToBoxAdapter(child: Container()),
+              ),
+            ],
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildGridSliver(WidgetRef ref, TranslationsEn t) {
+    final personasAsync = ref.watch(filteredPersonaListProvider);
+    return personasAsync.when(
+      loading: () => SliverToBoxAdapter(
+        child: const Padding(
+          padding: EdgeInsets.all(32),
+          child: Center(child: CircularProgressIndicator()),
+        ),
+      ),
+      error: (error, stack) => SliverToBoxAdapter(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Center(
+            child: Text(
+              'Failed to load companions: $error',
+              style: AppTextStyles.body(14, color: Colors.white70),
+            ),
+          ),
+        ),
+      ),
+      data: (personas) {
+        final characters = personas.toList(growable: false);
+        if (characters.isEmpty) {
+          return SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.all(32),
+              child: Center(
+                child: Text(
+                  'No companions available.',
+                  style: AppTextStyles.body(14, color: Colors.white54),
+                ),
+              ),
+            ),
+          );
+        }
+        return SliverGrid(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 16,
+            mainAxisSpacing: 16,
+            childAspectRatio: 0.63,
+          ),
+          delegate: SliverChildBuilderDelegate((context, index) {
+            final character = characters[index];
+            return CharacterGridCard(
+              character: character,
+              actionLabel: context.t.profile,
+              subtitle: t.characters.placeholderSubtitle,
+              onTap: () => _openCharacterDetail(context, character),
+            );
+          }, childCount: characters.length),
+        );
+      },
     );
   }
 

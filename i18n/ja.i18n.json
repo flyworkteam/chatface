@@ -213,8 +213,8 @@
     "photo": "Photo",
     "photoUploadFailed": "Couldn't upload photo. Please try again.",
     "tapToViewPhoto": "Tap to view photo",
-    "voiceCallEnded": "Voice call ended",
-    "videoCallEnded": "Video call ended",
+    "voiceCallEnded": "音声通話終了",
+    "videoCallEnded": "ビデオ通話終了",
     "uploadingPhoto": "Uploading photo...",
     "mediaPermissionDenied": "Allow camera or photo permissions to share images."
   },

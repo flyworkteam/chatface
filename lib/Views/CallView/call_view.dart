@@ -12,6 +12,7 @@ import 'package:chatface/Views/CallView/widgets/call_controls.dart';
 import 'package:chatface/config/stt_config.dart';
 import 'package:chatface/gen/strings.g.dart';
 import 'package:chatface/shared/blurred_gradient_background.dart';
+import 'package:chatface/theme/app_text_styles.dart';
 import 'package:chatface/utils/permission_helper.dart';
 import 'package:chatface/utils/print.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,7 @@ class CallView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final container = ProviderScope.containerOf(context, listen: false);
     final args =
         ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
 
@@ -44,7 +46,10 @@ class CallView extends HookConsumerWidget {
     );
 
     useEffect(() {
-      ref.listen<SttState>(sttControllerProvider, (prev, next) {
+      final subscription = container.listen<SttState>(sttControllerProvider, (
+        prev,
+        next,
+      ) {
         if (!context.mounted) return;
         if ((prev?.streamStatus != StreamingSttStatus.error) &&
             next.streamStatus == StreamingSttStatus.error) {
@@ -57,7 +62,7 @@ class CallView extends HookConsumerWidget {
           );
         }
       });
-      return null;
+      return subscription.close;
     }, const []);
 
     final callState = useState(CallState.idle);
@@ -79,60 +84,80 @@ class CallView extends HookConsumerWidget {
 
     useEffect(
       () {
-        ref.listen<TtsPlaybackState>(ttsPlaybackProvider, (prev, next) {
-          if (SttConfig.fullDuplexEnabled) {
+        final subscription = container.listen<TtsPlaybackState>(
+          ttsPlaybackProvider,
+          (prev, next) {
+            if (!context.mounted) {
+              sttResumeTimer.value?.cancel();
+              return;
+            }
+
+            if (SttConfig.fullDuplexEnabled) {
+              sttResumeTimer.value?.cancel();
+              return;
+            }
+
+            final hasActivePlayback = next.hasActivePlayback;
             sttResumeTimer.value?.cancel();
-            return;
-          }
 
-          final hasActivePlayback = next.hasActivePlayback;
+            final sttNotifier = container.read(sttControllerProvider.notifier);
+            final sttSnapshot = container.read(sttControllerProvider);
+            final latestCallSession = container.read(
+              callSessionControllerProvider,
+            );
+
+            if (hasActivePlayback) {
+              if (sttSnapshot.isListening) {
+                unawaited(sttNotifier.stopListening());
+              }
+              return;
+            }
+
+            final shouldResume =
+                hasPermission.value == true &&
+                (latestCallSession?.isMicMuted != true) &&
+                (callState.value == CallState.active ||
+                    callState.value == CallState.connecting);
+            if (!shouldResume) {
+              return;
+            }
+
+            sttResumeTimer.value = Timer(SttConfig.resumeDelay, () {
+              if (!context.mounted) {
+                return;
+              }
+
+              final latestTts = container.read(ttsPlaybackProvider);
+              final latestStt = container.read(sttControllerProvider);
+              if (latestStt.isListening) {
+                return;
+              }
+
+              if (latestTts.hasActivePlayback) {
+                return;
+              }
+
+              if (hasPermission.value != true ||
+                  container.read(callSessionControllerProvider)?.isMicMuted ==
+                      true ||
+                  (callState.value != CallState.active &&
+                      callState.value != CallState.connecting)) {
+                return;
+              }
+
+              final language =
+                  container
+                      .read(callSessionControllerProvider)
+                      ?.selectedLanguage ??
+                  persona.resolveLanguage(persona.selectedLanguage);
+              unawaited(sttNotifier.startListening(localeId: language));
+            });
+          },
+        );
+        return () {
           sttResumeTimer.value?.cancel();
-
-          final sttNotifier = ref.read(sttControllerProvider.notifier);
-          final sttSnapshot = ref.read(sttControllerProvider);
-          final latestCallSession = ref.read(callSessionControllerProvider);
-
-          if (hasActivePlayback) {
-            if (sttSnapshot.isListening) {
-              unawaited(sttNotifier.stopListening());
-            }
-            return;
-          }
-
-          final shouldResume =
-              hasPermission.value == true &&
-              (latestCallSession?.isMicMuted != true) &&
-              (callState.value == CallState.active ||
-                  callState.value == CallState.connecting);
-          if (!shouldResume) {
-            return;
-          }
-
-          sttResumeTimer.value = Timer(SttConfig.resumeDelay, () {
-            final latestTts = ref.read(ttsPlaybackProvider);
-            final latestStt = ref.read(sttControllerProvider);
-            if (latestStt.isListening) {
-              return;
-            }
-
-            if (latestTts.hasActivePlayback) {
-              return;
-            }
-
-            if (hasPermission.value != true ||
-                ref.read(callSessionControllerProvider)?.isMicMuted == true ||
-                (callState.value != CallState.active &&
-                    callState.value != CallState.connecting)) {
-              return;
-            }
-
-            final language =
-                ref.read(callSessionControllerProvider)?.selectedLanguage ??
-                persona.resolveLanguage(persona.selectedLanguage);
-            unawaited(sttNotifier.startListening(localeId: language));
-          });
-        });
-        return null;
+          subscription.close();
+        };
       },
       [
         persona.id,
@@ -315,9 +340,9 @@ class _PermissionRequired extends StatelessWidget {
               Text(
                 'Microphone and speech permissions are required for voice calls.',
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: AppTextStyles.body(
+                  16,
                   color: Colors.white.withValues(alpha: 0.85),
-                  fontSize: 16,
                 ),
               ),
               const SizedBox(height: 32),
@@ -326,9 +351,9 @@ class _PermissionRequired extends StatelessWidget {
                 children: [
                   TextButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    child: const Text(
+                    child: Text(
                       'Go Back',
-                      style: TextStyle(color: Colors.white),
+                      style: AppTextStyles.body(14, color: Colors.white),
                     ),
                   ),
                   const SizedBox(width: 16),

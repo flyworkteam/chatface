@@ -1,6 +1,6 @@
 import 'package:chatface/Models/persona_model.dart';
-import 'package:chatface/gen/strings.g.dart';
 import 'package:chatface/shared/custom_cached_network_image.dart';
+import 'package:chatface/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class CharacterHeroCard extends StatelessWidget {
@@ -10,8 +10,6 @@ class CharacterHeroCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final t = context.t;
     final description = character.shortDescription;
 
     return LayoutBuilder(
@@ -20,12 +18,8 @@ class CharacterHeroCard extends StatelessWidget {
             constraints.maxHeight.isFinite &&
             constraints.maxHeight != double.infinity;
         final body = hasFiniteHeight && constraints.maxHeight > 150
-            ? _buildConstrainedContent(
-                textTheme,
-                description,
-                constraints.maxHeight,
-              )
-            : _buildNaturalContent(textTheme, description);
+            ? _buildConstrainedContent(description, constraints.maxHeight)
+            : _buildNaturalContent(description);
 
         return Container(
           decoration: BoxDecoration(
@@ -39,11 +33,7 @@ class CharacterHeroCard extends StatelessWidget {
     );
   }
 
-  Widget _buildConstrainedContent(
-    TextTheme textTheme,
-    String description,
-    double maxHeight,
-  ) {
+  Widget _buildConstrainedContent(String description, double maxHeight) {
     final imageUrl = character.displayImageUrl;
     return SizedBox(
       height: maxHeight,
@@ -62,9 +52,11 @@ class CharacterHeroCard extends StatelessWidget {
           const SizedBox(height: 14),
           Text(
             character.name,
-            style: textTheme.headlineSmall?.copyWith(
+            style: AppTextStyles.body(
+              24,
+              weight: FontWeight.w700,
               color: Colors.white,
-              fontWeight: FontWeight.w700,
+              height: 24 * 1.15,
             ),
           ),
           const SizedBox(height: 8),
@@ -72,9 +64,10 @@ class CharacterHeroCard extends StatelessWidget {
             description,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
-            style: textTheme.bodyLarge?.copyWith(
+            style: AppTextStyles.body(
+              16,
               color: Colors.white.withValues(alpha: 0.82),
-              height: 1.24,
+              height: 16 * 1.24,
             ),
           ),
         ],
@@ -82,7 +75,7 @@ class CharacterHeroCard extends StatelessWidget {
     );
   }
 
-  Widget _buildNaturalContent(TextTheme textTheme, String description) {
+  Widget _buildNaturalContent(String description) {
     final imageUrl = character.displayImageUrl;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,9 +94,11 @@ class CharacterHeroCard extends StatelessWidget {
         const SizedBox(height: 14),
         Text(
           character.name,
-          style: textTheme.headlineSmall?.copyWith(
+          style: AppTextStyles.body(
+            24,
+            weight: FontWeight.w700,
             color: Colors.white,
-            fontWeight: FontWeight.w700,
+            height: 24 * 1.15,
           ),
         ),
         const SizedBox(height: 8),
@@ -111,9 +106,10 @@ class CharacterHeroCard extends StatelessWidget {
           description,
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
-          style: textTheme.bodyLarge?.copyWith(
+          style: AppTextStyles.body(
+            16,
             color: Colors.white.withValues(alpha: 0.82),
-            height: 1.35,
+            height: 16 * 1.35,
           ),
         ),
       ],

@@ -1,3 +1,4 @@
+import 'package:chatface/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class MediaOption extends StatelessWidget {
@@ -23,10 +24,10 @@ class MediaOption extends StatelessWidget {
             const SizedBox(width: 14),
             Text(
               label,
-              style: TextStyle(
+              style: AppTextStyles.body(
+                15,
                 color: Colors.white.withValues(alpha: 0.85),
-                fontSize: 15,
-                fontWeight: FontWeight.w500,
+                weight: FontWeight.w500,
               ),
             ),
           ],

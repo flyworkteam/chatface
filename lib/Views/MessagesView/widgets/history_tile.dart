@@ -1,25 +1,33 @@
 import 'package:chatface/Views/ChatView/chat_view.dart';
+import 'package:chatface/Riverpod/Providers/conversation_history_provider.dart';
+import 'package:chatface/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'avatar.dart';
 import 'models.dart';
 
-class HistoryTile extends StatelessWidget {
+class HistoryTile extends ConsumerWidget {
   final HistoryItem item;
   const HistoryTile({super.key, required this.item});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final timeLabel = TimeOfDay.fromDateTime(item.updatedAt).format(context);
     final icon = _previewIcon(item.previewType);
     return InkWell(
-      onTap: () {
-        Navigator.of(context).push(
+      onTap: () async {
+        await Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (_) =>
-                ChatView(persona: item.character, sessionId: item.sessionId),
+            builder: (_) => ChatView(
+              persona: item.character,
+              sessionId: item.sessionId,
+              sessionMode: item.sessionMode,
+              sessionLanguage: item.sessionLanguage,
+            ),
           ),
         );
+        ref.invalidate(conversationHistoryProvider);
       },
       borderRadius: BorderRadius.circular(12),
       child: Padding(
@@ -36,18 +44,18 @@ class HistoryTile extends StatelessWidget {
                     children: [
                       Text(
                         item.character.name,
-                        style: const TextStyle(
+                        style: AppTextStyles.body(
+                          15,
                           color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
+                          weight: FontWeight.bold,
                         ),
                       ),
                       const Spacer(),
                       Text(
                         timeLabel,
-                        style: TextStyle(
+                        style: AppTextStyles.body(
+                          12,
                           color: Colors.white.withValues(alpha: 0.45),
-                          fontSize: 12,
                         ),
                       ),
                     ],
@@ -69,10 +77,10 @@ class HistoryTile extends StatelessWidget {
                           item.previewText,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
+                          style: AppTextStyles.body(
+                            13,
                             color: Colors.white.withValues(alpha: 0.55),
-                            fontSize: 13,
-                            height: 1.4,
+                            height: 13 * 1.4,
                           ),
                         ),
                       ),

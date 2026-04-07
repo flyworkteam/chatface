@@ -8,8 +8,14 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class VideoPageHeader extends ConsumerWidget {
   final bool isInCall;
+  final bool? isCallEnded;
   final VoidCallback? onClose;
-  const VideoPageHeader({super.key, required this.isInCall, this.onClose});
+  const VideoPageHeader({
+    super.key,
+    required this.isInCall,
+    this.isCallEnded = false,
+    this.onClose,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -25,9 +31,9 @@ class VideoPageHeader extends ConsumerWidget {
             error: (error, stackTrace) => SvgPicture.asset(AppIcons.warning),
           ),
           const Spacer(),
-          PremiumBadge(isPremium: isPremium),
+          if (!isPremium) PremiumBadge(isPremium: isPremium),
 
-          if (isInCall) ...[
+          if (isInCall && isCallEnded != true) ...[
             SizedBox(width: 12),
             GestureDetector(
               onTap: onClose?.call,

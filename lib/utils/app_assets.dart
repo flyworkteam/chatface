@@ -27,7 +27,7 @@ class AppIcons {
   static const String apple = 'assets/icons/apple.svg';
   static const String backarrow = 'assets/icons/backarrow.svg';
   static const String callclose = 'assets/icons/callclose.svg';
-  static const String callmicrophone = 'assets/icons/callmicrophone.jpg';
+  static const String callmicrophone = 'assets/icons/callmic.svg';
   static const String callvolume = 'assets/icons/callvolume.svg';
   static const String camera = 'assets/icons/camera.svg';
   static const String cameraslash = 'assets/icons/cameraslash.svg';
@@ -37,6 +37,7 @@ class AppIcons {
   static const String close = 'assets/icons/close.svg';
   static const String closecircle = 'assets/icons/closecircle.png';
   static const String copy = 'assets/icons/copy.svg';
+  static const String copyMessage = 'assets/icons/copymessage.svg';
   static const String delete = 'assets/icons/delete.svg';
   static const String deleteAccount = 'assets/icons/deleteaccount.svg';
   static const String deleteAll = 'assets/icons/deleteall.svg';

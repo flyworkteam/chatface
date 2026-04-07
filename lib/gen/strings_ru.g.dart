@@ -235,8 +235,8 @@ class _TranslationsChatRu implements TranslationsChatEn {
 	@override String get photo => 'Photo';
 	@override String get photoUploadFailed => 'Couldn\'t upload photo. Please try again.';
 	@override String get tapToViewPhoto => 'Tap to view photo';
-	@override String get voiceCallEnded => 'Voice call ended';
-	@override String get videoCallEnded => 'Video call ended';
+	@override String get voiceCallEnded => 'Голосовой звонок завершён';
+	@override String get videoCallEnded => 'Видеозвонок завершён';
 	@override String get uploadingPhoto => 'Uploading photo...';
 	@override String get mediaPermissionDenied => 'Allow camera or photo permissions to share images.';
 }
@@ -270,7 +270,7 @@ class _TranslationsSettingsSupportRu implements TranslationsSettingsSupportEn {
 
 	// Translations
 	@override String get title => 'Настройки и поддержка';
-	@override String get premiumTitle => 'Неограниченный доступ ко всем функциям';
+	@override String get premiumTitle => 'Неограниченный доступ \nко всем функциям';
 	@override String get getPremium => 'Получить Premium';
 	@override String get settingsHub => 'Центр настроек';
 	@override String get shareTheApp => 'Поделиться приложением';
@@ -773,8 +773,8 @@ extension on TranslationsRu {
 			'chat.photo' => 'Photo',
 			'chat.photoUploadFailed' => 'Couldn\'t upload photo. Please try again.',
 			'chat.tapToViewPhoto' => 'Tap to view photo',
-			'chat.voiceCallEnded' => 'Voice call ended',
-			'chat.videoCallEnded' => 'Video call ended',
+			'chat.voiceCallEnded' => 'Голосовой звонок завершён',
+			'chat.videoCallEnded' => 'Видеозвонок завершён',
 			'chat.uploadingPhoto' => 'Uploading photo...',
 			'chat.mediaPermissionDenied' => 'Allow camera or photo permissions to share images.',
 			'editProfile.aboutMe' => 'Обо мне',
@@ -790,7 +790,7 @@ extension on TranslationsRu {
 			'editProfile.saved' => 'Сохранено',
 			'editProfile.changesSaved' => 'Изменения сохранены.',
 			'settingsSupport.title' => 'Настройки и поддержка',
-			'settingsSupport.premiumTitle' => 'Неограниченный доступ ко всем функциям',
+			'settingsSupport.premiumTitle' => 'Неограниченный доступ \nко всем функциям',
 			'settingsSupport.getPremium' => 'Получить Premium',
 			'settingsSupport.settingsHub' => 'Центр настроек',
 			'settingsSupport.shareTheApp' => 'Поделиться приложением',

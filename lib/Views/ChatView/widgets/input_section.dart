@@ -1,4 +1,5 @@
 import 'package:chatface/gen/strings.g.dart';
+import 'package:chatface/theme/app_text_styles.dart';
 import 'package:chatface/utils/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -50,9 +51,9 @@ class InputSection extends HookConsumerWidget {
                 Expanded(
                   child: Text(
                     context.t.chat.uploadingPhoto,
-                    style: TextStyle(
+                    style: AppTextStyles.body(
+                      13,
                       color: Colors.white.withValues(alpha: 0.7),
-                      fontSize: 13,
                     ),
                   ),
                 ),
@@ -97,15 +98,15 @@ class InputSection extends HookConsumerWidget {
                   child: Center(
                     child: TextField(
                       controller: controller,
-                      style: const TextStyle(color: Colors.white, fontSize: 14),
+                      style: AppTextStyles.body(14, color: Colors.white),
                       maxLines: null,
                       textInputAction: TextInputAction.send,
                       onSubmitted: (_) => onSend(),
                       decoration: InputDecoration(
                         hintText: context.t.chat.typeAMessage,
-                        hintStyle: TextStyle(
+                        hintStyle: AppTextStyles.body(
+                          14,
                           color: Colors.white.withValues(alpha: 0.35),
-                          fontSize: 14,
                         ),
                         border: InputBorder.none,
                         isDense: true,

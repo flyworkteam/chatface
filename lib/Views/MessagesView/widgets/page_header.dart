@@ -26,7 +26,7 @@ class MessagesPageHeader extends ConsumerWidget {
             error: (error, stackTrace) => SvgPicture.asset(AppIcons.warning),
           ),
           const Spacer(),
-          PremiumBadge(isPremium: isPremium),
+          if (!isPremium) PremiumBadge(isPremium: isPremium),
         ],
       ),
     );
@@ -102,15 +102,21 @@ class _PremiumBadgeState extends ConsumerState<PremiumBadge> {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Image.asset(AppIcons.premium),
+            Image(
+              image: ResizeImage(AssetImage(AppIcons.premium), width: 40),
+              fit: BoxFit.contain,
+              filterQuality: FilterQuality.high,
+              isAntiAlias: true,
+            ),
             SizedBox(width: 5),
             Text(
               context.t.premium,
               style: AppTextStyles.body(
                 13,
                 color: Colors.black,
+
                 weight: FontWeight.w600,
-              ),
+              ).copyWith(fontStyle: FontStyle.italic),
             ),
           ],
         ),

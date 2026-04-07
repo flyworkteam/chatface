@@ -235,8 +235,8 @@ class _TranslationsChatEs implements TranslationsChatEn {
 	@override String get photo => 'Photo';
 	@override String get photoUploadFailed => 'Couldn\'t upload photo. Please try again.';
 	@override String get tapToViewPhoto => 'Tap to view photo';
-	@override String get voiceCallEnded => 'Voice call ended';
-	@override String get videoCallEnded => 'Video call ended';
+	@override String get voiceCallEnded => 'Llamada de voz finalizada';
+	@override String get videoCallEnded => 'Videollamada finalizada';
 	@override String get uploadingPhoto => 'Uploading photo...';
 	@override String get mediaPermissionDenied => 'Allow camera or photo permissions to share images.';
 }
@@ -270,7 +270,7 @@ class _TranslationsSettingsSupportEs implements TranslationsSettingsSupportEn {
 
 	// Translations
 	@override String get title => 'Configuración y soporte';
-	@override String get premiumTitle => 'Acceso ilimitado a todas las funciones';
+	@override String get premiumTitle => 'Acceso ilimitado a \ntodas las funciones';
 	@override String get getPremium => 'Obtener Premium';
 	@override String get settingsHub => 'Centro de configuración';
 	@override String get shareTheApp => 'Compartir la app';
@@ -773,8 +773,8 @@ extension on TranslationsEs {
 			'chat.photo' => 'Photo',
 			'chat.photoUploadFailed' => 'Couldn\'t upload photo. Please try again.',
 			'chat.tapToViewPhoto' => 'Tap to view photo',
-			'chat.voiceCallEnded' => 'Voice call ended',
-			'chat.videoCallEnded' => 'Video call ended',
+			'chat.voiceCallEnded' => 'Llamada de voz finalizada',
+			'chat.videoCallEnded' => 'Videollamada finalizada',
 			'chat.uploadingPhoto' => 'Uploading photo...',
 			'chat.mediaPermissionDenied' => 'Allow camera or photo permissions to share images.',
 			'editProfile.aboutMe' => 'Sobre mí',
@@ -790,7 +790,7 @@ extension on TranslationsEs {
 			'editProfile.saved' => 'Guardado',
 			'editProfile.changesSaved' => 'Los cambios se han guardado.',
 			'settingsSupport.title' => 'Configuración y soporte',
-			'settingsSupport.premiumTitle' => 'Acceso ilimitado a todas las funciones',
+			'settingsSupport.premiumTitle' => 'Acceso ilimitado a \ntodas las funciones',
 			'settingsSupport.getPremium' => 'Obtener Premium',
 			'settingsSupport.settingsHub' => 'Centro de configuración',
 			'settingsSupport.shareTheApp' => 'Compartir la app',

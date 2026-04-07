@@ -7,6 +7,8 @@ class HistoryItem {
   final DateTime updatedAt;
   final String sessionId;
   final String lastConversationType;
+  final String sessionMode;
+  final String sessionLanguage;
 
   const HistoryItem({
     required this.character,
@@ -15,5 +17,7 @@ class HistoryItem {
     required this.updatedAt,
     required this.sessionId,
     required this.lastConversationType,
+    required this.sessionMode,
+    required this.sessionLanguage,
   });
 }

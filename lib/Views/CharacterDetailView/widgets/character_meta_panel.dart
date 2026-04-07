@@ -1,5 +1,6 @@
 import 'package:chatface/Models/persona_model.dart';
 import 'package:chatface/gen/strings.g.dart';
+import 'package:chatface/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class CharacterMetaPanel extends StatelessWidget {
@@ -22,10 +23,7 @@ class CharacterMetaPanel extends StatelessWidget {
         label: t.editProfile.languagePreferences,
         value: character.defaultLanguage.toUpperCase(),
       ),
-      _MetaInfo(
-        label: t.videoChat.country,
-        value: character.displayLocation(),
-      ),
+      _MetaInfo(label: t.videoChat.country, value: character.displayLocation()),
     ];
 
     return Wrap(
@@ -46,16 +44,18 @@ class CharacterMetaPanel extends StatelessWidget {
                 children: [
                   Text(
                     item.label,
-                    style: Theme.of(
-                      context,
-                    ).textTheme.labelMedium?.copyWith(color: Colors.white60),
+                    style: AppTextStyles.body(
+                      12,
+                      weight: FontWeight.w600,
+                      letterSpacing: 0.4 / 12,
+                      height: 12 * 1.25,
+                      color: Colors.white60,
+                    ),
                   ),
                   const SizedBox(height: 6),
                   Text(
                     item.value,
-                    style: Theme.of(
-                      context,
-                    ).textTheme.bodyMedium?.copyWith(color: Colors.white),
+                    style: AppTextStyles.body(14, color: Colors.white),
                   ),
                 ],
               ),

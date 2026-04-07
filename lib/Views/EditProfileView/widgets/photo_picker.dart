@@ -120,6 +120,16 @@ class _PhotoPickerState extends State<PhotoPicker> {
                         ),
                       ),
                     ),
+                    Positioned(
+                      right: 10,
+                      bottom: 10,
+                      child: GestureDetector(
+                        onTap: () {
+                          widget.onEditAt?.call(i);
+                        },
+                        child: SvgPicture.asset(AppIcons.edit),
+                      ),
+                    ),
                     if (_activeIndex == i) ...[
                       Positioned(
                         top: 20,
@@ -152,16 +162,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
                           ),
                         ),
                       ),
-                      Positioned(
-                        right: 10,
-                        bottom: 10,
-                        child: GestureDetector(
-                          onTap: () {
-                            widget.onEditAt?.call(i);
-                          },
-                          child: SvgPicture.asset(AppIcons.edit),
-                        ),
-                      ),
+
                       Positioned(
                         right: -15,
                         top: -15,

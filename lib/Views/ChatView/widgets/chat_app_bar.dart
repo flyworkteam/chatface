@@ -1,4 +1,5 @@
 import 'package:chatface/gen/strings.g.dart';
+import 'package:chatface/theme/app_text_styles.dart';
 import 'package:chatface/utils/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -56,10 +57,10 @@ class ChatAppBar extends StatelessWidget {
               children: [
                 Text(
                   characterName,
-                  style: const TextStyle(
+                  style: AppTextStyles.body(
+                    16,
                     color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                    weight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 2),
@@ -76,10 +77,10 @@ class ChatAppBar extends StatelessWidget {
                     const SizedBox(width: 4),
                     Text(
                       context.t.chat.online,
-                      style: TextStyle(
+                      style: AppTextStyles.body(
+                        12,
                         color: Colors.greenAccent,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
+                        weight: FontWeight.w500,
                       ),
                     ),
                   ],
@@ -95,7 +96,12 @@ class ChatAppBar extends StatelessWidget {
           const SizedBox(width: 18),
           GestureDetector(
             onTap: onVideoCallTap?.call,
-            child: Image.asset(AppIcons.videoCallChat),
+            child: Image(
+              image: ResizeImage(AssetImage(AppIcons.videoCallChat), width: 40),
+              fit: BoxFit.contain,
+              filterQuality: FilterQuality.high,
+              isAntiAlias: true,
+            ),
           ),
         ],
       ),

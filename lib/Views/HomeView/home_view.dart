@@ -7,30 +7,45 @@ import 'package:chatface/Views/HomeView/widgets/home_filter_sheet.dart';
 import 'package:chatface/Views/HomeView/widgets/home_header.dart';
 import 'package:chatface/Views/HomeView/widgets/home_more_section.dart';
 import 'package:chatface/shared/blurred_gradient_background.dart';
+import 'package:chatface/theme/app_text_styles.dart';
 import 'package:chatface/utils/print.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class HomeView extends HookConsumerWidget {
   const HomeView({super.key});
 
+  static const double _bottomNavBarHeight = 80;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final personasAsync = ref.watch(filteredPersonaListProvider);
+    final isFilterSheetOpen = useState(false);
+    final navigationClearance =
+        _bottomNavBarHeight + MediaQuery.viewPaddingOf(context).bottom;
 
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
         children: [
           const Positioned.fill(child: BlurredGradientBackground()),
+          if (isFilterSheetOpen.value)
+            Positioned.fill(
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () => isFilterSheetOpen.value = false,
+                child: const ColoredBox(color: Colors.transparent),
+              ),
+            ),
           SafeArea(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+              padding: EdgeInsets.fromLTRB(24, 0, 24, navigationClearance + 24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   HomeHeader(
-                    onFilterTap: () => _openFilterSheet(context),
+                    onFilterTap: () => isFilterSheetOpen.value = true,
                     onNotificationsTap: () =>
                         Navigator.pushNamed(context, AppRoutes.notifications),
                   ),
@@ -46,7 +61,7 @@ class HomeView extends HookConsumerWidget {
                       padding: const EdgeInsets.all(16),
                       child: Text(
                         'Failed to load companions: $error',
-                        style: const TextStyle(color: Colors.white70),
+                        style: AppTextStyles.body(16, color: Colors.white70),
                       ),
                     ),
                     data: (personas) {
@@ -83,17 +98,22 @@ class HomeView extends HookConsumerWidget {
               ),
             ),
           ),
+          AnimatedPositioned(
+            duration: const Duration(milliseconds: 240),
+            curve: Curves.easeOutCubic,
+            left: 0,
+            right: 0,
+            bottom: isFilterSheetOpen.value ? navigationClearance : -800,
+            child: IgnorePointer(
+              ignoring: !isFilterSheetOpen.value,
+              child: HomeFilterSheet(
+                onClose: () => isFilterSheetOpen.value = false,
+                bottomPadding: 24,
+              ),
+            ),
+          ),
         ],
       ),
-    );
-  }
-
-  Future<void> _openFilterSheet(BuildContext context) async {
-    await showModalBottomSheet<Map<String, dynamic>?>(
-      context: context,
-      backgroundColor: Colors.transparent,
-      isScrollControlled: true,
-      builder: (context) => const HomeFilterSheet(),
     );
   }
 

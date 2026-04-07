@@ -1,8 +1,8 @@
+import 'package:chatface/Services/secure_storage_service.dart';
 import 'package:chatface/gen/strings.g.dart';
 import 'package:chatface/theme/app_text_styles.dart';
 import 'package:chatface/utils/app_assets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class SelectLearnLanguage extends StatelessWidget {
   const SelectLearnLanguage({
@@ -85,9 +85,9 @@ class SelectLearnLanguage extends StatelessWidget {
     return Container(
       height: 46,
       decoration: BoxDecoration(
-        color: Colors.black.withValues(alpha: 0.28),
-        borderRadius: BorderRadius.circular(999),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.12)),
+        color: Colors.black.withValues(alpha: 0.5),
+        borderRadius: BorderRadius.circular(50),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.2)),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: DropdownButtonHideUnderline(
@@ -109,8 +109,7 @@ class SelectLearnLanguage extends StatelessWidget {
             return languages.map((lang) {
               return Row(
                 children: [
-                  SvgPicture.asset(lang.flagAsset, width: 22, height: 22),
-                  const SizedBox(width: 10),
+                  Spacer(),
                   Text(
                     lang.label,
                     style: AppTextStyles.body(
@@ -119,6 +118,7 @@ class SelectLearnLanguage extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
+                  Spacer(),
                 ],
               );
             }).toList();
@@ -128,8 +128,7 @@ class SelectLearnLanguage extends StatelessWidget {
               value: lang.code,
               child: Row(
                 children: [
-                  SvgPicture.asset(lang.flagAsset, width: 22, height: 22),
-                  const SizedBox(width: 10),
+                  Spacer(),
                   Expanded(
                     child: Text(
                       lang.label,
@@ -143,6 +142,7 @@ class SelectLearnLanguage extends StatelessWidget {
                       ),
                     ),
                   ),
+                  Spacer(),
                 ],
               ),
             );
@@ -150,6 +150,8 @@ class SelectLearnLanguage extends StatelessWidget {
           onChanged: (value) {
             if (value == null) return;
             onChanged?.call(value);
+            LocaleSettings.setLocale(AppLocale.values.byName(value));
+            SecureStorageService().saveLanguage(value);
           },
         ),
       ),

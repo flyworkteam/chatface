@@ -1,14 +1,8 @@
 import 'package:chatface/Models/persona_model.dart';
-import 'package:chatface/Views/ChatView/chat_view.dart';
-import 'package:chatface/Views/shared/widgets/glass_icon_button.dart';
-import 'package:chatface/Views/shared/widgets/status_indicator.dart';
-import 'package:chatface/gen/strings.g.dart';
-import 'package:chatface/shared/custom_cached_network_image.dart';
-import 'package:chatface/utils/app_assets.dart';
+import 'package:chatface/Views/HomeView/widgets/home_character_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class HomeFeaturedSwiper extends HookConsumerWidget {
@@ -40,12 +34,12 @@ class HomeFeaturedSwiper extends HookConsumerWidget {
         children: [
           _SwiperBackdropCard(
             width: cardWidth,
-            height: cardHeight - 24,
-            top: 10,
-            horizontalInset: 20,
-            shiftX: -22,
-            angle: -0.11,
-            color: const Color(0xFF9B78B3).withValues(alpha: 0.42),
+            height: cardHeight - 32,
+            top: -10,
+            horizontalInset: 0,
+            shiftX: -7,
+            angle: -0.05,
+            color: Colors.white.withValues(alpha: 0.1),
           ),
           _SwiperBackdropCard(
             width: cardWidth,
@@ -54,7 +48,7 @@ class HomeFeaturedSwiper extends HookConsumerWidget {
             horizontalInset: 10,
             shiftX: 20,
             angle: 0.09,
-            color: const Color(0xFFB091C8).withValues(alpha: 0.36),
+            color: const Color(0xff9A6C9B).withValues(alpha: 0.36),
           ),
           Positioned(
             top: swiperTopOffset,
@@ -81,9 +75,8 @@ class HomeFeaturedSwiper extends HookConsumerWidget {
                       int verticalOffsetPercentage,
                     ) {
                       final character = characters[index];
-                      return _CharacterSwiperCard(
+                      return HomeCharacterCard(
                         character: character,
-                        textTheme: Theme.of(context).textTheme,
                         onTapCharacter: onTapCharacter,
                       );
                     },
@@ -135,138 +128,5 @@ class _SwiperBackdropCard extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class _CharacterSwiperCard extends StatelessWidget {
-  const _CharacterSwiperCard({
-    required this.character,
-    required this.textTheme,
-    required this.onTapCharacter,
-  });
-
-  final PersonaProfile character;
-  final TextTheme textTheme;
-  final ValueChanged<PersonaProfile> onTapCharacter;
-
-  @override
-  Widget build(BuildContext context) {
-    final t = context.t;
-    final roleLabel =
-        t[character.displayRoleKey] ?? t.characters.placeholderSubtitle;
-
-    return GestureDetector(
-      onTap: () => onTapCharacter(character),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(36),
-          gradient: const LinearGradient(
-            colors: [Color(0xFF3A1A3F), Color(0xFF09090F)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: Hero(
-                tag: 'character-${character.id}',
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(36),
-                  child: _CharacterImage(character: character),
-                ),
-              ),
-            ),
-            Positioned.fill(
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(36),
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.transparent,
-                      Colors.black.withValues(alpha: 0.8),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Positioned(
-              top: 20,
-              left: 20,
-              child: StatusIndicator(
-                label: character.isActive ? t.home.online : t.home.offline,
-                isOnline: character.isActive,
-              ),
-            ),
-
-            Positioned(
-              left: 24,
-              right: 24,
-              bottom: 24,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          character.name,
-                          style: textTheme.headlineSmall?.copyWith(
-                            color: Colors.white,
-                            letterSpacing: 0,
-                          ),
-                        ),
-                        const SizedBox(height: 6),
-                        Text(
-                          character.jobTitle,
-                          style: textTheme.bodyMedium?.copyWith(
-                            color: Colors.white70,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  GlassIconButton(
-                    size: 52,
-                    backgroundColor: Colors.white.withValues(alpha: 0.3),
-                    icon: SvgPicture.asset(
-                      AppIcons.messageBubble,
-                      width: 24,
-                      height: 24,
-                      colorFilter: const ColorFilter.mode(
-                        Colors.white,
-                        BlendMode.srcIn,
-                      ),
-                    ),
-                    onPressed: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => ChatView(persona: character),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _CharacterImage extends StatelessWidget {
-  const _CharacterImage({required this.character});
-
-  final PersonaProfile character;
-
-  @override
-  Widget build(BuildContext context) {
-    final imageUrl = character.displayImageUrl;
-    if (imageUrl.startsWith('https')) {
-      return CustomCachedNetworkImage(imageUrl: imageUrl);
-    }
-    return Image.asset(character.displayImageAsset, fit: BoxFit.cover);
   }
 }

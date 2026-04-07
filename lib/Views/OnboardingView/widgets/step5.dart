@@ -1,5 +1,4 @@
 import 'package:chatface/gen/strings.g.dart';
-import 'package:chatface/theme/app_colors.dart';
 import 'package:chatface/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -210,7 +209,7 @@ class _PermissionItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20),
+      padding: const EdgeInsets.only(bottom: 40),
       child: Row(
         children: [
           Center(
@@ -268,9 +267,7 @@ class _PermissionItem extends StatelessWidget {
                       height: 28,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: granted
-                            ? AppColors.primary
-                            : Colors.white.withValues(alpha: 0.2),
+                        color: granted ? Colors.white : Colors.white54,
                       ),
                       child: loading
                           ? Center(
@@ -295,8 +292,10 @@ class _PermissionItem extends StatelessWidget {
                                 margin: const EdgeInsets.all(3),
                                 width: 22,
                                 height: 22,
-                                decoration: const BoxDecoration(
-                                  color: Colors.white,
+                                decoration: BoxDecoration(
+                                  color: granted
+                                      ? Color(0xff774487)
+                                      : Colors.white24,
                                   shape: BoxShape.circle,
                                 ),
                               ),

@@ -1,6 +1,7 @@
 import 'package:chatface/Models/persona_model.dart';
 import 'package:chatface/Riverpod/Providers/all_providers.dart';
 import 'package:chatface/Services/secure_storage_service.dart';
+import 'package:chatface/utils/print.dart';
 import 'package:riverpod/riverpod.dart';
 
 final personaListProvider = FutureProvider<List<PersonaProfile>>((ref) async {
@@ -26,10 +27,11 @@ final filteredPersonaListProvider = FutureProvider<List<PersonaProfile>>((
   if (selectedLanguage == null || selectedLanguage.isEmpty) {
     return personas;
   }
-
-  return personas
-      .where((persona) => persona.supportsLanguage(selectedLanguage))
-      .toList(growable: false);
+  Print.info(
+    'Filtering personas by language: $selectedLanguage',
+    tag: 'PersonaFilter',
+  );
+  return personas.toList(growable: false);
 });
 
 class PersonaFilter {
@@ -58,7 +60,9 @@ final personaFilterProvider =
       PersonaFilterNotifier.new,
     );
 
-final personaFollowControllerProvider = Provider<PersonaFollowController>((ref) {
+final personaFollowControllerProvider = Provider<PersonaFollowController>((
+  ref,
+) {
   return PersonaFollowController(ref);
 });
 

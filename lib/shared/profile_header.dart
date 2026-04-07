@@ -6,17 +6,13 @@ import 'package:chatface/utils/app_assets.dart';
 import 'package:flutter/material.dart';
 
 class ProfileHeader extends StatelessWidget {
-  final UserProfile user;
+  final UserProfile? user;
   final bool isVideoCall;
-  const ProfileHeader({
-    required this.user,
-    this.isVideoCall = false,
-    super.key,
-  });
+  const ProfileHeader({this.user, this.isVideoCall = false, super.key});
 
   @override
   Widget build(BuildContext context) {
-    final imageUrl = user.profilePictureUrl;
+    final imageUrl = user?.profilePictureUrl;
 
     return GestureDetector(
       onTap: () {
@@ -44,11 +40,16 @@ class ProfileHeader extends StatelessWidget {
                   height: 44,
                   backgroundImage: AppImages.person7,
                 )
-              : Image.asset(
-                  isVideoCall ? AppIcons.profileVideo : AppIcons.profile,
-                  width: 44,
-                  height: 44,
-                  fit: BoxFit.cover,
+              : Image(
+                  image: ResizeImage(
+                    AssetImage(
+                      isVideoCall ? AppIcons.profileVideo : AppIcons.profile,
+                    ),
+                    width: 400,
+                  ),
+                  fit: BoxFit.contain,
+                  filterQuality: FilterQuality.high,
+                  isAntiAlias: true,
                 ),
         ),
       ),

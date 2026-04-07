@@ -12,7 +12,6 @@ class Toast extends StatelessWidget {
     required this.message,
     required this.icon,
     required this.backgroundColor,
-    required this.appIconColor,
     this.titleColor,
     this.messageColor,
     this.onDismiss,
@@ -23,7 +22,6 @@ class Toast extends StatelessWidget {
   final String icon;
   final VoidCallback? onDismiss;
   final Color backgroundColor;
-  final Color appIconColor;
   final Color? titleColor;
   final Color? messageColor;
 
@@ -43,17 +41,10 @@ class Toast extends StatelessWidget {
             width: 36,
             height: 36,
             decoration: BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
+              color: Colors.white.withValues(alpha: 0.4),
+              borderRadius: BorderRadius.circular(10),
             ),
-            child: Center(
-              child: SvgPicture.asset(
-                icon,
-                width: 18,
-                height: 18,
-                colorFilter: ColorFilter.mode(appIconColor, BlendMode.srcIn),
-              ),
-            ),
+            child: Center(child: SvgPicture.asset(icon, width: 25, height: 25)),
           ),
           const SizedBox(width: 6),
           Expanded(

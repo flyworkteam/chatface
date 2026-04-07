@@ -82,9 +82,9 @@
 			<string>UIInterfaceOrientationLandscapeRight</string>
 		</array>
 		<key>UIStatusBarHidden</key>
-		<true/>
-		<key>UIViewControllerBasedStatusBarAppearance</key>
 		<false/>
+		<key>UIViewControllerBasedStatusBarAppearance</key>
+		<true/>
 		<key>NSCameraUsageDescription</key>
 		<string>ChatFace uses your camera for video calls with AI characters.</string>
 		<key>NSMicrophoneUsageDescription</key>

@@ -15,11 +15,61 @@ final callSessionControllerProvider =
 class CallSessionController extends Notifier<CallSession?> {
   CallSessionController();
 
+  static const Set<String> _supportedConversationLanguages = {
+    'en',
+    'zh',
+    'de',
+    'it',
+    'fr',
+    'ja',
+    'es',
+    'ru',
+    'tr',
+    'ko',
+    'hi',
+    'pt',
+  };
+
   TtsPlaybackService get _ttsService =>
       ref.read(AllProviders.ttsPlaybackServiceProvider);
 
   @override
   CallSession? build() => null;
+
+  String? _normalizeConversationLanguage(String? value) {
+    final normalized = value?.trim().toLowerCase();
+    if (normalized == null || normalized.isEmpty) {
+      return null;
+    }
+
+    final aliased = switch (normalized) {
+      'ch' || 'cn' => 'zh',
+      'jp' => 'ja',
+      'kr' => 'ko',
+      'br' => 'pt',
+      _ => normalized,
+    };
+
+    return _supportedConversationLanguages.contains(aliased) ? aliased : null;
+  }
+
+  Future<String> _resolveInitialCallLanguage(PersonaProfile persona) async {
+    final storedLanguage = _normalizeConversationLanguage(
+      await ref.read(AllProviders.secureStorageServiceProvider).getLanguage(),
+    );
+    if (storedLanguage != null) {
+      return storedLanguage;
+    }
+
+    final explicitLanguage = _normalizeConversationLanguage(
+      persona.selectedLanguage,
+    );
+    if (explicitLanguage != null) {
+      return explicitLanguage;
+    }
+
+    return _normalizeConversationLanguage(persona.defaultLanguage) ?? 'en';
+  }
 
   Future<CallSession?> startCall({
     required PersonaProfile persona,
@@ -29,7 +79,10 @@ class CallSessionController extends Notifier<CallSession?> {
     await _ttsService.setOutputEnabled(true);
 
     final mode = callType == CallType.video ? 'video_call' : 'voice_call';
-    final selectedLanguage = persona.resolveLanguage(persona.selectedLanguage);
+    final selectedLanguage = await _resolveInitialCallLanguage(persona);
+    await ref
+        .read(AllProviders.secureStorageServiceProvider)
+        .saveLanguage(selectedLanguage);
 
     final session = await ref
         .read(aiSessionProvider.notifier)
@@ -38,9 +91,10 @@ class CallSessionController extends Notifier<CallSession?> {
       return null;
     }
 
-    await ref
-        .read(chatControllerProvider.notifier)
-        .startChat(persona, mode: mode);
+    await ref.read(chatControllerProvider.notifier).attachSession(
+          session,
+          persona: persona.copyWith(selectedLanguage: selectedLanguage),
+        );
 
     final sttStarted = await ref
         .read(sttControllerProvider.notifier)
@@ -75,10 +129,7 @@ class CallSessionController extends Notifier<CallSession?> {
     if (muted) {
       await stt.stopListening();
     } else {
-      final language =
-          current.selectedLanguage?.trim().toLowerCase().isNotEmpty == true
-          ? current.selectedLanguage!.trim().toLowerCase()
-          : 'en';
+      final language = current.selectedLanguage ?? 'en';
       await stt.startListening(localeId: language);
     }
 
@@ -109,7 +160,15 @@ class CallSessionController extends Notifier<CallSession?> {
 
   Future<void> changeLanguage(String languageCode) async {
     if (state == null) return;
-    final normalizedLanguage = languageCode.trim().toLowerCase();
+    final normalizedLanguage =
+        _normalizeConversationLanguage(languageCode) ?? 'en';
+    if (state!.selectedLanguage == normalizedLanguage) {
+      return;
+    }
+
+    await ref
+        .read(AllProviders.secureStorageServiceProvider)
+        .saveLanguage(normalizedLanguage);
 
     await ref
         .read(AllProviders.aiRepositoryProvider)

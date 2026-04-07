@@ -478,7 +478,7 @@ class TranslationsSettingsSupportEn {
 	String get title => 'Settings & Support';
 
 	/// en: 'Unlimited access to all features'
-	String get premiumTitle => 'Unlimited access to all features';
+	String get premiumTitle => 'Unlimited access \nto all features';
 
 	/// en: 'Get Premium'
 	String get getPremium => 'Get Premium';
@@ -837,7 +837,7 @@ class TranslationsOnboardingStep4En {
 	// Translations
 
 	/// en: 'Have Fun While Staying Safe'
-	String get title => 'Have Fun While \n Staying Safe';
+	String get title => 'Have Fun While \nStaying Safe';
 
 	/// en: 'We Maintain Order'
 	String get entry1 => 'We Maintain Order';
@@ -939,7 +939,7 @@ class TranslationsSplashScreen2En {
 	// Translations
 
 	/// en: 'Real-Time and Natural Communication'
-	String get title => 'Real-Time and Natural \n Communication';
+	String get title => 'Real-Time and Natural \nCommunication';
 
 	/// en: 'Don't be limited to text. Have more fluid, more human conversations through video calls.'
 	String get description => 'Don\'t be limited to text. Have more fluid, more human conversations through video calls.';
@@ -1190,7 +1190,7 @@ extension on Translations {
 			'onboarding.step3.male' => 'Male',
 			'onboarding.step3.female' => 'Female',
 			'onboarding.step3.dontWantToMention' => 'I don\'t want to mention it.',
-			'onboarding.step4.title' => 'Have Fun While \n Staying Safe',
+			'onboarding.step4.title' => 'Have Fun While \nStaying Safe',
 			'onboarding.step4.entry1' => 'We Maintain Order',
 			'onboarding.step4.subentry1' => 'Real-time AI Monitoring Open',
 			'onboarding.step4.entry2' => 'Screen Recordings',
@@ -1215,7 +1215,7 @@ extension on Translations {
 			'pressBackAgainToExit' => 'Press back again to exit',
 			'splash.screen1.title' => 'The New Face of Video \nChat with AI',
 			'splash.screen1.description' => 'Turn on your camera and talk face-to-face with AI. Experience more natural communication that understands facial expressions, tone of voice, and context.',
-			'splash.screen2.title' => 'Real-Time and Natural \n Communication',
+			'splash.screen2.title' => 'Real-Time and Natural \nCommunication',
 			'splash.screen2.description' => 'Don\'t be limited to text. Have more fluid, more human conversations through video calls.',
 			'auth.google' => 'Continue with Google',
 			'auth.facebook' => 'Continue with Facebook',
@@ -1295,7 +1295,7 @@ extension on Translations {
 			'editProfile.saved' => 'Saved',
 			'editProfile.changesSaved' => 'Changes have been saved.',
 			'settingsSupport.title' => 'Settings & Support',
-			'settingsSupport.premiumTitle' => 'Unlimited access to all features',
+			'settingsSupport.premiumTitle' => 'Unlimited access \nto all features',
 			'settingsSupport.getPremium' => 'Get Premium',
 			'settingsSupport.settingsHub' => 'Settings Hub',
 			'settingsSupport.shareTheApp' => 'Share the App',

@@ -1,6 +1,7 @@
 import 'package:chatface/Models/persona_model.dart';
-import 'package:chatface/Views/shared/widgets/character_grid_card.dart';
+import 'package:chatface/Views/HomeView/widgets/home_more_card.dart';
 import 'package:chatface/gen/strings.g.dart';
+import 'package:chatface/theme/app_text_styles.dart';
 import 'package:chatface/utils/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -19,19 +20,20 @@ class HomeMoreSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = context.t;
-    final actionLabel = t.characters.characters;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
             Text(
-              t.home.more,
-              style: Theme.of(
-                context,
-              ).textTheme.titleLarge?.copyWith(color: Colors.white),
+              context.t.home.more,
+              style: AppTextStyles.body(
+                22,
+                weight: FontWeight.w600,
+                letterSpacing: 0.05 / 22,
+                height: 22 * 1.15,
+                color: Colors.white,
+              ),
             ),
             const Spacer(),
             GestureDetector(
@@ -39,10 +41,14 @@ class HomeMoreSection extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    t.home.seeAll,
-                    style: Theme.of(
-                      context,
-                    ).textTheme.labelLarge?.copyWith(color: Colors.white),
+                    context.t.home.seeAll,
+                    style: AppTextStyles.body(
+                      14,
+                      weight: FontWeight.w600,
+                      letterSpacing: 0.1 / 14,
+                      height: 14 * 1.25,
+                      color: Colors.white,
+                    ),
                   ),
                   const SizedBox(width: 4),
                   Container(
@@ -78,10 +84,9 @@ class HomeMoreSection extends StatelessWidget {
           ),
           itemBuilder: (context, index) {
             final character = characters[index];
-            return CharacterGridCard(
+            return HomeMoreCard(
               character: character,
-              actionLabel: actionLabel,
-              onTap: () => onCharacterTap(character),
+              onTapCharacter: onCharacterTap,
             );
           },
         ),

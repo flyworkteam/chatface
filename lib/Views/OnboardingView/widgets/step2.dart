@@ -2,6 +2,7 @@ import 'package:chatface/gen/strings.g.dart';
 import 'package:chatface/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:intl/intl.dart';
 
 class Step2 extends HookWidget {
   const Step2({
@@ -17,56 +18,41 @@ class Step2 extends HookWidget {
 
   static const _itemExtent = 54.0;
 
+  /// Returns localized short month names for the given locale.
+  static List<String> _localizedMonths(String locale) {
+    return List.generate(12, (i) {
+      return DateFormat('MMM', locale).format(DateTime(2000, i + 1));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final t = context.t;
 
-    // Initial date: Jan 1, 2000
+    // Resolve locale from slang TranslationMetadata
+    final locale = LocaleSettings.currentLocale.languageTag; // e.g. "tr", "en"
+
     final now = DateTime.now();
     final defaultDate = initialDate ?? DateTime(2000, 1, 1);
 
-    // Month names
-    final months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-
-    // Day range 1-31
+    final months = _localizedMonths(locale);
     final days = List.generate(31, (i) => i + 1);
 
-    // Year range: [now.year - 100] to [now.year - 18]
     final minYear = now.year - 100;
     final maxYear = now.year - 18;
+    // Descending: years[0] = maxYear (youngest allowed)
     final years = List.generate(maxYear - minYear + 1, (i) => maxYear - i);
 
-    final selectedMonth = useState(defaultDate.month - 1); // 0-indexed
+    final selectedMonth = useState(defaultDate.month - 1);
     final selectedDay = useState(defaultDate.day - 1);
-    final selectedYearIndex = useState(
-      0,
-    ); // index in years list (years[0] = maxYear)
-
-    final monthController = useScrollController();
-    final dayController = useScrollController();
-    final yearController = useScrollController();
+    final selectedYearIndex = useState(0);
 
     void notifyChange() {
       final month = selectedMonth.value + 1;
       final day = selectedDay.value + 1;
       final year = years[selectedYearIndex.value];
-      // Clamp day to valid range
       final maxDay = DateUtils.getDaysInMonth(year, month);
-      final clampedDay = day.clamp(1, maxDay);
-      onDateChanged?.call(DateTime(year, month, clampedDay));
+      onDateChanged?.call(DateTime(year, month, day.clamp(1, maxDay)));
     }
 
     return SingleChildScrollView(
@@ -98,123 +84,65 @@ class Step2 extends HookWidget {
               height: _itemExtent * 5,
               child: Stack(
                 children: [
-                  // Center highlight line
-                  Positioned(
-                    top: _itemExtent * 2,
-                    left: 0,
-                    right: 0,
-                    height: _itemExtent,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.08),
-                        borderRadius: BorderRadius.circular(14),
-                        border: Border.all(
-                          color: Colors.white.withValues(alpha: 0.12),
-                          width: 1,
-                        ),
-                      ),
-                    ),
-                  ),
+                  // ── Wheel columns ─────────────────────────────────────────
                   Row(
                     children: [
-                      // Month picker
+                      // Month
                       Expanded(
                         flex: 3,
                         child: _WheelPicker(
                           itemCount: months.length,
                           itemExtent: _itemExtent,
                           initialIndex: selectedMonth.value,
-                          scrollController: monthController,
+                          selectedIndex: selectedMonth.value,
                           onSelectedItemChanged: (i) {
                             selectedMonth.value = i;
                             notifyChange();
                           },
                           itemBuilder: (ctx, i) => _WheelItem(
                             text: months[i],
-                            isSelected: selectedMonth.value == i,
+                            distance: (i - selectedMonth.value).abs(),
                           ),
                         ),
                       ),
-                      // Day picker
+                      // Day
                       Expanded(
                         flex: 2,
                         child: _WheelPicker(
                           itemCount: days.length,
                           itemExtent: _itemExtent,
                           initialIndex: selectedDay.value,
-                          scrollController: dayController,
+                          selectedIndex: selectedDay.value,
                           onSelectedItemChanged: (i) {
                             selectedDay.value = i;
                             notifyChange();
                           },
                           itemBuilder: (ctx, i) => _WheelItem(
                             text: days[i].toString().padLeft(2, '0'),
-                            isSelected: selectedDay.value == i,
+                            distance: (i - selectedDay.value).abs(),
                           ),
                         ),
                       ),
-                      // Year picker
+                      // Year
                       Expanded(
                         flex: 3,
                         child: _WheelPicker(
                           itemCount: years.length,
                           itemExtent: _itemExtent,
                           initialIndex: selectedYearIndex.value,
-                          scrollController: yearController,
+                          selectedIndex: selectedYearIndex.value,
                           onSelectedItemChanged: (i) {
                             selectedYearIndex.value = i;
                             notifyChange();
                           },
                           itemBuilder: (ctx, i) => _WheelItem(
                             text: years[i].toString(),
-                            isSelected: selectedYearIndex.value == i,
+                            distance: (i - selectedYearIndex.value).abs(),
                           ),
                         ),
                       ),
                     ],
                   ),
-                  // Top gradient fade
-                  // Positioned(
-                  //   top: 0,
-                  //   left: 0,
-                  //   right: 0,
-                  //   height: _itemExtent * 1.8,
-                  //   child: IgnorePointer(
-                  //     child: Container(
-                  //       decoration: BoxDecoration(
-                  //         gradient: LinearGradient(
-                  //           begin: Alignment.topCenter,
-                  //           end: Alignment.bottomCenter,
-                  //           colors: [
-                  //             Colors.black.withValues(alpha: 0.85),
-                  //             Colors.transparent,
-                  //           ],
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-                  // // Bottom gradient fade
-                  // Positioned(
-                  //   bottom: 0,
-                  //   left: 0,
-                  //   right: 0,
-                  //   height: _itemExtent * 1.8,
-                  //   child: IgnorePointer(
-                  //     child: Container(
-                  //       decoration: BoxDecoration(
-                  //         gradient: LinearGradient(
-                  //           begin: Alignment.bottomCenter,
-                  //           end: Alignment.topCenter,
-                  //           colors: [
-                  //             Colors.black.withValues(alpha: 0.85),
-                  //             Colors.transparent,
-                  //           ],
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                 ],
               ),
             ),
@@ -225,22 +153,24 @@ class Step2 extends HookWidget {
   }
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+
 class _WheelPicker extends StatefulWidget {
   const _WheelPicker({
     required this.itemCount,
     required this.itemExtent,
     required this.initialIndex,
+    required this.selectedIndex,
     required this.itemBuilder,
     required this.onSelectedItemChanged,
-    required this.scrollController,
   });
 
   final int itemCount;
   final double itemExtent;
   final int initialIndex;
+  final int selectedIndex; // live value for rebuilds
   final Widget Function(BuildContext, int) itemBuilder;
   final ValueChanged<int> onSelectedItemChanged;
-  final ScrollController scrollController;
 
   @override
   State<_WheelPicker> createState() => _WheelPickerState();
@@ -267,8 +197,8 @@ class _WheelPickerState extends State<_WheelPicker> {
       controller: _controller,
       itemExtent: widget.itemExtent,
       physics: const FixedExtentScrollPhysics(),
-      perspective: 0.003,
-      diameterRatio: 1.6,
+      perspective: 0.001,
+      diameterRatio: 3.0,
       onSelectedItemChanged: widget.onSelectedItemChanged,
       childDelegate: ListWheelChildBuilderDelegate(
         builder: widget.itemBuilder,
@@ -278,23 +208,45 @@ class _WheelPickerState extends State<_WheelPicker> {
   }
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+
 class _WheelItem extends StatelessWidget {
-  const _WheelItem({required this.text, required this.isSelected});
+  const _WheelItem({required this.text, required this.distance});
 
   final String text;
-  final bool isSelected;
+
+  /// Distance from the currently selected index (0 = selected).
+  final int distance;
+
+  // Opacity curve: 0→1.0, 1→0.45, 2→0.20, 3+→0.08
+  static const _opacities = [1.0, 0.45, 0.20, 0.08];
+
+  // Font size curve: 0→24, 1→20, 2→17, 3+→15
+  static const _sizes = [24.0, 20.0, 17.0, 15.0];
+
+  // Font weight curve
+  static const _weights = [
+    FontWeight.w700,
+    FontWeight.w500,
+    FontWeight.w400,
+    FontWeight.w300,
+  ];
 
   @override
   Widget build(BuildContext context) {
+    final idx = distance.clamp(0, 3);
+    final opacity = _opacities[idx];
+    final size = _sizes[idx];
+    final weight = _weights[idx];
+
     return Center(
       child: AnimatedDefaultTextStyle(
-        duration: const Duration(milliseconds: 150),
-        style: isSelected
-            ? AppTextStyles.heading(24, FontWeight.w700, color: Colors.white)
-            : AppTextStyles.body(
-                18,
-                color: Colors.white.withValues(alpha: 0.28),
-              ),
+        duration: const Duration(milliseconds: 180),
+        style: AppTextStyles.heading(
+          size,
+          weight,
+          color: Colors.white.withValues(alpha: opacity),
+        ),
         child: Text(text),
       ),
     );

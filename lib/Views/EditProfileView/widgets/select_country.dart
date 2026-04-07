@@ -40,9 +40,9 @@ class SelectCountry extends StatelessWidget {
     return Container(
       height: 46,
       decoration: BoxDecoration(
-        color: Colors.black.withValues(alpha: 0.28),
-        borderRadius: BorderRadius.circular(999),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.12)),
+        color: Colors.black.withValues(alpha: 0.5),
+        borderRadius: BorderRadius.circular(50),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.2)),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: DropdownButtonHideUnderline(
@@ -66,8 +66,8 @@ class SelectCountry extends StatelessWidget {
               final label = country.getTranslatedName(context) ?? country.name;
               return Row(
                 children: [
-                  Text(country.flagEmoji, style: const TextStyle(fontSize: 20)),
-                  const SizedBox(width: 10),
+                  Text(country.flagEmoji, style: AppTextStyles.body(20)),
+                  Spacer(),
                   Text(
                     label,
                     style: AppTextStyles.body(
@@ -76,6 +76,7 @@ class SelectCountry extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
+                  Spacer(),
                 ],
               );
             }).toList();
@@ -86,7 +87,7 @@ class SelectCountry extends StatelessWidget {
               value: country.countryCode,
               child: Row(
                 children: [
-                  Text(country.flagEmoji, style: const TextStyle(fontSize: 20)),
+                  Text(country.flagEmoji, style: AppTextStyles.body(20)),
                   const SizedBox(width: 10),
                   Expanded(
                     child: Text(

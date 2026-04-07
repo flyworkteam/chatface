@@ -1,4 +1,5 @@
 import 'package:chatface/gen/strings.g.dart';
+import 'package:chatface/theme/app_text_styles.dart';
 import 'package:chatface/utils/app_assets.dart';
 import 'package:flutter/material.dart';
 
@@ -7,42 +8,86 @@ class PremiumCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Image.asset(AppIcons.premiumBackground),
-        Container(
-          height: 120,
-          padding: const EdgeInsets.all(16),
-          child: Row(
+    return Container(
+      height: 120,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Colors.black.withValues(alpha: 0.5),
+            Color(0xffA32AC9).withValues(alpha: 0.3),
+          ],
+        ),
+        image: DecorationImage(
+          image: AssetImage(AppIcons.premiumBackground),
+          fit: BoxFit.cover,
+        ),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.2)),
+      ),
+      child: Row(
+        children: [
+          Spacer(flex: 4),
+          Text(
+            context.t.settingsSupport.premiumTitle,
+            style: AppTextStyles.body(
+              16,
+              color: Colors.white,
+              weight: FontWeight.w600,
+            ),
+          ),
+          Spacer(),
+          Stack(
             children: [
-              Image.asset(AppIcons.premium),
-              const SizedBox(width: 16),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    context.t.settingsSupport.premiumTitle,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                decoration: BoxDecoration(
+                  color: Color(0xffAD2CD5),
+                  borderRadius: BorderRadius.circular(50),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0x3F000000),
+                      blurRadius: 4,
+                      offset: Offset(0, 4),
+                      spreadRadius: 0,
+                    ),
+                  ],
+                ),
+
+                child: Text(
+                  context.t.settingsSupport.getPremium,
+                  style: AppTextStyles.body(
+                    12,
+                    weight: FontWeight.bold,
+                    color: Colors.white.withValues(alpha: 0.8),
+                  ),
+                ),
+              ),
+              Opacity(
+                opacity: 0.1,
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  decoration: ShapeDecoration(
+                    gradient: LinearGradient(
+                      colors: [Colors.black.withValues(alpha: 0), Colors.black],
+                      begin: Alignment(0.59, -0.00),
+                      end: Alignment(0.41, 1.00),
+                    ),
+
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
                     ),
                   ),
-                  const SizedBox(height: 4),
-                  Text(
+                  child: Text(
                     context.t.settingsSupport.getPremium,
-                    style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.8),
-                      fontSize: 14,
-                    ),
+                    style: AppTextStyles.body(14, color: Colors.transparent),
                   ),
-                ],
+                ),
               ),
             ],
           ),
-        ),
-      ],
+          SizedBox(width: 20),
+        ],
+      ),
     );
   }
 }

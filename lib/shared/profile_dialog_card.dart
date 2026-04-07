@@ -10,14 +10,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 class ProfileDialogCard extends StatelessWidget {
   const ProfileDialogCard({
     super.key,
-    required this.user,
+    this.user,
     this.onEdit,
     this.onSettings,
     this.profileLabel,
     this.settingsLabel,
   });
 
-  final user_model.UserProfile user;
+  final user_model.UserProfile? user;
   final VoidCallback? onEdit;
   final VoidCallback? onSettings;
   final String? profileLabel;
@@ -28,19 +28,19 @@ class ProfileDialogCard extends StatelessWidget {
     final textTheme = AppTextStyles.body(16, color: Colors.white);
     final profileText = profileLabel ?? context.t.profileEdit;
     final settingsText = settingsLabel ?? context.t.settings;
-    final imageUrl = user.profilePictureUrl;
-    final name = user.fullName?.trim().isNotEmpty == true
-        ? user.fullName!.trim()
-        : user.email?.trim().isNotEmpty == true
-        ? user.email!.trim()
+    final imageUrl = user?.profilePictureUrl;
+    final name = user?.fullName?.trim().isNotEmpty == true
+        ? user!.fullName!.trim()
+        : user?.email?.trim().isNotEmpty == true
+        ? user!.email!.trim()
         : 'User';
-    final subtitle = user.aboutMe?.trim().isNotEmpty == true
-        ? user.aboutMe!.trim()
+    final subtitle = user?.aboutMe?.trim().isNotEmpty == true
+        ? user!.aboutMe!.trim()
         : '';
-    final countryLabel = userCountryLabel(context, user.country);
-    final countryFlag = userCountryFlag(user.country);
-    final genderLabel = userGenderLabel(context, user.gender);
-    final normalizedGender = user.gender?.trim().toLowerCase();
+    final countryLabel = userCountryLabel(context, user?.country);
+    final countryFlag = userCountryFlag(user?.country);
+    final genderLabel = userGenderLabel(context, user?.gender);
+    final normalizedGender = user?.gender?.trim().toLowerCase();
     final genderIcon = normalizedGender == 'female'
         ? AppIcons.female
         : normalizedGender == 'male'
@@ -73,7 +73,7 @@ class ProfileDialogCard extends StatelessWidget {
                 const SizedBox(height: 16),
                 Row(
                   children: [
-                    Text(countryFlag, style: const TextStyle(fontSize: 16)),
+                    Text(countryFlag, style: AppTextStyles.body(16)),
                     const SizedBox(width: 8),
                     Flexible(
                       child: Text(
@@ -132,13 +132,20 @@ class _ImageSection extends StatelessWidget {
                 ? CustomCachedNetworkImage(
                     imageUrl: imageUrl!,
                     fit: BoxFit.cover,
-                    backgroundImage: AppImages.person7,
                   )
-                : Image.asset(AppImages.person7, fit: BoxFit.cover),
+                : Image(
+                    image: ResizeImage(
+                      AssetImage(AppImages.person7),
+                      width: 400,
+                    ),
+                    fit: BoxFit.contain,
+                    filterQuality: FilterQuality.high,
+                    isAntiAlias: true,
+                  ),
           ),
           Positioned(
-            left: 20,
-            right: 20,
+            left: 10,
+            right: 10,
             bottom: 20,
             child: Row(
               children: [
@@ -149,7 +156,7 @@ class _ImageSection extends StatelessWidget {
                     onTap: onEdit,
                   ),
                 ),
-                const SizedBox(width: 12),
+                const SizedBox(width: 10),
                 Expanded(
                   child: _OverlayActionButton(
                     iconAsset: AppIcons.settings,
@@ -210,8 +217,15 @@ class _OverlayActionButton extends StatelessWidget {
                   BlendMode.srcIn,
                 ),
               ),
-              const SizedBox(width: 8),
-              Text(label, style: AppTextStyles.body(12, color: Colors.white)),
+              const SizedBox(width: 5),
+              Flexible(
+                child: Text(
+                  label,
+                  style: AppTextStyles.body(13, color: Colors.white),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+              ),
             ],
           ),
         ),

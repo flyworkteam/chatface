@@ -96,7 +96,7 @@
       "dontWantToMention": "Belirtmek istemiyorum"
     },
     "step4": {
-      "title": "Eğlenin ve \n güvende kalın",
+      "title": "Eğlenin ve \ngüvende kalın",
       "entry1": "Güvenli bir deneyim sağlıyoruz",
       "subentry1": "Gerçek zamanlı AI izlemesi etkin",
       "entry2": "Ekran kaydı",
@@ -213,8 +213,8 @@
     "photo": "Photo",
     "photoUploadFailed": "Couldn't upload photo. Please try again.",
     "tapToViewPhoto": "Tap to view photo",
-    "voiceCallEnded": "Voice call ended",
-    "videoCallEnded": "Video call ended",
+    "voiceCallEnded": "Sesli arama sona erdi",
+    "videoCallEnded": "Video araması sona erdi",
     "uploadingPhoto": "Uploading photo...",
     "mediaPermissionDenied": "Allow camera or photo permissions to share images."
   },
@@ -234,7 +234,7 @@
   },
   "settingsSupport": {
     "title": "Ayarlar ve Destek",
-    "premiumTitle": "Tüm özelliklere sınırsız erişim",
+    "premiumTitle": "Tüm özelliklere \nsınırsız erişim",
     "getPremium": "Premium al",
     "settingsHub": "Ayarlar Merkezi",
     "shareTheApp": "Uygulamayı paylaş",

@@ -235,8 +235,8 @@ class _TranslationsChatTr implements TranslationsChatEn {
 	@override String get photo => 'Photo';
 	@override String get photoUploadFailed => 'Couldn\'t upload photo. Please try again.';
 	@override String get tapToViewPhoto => 'Tap to view photo';
-	@override String get voiceCallEnded => 'Voice call ended';
-	@override String get videoCallEnded => 'Video call ended';
+	@override String get voiceCallEnded => 'Sesli arama sona erdi';
+	@override String get videoCallEnded => 'Video araması sona erdi';
 	@override String get uploadingPhoto => 'Uploading photo...';
 	@override String get mediaPermissionDenied => 'Allow camera or photo permissions to share images.';
 }
@@ -270,7 +270,7 @@ class _TranslationsSettingsSupportTr implements TranslationsSettingsSupportEn {
 
 	// Translations
 	@override String get title => 'Ayarlar ve Destek';
-	@override String get premiumTitle => 'Tüm özelliklere sınırsız erişim';
+	@override String get premiumTitle => 'Tüm özelliklere \nsınırsız erişim';
 	@override String get getPremium => 'Premium al';
 	@override String get settingsHub => 'Ayarlar Merkezi';
 	@override String get shareTheApp => 'Uygulamayı paylaş';
@@ -444,7 +444,7 @@ class _TranslationsOnboardingStep4Tr implements TranslationsOnboardingStep4En {
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Eğlenin ve \n güvende kalın';
+	@override String get title => 'Eğlenin ve \ngüvende kalın';
 	@override String get entry1 => 'Güvenli bir deneyim sağlıyoruz';
 	@override String get subentry1 => 'Gerçek zamanlı AI izlemesi etkin';
 	@override String get entry2 => 'Ekran kaydı';
@@ -685,7 +685,7 @@ extension on TranslationsTr {
 			'onboarding.step3.male' => 'Erkek',
 			'onboarding.step3.female' => 'Kadın',
 			'onboarding.step3.dontWantToMention' => 'Belirtmek istemiyorum',
-			'onboarding.step4.title' => 'Eğlenin ve \n güvende kalın',
+			'onboarding.step4.title' => 'Eğlenin ve \ngüvende kalın',
 			'onboarding.step4.entry1' => 'Güvenli bir deneyim sağlıyoruz',
 			'onboarding.step4.subentry1' => 'Gerçek zamanlı AI izlemesi etkin',
 			'onboarding.step4.entry2' => 'Ekran kaydı',
@@ -773,8 +773,8 @@ extension on TranslationsTr {
 			'chat.photo' => 'Photo',
 			'chat.photoUploadFailed' => 'Couldn\'t upload photo. Please try again.',
 			'chat.tapToViewPhoto' => 'Tap to view photo',
-			'chat.voiceCallEnded' => 'Voice call ended',
-			'chat.videoCallEnded' => 'Video call ended',
+			'chat.voiceCallEnded' => 'Sesli arama sona erdi',
+			'chat.videoCallEnded' => 'Video araması sona erdi',
 			'chat.uploadingPhoto' => 'Uploading photo...',
 			'chat.mediaPermissionDenied' => 'Allow camera or photo permissions to share images.',
 			'editProfile.aboutMe' => 'Hakkımda',
@@ -790,7 +790,7 @@ extension on TranslationsTr {
 			'editProfile.saved' => 'Kaydedildi',
 			'editProfile.changesSaved' => 'Değişiklikler kaydedildi.',
 			'settingsSupport.title' => 'Ayarlar ve Destek',
-			'settingsSupport.premiumTitle' => 'Tüm özelliklere sınırsız erişim',
+			'settingsSupport.premiumTitle' => 'Tüm özelliklere \nsınırsız erişim',
 			'settingsSupport.getPremium' => 'Premium al',
 			'settingsSupport.settingsHub' => 'Ayarlar Merkezi',
 			'settingsSupport.shareTheApp' => 'Uygulamayı paylaş',

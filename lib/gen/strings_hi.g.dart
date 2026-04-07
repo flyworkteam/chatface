@@ -235,8 +235,8 @@ class _TranslationsChatHi implements TranslationsChatEn {
 	@override String get photo => 'Photo';
 	@override String get photoUploadFailed => 'Couldn\'t upload photo. Please try again.';
 	@override String get tapToViewPhoto => 'Tap to view photo';
-	@override String get voiceCallEnded => 'Voice call ended';
-	@override String get videoCallEnded => 'Video call ended';
+	@override String get voiceCallEnded => 'वॉइस कॉल समाप्त';
+	@override String get videoCallEnded => 'वीडियो कॉल समाप्त';
 	@override String get uploadingPhoto => 'Uploading photo...';
 	@override String get mediaPermissionDenied => 'Allow camera or photo permissions to share images.';
 }
@@ -270,7 +270,7 @@ class _TranslationsSettingsSupportHi implements TranslationsSettingsSupportEn {
 
 	// Translations
 	@override String get title => 'सेटिंग्स और सहायता';
-	@override String get premiumTitle => 'सभी सुविधाओं तक असीमित पहुँच';
+	@override String get premiumTitle => 'सभी सुविधाओं तक \nअसीमित पहुँच';
 	@override String get getPremium => 'प्रीमियम प्राप्त करें';
 	@override String get settingsHub => 'सेटिंग्स हब';
 	@override String get shareTheApp => 'ऐप साझा करें';
@@ -773,8 +773,8 @@ extension on TranslationsHi {
 			'chat.photo' => 'Photo',
 			'chat.photoUploadFailed' => 'Couldn\'t upload photo. Please try again.',
 			'chat.tapToViewPhoto' => 'Tap to view photo',
-			'chat.voiceCallEnded' => 'Voice call ended',
-			'chat.videoCallEnded' => 'Video call ended',
+			'chat.voiceCallEnded' => 'वॉइस कॉल समाप्त',
+			'chat.videoCallEnded' => 'वीडियो कॉल समाप्त',
 			'chat.uploadingPhoto' => 'Uploading photo...',
 			'chat.mediaPermissionDenied' => 'Allow camera or photo permissions to share images.',
 			'editProfile.aboutMe' => 'मेरे बारे में',
@@ -790,7 +790,7 @@ extension on TranslationsHi {
 			'editProfile.saved' => 'सहेजा गया',
 			'editProfile.changesSaved' => 'परिवर्तन सहेजे गए हैं।',
 			'settingsSupport.title' => 'सेटिंग्स और सहायता',
-			'settingsSupport.premiumTitle' => 'सभी सुविधाओं तक असीमित पहुँच',
+			'settingsSupport.premiumTitle' => 'सभी सुविधाओं तक \nअसीमित पहुँच',
 			'settingsSupport.getPremium' => 'प्रीमियम प्राप्त करें',
 			'settingsSupport.settingsHub' => 'सेटिंग्स हब',
 			'settingsSupport.shareTheApp' => 'ऐप साझा करें',

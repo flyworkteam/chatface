@@ -3,8 +3,8 @@ import 'dart:io' show Platform;
 import 'package:camerawesome/camerawesome_plugin.dart';
 import 'package:chatface/Models/persona_model.dart';
 import 'package:chatface/Views/VideoView/widgets/ai_character_display.dart';
-import 'package:chatface/Views/VideoView/widgets/video_sidebar.dart';
 import 'package:chatface/gen/strings.g.dart';
+import 'package:chatface/theme/app_text_styles.dart';
 import 'package:chatface/utils/app_assets.dart';
 import 'package:chatface/utils/print.dart';
 import 'package:flutter/material.dart';
@@ -22,9 +22,6 @@ class VideoActiveScreen extends StatelessWidget {
     required this.onClose,
     required this.onFollow,
     required this.onSwipeToChat,
-    required this.onFilterTapped,
-    required this.onCameraToggle,
-    required this.onRotate,
     required this.onCameraStateChanged,
     required this.isCameraEnabled,
     required this.cameraPosition,
@@ -33,8 +30,6 @@ class VideoActiveScreen extends StatelessWidget {
     required this.isCompanionSpeaking,
     required this.activeVisemeId,
     required this.activeVisemeDurationMs,
-
-    this.onLanguageTap,
     this.isFollowed = false,
   });
 
@@ -43,9 +38,6 @@ class VideoActiveScreen extends StatelessWidget {
   final VoidCallback onClose;
   final VoidCallback onFollow;
   final VoidCallback onSwipeToChat;
-  final VoidCallback onFilterTapped;
-  final VoidCallback onCameraToggle;
-  final VoidCallback onRotate;
   final ValueChanged<CameraState> onCameraStateChanged;
   final bool isCameraEnabled;
   final SensorPosition cameraPosition;
@@ -55,7 +47,6 @@ class VideoActiveScreen extends StatelessWidget {
   final double activeVisemeId;
   final double activeVisemeDurationMs;
 
-  final VoidCallback? onLanguageTap;
   final bool isFollowed;
 
   @override
@@ -105,20 +96,6 @@ class VideoActiveScreen extends StatelessWidget {
           ),
         ),
 
-        // Sol sidebar
-        Positioned(
-          left: 12,
-          top: MediaQuery.of(context).size.height * 0.35,
-          child: VideoSidebar(
-            onFilterTapped: onFilterTapped,
-            onCameraTap: onCameraToggle,
-            onRotateTap: onRotate,
-            cameraIconAsset: isCameraEnabled
-                ? AppIcons.videoCall
-                : AppIcons.cameraslash,
-          ),
-        ),
-
         // "Swipe to Chat >>" (sağ orta)
         Positioned(
           right: 14,
@@ -157,19 +134,19 @@ class VideoActiveScreen extends StatelessWidget {
         // Follow butonu (sol alt)
         Positioned(
           left: 16,
-          bottom: kToolbarHeight * 3.3,
+          bottom:
+              MediaQuery.of(context).padding.bottom +
+              kBottomNavigationBarHeight +
+              20,
           child: GestureDetector(
             onTap: onFollow,
             child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 12,
-                vertical: 7,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
               decoration: BoxDecoration(
                 gradient: isFollowed
                     ? null
                     : const LinearGradient(
-                        colors: [Color(0xFFB44CD6), Color(0xFFE040FB)],
+                        colors: [Color(0xFF753066), Color(0xFFD370FF)],
                       ),
                 color: isFollowed ? Colors.white.withValues(alpha: 0.2) : null,
                 borderRadius: BorderRadius.circular(18),
@@ -180,7 +157,7 @@ class VideoActiveScreen extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Image.asset(AppIcons.profileFolow, width: 16, height: 16),
+                  Image.asset(AppIcons.profileFolow, width: 25, height: 25),
                   const SizedBox(width: 6),
                   Text(
                     isFollowed
@@ -189,6 +166,7 @@ class VideoActiveScreen extends StatelessWidget {
                     style: GoogleFonts.rubik(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
+                      fontStyle: FontStyle.italic,
                       color: Colors.white,
                     ),
                   ),
@@ -201,7 +179,10 @@ class VideoActiveScreen extends StatelessWidget {
         // Kamera Preview (sağ alt) — CamerAwesome
         Positioned(
           right: 16,
-          bottom: kToolbarHeight * 3.3,
+          bottom:
+              MediaQuery.of(context).padding.bottom +
+              kBottomNavigationBarHeight +
+              20,
           child: Container(
             width: 106,
             height: 156,
@@ -269,10 +250,12 @@ class _SafeCameraPreview extends StatefulWidget {
 
 class _SafeCameraPreviewState extends State<_SafeCameraPreview> {
   late Future<bool> _cameraReadyFuture;
+  late SensorPosition _resolvedCameraPosition;
 
   @override
   void initState() {
     super.initState();
+    _resolvedCameraPosition = widget.cameraPosition;
     _cameraReadyFuture = _checkCameraAvailability();
   }
 
@@ -280,12 +263,20 @@ class _SafeCameraPreviewState extends State<_SafeCameraPreview> {
   void didUpdateWidget(covariant _SafeCameraPreview oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.cameraPosition != widget.cameraPosition) {
+      _resolvedCameraPosition = widget.cameraPosition;
       _cameraReadyFuture = _checkCameraAvailability();
     }
   }
 
   Future<bool> _checkCameraAvailability() async {
     try {
+      // Camerawesome getSensors is not implemented on Android and returns
+      // empty data, so sensor counts would be false-negative.
+      if (Platform.isAndroid) {
+        _resolvedCameraPosition = widget.cameraPosition;
+        return true;
+      }
+
       if (Platform.isIOS &&
           (Platform.environment.containsKey('SIMULATOR_DEVICE_NAME') ||
               Platform.environment.containsKey('SIMULATOR_MODEL_IDENTIFIER') ||
@@ -296,16 +287,33 @@ class _SafeCameraPreviewState extends State<_SafeCameraPreview> {
       final sensors = await CamerawesomePlugin.getSensors();
       final hasFrontCamera = sensors.availableFrontSensors > 0;
       final hasBackCamera = sensors.availableBackSensors > 0;
-      return widget.cameraPosition == SensorPosition.front
-          ? hasFrontCamera
-          : hasBackCamera;
+      Print.info(
+        'Camera availability - Front: $hasFrontCamera, Back: $hasBackCamera',
+        tag: 'VideoActiveScreen',
+      );
+      if (!hasFrontCamera && !hasBackCamera) {
+        return false;
+      }
+
+      if (widget.cameraPosition == SensorPosition.front) {
+        _resolvedCameraPosition = hasFrontCamera
+            ? SensorPosition.front
+            : SensorPosition.back;
+      } else {
+        _resolvedCameraPosition = hasBackCamera
+            ? SensorPosition.back
+            : SensorPosition.front;
+      }
+      return true;
     } catch (error, stackTrace) {
       Print.error(
         'Camera preflight failed: $error',
         tag: 'VideoActiveScreen',
         st: stackTrace,
       );
-      return false;
+      // Do not block camera rendering on transient preflight issues.
+      _resolvedCameraPosition = widget.cameraPosition;
+      return true;
     }
   }
 
@@ -334,7 +342,7 @@ class _SafeCameraPreviewState extends State<_SafeCameraPreview> {
 
         return CameraAwesomeBuilder.previewOnly(
           sensorConfig: SensorConfig.single(
-            sensor: Sensor.position(widget.cameraPosition),
+            sensor: Sensor.position(_resolvedCameraPosition),
           ),
           filter: widget.selectedFilter,
           builder: (state, preview) {
@@ -367,7 +375,7 @@ class _CameraUnavailablePlaceholder extends StatelessWidget {
               Text(
                 label,
                 textAlign: TextAlign.center,
-                style: const TextStyle(color: Colors.white70, fontSize: 12),
+                style: AppTextStyles.body(12, color: Colors.white70),
               ),
             ],
           ),

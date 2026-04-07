@@ -90,7 +90,6 @@ class CustomFormTextField extends HookWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final textTheme = theme.textTheme;
 
     final double resolvedRadius = borderRadius ?? AppBorderRadius.xl;
     final EdgeInsetsGeometry resolvedPadding =
@@ -154,7 +153,7 @@ class CustomFormTextField extends HookWidget {
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: validator,
       inputFormatters: inputFormatters,
-      style: textTheme.bodyLarge,
+      style: AppTextStyles.body(16, color: colorScheme.onSurface),
       decoration: InputDecoration(
         labelText: label,
         hintText: hintText,
@@ -170,9 +169,12 @@ class CustomFormTextField extends HookWidget {
               14,
               color: colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
             ),
-        labelStyle: textTheme.bodyMedium,
-        helperStyle: textTheme.bodySmall,
-        errorStyle: textTheme.bodySmall?.copyWith(color: resolvedErrorBorder),
+        labelStyle: AppTextStyles.body(14, color: colorScheme.onSurface),
+        helperStyle: AppTextStyles.body(
+          12,
+          color: colorScheme.onSurfaceVariant,
+        ),
+        errorStyle: AppTextStyles.body(12, color: resolvedErrorBorder),
         border: outline(resolvedBorder),
         enabledBorder: outline(resolvedBorder),
         disabledBorder: outline(

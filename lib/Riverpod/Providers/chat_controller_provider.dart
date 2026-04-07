@@ -5,7 +5,9 @@ import 'package:chatface/Models/ai_session_model.dart';
 import 'package:chatface/Models/persona_model.dart';
 import 'package:chatface/Riverpod/Providers/ai_session_provider.dart';
 import 'package:chatface/Riverpod/Providers/all_providers.dart';
+import 'package:chatface/Riverpod/Providers/conversation_history_provider.dart';
 import 'package:chatface/Riverpod/Providers/tts_playback_provider.dart';
+import 'package:chatface/Services/realtime_gateway.dart';
 import 'package:chatface/utils/print.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:riverpod/riverpod.dart';
@@ -81,6 +83,8 @@ class ChatController extends Notifier<ChatState> {
       _ackSub?.cancel();
       _memorySub?.cancel();
       _markerSub?.cancel();
+      _languageSub?.cancel();
+      _ttsLookupFailureSub?.cancel();
     });
     return ChatState.initial();
   }
@@ -93,6 +97,8 @@ class ChatController extends Notifier<ChatState> {
   StreamSubscription<String>? _ackSub;
   StreamSubscription<MemoryUpdateEvent>? _memorySub;
   StreamSubscription<AiMessage>? _markerSub;
+  StreamSubscription<LanguageUpdatedEvent>? _languageSub;
+  StreamSubscription<TtsLookupFailureEvent>? _ttsLookupFailureSub;
   StringBuffer? _streamingBuffer;
   int? _streamingMessageId;
   bool _isFetchingPage = false;
@@ -109,6 +115,10 @@ class ChatController extends Notifier<ChatState> {
     );
   }
 
+  void _refreshConversationHistory() {
+    ref.invalidate(conversationHistoryProvider);
+  }
+
   Future<void> startChat(PersonaProfile persona, {String mode = 'chat'}) async {
     final existing = ref.read(aiSessionProvider);
     AiSession? session;
@@ -122,7 +132,7 @@ class ChatController extends Notifier<ChatState> {
           .read(aiSessionProvider.notifier)
           .startSession(
             persona: persona,
-            language: persona.defaultLanguage,
+            language: persona.resolveLanguage(persona.selectedLanguage),
             mode: mode,
           );
     }
@@ -132,10 +142,10 @@ class ChatController extends Notifier<ChatState> {
       return;
     }
 
-    await _attachSession(session, persona: persona);
+    await attachSession(session, persona: persona);
   }
 
-  Future<void> _attachSession(
+  Future<void> attachSession(
     AiSession session, {
     PersonaProfile? persona,
   }) async {
@@ -177,6 +187,12 @@ class ChatController extends Notifier<ChatState> {
     _memorySub = gateway.memoryEvents.listen(_handleMemoryEvent);
     _markerSub?.cancel();
     _markerSub = gateway.conversationMarkers.listen(_handleConversationMarker);
+    _languageSub?.cancel();
+    _languageSub = gateway.languageEvents.listen(_handleLanguageUpdated);
+    _ttsLookupFailureSub?.cancel();
+    _ttsLookupFailureSub = gateway.ttsLookupFailures.listen(
+      _handleTtsLookupFailure,
+    );
 
     state = state.copyWith(
       session: session,
@@ -188,7 +204,30 @@ class ChatController extends Notifier<ChatState> {
     );
 
     _historySessionId = session.id;
+    ref.read(aiSessionProvider.notifier).setSession(session);
+    final storage = ref.read(AllProviders.secureStorageServiceProvider);
+    await storage.saveActivePersonaId(session.personaId);
+    await storage.saveActiveSessionId(session.id);
     await _loadNextPage();
+  }
+
+  void _handleLanguageUpdated(LanguageUpdatedEvent event) {
+    final currentSession = state.session;
+    if (currentSession == null || currentSession.id != event.sessionId) {
+      return;
+    }
+
+    ref.read(aiSessionProvider.notifier).updateLanguage(event.language);
+    state = state.copyWith(
+      session: AiSession(
+        id: currentSession.id,
+        personaId: currentSession.personaId,
+        languageCode: event.language,
+        mode: currentSession.mode,
+        persona: currentSession.persona,
+        resumeToken: currentSession.resumeToken,
+      ),
+    );
   }
 
   void fetchNextPage() {
@@ -254,6 +293,54 @@ class ChatController extends Notifier<ChatState> {
     }
   }
 
+  Future<void> _refreshCurrentConversation() async {
+    final sessionId = _historySessionId;
+    if (sessionId == null) {
+      return;
+    }
+
+    try {
+      final page = await ref
+          .read(AllProviders.aiRepositoryProvider)
+          .fetchConversationMessages(sessionId: sessionId, limit: _pageSize);
+      final fetchedMessages = page.messages;
+      final fetchedIds = fetchedMessages.map((message) => message.id).toSet();
+      final oldestFetchedId = fetchedMessages.isEmpty
+          ? null
+          : fetchedMessages.last.id;
+      final preservedTail = oldestFetchedId == null
+          ? const <AiMessage>[]
+          : state.messages
+                .where(
+                  (message) =>
+                      message.id < oldestFetchedId &&
+                      !fetchedIds.contains(message.id),
+                )
+                .toList(growable: false);
+
+      final combinedMessages = <AiMessage>[
+        ...fetchedMessages,
+        ...preservedTail,
+      ];
+      final currentKey = combinedMessages.isEmpty
+          ? null
+          : combinedMessages.last.id;
+      state = state.copyWith(
+        messages: combinedMessages,
+        pagingState: state.pagingState.copyWith(
+          pages: <List<AiMessage>>[combinedMessages],
+          keys: <int?>[currentKey],
+          hasNextPage: page.nextBeforeId != null || preservedTail.isNotEmpty,
+          isLoading: false,
+          error: null,
+        ),
+        historyLoaded: true,
+      );
+    } catch (error, stackTrace) {
+      Print.error('Failed to resync chat history: $error', st: stackTrace);
+    }
+  }
+
   void _handleAssistantEvent(AssistantEvent event) {
     if (event.type == 'assistant_delta') {
       _streamingBuffer ??= StringBuffer();
@@ -263,6 +350,8 @@ class ChatController extends Notifier<ChatState> {
     } else if (event.type == 'assistant_done') {
       _finalizeStreamingMessage(event);
       state = state.copyWith(isTyping: false);
+      unawaited(_refreshCurrentConversation());
+      _refreshConversationHistory();
     }
   }
 
@@ -289,6 +378,7 @@ class ChatController extends Notifier<ChatState> {
           : DateTime.now(),
       isStreaming: true,
       conversationStatus: 'active',
+      isPersisted: false,
     );
 
     final updatedMessages = List<AiMessage>.from(state.messages);
@@ -320,6 +410,7 @@ class ChatController extends Notifier<ChatState> {
           : DateTime.now(),
       isStreaming: false,
       conversationStatus: 'active',
+      isPersisted: false,
     );
 
     final updatedMessages = List<AiMessage>.from(state.messages);
@@ -400,6 +491,7 @@ class ChatController extends Notifier<ChatState> {
       conversationStatus: 'ended',
       insertLocally: false,
     );
+    _refreshConversationHistory();
   }
 
   void requestTts(int messageId) {
@@ -407,6 +499,14 @@ class ChatController extends Notifier<ChatState> {
     if (session == null) return;
 
     ref.read(AllProviders.realtimeGatewayProvider).requestTts(messageId);
+  }
+
+  void _handleTtsLookupFailure(TtsLookupFailureEvent event) {
+    Print.info(
+      'Recovering stale TTS lookup for message ${event.messageId}',
+      tag: 'ChatController',
+    );
+    unawaited(_refreshCurrentConversation());
   }
 
   void _handleAckEvent(String clientMessageId) {
@@ -450,5 +550,6 @@ class ChatController extends Notifier<ChatState> {
 
     state = state.copyWith(messages: updatedMessages);
     _updatePagingFromMessages();
+    _refreshConversationHistory();
   }
 }

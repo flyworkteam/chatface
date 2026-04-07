@@ -72,12 +72,6 @@ class OnboardingView extends HookConsumerWidget {
 
     bool shouldSkipStep(int step) {
       switch (step) {
-        case 0:
-          return hasExistingName;
-        case 1:
-          return hasExistingAge;
-        case 2:
-          return hasExistingGender;
         default:
           return false;
       }
@@ -131,6 +125,10 @@ class OnboardingView extends HookConsumerWidget {
 
     useEffect(() {
       if (hasResolvedInitialStep.value) return null;
+      if (currentStep.value != 0) {
+        hasResolvedInitialStep.value = true;
+        return null;
+      }
       if (profileAsync.isLoading) return null;
 
       final target = shouldSkipStep(0) ? (findNextStep(0) ?? _kLoadingStep) : 0;
@@ -275,6 +273,10 @@ class OnboardingView extends HookConsumerWidget {
                     controller: pageController,
                     physics: const NeverScrollableScrollPhysics(),
                     onPageChanged: (index) {
+                      if (currentStep.value >= _kLoadingStep &&
+                          index < _kLoadingStep) {
+                        return;
+                      }
                       currentStep.value = index;
                     },
                     children: [
@@ -352,7 +354,7 @@ class OnboardingView extends HookConsumerWidget {
                               label: buttonLabel(),
                               size: CustomButtonSize.large,
                               fullWidth: true,
-                              borderRadius: 18,
+                              borderRadius: 50,
                               labelStyle: AppTextStyles.body(
                                 16,
                                 weight: FontWeight.w700,

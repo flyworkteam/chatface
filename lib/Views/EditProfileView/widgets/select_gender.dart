@@ -41,9 +41,9 @@ class SelectGender extends StatelessWidget {
     return Container(
       height: 46,
       decoration: BoxDecoration(
-        color: Colors.black.withValues(alpha: 0.28),
-        borderRadius: BorderRadius.circular(999),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.12)),
+        color: Colors.black.withValues(alpha: 0.5),
+        borderRadius: BorderRadius.circular(50),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.2)),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: DropdownButtonHideUnderline(
@@ -66,15 +66,18 @@ class SelectGender extends StatelessWidget {
               return Row(
                 children: [
                   SvgPicture.asset(gender.flagAsset, width: 22, height: 22),
-                  const SizedBox(width: 10),
-                  Text(
-                    gender.label,
-                    style: AppTextStyles.body(
-                      14,
-                      weight: FontWeight.bold,
-                      color: Colors.white,
+                  Spacer(),
+                  Center(
+                    child: Text(
+                      gender.label,
+                      style: AppTextStyles.body(
+                        14,
+                        weight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
+                  Spacer(),
                 ],
               );
             }).toList();

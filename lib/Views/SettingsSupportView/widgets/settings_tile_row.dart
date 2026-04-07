@@ -7,11 +7,13 @@ class SettingsTileRow extends StatelessWidget {
   final String label;
   final Widget? trailing;
   final VoidCallback? onTap;
+  final bool isSwitch;
   const SettingsTileRow({
     super.key,
     required this.icon,
     required this.label,
     this.trailing,
+    this.isSwitch = false,
     this.onTap,
   });
 
@@ -21,7 +23,10 @@ class SettingsTileRow extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(16),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        padding: EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: isSwitch ? 7 : 14,
+        ),
         child: Row(
           children: [
             SvgPicture.asset(icon),
@@ -29,7 +34,7 @@ class SettingsTileRow extends StatelessWidget {
             Expanded(
               child: Text(
                 label,
-                style: AppTextStyles.body(15, color: Colors.white),
+                style: AppTextStyles.body(15, color: Colors.white, height: 20),
               ),
             ),
             ?trailing,

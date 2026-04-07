@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:chatface/theme/app_text_styles.dart';
 
 class StatusIndicator extends StatelessWidget {
   const StatusIndicator({
@@ -37,9 +38,13 @@ class StatusIndicator extends StatelessWidget {
           const SizedBox(width: 6),
           Text(
             label,
-            style: Theme.of(
-              context,
-            ).textTheme.labelMedium?.copyWith(color: Colors.white),
+            style: AppTextStyles.body(
+              12,
+              weight: FontWeight.w600,
+              letterSpacing: 0.4 / 12,
+              height: 12 * 1.25,
+              color: Colors.white,
+            ),
           ),
         ],
       ),

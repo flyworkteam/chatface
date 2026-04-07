@@ -235,8 +235,8 @@ class _TranslationsChatDe implements TranslationsChatEn {
 	@override String get photo => 'Photo';
 	@override String get photoUploadFailed => 'Couldn\'t upload photo. Please try again.';
 	@override String get tapToViewPhoto => 'Tap to view photo';
-	@override String get voiceCallEnded => 'Voice call ended';
-	@override String get videoCallEnded => 'Video call ended';
+	@override String get voiceCallEnded => 'Sprachanruf beendet';
+	@override String get videoCallEnded => 'Videoanruf beendet';
 	@override String get uploadingPhoto => 'Uploading photo...';
 	@override String get mediaPermissionDenied => 'Allow camera or photo permissions to share images.';
 }
@@ -270,7 +270,7 @@ class _TranslationsSettingsSupportDe implements TranslationsSettingsSupportEn {
 
 	// Translations
 	@override String get title => 'Einstellungen & Support';
-	@override String get premiumTitle => 'Unbegrenzter Zugriff auf alle Funktionen';
+	@override String get premiumTitle => 'Unbegrenzter Zugriff \nauf alle Funktionen';
 	@override String get getPremium => 'Premium erhalten';
 	@override String get settingsHub => 'Einstellungszentrum';
 	@override String get shareTheApp => 'App teilen';
@@ -444,7 +444,7 @@ class _TranslationsOnboardingStep4De implements TranslationsOnboardingStep4En {
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Hab Spaß und \n bleib sicher';
+	@override String get title => 'Hab Spaß und \nbleib sicher';
 	@override String get entry1 => 'Wir sorgen für Ordnung';
 	@override String get subentry1 => 'Echtzeit-AI-Überwachung aktiv';
 	@override String get entry2 => 'Bildschirmaufzeichnungen';
@@ -685,7 +685,7 @@ extension on TranslationsDe {
 			'onboarding.step3.male' => 'Männlich',
 			'onboarding.step3.female' => 'Weiblich',
 			'onboarding.step3.dontWantToMention' => 'Möchte ich nicht angeben.',
-			'onboarding.step4.title' => 'Hab Spaß und \n bleib sicher',
+			'onboarding.step4.title' => 'Hab Spaß und \nbleib sicher',
 			'onboarding.step4.entry1' => 'Wir sorgen für Ordnung',
 			'onboarding.step4.subentry1' => 'Echtzeit-AI-Überwachung aktiv',
 			'onboarding.step4.entry2' => 'Bildschirmaufzeichnungen',
@@ -773,8 +773,8 @@ extension on TranslationsDe {
 			'chat.photo' => 'Photo',
 			'chat.photoUploadFailed' => 'Couldn\'t upload photo. Please try again.',
 			'chat.tapToViewPhoto' => 'Tap to view photo',
-			'chat.voiceCallEnded' => 'Voice call ended',
-			'chat.videoCallEnded' => 'Video call ended',
+			'chat.voiceCallEnded' => 'Sprachanruf beendet',
+			'chat.videoCallEnded' => 'Videoanruf beendet',
 			'chat.uploadingPhoto' => 'Uploading photo...',
 			'chat.mediaPermissionDenied' => 'Allow camera or photo permissions to share images.',
 			'editProfile.aboutMe' => 'Über mich',
@@ -790,7 +790,7 @@ extension on TranslationsDe {
 			'editProfile.saved' => 'Gespeichert',
 			'editProfile.changesSaved' => 'Änderungen wurden gespeichert.',
 			'settingsSupport.title' => 'Einstellungen & Support',
-			'settingsSupport.premiumTitle' => 'Unbegrenzter Zugriff auf alle Funktionen',
+			'settingsSupport.premiumTitle' => 'Unbegrenzter Zugriff \nauf alle Funktionen',
 			'settingsSupport.getPremium' => 'Premium erhalten',
 			'settingsSupport.settingsHub' => 'Einstellungszentrum',
 			'settingsSupport.shareTheApp' => 'App teilen',

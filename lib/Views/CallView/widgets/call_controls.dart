@@ -1,4 +1,6 @@
+import 'package:chatface/utils/app_assets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 /// Alt kontrol butonları: Mikrofon toggle, Kırmızı kapatma, Hoparlör toggle
 /// Tasarımdaki 3 butonlu kontrol çubuğu
@@ -25,8 +27,8 @@ class CallControls extends StatelessWidget {
       children: [
         // Mikrofon butonu
         _ControlButton(
-          icon: isMicMuted ? Icons.mic_off_rounded : Icons.mic_rounded,
-          backgroundColor: Colors.white.withValues(alpha: 0.2),
+          icon: isMicMuted ? AppIcons.callmicrophone : AppIcons.callmicrophone,
+          backgroundColor: Colors.white.withValues(alpha: 0.5),
           iconColor: Colors.white,
           onTap: onMicToggle,
           isActive: !isMicMuted,
@@ -34,20 +36,16 @@ class CallControls extends StatelessWidget {
         const SizedBox(width: 24),
         // Kapatma butonu (kırmızı)
         _ControlButton(
-          icon: Icons.call_end_rounded,
-          backgroundColor: const Color(0xFFB33A3A),
+          icon: AppIcons.callclose,
+          backgroundColor: const Color(0xFFF44336).withValues(alpha: 0.5),
           iconColor: Colors.white,
           onTap: onEndCall,
-          size: 70,
-          iconSize: 32,
         ),
         const SizedBox(width: 24),
         // Hoparlör butonu
         _ControlButton(
-          icon: isSpeakerOn
-              ? Icons.volume_up_rounded
-              : Icons.volume_off_rounded,
-          backgroundColor: Colors.white.withValues(alpha: 0.2),
+          icon: isSpeakerOn ? AppIcons.callvolume : AppIcons.callvolume,
+          backgroundColor: Colors.white.withValues(alpha: 0.5),
           iconColor: Colors.white,
           onTap: onSpeakerToggle,
           isActive: isSpeakerOn,
@@ -63,17 +61,15 @@ class _ControlButton extends StatelessWidget {
     required this.backgroundColor,
     required this.iconColor,
     required this.onTap,
-    this.size = 60,
-    this.iconSize = 28,
+
     this.isActive = true,
   });
 
-  final IconData icon;
+  final String icon;
   final Color backgroundColor;
   final Color iconColor;
   final VoidCallback onTap;
-  final double size;
-  final double iconSize;
+
   final bool isActive;
 
   @override
@@ -81,16 +77,19 @@ class _ControlButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: size,
-        height: size,
+        width: 60,
+        height: 60,
         decoration: BoxDecoration(
           color: backgroundColor,
-          shape: BoxShape.circle,
+          borderRadius: BorderRadius.circular(50),
         ),
-        child: Icon(
-          icon,
-          color: iconColor,
-          size: iconSize,
+        child: Center(
+          child: SvgPicture.asset(
+            icon,
+            color: iconColor,
+            width: 28,
+            height: 28,
+          ),
         ),
       ),
     );

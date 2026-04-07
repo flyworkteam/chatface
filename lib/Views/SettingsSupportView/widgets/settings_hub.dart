@@ -17,7 +17,6 @@ class SettingsHub extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notificationsEnabled = useState(false);
     final notificationsettings = ref.watch(notificationSettingsProvider);
     return Container(
       decoration: BoxDecoration(
@@ -63,14 +62,16 @@ class SettingsHub extends HookConsumerWidget {
               final isEnabled = settings?.notificationsEnabled ?? false;
               return SettingsTileRow(
                 icon: AppIcons.notifications,
+                isSwitch: true,
                 label: context.t.settingsSupport.notifications,
                 trailing: Switch(
+                  padding: EdgeInsets.zero,
                   value: isEnabled,
                   onChanged: (v) async => await ref
                       .read(notificationSettingsProvider.notifier)
                       .toggleNotifications(v),
-                  activeThumbColor: Colors.white,
-                  activeTrackColor: Colors.purpleAccent,
+                  activeThumbColor: Color(0xff774487),
+                  activeTrackColor: Colors.white,
                   inactiveThumbColor: Colors.white54,
                   inactiveTrackColor: Colors.white24,
                 ),

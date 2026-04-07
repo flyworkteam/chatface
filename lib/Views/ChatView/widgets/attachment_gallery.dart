@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chatface/Models/ai_message_model.dart';
+import 'package:chatface/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 Future<void> showAttachmentGallery(
@@ -104,7 +105,7 @@ class _AttachmentGalleryViewState extends State<_AttachmentGalleryView> {
               child: Text(
                 '${_index + 1} / ${widget.attachments.length}',
                 textAlign: TextAlign.center,
-                style: const TextStyle(color: Colors.white70, fontSize: 14),
+                style: AppTextStyles.body(14, color: Colors.white70),
               ),
             ),
           ],

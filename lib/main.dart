@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:chatface/Core/Routes/app_routes.dart';
+import 'package:chatface/Riverpod/Providers/all_providers.dart';
 import 'package:chatface/Riverpod/Providers/notification_provider.dart';
 import 'package:chatface/Services/secure_storage_service.dart';
 import 'package:chatface/Views/SplashView/splash_view.dart';
 import 'package:chatface/firebase_options.dart';
 import 'package:chatface/gen/strings.g.dart';
+import 'package:chatface/theme/app_text_styles.dart';
 import 'package:chatface/utils/constants.dart';
 import 'package:chatface/utils/print.dart' hide LogLevel;
 import 'package:firebase_core/firebase_core.dart';
@@ -14,7 +18,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 // import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:rive/rive.dart';
@@ -42,6 +45,12 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.light,
+    ),
+  );
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   FlutterNativeSplash.remove();
@@ -53,6 +62,28 @@ void main() async {
 
   final container = ProviderContainer();
 
+  Future<void> syncNotificationPreferenceWithBackend(bool enabled) async {
+    try {
+      final storageService = container.read(
+        AllProviders.secureStorageServiceProvider,
+      );
+      final accessToken = await storageService.getAccessToken();
+
+      // Backend toggle requires auth; skip until guest/login flow persists token.
+      if (accessToken == null || accessToken.isEmpty) {
+        Print.info(
+          'Skipping notification sync because access token is not available yet.',
+        );
+        return;
+      }
+
+      final notificationRepo = container.read(notificationRepositoryProvider);
+      await notificationRepo.toggleNotifications(enabled);
+    } catch (e) {
+      Print.error('Failed to sync notification preference: $e');
+    }
+  }
+
   OneSignal.User.pushSubscription.addObserver((state) {
     final id = state.current.id;
     final isOptedIn = state.current.optedIn;
@@ -61,14 +92,10 @@ void main() async {
     );
 
     if (id != null && id.isNotEmpty && isOptedIn == true) {
-      try {
-        final notificationRepo = container.read(notificationRepositoryProvider);
-        notificationRepo.toggleNotifications(true);
-        Print.info("📢 OneSignal id sent to backend: $id (subscribed)");
-      } catch (e) {
-        Print.error('Error saving OneSignal id from observer: $e');
-      }
+      unawaited(syncNotificationPreferenceWithBackend(true));
+      Print.info("📢 OneSignal id sent to backend: $id (subscribed)");
     } else if (id != null && isOptedIn != true) {
+      unawaited(syncNotificationPreferenceWithBackend(false));
       Print.info(
         "⚠️ OneSignal ID exists but user is not subscribed. Not saving to backend.",
       );
@@ -80,20 +107,12 @@ void main() async {
   Print.info("📢 Initial OneSignal - ID: $initialId, OptedIn: $initialOptedIn");
 
   if (initialId != null && initialId.isNotEmpty && initialOptedIn == true) {
-    try {
-      final notificationRepo = container.read(notificationRepositoryProvider);
-      notificationRepo.toggleNotifications(true);
-      Print.info(
-        '📢 Initial OneSignal id sent to backend: $initialId (subscribed)',
-      );
-    } catch (e) {
-      Print.error('Error sending initial OneSignal id: $e');
-    }
+    unawaited(syncNotificationPreferenceWithBackend(true));
+    Print.info(
+      '📢 Initial OneSignal id sent to backend: $initialId (subscribed)',
+    );
   } else if (initialId != null && initialOptedIn != true) {
-    try {
-      final notificationRepo = container.read(notificationRepositoryProvider);
-      notificationRepo.toggleNotifications(false);
-    } catch (_) {}
+    unawaited(syncNotificationPreferenceWithBackend(false));
     Print.info(
       '⚠️ Initial OneSignal ID exists but user not subscribed. Waiting for opt-in...',
     );
@@ -112,7 +131,7 @@ void main() async {
   }
 
   final savedLanguageCode = await storageService.getLanguage();
-
+  Print.info('Saved language code from storage: $savedLanguageCode');
   if (savedLanguageCode != null) {
     try {
       final locale = AppLocaleUtils.parseLocaleParts(
@@ -139,18 +158,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: Constants.appName,
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
-        textTheme: GoogleFonts.rubikTextTheme(Theme.of(context).textTheme),
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.light,
+        systemNavigationBarColor: Colors.black,
       ),
-      home: const SplashView(),
-      locale: TranslationProvider.of(context).flutterLocale,
-      supportedLocales: AppLocaleUtils.supportedLocales,
-      localizationsDelegates: GlobalMaterialLocalizations.delegates,
-      routes: AppRoutes.getRoutes(),
+      child: MaterialApp(
+        title: Constants.appName,
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          useMaterial3: true,
+          textTheme: AppTextStyles.textTheme(Theme.of(context).colorScheme),
+        ),
+        home: const SplashView(),
+        locale: TranslationProvider.of(context).flutterLocale,
+        supportedLocales: AppLocaleUtils.supportedLocales,
+        localizationsDelegates: GlobalMaterialLocalizations.delegates,
+        routes: AppRoutes.getRoutes(),
+      ),
     );
   }
 }

@@ -31,6 +31,8 @@ class RealtimeGatewayService {
   final _sttStreamController = StreamController<SttStreamEvent>.broadcast();
   final _languageStreamController =
       StreamController<LanguageUpdatedEvent>.broadcast();
+  final _ttsLookupFailureController =
+      StreamController<TtsLookupFailureEvent>.broadcast();
 
   EventListener<AssistantEvent> get assistantEvents =>
       _assistantStreamController.stream;
@@ -44,6 +46,8 @@ class RealtimeGatewayService {
   EventListener<SttStreamEvent> get sttEvents => _sttStreamController.stream;
   EventListener<LanguageUpdatedEvent> get languageEvents =>
       _languageStreamController.stream;
+  EventListener<TtsLookupFailureEvent> get ttsLookupFailures =>
+      _ttsLookupFailureController.stream;
 
   Future<void> connect({
     required String sessionId,
@@ -214,11 +218,18 @@ class RealtimeGatewayService {
               jsonData['errorType'] as String? ??
               jsonData['code'] as String? ??
               jsonData['error_code'] as String?;
+          final handledTtsLookupFailure = _dispatchTtsLookupFailure(
+            payload: jsonData,
+            code: errorType,
+          );
           final handledSttError = _dispatchSttError(
             payload: jsonData,
             message: message,
             code: errorType,
           );
+          if (handledTtsLookupFailure) {
+            break;
+          }
           final details = errorType == null
               ? message
               : '$message (code: $errorType)';
@@ -446,6 +457,31 @@ class RealtimeGatewayService {
     return true;
   }
 
+  bool _dispatchTtsLookupFailure({
+    required Map<String, dynamic> payload,
+    String? code,
+  }) {
+    final normalizedCode = (code ?? payload['code'] ?? payload['error_code'])
+        ?.toString()
+        .toLowerCase();
+    if (normalizedCode != 'message_not_found') {
+      return false;
+    }
+
+    final messageIdRaw = payload['messageId'] ?? payload['message_id'];
+    final messageId = messageIdRaw is int
+        ? messageIdRaw
+        : int.tryParse(messageIdRaw?.toString() ?? '');
+    if (messageId == null) {
+      return false;
+    }
+
+    _ttsLookupFailureController.add(
+      TtsLookupFailureEvent(messageId: messageId),
+    );
+    return true;
+  }
+
   void _startHeartbeat() {
     _heartbeat?.cancel();
     _heartbeat = Timer.periodic(const Duration(seconds: 20), (_) {
@@ -501,6 +537,7 @@ class RealtimeGatewayService {
     _conversationMarkerController.close();
     _sttStreamController.close();
     _languageStreamController.close();
+    _ttsLookupFailureController.close();
   }
 }
 
@@ -509,6 +546,12 @@ class LanguageUpdatedEvent {
 
   final String language;
   final String sessionId;
+}
+
+class TtsLookupFailureEvent {
+  const TtsLookupFailureEvent({required this.messageId});
+
+  final int messageId;
 }
 
 abstract class SttStreamEvent {

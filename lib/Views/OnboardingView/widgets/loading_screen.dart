@@ -31,9 +31,12 @@ class LoadingScreen extends HookConsumerWidget {
     final progress = useState<double>(0.0);
     final hasError = useState<String?>(null);
     final retryToken = useState<int>(0);
+    final hasEverBeenActive = useRef(false);
+    if (isActive) hasEverBeenActive.value = true;
+    final effectiveActive = hasEverBeenActive.value;
 
     useEffect(() {
-      if (!isActive) return null;
+      if (!effectiveActive) return null;
 
       Print.info('🟢 LoadingScreen MOUNTED');
       var disposed = false;
@@ -84,7 +87,7 @@ class LoadingScreen extends HookConsumerWidget {
         disposed = true;
         Print.info('🔴 LoadingScreen DISPOSED');
       };
-    }, [isActive, retryToken.value]);
+    }, [effectiveActive, retryToken.value]);
 
     final t = context.t;
     final size = MediaQuery.of(context).size;

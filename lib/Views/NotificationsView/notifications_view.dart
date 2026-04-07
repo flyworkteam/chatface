@@ -208,10 +208,10 @@ class _NotificationsViewState extends ConsumerState<NotificationsView> {
               ),
               child: Text(
                 '$unreadCount',
-                style: const TextStyle(
+                style: AppTextStyles.body(
+                  12,
                   color: Colors.white,
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
+                  weight: FontWeight.bold,
                 ),
               ),
             ),
@@ -236,7 +236,15 @@ class _NotificationsViewState extends ConsumerState<NotificationsView> {
                 value: 'delete_all',
                 child: Row(
                   children: [
-                    SvgPicture.asset(AppIcons.delete, width: 18, height: 18),
+                    SvgPicture.asset(
+                      AppIcons.deleteAll,
+                      width: 18,
+                      colorFilter: const ColorFilter.mode(
+                        Colors.red,
+                        BlendMode.srcIn,
+                      ),
+                      height: 18,
+                    ),
                     const SizedBox(width: 8),
                     Text(
                       t.delete,

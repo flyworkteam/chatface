@@ -1,3 +1,4 @@
+import 'package:chatface/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -34,8 +35,8 @@ class CharacterPrimaryActionButton extends StatelessWidget {
           children: [
             SvgPicture.asset(
               iconPath,
-              width: 20,
-              height: 20,
+              width: 25,
+              height: 25,
               colorFilter: const ColorFilter.mode(
                 Colors.white,
                 BlendMode.srcIn,
@@ -44,9 +45,13 @@ class CharacterPrimaryActionButton extends StatelessWidget {
             const SizedBox(width: 12),
             Text(
               label,
-              style: Theme.of(
-                context,
-              ).textTheme.titleMedium?.copyWith(color: Colors.white),
+              style: AppTextStyles.body(
+                18,
+                weight: FontWeight.w600,
+                letterSpacing: 0.1 / 18,
+                height: 18 * 1.3,
+                color: Colors.white,
+              ),
             ),
           ],
         ),
@@ -83,16 +88,20 @@ class CharacterSecondaryActionButton extends StatelessWidget {
         children: [
           SvgPicture.asset(
             iconPath,
-            width: 18,
-            height: 18,
+            width: 25,
+            height: 25,
             colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
           ),
           const SizedBox(width: 8),
           Text(
             label,
-            style: Theme.of(
-              context,
-            ).textTheme.labelLarge?.copyWith(color: Colors.white),
+            style: AppTextStyles.body(
+              14,
+              weight: FontWeight.w600,
+              letterSpacing: 0.1 / 14,
+              height: 14 * 1.25,
+              color: Colors.white,
+            ),
           ),
         ],
       ),

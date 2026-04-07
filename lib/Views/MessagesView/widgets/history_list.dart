@@ -3,6 +3,7 @@ import 'package:chatface/Models/persona_model.dart';
 import 'package:chatface/Riverpod/Providers/conversation_history_provider.dart';
 import 'package:chatface/Riverpod/Providers/persona_provider.dart';
 import 'package:chatface/gen/strings.g.dart';
+import 'package:chatface/theme/app_text_styles.dart';
 import 'package:chatface/utils/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -28,16 +29,28 @@ class HistoryList extends HookConsumerWidget {
         padding: const EdgeInsets.all(16),
         child: Text(
           'Failed to load history: $error',
-          style: const TextStyle(color: Colors.white70),
+          style: AppTextStyles.body(14, color: Colors.white70),
         ),
       ),
       data: (items) {
         if (items.isEmpty) {
-          return const Padding(
+          return Padding(
             padding: EdgeInsets.all(16),
-            child: Text(
-              'No conversations yet.',
-              style: TextStyle(color: Colors.white54),
+            child: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    context.t.chat.noMessages,
+                    style: AppTextStyles.body(20, color: Colors.white54),
+                  ),
+                  Text(
+                    context.t.chat.noMessagesSubtitle,
+                    style: AppTextStyles.body(14, color: Colors.white54),
+                  ),
+                ],
+              ),
             ),
           );
         }
@@ -56,6 +69,8 @@ class HistoryList extends HookConsumerWidget {
                 updatedAt: summary.updatedAt,
                 sessionId: summary.sessionId,
                 lastConversationType: summary.lastConversationType,
+                sessionMode: summary.sessionMode,
+                sessionLanguage: summary.sessionLanguage,
               ),
             )
             .toList();
@@ -78,9 +93,6 @@ class HistoryList extends HookConsumerWidget {
       case 'photo':
         return context.t.chat.photo;
       case 'call_marker':
-        if (summary.previewText.isNotEmpty) {
-          return summary.previewText;
-        }
         if (summary.lastConversationType == 'video_call') {
           return context.t.chat.videoCallEnded;
         }

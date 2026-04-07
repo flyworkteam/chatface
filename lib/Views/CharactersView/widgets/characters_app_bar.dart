@@ -1,5 +1,6 @@
 import 'package:chatface/Views/shared/widgets/glass_icon_button.dart';
 import 'package:chatface/gen/strings.g.dart';
+import 'package:chatface/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -29,16 +30,18 @@ class CharactersAppBar extends StatelessWidget {
         const SizedBox(width: 16),
         Text(
           context.t.characters.characters,
-          style: Theme.of(
-            context,
-          ).textTheme.titleLarge?.copyWith(color: Colors.white),
+          style: AppTextStyles.body(
+            22,
+            weight: FontWeight.w600,
+            letterSpacing: 0.05 / 22,
+            height: 22 * 1.15,
+            color: Colors.white,
+          ),
         ),
         const Spacer(),
-        GlassIconButton(
-          onPressed: onAction,
-          size: 30,
-          backgroundColor: Colors.transparent,
-          icon: SvgPicture.asset(
+        GestureDetector(
+          onTap: onAction,
+          child: SvgPicture.asset(
             AppIcons.filter,
             width: 25,
             height: 25,

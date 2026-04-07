@@ -1,3 +1,4 @@
+import 'package:chatface/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -49,7 +50,7 @@ const callLanguages = <CallLanguage>[
     nativeName: 'Italiano',
     flag: '🇮🇹',
   ),
-  CallLanguage(code: 'ar', name: 'Arabic', nativeName: 'العربية', flag: '🇸🇦'),
+  CallLanguage(code: 'hi', name: 'Hindi', nativeName: 'हिन्दी', flag: '🇮🇳'),
   CallLanguage(code: 'ja', name: 'Japanese', nativeName: '日本語', flag: '🇯🇵'),
   CallLanguage(code: 'ko', name: 'Korean', nativeName: '한국어', flag: '🇰🇷'),
   CallLanguage(code: 'zh', name: 'Chinese', nativeName: '中文', flag: '🇨🇳'),
@@ -84,74 +85,149 @@ class _LanguagePickerSheet extends StatelessWidget {
   final String? currentLanguage;
   final List<String>? supportedLanguages;
 
+  String _normalizeCode(String? rawCode) {
+    final normalized = rawCode?.trim().toLowerCase() ?? '';
+    if (normalized.isEmpty) {
+      return '';
+    }
+
+    final separatorIndex = normalized.indexOf(RegExp(r'[-_]'));
+    if (separatorIndex > 0) {
+      return normalized.substring(0, separatorIndex);
+    }
+
+    return normalized;
+  }
+
+  Set<String> _normalizedSupportedCodes() {
+    final rawSupported = supportedLanguages ?? const [];
+    final normalized = <String>{};
+
+    for (final raw in rawSupported) {
+      final trimmed = raw.trim();
+      if (trimmed.isEmpty) {
+        continue;
+      }
+
+      final code = _normalizeCode(trimmed);
+      if (code.isNotEmpty) {
+        normalized.add(code);
+      }
+
+      final lowered = trimmed.toLowerCase();
+      for (final language in callLanguages) {
+        if (language.name.toLowerCase() == lowered ||
+            language.nativeName.toLowerCase() == lowered) {
+          normalized.add(language.code);
+        }
+      }
+    }
+
+    return normalized;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final normalizedSupported = supportedLanguages
-        ?.map((code) => code.trim().toLowerCase())
-        .where((code) => code.isNotEmpty)
-        .toSet();
-    final languages = normalizedSupported == null || normalizedSupported.isEmpty
+    final normalizedCurrent = _normalizeCode(currentLanguage);
+    final normalizedSupported = _normalizedSupportedCodes();
+    final filteredLanguages = normalizedSupported.isEmpty
         ? callLanguages
         : callLanguages
               .where((language) => normalizedSupported.contains(language.code))
               .toList();
+    final languages = filteredLanguages.isEmpty
+        ? callLanguages
+        : filteredLanguages;
+    final mediaQuery = MediaQuery.of(context);
 
     return Container(
+      constraints: BoxConstraints(maxHeight: mediaQuery.size.height * 0.78),
       decoration: BoxDecoration(
-        color: const Color(0xFF1A1A2E),
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
+        color: const Color(0xFF0E1525),
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
+        border: Border.all(color: const Color(0xFF25314B)),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x7A000000),
+            blurRadius: 22,
+            offset: Offset(0, -6),
+          ),
+        ],
       ),
       child: SafeArea(
         top: false,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(height: 12),
-            Container(
-              width: 40,
-              height: 4,
-              decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.3),
-                borderRadius: BorderRadius.circular(2),
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(
+            16,
+            12,
+            16,
+            mediaQuery.padding.bottom + 12,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 44,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.35),
+                  borderRadius: BorderRadius.circular(999),
+                ),
               ),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              'Choose Language',
-              style: GoogleFonts.rubik(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
+              const SizedBox(height: 14),
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Choose language',
+                          style: GoogleFonts.rubik(
+                            fontSize: 19,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          'AI will speak and listen in this language',
+                          style: GoogleFonts.rubik(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white.withValues(alpha: 0.7),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    icon: const Icon(Icons.close_rounded),
+                    color: Colors.white.withValues(alpha: 0.78),
+                    splashRadius: 20,
+                    tooltip: 'Close',
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              'AI will speak and listen in this language',
-              style: GoogleFonts.rubik(
-                fontSize: 13,
-                color: Colors.white.withValues(alpha: 0.5),
+              const SizedBox(height: 10),
+              Expanded(
+                child: ListView.separated(
+                  itemCount: languages.length,
+                  separatorBuilder: (_, _) => const SizedBox(height: 8),
+                  itemBuilder: (context, index) {
+                    final lang = languages[index];
+                    final isSelected = lang.code == normalizedCurrent;
+                    return _LanguageTile(
+                      language: lang,
+                      isSelected: isSelected,
+                      onTap: () => Navigator.pop(context, lang.code),
+                    );
+                  },
+                ),
               ),
-            ),
-            const SizedBox(height: 16),
-            SizedBox(
-              height: 380,
-              child: ListView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                itemCount: languages.length,
-                itemBuilder: (context, index) {
-                  final lang = languages[index];
-                  final isSelected = lang.code == currentLanguage;
-                  return _LanguageTile(
-                    language: lang,
-                    isSelected: isSelected,
-                    onTap: () => Navigator.pop(context, lang.code),
-                  );
-                },
-              ),
-            ),
-            const SizedBox(height: 16),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -171,57 +247,89 @@ class _LanguageTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 6),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-        decoration: BoxDecoration(
-          color: isSelected
-              ? const Color(0xFF7C3AED).withValues(alpha: 0.25)
-              : Colors.white.withValues(alpha: 0.05),
-          borderRadius: BorderRadius.circular(14),
-          border: isSelected
-              ? Border.all(
-                  color: const Color(0xFF7C3AED).withValues(alpha: 0.6),
-                )
-              : null,
-        ),
-        child: Row(
-          children: [
-            Text(language.flag, style: const TextStyle(fontSize: 24)),
-            const SizedBox(width: 14),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    language.name,
-                    style: GoogleFonts.rubik(
-                      fontSize: 15,
-                      fontWeight: isSelected
-                          ? FontWeight.w600
-                          : FontWeight.w400,
-                      color: Colors.white,
-                    ),
-                  ),
-                  Text(
-                    language.nativeName,
-                    style: GoogleFonts.rubik(
-                      fontSize: 12,
-                      color: Colors.white.withValues(alpha: 0.5),
-                    ),
-                  ),
-                ],
-              ),
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(16),
+        child: Ink(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
+          decoration: BoxDecoration(
+            color: isSelected
+                ? const Color(0xFF183A66)
+                : const Color(0xFF151E33),
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: isSelected
+                  ? const Color(0xFF4CC9F0)
+                  : Colors.white.withValues(alpha: 0.1),
             ),
-            if (isSelected)
-              const Icon(
-                Icons.check_circle_rounded,
-                color: Color(0xFF7C3AED),
-                size: 22,
+          ),
+          child: Row(
+            children: [
+              Container(
+                width: 42,
+                height: 42,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Colors.black.withValues(alpha: 0.18),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(language.flag, style: AppTextStyles.body(23)),
               ),
-          ],
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      language.name,
+                      style: GoogleFonts.rubik(
+                        fontSize: 15,
+                        fontWeight: isSelected
+                            ? FontWeight.w600
+                            : FontWeight.w500,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      language.nativeName,
+                      style: GoogleFonts.rubik(
+                        fontSize: 12,
+                        color: Colors.white.withValues(alpha: 0.78),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 10),
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 180),
+                width: 24,
+                height: 24,
+                decoration: BoxDecoration(
+                  color: isSelected
+                      ? const Color(0xFF4CC9F0)
+                      : Colors.transparent,
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: isSelected
+                        ? const Color(0xFF4CC9F0)
+                        : Colors.white.withValues(alpha: 0.35),
+                    width: 1.6,
+                  ),
+                ),
+                child: isSelected
+                    ? const Icon(
+                        Icons.check_rounded,
+                        color: Color(0xFF0E1525),
+                        size: 16,
+                      )
+                    : null,
+              ),
+            ],
+          ),
         ),
       ),
     );

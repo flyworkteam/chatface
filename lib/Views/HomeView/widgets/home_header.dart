@@ -1,5 +1,6 @@
 import 'package:chatface/Riverpod/Providers/user_provider.dart';
 import 'package:chatface/shared/profile_header.dart';
+import 'package:chatface/theme/app_text_styles.dart';
 import 'package:chatface/utils/app_assets.dart';
 import 'package:chatface/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -18,19 +19,24 @@ class HomeHeader extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final textTheme = Theme.of(context).textTheme;
     final user = ref.watch(userProfileProvider);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         user.when(
-          data: (profileData) => ProfileHeader(user: profileData!.user),
+          data: (profileData) => ProfileHeader(user: profileData?.user),
           loading: () => CircularProgressIndicator(),
           error: (error, stackTrace) => SvgPicture.asset(AppIcons.warning),
         ),
         Text(
           Constants.appName,
-          style: textTheme.titleMedium?.copyWith(color: Colors.white),
+          style: AppTextStyles.body(
+            18,
+            weight: FontWeight.w600,
+            letterSpacing: 0.1 / 18,
+            height: 18 * 1.3,
+            color: Colors.white,
+          ),
         ),
         Row(
           spacing: 16,
@@ -39,8 +45,8 @@ class HomeHeader extends ConsumerWidget {
               onTap: onFilterTap,
               child: SvgPicture.asset(
                 AppIcons.filter,
-                height: 22,
-                width: 18,
+                height: 25,
+                width: 25,
                 colorFilter: const ColorFilter.mode(
                   Colors.white,
                   BlendMode.srcIn,
@@ -51,8 +57,8 @@ class HomeHeader extends ConsumerWidget {
               onTap: onNotificationsTap,
               child: SvgPicture.asset(
                 AppIcons.notification,
-                height: 22,
-                width: 22,
+                height: 25,
+                width: 25,
                 colorFilter: const ColorFilter.mode(
                   Colors.white,
                   BlendMode.srcIn,

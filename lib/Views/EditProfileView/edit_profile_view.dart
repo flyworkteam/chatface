@@ -1,7 +1,10 @@
 import 'dart:io';
 
 import 'package:chatface/Models/user_model.dart';
+import 'package:chatface/Riverpod/Providers/call_session_controller_provider.dart';
+import 'package:chatface/Riverpod/Providers/persona_provider.dart';
 import 'package:chatface/Riverpod/Providers/user_provider.dart';
+import 'package:chatface/Services/secure_storage_service.dart';
 import 'package:chatface/Views/EditProfileView/widgets/photo_picker.dart';
 import 'package:chatface/Views/EditProfileView/widgets/profile_text_field.dart';
 import 'package:chatface/Views/EditProfileView/widgets/select_country.dart';
@@ -11,7 +14,6 @@ import 'package:chatface/gen/strings.g.dart';
 import 'package:chatface/shared/blurred_gradient_background.dart';
 import 'package:chatface/shared/custom_button.dart';
 import 'package:chatface/shared/toast.dart';
-import 'package:chatface/theme/app_colors.dart';
 import 'package:chatface/theme/app_paddings.dart';
 import 'package:chatface/theme/app_text_styles.dart';
 import 'package:chatface/utils/app_assets.dart';
@@ -126,13 +128,16 @@ class EditProfileView extends HookConsumerWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             ),
-            title: const Text(
+            title: Text(
               'Izin Gerekli',
-              style: TextStyle(color: Colors.white),
+              style: AppTextStyles.body(14, color: Colors.white),
             ),
             content: Text(
               '$sourceLabel izni olmadan resim secemezsin. Ayarlardan izin verebilirsin.',
-              style: TextStyle(color: Colors.white.withValues(alpha: 0.78)),
+              style: AppTextStyles.body(
+                14,
+                color: Colors.white.withValues(alpha: 0.78),
+              ),
             ),
             actions: [
               TextButton(
@@ -257,7 +262,7 @@ class EditProfileView extends HookConsumerWidget {
                     ),
                     title: Text(
                       context.t.chat.gallery,
-                      style: TextStyle(color: Colors.white),
+                      style: AppTextStyles.body(14, color: Colors.white),
                     ),
                     onTap: () {
                       Navigator.of(context).pop();
@@ -274,7 +279,7 @@ class EditProfileView extends HookConsumerWidget {
                     ),
                     title: Text(
                       context.t.chat.camera,
-                      style: TextStyle(color: Colors.white),
+                      style: AppTextStyles.body(14, color: Colors.white),
                     ),
                     onTap: () {
                       Navigator.of(context).pop();
@@ -308,6 +313,18 @@ class EditProfileView extends HookConsumerWidget {
       isLoading.value = false;
 
       if (success) {
+        LocaleSettings.setLocale(
+          AppLocale.values.byName(selectedLanguage.value),
+        );
+        await SecureStorageService().saveLanguage(selectedLanguage.value);
+        await ref
+            .read(personaFilterProvider.notifier)
+            .setLanguage(selectedLanguage.value);
+        if (ref.read(callSessionControllerProvider) != null) {
+          await ref
+              .read(callSessionControllerProvider.notifier)
+              .changeLanguage(selectedLanguage.value);
+        }
         showSuccess.value = true;
         Future.delayed(const Duration(seconds: 3), () {
           if (context.mounted) showSuccess.value = false;
@@ -348,29 +365,26 @@ class EditProfileView extends HookConsumerWidget {
               ),
 
               const SizedBox(height: AppSpacing.lg),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl),
-                child: PhotoPicker(
-                  imageUrls: uploadedPhotoUrls.value,
-                  uploadingImage: uploadingPhoto.value,
-                  isUploading: isPhotoUploading.value,
-                  onAdd: () => pickPhoto(),
-                  onEditAt: (index) => pickPhoto(replaceIndex: index),
-                  onRemoveAt: (index) {
-                    if (index < 0 || index >= uploadedPhotoUrls.value.length) {
-                      return;
-                    }
-                    final removedUrl = uploadedPhotoUrls.value[index];
-                    final next = [...uploadedPhotoUrls.value]..removeAt(index);
-                    uploadedPhotoUrls.value = next;
-                    if (!removedPhotoUrls.value.contains(removedUrl)) {
-                      removedPhotoUrls.value = [
-                        ...removedPhotoUrls.value,
-                        removedUrl,
-                      ];
-                    }
-                  },
-                ),
+              PhotoPicker(
+                imageUrls: uploadedPhotoUrls.value,
+                uploadingImage: uploadingPhoto.value,
+                isUploading: isPhotoUploading.value,
+                onAdd: () => pickPhoto(),
+                onEditAt: (index) => pickPhoto(replaceIndex: index),
+                onRemoveAt: (index) {
+                  if (index < 0 || index >= uploadedPhotoUrls.value.length) {
+                    return;
+                  }
+                  final removedUrl = uploadedPhotoUrls.value[index];
+                  final next = [...uploadedPhotoUrls.value]..removeAt(index);
+                  uploadedPhotoUrls.value = next;
+                  if (!removedPhotoUrls.value.contains(removedUrl)) {
+                    removedPhotoUrls.value = [
+                      ...removedPhotoUrls.value,
+                      removedUrl,
+                    ];
+                  }
+                },
               ),
               const SizedBox(height: AppSpacing.lg),
 
@@ -387,7 +401,6 @@ class EditProfileView extends HookConsumerWidget {
                         ProfileTextField(
                           label: t.editProfile.aboutMe,
                           hint: t.editProfile.aboutMeHint,
-                          icon: AppIcons.edit,
                           controller: aboutMeController,
                           maxLength: 60,
                         ),
@@ -397,7 +410,6 @@ class EditProfileView extends HookConsumerWidget {
                         ProfileTextField(
                           label: t.editProfile.fullName,
                           hint: t.editProfile.fullName,
-                          icon: AppIcons.edit,
                           controller: nameController,
                           maxLength: 25,
                         ),
@@ -488,7 +500,6 @@ class EditProfileView extends HookConsumerWidget {
                               backgroundColor: Colors.black.withValues(
                                 alpha: 0.68,
                               ),
-                              appIconColor: Colors.white,
                               titleColor: Colors.white,
                               messageColor: Colors.white.withValues(
                                 alpha: 0.78,
@@ -510,25 +521,16 @@ class EditProfileView extends HookConsumerWidget {
                   label: context.t.save,
                   size: CustomButtonSize.large,
                   fullWidth: true,
-                  borderRadius: 18,
+                  borderRadius: 50,
                   labelStyle: AppTextStyles.body(
                     24,
                     weight: FontWeight.w700,
                     color: Colors.white,
                     letterSpacing: -0.05,
                   ),
-                  backgroundColor: (isLoading.value || isPhotoUploading.value)
-                      ? AppColors.secondary
-                      : AppColors.primary,
-                  shadow: [
-                    BoxShadow(
-                      color: (isLoading.value || isPhotoUploading.value)
-                          ? AppColors.secondaryShadow
-                          : AppColors.primaryShadow,
-                      blurRadius: 0,
-                      offset: const Offset(0, 5),
-                    ),
-                  ],
+                  icon: SvgPicture.asset(AppIcons.save),
+                  backgroundColor: Color(0xffFFFFFF).withValues(alpha: 0.4),
+
                   onPressed: (isLoading.value || isPhotoUploading.value)
                       ? null
                       : save,

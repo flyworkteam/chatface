@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:chatface/Models/persona_model.dart';
-import 'package:chatface/gen/strings.g.dart';
 import 'package:chatface/shared/custom_cached_network_image.dart';
+import 'package:chatface/theme/app_text_styles.dart';
 import 'package:chatface/utils/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -23,9 +23,7 @@ class CharacterGridCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final cardSubtitle =
-        character.jobTitle ?? context.t.characters.placeholderSubtitle;
+    final cardSubtitle = character.jobTitle;
 
     return GestureDetector(
       onTap: onTap,
@@ -99,9 +97,12 @@ class CharacterGridCard extends StatelessWidget {
                                   const SizedBox(width: 4),
                                   Text(
                                     actionLabel,
-                                    style: textTheme.labelMedium?.copyWith(
+                                    style: AppTextStyles.body(
+                                      12,
+                                      weight: FontWeight.w600,
+                                      letterSpacing: 0.4 / 12,
+                                      height: 12 * 1.25,
                                       color: Colors.white,
-                                      fontWeight: FontWeight.w600,
                                     ),
                                   ),
                                 ],
@@ -123,9 +124,12 @@ class CharacterGridCard extends StatelessWidget {
                       character.name,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: textTheme.titleMedium?.copyWith(
+                      style: AppTextStyles.body(
+                        18,
+                        weight: FontWeight.w700,
+                        letterSpacing: 0.1 / 18,
+                        height: 18 * 1.3,
                         color: Colors.white,
-                        fontWeight: FontWeight.w700,
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -133,9 +137,10 @@ class CharacterGridCard extends StatelessWidget {
                       cardSubtitle,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: textTheme.bodySmall?.copyWith(
+                      style: AppTextStyles.body(
+                        12,
                         color: Colors.white.withValues(alpha: 0.82),
-                        height: 1.25,
+                        height: 12 * 1.25,
                       ),
                     ),
                   ],
@@ -158,7 +163,7 @@ class _GridImage extends StatelessWidget {
   Widget build(BuildContext context) {
     final imageUrl = character.displayImageUrl;
     if (imageUrl.startsWith('https')) {
-      return CustomCachedNetworkImage(imageUrl: imageUrl);
+      return CustomCachedNetworkImage(imageUrl: imageUrl, fit: BoxFit.contain);
     }
     return Image.asset(character.displayImageAsset, fit: BoxFit.cover);
   }

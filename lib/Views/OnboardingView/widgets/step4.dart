@@ -46,9 +46,11 @@ class Step4 extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               t.onboarding.step4.title,
+              textAlign: TextAlign.left,
               style: AppTextStyles.heading(
                 30,
                 FontWeight.w700,
+
                 color: Colors.white,
               ),
             ),
@@ -104,7 +106,7 @@ class _SafetyItem extends StatelessWidget {
                 Text(
                   title,
                   style: AppTextStyles.body(
-                    15,
+                    16,
                     weight: FontWeight.w600,
                     color: Colors.white,
                   ),
@@ -113,7 +115,9 @@ class _SafetyItem extends StatelessWidget {
                 Text(
                   subtitle,
                   style: AppTextStyles.body(
-                    12,
+                    13,
+                    weight: FontWeight.w300,
+                    letterSpacing: -0.05,
                     color: Colors.white.withValues(alpha: 0.55),
                   ),
                 ),

@@ -118,7 +118,7 @@ class _GenderButton extends StatelessWidget {
           color: isSelected
               ? Colors.white.withValues(alpha: 0.12)
               : Colors.white.withValues(alpha: 0.06),
-          borderRadius: BorderRadius.circular(18),
+          borderRadius: BorderRadius.circular(50),
           border: Border.all(
             color: isSelected
                 ? Colors.white.withValues(alpha: 0.5)

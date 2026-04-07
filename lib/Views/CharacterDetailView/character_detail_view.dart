@@ -31,9 +31,7 @@ class CharacterDetailView extends HookConsumerWidget {
       personasAsync.asData?.value,
       args!.character,
     );
-    final user = ref.watch(userProfileProvider).asData?.value?.user;
-
-    final t = context.t;
+    final user = ref.watch(userProfileProvider).value?.user;
 
     Future<void> fetchOfferings() async {
       if (isFetchingOfferings.value) return;
@@ -76,7 +74,7 @@ class CharacterDetailView extends HookConsumerWidget {
         children: [
           const Positioned.fill(child: BlurredGradientBackground()),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 24),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -148,6 +146,7 @@ class CharacterDetailView extends HookConsumerWidget {
                       ),
                     ],
                   ),
+                  const SizedBox(height: kBottomNavigationBarHeight + 24),
                 ],
               ),
             ),

@@ -213,8 +213,8 @@
     "photo": "Photo",
     "photoUploadFailed": "Couldn't upload photo. Please try again.",
     "tapToViewPhoto": "Tap to view photo",
-    "voiceCallEnded": "Voice call ended",
-    "videoCallEnded": "Video call ended",
+    "voiceCallEnded": "Llamada de voz finalizada",
+    "videoCallEnded": "Videollamada finalizada",
     "uploadingPhoto": "Uploading photo...",
     "mediaPermissionDenied": "Allow camera or photo permissions to share images."
   },
@@ -234,7 +234,7 @@
   },
   "settingsSupport": {
     "title": "Configuración y soporte",
-    "premiumTitle": "Acceso ilimitado a todas las funciones",
+    "premiumTitle": "Acceso ilimitado a \ntodas las funciones",
     "getPremium": "Obtener Premium",
     "settingsHub": "Centro de configuración",
     "shareTheApp": "Compartir la app",

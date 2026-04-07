@@ -1,5 +1,7 @@
 import 'package:chatface/Riverpod/Providers/persona_provider.dart';
+import 'package:chatface/Services/secure_storage_service.dart';
 import 'package:chatface/gen/strings.g.dart';
+import 'package:chatface/theme/app_text_styles.dart';
 import 'package:chatface/utils/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -7,153 +9,210 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class HomeFilterSheet extends HookConsumerWidget {
-  const HomeFilterSheet({super.key});
+  const HomeFilterSheet({super.key, this.onClose, this.bottomPadding});
+
+  final VoidCallback? onClose;
+  final double? bottomPadding;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final filters = ref.watch(personaFilterProvider);
-    final selectedGender = useState('');
-    final selectedLanguage = useState<String?>(filters.language);
+    final selectedGender = useState(filters.gender ?? '');
+    final selectedLanguage = useState<String?>(
+      _languageOptionKeyByValue(filters.language),
+    );
     final t = context.t;
+    final sheetHeight = MediaQuery.sizeOf(context).height * 0.7;
+    final effectiveBottomPadding =
+        (40 + MediaQuery.viewPaddingOf(context).bottom);
 
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [Color(0xFF3C2150), Color(0xFF120113)],
+    useEffect(() {
+      selectedGender.value = filters.gender ?? '';
+      selectedLanguage.value = _languageOptionKeyByValue(filters.language);
+      return null;
+    }, [filters.gender, filters.language]);
+
+    return SizedBox(
+      height: sheetHeight,
+      child: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Color(0xFF3C2150), Color(0xFF120113)],
+          ),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
         ),
-        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-      ),
-      padding: const EdgeInsets.fromLTRB(20, 10, 20, 32),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 26,
-            child: Stack(
-              children: [
-                Align(
-                  child: Container(
-                    width: 52,
-                    height: 4,
-                    decoration: BoxDecoration(
-                      color: Colors.white24,
-                      borderRadius: BorderRadius.circular(99),
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: GestureDetector(
-                    onTap: () => Navigator.of(context).pop(),
+        padding: EdgeInsets.fromLTRB(20, 10, 20, effectiveBottomPadding),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 26,
+              child: Stack(
+                children: [
+                  Align(
                     child: Container(
-                      width: 28,
-                      height: 28,
-                      decoration: const BoxDecoration(
+                      width: 52,
+                      height: 4,
+                      decoration: BoxDecoration(
                         color: Colors.white24,
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Icon(
-                        Icons.close,
-                        color: Colors.white,
-                        size: 17,
+                        borderRadius: BorderRadius.circular(99),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            t.editProfile.gender,
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              color: Colors.white,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          const SizedBox(height: 10),
-          Row(
-            children: [
-              _SegmentButton(
-                icon: Icons.male_rounded,
-                label: t.onboarding.step3.male,
-                isSelected: selectedGender.value == 'male',
-                onTap: () => selectedGender.value = 'male',
-              ),
-              const SizedBox(width: 10),
-              _SegmentButton(
-                icon: Icons.female_rounded,
-                label: t.onboarding.step3.female,
-                isSelected: selectedGender.value == 'female',
-                onTap: () => selectedGender.value = 'female',
-              ),
-            ],
-          ),
-          const SizedBox(height: 22),
-          Text(
-            t.editProfile.languagePreferences,
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              color: Colors.white,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          const SizedBox(height: 12),
-          LayoutBuilder(
-            builder: (context, constraints) {
-              final itemWidth = (constraints.maxWidth - 12) / 2;
-
-              return Wrap(
-                spacing: 12,
-                runSpacing: 10,
-                children: _languageOptions.map((option) {
-                  final isSelected = selectedLanguage.value == option.key;
-                  final label = _resolveLanguageLabel(option.key, t);
-
-                  return SizedBox(
-                    width: itemWidth,
-                    child: _LanguageChip(
-                      isSelected: isSelected,
-                      label: label,
-                      iconPath: option.iconPath,
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: GestureDetector(
                       onTap: () {
-                        selectedLanguage.value = isSelected ? null : option.key;
+                        if (onClose != null) {
+                          onClose!();
+                          return;
+                        }
+                        Navigator.of(context).pop();
+                      },
+                      child: Container(
+                        width: 28,
+                        height: 28,
+                        decoration: const BoxDecoration(
+                          color: Colors.white24,
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(
+                          Icons.close,
+                          color: Colors.white,
+                          size: 17,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            Expanded(
+              child: SingleChildScrollView(
+                padding: EdgeInsets.zero,
+                child: Column(
+                  children: [
+                    Text(
+                      t.editProfile.gender,
+                      textAlign: TextAlign.center,
+                      style: AppTextStyles.body(
+                        18,
+                        weight: FontWeight.w700,
+                        letterSpacing: 0.1 / 18,
+                        height: 18 * 1.3,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _SegmentButton(
+                          icon: AppIcons.male,
+                          label: t.onboarding.step3.male,
+                          isSelected: selectedGender.value == 'male',
+                          onTap: () => selectedGender.value = 'male',
+                        ),
+                        const SizedBox(width: 20),
+                        _SegmentButton(
+                          icon: AppIcons.female,
+                          label: t.onboarding.step3.female,
+                          isSelected: selectedGender.value == 'female',
+                          onTap: () => selectedGender.value = 'female',
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 24),
+                    Text(
+                      t.editProfile.languagePreferences,
+                      textAlign: TextAlign.center,
+                      style: AppTextStyles.body(
+                        18,
+                        weight: FontWeight.w700,
+                        letterSpacing: 0.1 / 18,
+                        height: 18 * 1.3,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(height: 14),
+                    LayoutBuilder(
+                      builder: (context, constraints) {
+                        final itemWidth = (constraints.maxWidth - 32) / 2.2;
+
+                        return Wrap(
+                          spacing: 12,
+                          runSpacing: 10,
+                          children: _languageOptions.map((option) {
+                            final isSelected =
+                                selectedLanguage.value == option.key;
+                            final label = _resolveLanguageLabel(option.key, t);
+
+                            return SizedBox(
+                              width: itemWidth,
+                              child: _LanguageChip(
+                                isSelected: isSelected,
+                                label: label,
+                                iconPath: option.iconPath,
+                                onTap: () {
+                                  selectedLanguage.value = isSelected
+                                      ? null
+                                      : option.key;
+                                },
+                              ),
+                            );
+                          }).toList(),
+                        );
                       },
                     ),
-                  );
-                }).toList(),
-              );
-            },
-          ),
-          const SizedBox(height: 30),
-          SizedBox(
-            width: double.infinity,
-            child: FilledButton(
-              onPressed: () async {
-                final notifier = ref.read(personaFilterProvider.notifier);
-                await notifier.setGender(selectedGender.value);
-                await notifier.setLanguage(selectedLanguage.value);
-                if (context.mounted) Navigator.of(context).pop();
-              },
-              style: FilledButton.styleFrom(
-                backgroundColor: const Color(0xFF8A8792),
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40),
-                ),
-              ),
-              child: Text(
-                t.save,
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700,
+                    const SizedBox(height: 20),
+                  ],
                 ),
               ),
             ),
-          ),
-        ],
+            SizedBox(
+              width: double.infinity,
+              child: FilledButton(
+                onPressed: () async {
+                  final notifier = ref.read(personaFilterProvider.notifier);
+                  await notifier.setGender(selectedGender.value);
+                  if (selectedLanguage.value != null) {
+                    final selected = selectedLanguage.value!;
+                    // Map the selected language key (e.g. 'english') to the
+                    // locale code (e.g. 'en') expected by `AppLocale`.
+                    final code = _languageOptionValues[selected] ?? selected;
+                    LocaleSettings.setLocale(AppLocale.values.byName(code));
+                    SecureStorageService().saveLanguage(code);
+                  }
+                  if (onClose != null) {
+                    onClose?.call();
+                    return;
+                  }
+                  if (context.mounted) Navigator.of(context).pop();
+                },
+                style: FilledButton.styleFrom(
+                  backgroundColor: const Color(0xFF8A8792),
+                  minimumSize: const Size.fromHeight(54),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                ),
+                child: Text(
+                  t.save,
+                  style: AppTextStyles.body(
+                    18,
+                    weight: FontWeight.w700,
+                    letterSpacing: 0.1 / 18,
+                    height: 18 * 1.3,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -167,22 +226,23 @@ class _SegmentButton extends StatelessWidget {
     required this.onTap,
   });
 
-  final IconData icon;
+  final String icon;
   final String label;
   final bool isSelected;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return ConstrainedBox(
+      constraints: BoxConstraints(minWidth: 140),
       child: GestureDetector(
         onTap: onTap,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
-          padding: const EdgeInsets.symmetric(vertical: 12),
+          height: 50,
           decoration: BoxDecoration(
             color: const Color(0xFF180D22),
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(28),
             border: Border.all(
               color: isSelected ? Colors.white : Colors.transparent,
             ),
@@ -191,9 +251,10 @@ class _SegmentButton extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(
+              SvgPicture.asset(
                 icon,
-                size: 20,
+                height: 16,
+                width: 16,
                 color: isSelected
                     ? Colors.white
                     : Colors.white.withValues(alpha: 0.45),
@@ -201,11 +262,14 @@ class _SegmentButton extends StatelessWidget {
               const SizedBox(width: 6),
               Text(
                 label,
-                style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                style: AppTextStyles.body(
+                  14,
+                  weight: FontWeight.w600,
+                  letterSpacing: 0.1 / 14,
+                  height: 14 * 1.25,
                   color: isSelected
                       ? Colors.white
                       : Colors.white.withValues(alpha: 0.55),
-                  fontWeight: FontWeight.w600,
                 ),
               ),
             ],
@@ -235,27 +299,40 @@ class _LanguageChip extends StatelessWidget {
       onTap: onTap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        height: 50,
+        padding: const EdgeInsets.symmetric(horizontal: 12),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(24),
+          borderRadius: BorderRadius.circular(28),
           color: const Color(0xFF130A1C),
           border: Border.all(
             color: isSelected ? Colors.white : Colors.transparent,
           ),
         ),
         child: Row(
-          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(iconPath, height: 18, width: 18),
-            const SizedBox(width: 8),
-            Expanded(
-              child: Text(
-                label,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500,
-                ),
+            Flexible(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Spacer(),
+                  SvgPicture.asset(iconPath, height: 16, width: 16),
+                  Spacer(),
+                  Text(
+                    label,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                    style: AppTextStyles.body(
+                      14,
+                      weight: FontWeight.w500,
+                      letterSpacing: 0.1 / 14,
+                      height: 14 * 1.25,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Spacer(),
+                ],
               ),
             ),
           ],
@@ -285,6 +362,35 @@ const _languageOptions = [
   _LanguageOption(key: 'portuguese', iconPath: AppFlags.portugal),
   _LanguageOption(key: 'chinese', iconPath: AppFlags.china),
 ];
+
+const _languageOptionValues = {
+  'turkish': 'tr',
+  'english': 'en',
+  'german': 'de',
+  'italian': 'it',
+  'french': 'fr',
+  'japanese': 'ja',
+  'spanish': 'es',
+  'russian': 'ru',
+  'korean': 'ko',
+  'hindi': 'hi',
+  'portuguese': 'pt',
+  'chinese': 'zh',
+};
+
+String? _languageOptionKeyByValue(String? value) {
+  final normalized = value?.trim().toLowerCase();
+  if (normalized == null || normalized.isEmpty) {
+    return null;
+  }
+
+  return _languageOptionValues.entries
+      .firstWhere(
+        (entry) => entry.key == normalized || entry.value == normalized,
+        orElse: () => MapEntry(normalized, normalized),
+      )
+      .key;
+}
 
 String _resolveLanguageLabel(String key, Translations t) {
   final map = t.languageOptions;

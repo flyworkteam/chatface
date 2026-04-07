@@ -7,7 +7,7 @@ class ProfileTextField extends StatelessWidget {
     super.key,
     required this.label,
     required this.hint,
-    required this.icon,
+    this.icon,
     this.controller,
     this.readOnly = false,
     this.trailingSuffix,
@@ -17,7 +17,7 @@ class ProfileTextField extends StatelessWidget {
 
   final String label;
   final String hint;
-  final String icon;
+  final String? icon;
   final TextEditingController? controller;
   final bool readOnly;
   final Widget? trailingSuffix;
@@ -26,7 +26,7 @@ class ProfileTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isSvg = icon.endsWith('.svg');
+    final bool isSvg = icon?.endsWith('.svg') ?? false;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,15 +37,15 @@ class ProfileTextField extends StatelessWidget {
             14,
             weight: FontWeight.w700,
             letterSpacing: -0.05,
-            color: const Color(0xFF5F8486),
+            color: Colors.white,
           ),
         ),
         const SizedBox(height: 8),
         Container(
           decoration: BoxDecoration(
-            color: Colors.black.withValues(alpha: 0.28),
-            borderRadius: BorderRadius.circular(999),
-            border: Border.all(color: Colors.white.withValues(alpha: 0.12)),
+            color: Colors.black.withValues(alpha: 0.5),
+            borderRadius: BorderRadius.circular(50),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.2)),
           ),
           child: TextField(
             controller: controller,
@@ -67,20 +67,22 @@ class ProfileTextField extends StatelessWidget {
                 weight: FontWeight.bold,
                 color: Colors.white.withValues(alpha: 0.68),
               ),
-              prefixIcon: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 14),
-                child: isSvg
-                    ? SvgPicture.asset(
-                        icon,
-                        width: 18,
-                        height: 18,
-                        colorFilter: ColorFilter.mode(
-                          Colors.white.withValues(alpha: 0.8),
-                          BlendMode.srcIn,
-                        ),
-                      )
-                    : Image.asset(icon, width: 18, height: 18),
-              ),
+              prefixIcon: icon != null
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 14),
+                      child: isSvg
+                          ? SvgPicture.asset(
+                              icon!,
+                              width: 18,
+                              height: 18,
+                              colorFilter: ColorFilter.mode(
+                                Colors.white.withValues(alpha: 0.8),
+                                BlendMode.srcIn,
+                              ),
+                            )
+                          : Image.asset(icon!, width: 18, height: 18),
+                    )
+                  : null,
               prefixIconConstraints: const BoxConstraints(
                 minWidth: 48,
                 minHeight: 48,

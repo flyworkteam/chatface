@@ -1,4 +1,5 @@
 import 'package:chatface/Views/shared/widgets/glass_icon_button.dart';
+import 'package:chatface/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -43,9 +44,12 @@ class CharacterDetailAppBar extends StatelessWidget {
                 title,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                style: AppTextStyles.body(
+                  22,
+                  weight: FontWeight.w700,
+                  letterSpacing: 0.05 / 22,
+                  height: 22 * 1.15,
                   color: Colors.white,
-                  fontWeight: FontWeight.w700,
                 ),
               ),
             ),

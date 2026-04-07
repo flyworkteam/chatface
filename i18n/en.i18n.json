@@ -96,7 +96,7 @@
             "dontWantToMention": "I don't want to mention it."
         },
         "step4": {
-            "title": "Have Fun While \n Staying Safe",
+            "title": "Have Fun While \nStaying Safe",
             "entry1": "We Maintain Order",
             "subentry1": "Real-time AI Monitoring Open",
             "entry2": "Screen Recordings",
@@ -131,7 +131,7 @@
             "description": "Turn on your camera and talk face-to-face with AI. Experience more natural communication that understands facial expressions, tone of voice, and context."
         },
         "screen2": {
-            "title": "Real-Time and Natural \n Communication",
+            "title": "Real-Time and Natural \nCommunication",
             "description": "Don't be limited to text. Have more fluid, more human conversations through video calls."
         }
     },
@@ -234,7 +234,7 @@
     },
     "settingsSupport": {
         "title": "Settings & Support",
-        "premiumTitle": "Unlimited access to all features",
+        "premiumTitle": "Unlimited access \nto all features",
         "getPremium": "Get Premium",
         "settingsHub": "Settings Hub",
         "shareTheApp": "Share the App",

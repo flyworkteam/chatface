@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chatface/Models/ai_message_model.dart';
 import 'package:chatface/Views/ChatView/widgets/attachment_gallery.dart';
 import 'package:chatface/gen/strings.g.dart';
+import 'package:chatface/theme/app_text_styles.dart';
 import 'package:chatface/utils/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -58,9 +59,9 @@ class ChatBubble extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   context.t.chat.tapToViewPhoto,
-                  style: TextStyle(
+                  style: AppTextStyles.body(
+                    12,
                     color: Colors.white.withValues(alpha: 0.45),
-                    fontSize: 12,
                   ),
                 ),
                 if (hasText) const SizedBox(height: 8),
@@ -72,51 +73,77 @@ class ChatBubble extends StatelessWidget {
               decoration: BoxDecoration(
                 gradient: isUser
                     ? const LinearGradient(
-                        colors: [Color(0xFFE91E8C), Color(0xFFAA10A0)],
+                        colors: [
+                          Color(0xFFE46264),
+                          Color(0xFFB94991),
+                          Color(0xFFB01CD4),
+                        ],
+                        stops: [0, 0.5, 1],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       )
                     : null,
-                color: isUser ? null : Colors.white.withValues(alpha: 0.10),
+                color: isUser ? null : Color(0xff222021),
                 borderRadius: BorderRadius.only(
-                  topLeft: const Radius.circular(18),
-                  topRight: const Radius.circular(18),
-                  bottomLeft: Radius.circular(isUser ? 18 : 4),
-                  bottomRight: Radius.circular(isUser ? 4 : 18),
+                  topLeft: const Radius.circular(30),
+                  topRight: const Radius.circular(30),
+                  bottomLeft: Radius.circular(isUser ? 30 : 0),
+                  bottomRight: Radius.circular(isUser ? 0 : 30),
                 ),
               ),
-              child: Text(
-                message.text,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  height: 1.55,
-                ),
+              child: Column(
+                spacing: 12,
+                children: [
+                  Text(
+                    message.text,
+                    style: AppTextStyles.body(
+                      14,
+                      color: Colors.white,
+                      height: 14 * 1.55,
+                    ),
+                  ),
+                  if (!isUser && onListen != null) ...[
+                    SvgPicture.asset(AppIcons.divider),
+                    Row(
+                      spacing: 12,
+                      children: [
+                        GestureDetector(
+                          onTap: isListening ? null : onListen,
+                          child: SvgPicture.asset(
+                            AppIcons.callvolume,
+                            colorFilter: const ColorFilter.mode(
+                              Colors.white70,
+                              BlendMode.srcIn,
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            //TODO:copy the text
+                          },
+                          child: SvgPicture.asset(
+                            AppIcons.copyMessage,
+                            colorFilter: const ColorFilter.mode(
+                              Colors.white70,
+                              BlendMode.srcIn,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ],
               ),
             ),
-          if (!isUser && onListen != null)
-            TextButton.icon(
-              onPressed: isListening ? null : onListen,
-              icon: SvgPicture.asset(
-                AppIcons.callvolume,
-                colorFilter: const ColorFilter.mode(
-                  Colors.white70,
-                  BlendMode.srcIn,
-                ),
-              ),
-              label: Text(
-                isListening ? 'Playing...' : 'Listen',
-                style: const TextStyle(color: Colors.white70),
-              ),
-            ),
+
           if (isUser && !message.isDelivered && hasAttachments)
             Padding(
               padding: const EdgeInsets.only(top: 4),
               child: Text(
                 context.t.chat.uploadingPhoto,
-                style: TextStyle(
+                style: AppTextStyles.body(
+                  12,
                   color: Colors.white.withValues(alpha: 0.5),
-                  fontSize: 12,
                 ),
               ),
             ),
@@ -202,7 +229,7 @@ class _ConversationMarkerChip extends StatelessWidget {
             ),
             child: Text(
               text,
-              style: const TextStyle(color: Colors.white70, fontSize: 13),
+              style: AppTextStyles.body(13, color: Colors.white70),
             ),
           ),
         ],

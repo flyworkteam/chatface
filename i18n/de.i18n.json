@@ -96,7 +96,7 @@
       "dontWantToMention": "Möchte ich nicht angeben."
     },
     "step4": {
-      "title": "Hab Spaß und \n bleib sicher",
+      "title": "Hab Spaß und \nbleib sicher",
       "entry1": "Wir sorgen für Ordnung",
       "subentry1": "Echtzeit-AI-Überwachung aktiv",
       "entry2": "Bildschirmaufzeichnungen",
@@ -213,8 +213,8 @@
     "photo": "Photo",
     "photoUploadFailed": "Couldn't upload photo. Please try again.",
     "tapToViewPhoto": "Tap to view photo",
-    "voiceCallEnded": "Voice call ended",
-    "videoCallEnded": "Video call ended",
+    "voiceCallEnded": "Sprachanruf beendet",
+    "videoCallEnded": "Videoanruf beendet",
     "uploadingPhoto": "Uploading photo...",
     "mediaPermissionDenied": "Allow camera or photo permissions to share images."
   },
@@ -234,7 +234,7 @@
   },
   "settingsSupport": {
     "title": "Einstellungen & Support",
-    "premiumTitle": "Unbegrenzter Zugriff auf alle Funktionen",
+    "premiumTitle": "Unbegrenzter Zugriff \nauf alle Funktionen",
     "getPremium": "Premium erhalten",
     "settingsHub": "Einstellungszentrum",
     "shareTheApp": "App teilen",

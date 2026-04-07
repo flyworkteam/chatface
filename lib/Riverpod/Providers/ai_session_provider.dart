@@ -64,6 +64,10 @@ class AiSessionController extends AsyncNotifier<AiSession?> {
     );
   }
 
+  void setSession(AiSession session) {
+    state = AsyncValue.data(session);
+  }
+
   void clearSession() {
     state = const AsyncValue.data(null);
   }
