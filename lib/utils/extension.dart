@@ -1,3 +1,4 @@
+import 'package:chatface/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 extension Responsive on BuildContext {
@@ -6,8 +7,7 @@ extension Responsive on BuildContext {
   double get width => MediaQuery.of(this).size.width;
 
   double responsiveFont(final double fontSize) {
-    const baseHeight = 812;
-    return fontSize * height / baseHeight;
+    return AppTextStyles.scaledFontSize(fontSize, width: width);
   }
 
   double responsiveValue(final double value, {final bool isWidth = true}) {

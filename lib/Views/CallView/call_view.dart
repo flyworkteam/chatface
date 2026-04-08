@@ -12,6 +12,7 @@ import 'package:chatface/Views/CallView/widgets/call_controls.dart';
 import 'package:chatface/config/stt_config.dart';
 import 'package:chatface/gen/strings.g.dart';
 import 'package:chatface/shared/blurred_gradient_background.dart';
+import 'package:chatface/shared/realtime_diagnostics_panel.dart';
 import 'package:chatface/theme/app_text_styles.dart';
 import 'package:chatface/utils/permission_helper.dart';
 import 'package:chatface/utils/print.dart';
@@ -54,9 +55,9 @@ class CallView extends HookConsumerWidget {
         if ((prev?.streamStatus != StreamingSttStatus.error) &&
             next.streamStatus == StreamingSttStatus.error) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
+            SnackBar(
               content: Text(
-                'Network issue detected. Reconnecting the microphone...',
+                context.t.videoChat.networkHiccup,
               ),
             ),
           );
@@ -246,7 +247,7 @@ class CallView extends HookConsumerWidget {
       CallState.connecting => context.t.voiceChat.connecting,
       CallState.ringing => context.t.voiceChat.calling,
       CallState.ended => context.t.voiceChat.callEnded,
-      _ => 'Preparing call...',
+      _ => context.t.videoChat.connecting,
     };
 
     final avatarPath = character.displayImagePath;
@@ -311,7 +312,17 @@ class _CallScaffold extends StatelessWidget {
       body: Stack(
         children: [
           BlurredGradientBackground(),
+
           SafeArea(child: child),
+          const SafeArea(
+            child: Align(
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: EdgeInsets.only(top: 8, right: 12),
+                child: RealtimeDiagnosticsPanel(scopeLabel: 'Call'),
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -338,7 +349,7 @@ class _PermissionRequired extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               Text(
-                'Microphone and speech permissions are required for voice calls.',
+                context.t.permissionsRequired,
                 textAlign: TextAlign.center,
                 style: AppTextStyles.body(
                   16,
@@ -352,7 +363,7 @@ class _PermissionRequired extends StatelessWidget {
                   TextButton(
                     onPressed: () => Navigator.of(context).pop(),
                     child: Text(
-                      'Go Back',
+                      context.t.back,
                       style: AppTextStyles.body(14, color: Colors.white),
                     ),
                   ),
@@ -364,7 +375,7 @@ class _PermissionRequired extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF7C3AED),
                     ),
-                    child: const Text('Try Again'),
+                    child: Text(context.t.common.tryAgain),
                   ),
                 ],
               ),

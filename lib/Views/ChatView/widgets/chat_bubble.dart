@@ -92,6 +92,7 @@ class ChatBubble extends StatelessWidget {
                 ),
               ),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 spacing: 12,
                 children: [
                   Text(

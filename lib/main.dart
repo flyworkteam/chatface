@@ -171,6 +171,21 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           textTheme: AppTextStyles.textTheme(Theme.of(context).colorScheme),
         ),
+        builder: (context, child) {
+          final mediaQuery = MediaQuery.maybeOf(context);
+          if (mediaQuery != null) {
+            AppTextStyles.syncScale(mediaQuery);
+          }
+
+          final theme = Theme.of(context);
+
+          return Theme(
+            data: theme.copyWith(
+              textTheme: AppTextStyles.textTheme(theme.colorScheme),
+            ),
+            child: child ?? const SizedBox.shrink(),
+          );
+        },
         home: const SplashView(),
         locale: TranslationProvider.of(context).flutterLocale,
         supportedLocales: AppLocaleUtils.supportedLocales,

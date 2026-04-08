@@ -1,7 +1,7 @@
 import 'package:chatface/Core/Routes/app_routes.dart';
 import 'package:chatface/Models/ai_message_model.dart';
-import 'package:chatface/Models/persona_model.dart';
 import 'package:chatface/Models/ai_session_model.dart';
+import 'package:chatface/Models/persona_model.dart';
 import 'package:chatface/Riverpod/Providers/all_providers.dart';
 import 'package:chatface/Riverpod/Providers/chat_controller_provider.dart';
 import 'package:chatface/Riverpod/Providers/persona_provider.dart';
@@ -172,6 +172,7 @@ class ChatView extends HookConsumerWidget {
         fit: StackFit.expand,
         children: [
           const BlurredGradientBackground(),
+
           SafeArea(
             child: Column(
               children: [
@@ -247,7 +248,7 @@ class ChatView extends HookConsumerWidget {
                                 ),
                             noItemsFoundIndicatorBuilder: (_) => Center(
                               child: Text(
-                                'Start the conversation ✨',
+                                context.t.chat.noMessagesSubtitle,
                                 style: AppTextStyles.body(
                                   14,
                                   color: Colors.white54,

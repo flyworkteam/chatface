@@ -77,11 +77,13 @@ class _ControlButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 60,
-        height: 60,
-        decoration: BoxDecoration(
+        width: 82,
+        height: 55,
+        decoration: ShapeDecoration(
           color: backgroundColor,
-          borderRadius: BorderRadius.circular(50),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50),
+          ),
         ),
         child: Center(
           child: SvgPicture.asset(

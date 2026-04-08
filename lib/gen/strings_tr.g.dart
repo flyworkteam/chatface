@@ -70,6 +70,10 @@ class TranslationsTr with BaseTranslations<AppLocale, Translations> implements T
 	@override String get successfully => 'Başarıyla';
 	@override String get save => 'Kaydet';
 	@override late final _TranslationsLanguageOptionsTr languageOptions = _TranslationsLanguageOptionsTr._(_root);
+	@override late final _TranslationsCommonTr common = _TranslationsCommonTr._(_root);
+	@override String get permissionsRequired => 'İzinler Gerekli';
+	@override late final _TranslationsPermissionHelperTr permissionHelper = _TranslationsPermissionHelperTr._(_root);
+	@override late final _TranslationsVideoViewTr videoView = _TranslationsVideoViewTr._(_root);
 }
 
 // Path: termOfService
@@ -98,11 +102,11 @@ class _TranslationsOnboardingTr implements TranslationsOnboardingEn {
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsOnboardingStep5Tr step5 = _TranslationsOnboardingStep5Tr._(_root);
 	@override late final _TranslationsOnboardingStep1Tr step1 = _TranslationsOnboardingStep1Tr._(_root);
 	@override late final _TranslationsOnboardingStep2Tr step2 = _TranslationsOnboardingStep2Tr._(_root);
 	@override late final _TranslationsOnboardingStep3Tr step3 = _TranslationsOnboardingStep3Tr._(_root);
 	@override late final _TranslationsOnboardingStep4Tr step4 = _TranslationsOnboardingStep4Tr._(_root);
-	@override late final _TranslationsOnboardingStep5Tr step5 = _TranslationsOnboardingStep5Tr._(_root);
 	@override late final _TranslationsOnboardingLoadingTr loading = _TranslationsOnboardingLoadingTr._(_root);
 	@override String get allowAccess => 'Erişime izin ver';
 	@override String get iUnderstand => 'Anladım';
@@ -186,6 +190,8 @@ class _TranslationsVideoChatTr implements TranslationsVideoChatEn {
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
+	@override String get networkHiccup => 'Ağ sorunu algılandı. Mikrofon yeniden bağlanıyor...';
+	@override String get failedToUpdateFollow => 'Takip durumu güncellenemedi.';
 	@override String get connecting => 'Bağlanıyor...';
 	@override String get callEnded => 'Arama sona erdi';
 	@override String callFailed({required Object error}) => 'Arama başarısız oldu: ${error}';
@@ -319,6 +325,45 @@ class _TranslationsLanguageOptionsTr implements TranslationsLanguageOptionsEn {
 	@override String get portuguese => 'Portekizce';
 }
 
+// Path: common
+class _TranslationsCommonTr implements TranslationsCommonEn {
+	_TranslationsCommonTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get tryAgain => 'Tekrar Dene';
+	@override String get retry => 'Yeniden Dene';
+	@override String get close => 'Kapat';
+}
+
+// Path: permissionHelper
+class _TranslationsPermissionHelperTr implements TranslationsPermissionHelperEn {
+	_TranslationsPermissionHelperTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get camAndMicRequired => 'Görüntülü aramalar için kamera ve mikrofon izinleri gereklidir. Lütfen ayarlardan etkinleştirin.';
+	@override String get micRequired => 'Sesli aramalar için mikrofon izni gereklidir. Lütfen ayarlardan etkinleştirin.';
+	@override String get cancel => 'İptal';
+	@override String get openSettings => 'Ayarları Aç';
+}
+
+// Path: videoView
+class _TranslationsVideoViewTr implements TranslationsVideoViewEn {
+	_TranslationsVideoViewTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Kamera filtreleri';
+	@override String get subtitle => 'Kamera önizlemesi için bir görünüm seç.';
+	@override String get errorLoad => 'Karakterler yüklenemedi: ';
+	@override String get noComps => 'Henüz hiç karakter yok.';
+	@override late final _TranslationsVideoViewFiltersTr filters = _TranslationsVideoViewFiltersTr._(_root);
+}
+
 // Path: termOfService.privacyPolicy
 class _TranslationsTermOfServicePrivacyPolicyTr implements TranslationsTermOfServicePrivacyPolicyEn {
 	_TranslationsTermOfServicePrivacyPolicyTr._(this._root);
@@ -400,6 +445,25 @@ class _TranslationsTermOfServiceCookiePolicyTr implements TranslationsTermOfServ
 	@override String get section6Body => '📩 İletişim: support@fly-work.com';
 }
 
+// Path: onboarding.step5
+class _TranslationsOnboardingStep5Tr implements TranslationsOnboardingStep5En {
+	_TranslationsOnboardingStep5Tr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get permissionRequired => 'İzin gerekiyor';
+	@override String get notNow => 'Şimdi değil';
+	@override String get openSettings => 'Ayarları aç';
+	@override String get title => 'İzinler';
+	@override String get permission1 => 'Kamera erişimi';
+	@override String get permission1Subtitle => 'Kamera erişimine izin ver';
+	@override String get permission2 => 'Mikrofon erişimi';
+	@override String get permission2Subtitle => 'Mikrofon erişimine izin ver';
+	@override String get permission3 => 'Konum erişimi';
+	@override String get permission3Subtitle => 'Konum erişimine izin ver';
+}
+
 // Path: onboarding.step1
 class _TranslationsOnboardingStep1Tr implements TranslationsOnboardingStep1En {
 	_TranslationsOnboardingStep1Tr._(this._root);
@@ -454,22 +518,6 @@ class _TranslationsOnboardingStep4Tr implements TranslationsOnboardingStep4En {
 	@override String get entry4 => 'Sadece 18+';
 	@override String get subentry4 => 'Reşit olmayanlar için uygun değildir';
 	@override String get communityRules => 'Topluluk Kuralları';
-}
-
-// Path: onboarding.step5
-class _TranslationsOnboardingStep5Tr implements TranslationsOnboardingStep5En {
-	_TranslationsOnboardingStep5Tr._(this._root);
-
-	final TranslationsTr _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'İzinler';
-	@override String get permission1 => 'Kamera erişimi';
-	@override String get permission1Subtitle => 'Kamera erişimine izin ver';
-	@override String get permission2 => 'Mikrofon erişimi';
-	@override String get permission2Subtitle => 'Mikrofon erişimine izin ver';
-	@override String get permission3 => 'Konum erişimi';
-	@override String get permission3Subtitle => 'Konum erişimine izin ver';
 }
 
 // Path: onboarding.loading
@@ -542,6 +590,45 @@ class _TranslationsDeleteAccountStepsTr implements TranslationsDeleteAccountStep
 	@override late final _TranslationsDeleteAccountStepsStep1Tr step1 = _TranslationsDeleteAccountStepsStep1Tr._(_root);
 	@override late final _TranslationsDeleteAccountStepsStep2Tr step2 = _TranslationsDeleteAccountStepsStep2Tr._(_root);
 	@override late final _TranslationsDeleteAccountStepsStep3Tr step3 = _TranslationsDeleteAccountStepsStep3Tr._(_root);
+}
+
+// Path: videoView.filters
+class _TranslationsVideoViewFiltersTr implements TranslationsVideoViewFiltersEn {
+	_TranslationsVideoViewFiltersTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get ORIGINAL => 'Orijinal';
+	@override String get ADDICTIVE_BLUE => 'Bağımlılık Mavisi';
+	@override String get ADDICTIVE_RED => 'Bağımlılık Kırmızısı';
+	@override String get ADEN => 'Aden';
+	@override String get AMARO => 'Amaro';
+	@override String get ASHBY => 'Ashby';
+	@override String get BRANNAN => 'Brannan';
+	@override String get BROOKLYN => 'Brooklyn';
+	@override String get CLARENDON => 'Clarendon';
+	@override String get CREMA => 'Crema';
+	@override String get DOGPATCH => 'Dogpatch';
+	@override String get GINGHAM => 'Gingham';
+	@override String get GINZA => 'Ginza';
+	@override String get HEFE => 'Hefe';
+	@override String get HUDSON => 'Hudson';
+	@override String get INKWELL => 'Inkwell';
+	@override String get JUNO => 'Juno';
+	@override String get LARK => 'Lark';
+	@override String get LOFI => 'LoFi';
+	@override String get LUDWIG => 'Ludwig';
+	@override String get MOON => 'Moon';
+	@override String get PERPETUA => 'Perpetua';
+	@override String get REYES => 'Reyes';
+	@override String get SIERRA => 'Sierra';
+	@override String get SLUMBER => 'Slumber';
+	@override String get STINSON => 'Stinson';
+	@override String get SUTRO => 'Sutro';
+	@override String get WALDEN => 'Walden';
+	@override String get WILLOW => 'Willow';
+	@override String get XPROII => 'XProII';
 }
 
 // Path: deleteAccount.steps.step1
@@ -675,6 +762,16 @@ extension on TranslationsTr {
 			'termOfService.cookiePolicy.section6Body' => '📩 İletişim: support@fly-work.com',
 			'cookies' => 'Çerez Politikası',
 			'privacy' => 'Gizlilik Politikası',
+			'onboarding.step5.permissionRequired' => 'İzin gerekiyor',
+			'onboarding.step5.notNow' => 'Şimdi değil',
+			'onboarding.step5.openSettings' => 'Ayarları aç',
+			'onboarding.step5.title' => 'İzinler',
+			'onboarding.step5.permission1' => 'Kamera erişimi',
+			'onboarding.step5.permission1Subtitle' => 'Kamera erişimine izin ver',
+			'onboarding.step5.permission2' => 'Mikrofon erişimi',
+			'onboarding.step5.permission2Subtitle' => 'Mikrofon erişimine izin ver',
+			'onboarding.step5.permission3' => 'Konum erişimi',
+			'onboarding.step5.permission3Subtitle' => 'Konum erişimine izin ver',
 			'onboarding.step1.title' => 'Adınız nedir?',
 			'onboarding.step1.subtitle' => 'Lütfen adınızı girin',
 			'onboarding.step1.hint' => 'Tam isim',
@@ -695,13 +792,6 @@ extension on TranslationsTr {
 			'onboarding.step4.entry4' => 'Sadece 18+',
 			'onboarding.step4.subentry4' => 'Reşit olmayanlar için uygun değildir',
 			'onboarding.step4.communityRules' => 'Topluluk Kuralları',
-			'onboarding.step5.title' => 'İzinler',
-			'onboarding.step5.permission1' => 'Kamera erişimi',
-			'onboarding.step5.permission1Subtitle' => 'Kamera erişimine izin ver',
-			'onboarding.step5.permission2' => 'Mikrofon erişimi',
-			'onboarding.step5.permission2Subtitle' => 'Mikrofon erişimine izin ver',
-			'onboarding.step5.permission3' => 'Konum erişimi',
-			'onboarding.step5.permission3Subtitle' => 'Konum erişimine izin ver',
 			'onboarding.loading.titlePart1' => 'Kişisel hesabınız',
 			'onboarding.loading.titlePart2' => 'oluşturuluyor',
 			'onboarding.loading.subtitle' => 'Lütfen bekleyin, profiliniz hazırlanıyor.',
@@ -742,6 +832,8 @@ extension on TranslationsTr {
 			'notifications.noNotifications' => 'Henüz bildirim yok.',
 			'notifications.noNotificationsSubtitle' => 'Daha sonra bildirim geldiğinde kontrol etmeyi unutmayın.',
 			'notifications.allDeleted' => 'Tüm bildirimler başarıyla silindi',
+			'videoChat.networkHiccup' => 'Ağ sorunu algılandı. Mikrofon yeniden bağlanıyor...',
+			'videoChat.failedToUpdateFollow' => 'Takip durumu güncellenemedi.',
 			'videoChat.connecting' => 'Bağlanıyor...',
 			'videoChat.callEnded' => 'Arama sona erdi',
 			'videoChat.callFailed' => ({required Object error}) => 'Arama başarısız oldu: ${error}',
@@ -851,6 +943,48 @@ extension on TranslationsTr {
 			'languageOptions.korean' => 'Korece',
 			'languageOptions.hindi' => 'Hintçe',
 			'languageOptions.portuguese' => 'Portekizce',
+			'common.tryAgain' => 'Tekrar Dene',
+			'common.retry' => 'Yeniden Dene',
+			'common.close' => 'Kapat',
+			'permissionsRequired' => 'İzinler Gerekli',
+			'permissionHelper.camAndMicRequired' => 'Görüntülü aramalar için kamera ve mikrofon izinleri gereklidir. Lütfen ayarlardan etkinleştirin.',
+			'permissionHelper.micRequired' => 'Sesli aramalar için mikrofon izni gereklidir. Lütfen ayarlardan etkinleştirin.',
+			'permissionHelper.cancel' => 'İptal',
+			'permissionHelper.openSettings' => 'Ayarları Aç',
+			'videoView.title' => 'Kamera filtreleri',
+			'videoView.subtitle' => 'Kamera önizlemesi için bir görünüm seç.',
+			'videoView.errorLoad' => 'Karakterler yüklenemedi: ',
+			'videoView.noComps' => 'Henüz hiç karakter yok.',
+			'videoView.filters.ORIGINAL' => 'Orijinal',
+			'videoView.filters.ADDICTIVE_BLUE' => 'Bağımlılık Mavisi',
+			'videoView.filters.ADDICTIVE_RED' => 'Bağımlılık Kırmızısı',
+			'videoView.filters.ADEN' => 'Aden',
+			'videoView.filters.AMARO' => 'Amaro',
+			'videoView.filters.ASHBY' => 'Ashby',
+			'videoView.filters.BRANNAN' => 'Brannan',
+			'videoView.filters.BROOKLYN' => 'Brooklyn',
+			'videoView.filters.CLARENDON' => 'Clarendon',
+			'videoView.filters.CREMA' => 'Crema',
+			'videoView.filters.DOGPATCH' => 'Dogpatch',
+			'videoView.filters.GINGHAM' => 'Gingham',
+			'videoView.filters.GINZA' => 'Ginza',
+			'videoView.filters.HEFE' => 'Hefe',
+			'videoView.filters.HUDSON' => 'Hudson',
+			'videoView.filters.INKWELL' => 'Inkwell',
+			'videoView.filters.JUNO' => 'Juno',
+			'videoView.filters.LARK' => 'Lark',
+			'videoView.filters.LOFI' => 'LoFi',
+			'videoView.filters.LUDWIG' => 'Ludwig',
+			'videoView.filters.MOON' => 'Moon',
+			'videoView.filters.PERPETUA' => 'Perpetua',
+			'videoView.filters.REYES' => 'Reyes',
+			'videoView.filters.SIERRA' => 'Sierra',
+			'videoView.filters.SLUMBER' => 'Slumber',
+			'videoView.filters.STINSON' => 'Stinson',
+			'videoView.filters.SUTRO' => 'Sutro',
+			'videoView.filters.WALDEN' => 'Walden',
+			'videoView.filters.WILLOW' => 'Willow',
+			'videoView.filters.XPROII' => 'XProII',
 			_ => null,
 		};
 	}

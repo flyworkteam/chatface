@@ -88,7 +88,7 @@ class HomeCharacterCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            character.name,
+                            '${character.name}, ${character.age}',
                             style: AppTextStyles.body(
                               24,
                               weight: FontWeight.w600,

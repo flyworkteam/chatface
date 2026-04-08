@@ -2,6 +2,7 @@ import 'package:chatface/Services/secure_storage_service.dart';
 import 'package:chatface/gen/strings.g.dart';
 import 'package:chatface/theme/app_text_styles.dart';
 import 'package:chatface/utils/app_assets.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 
 class SelectLearnLanguage extends StatelessWidget {
@@ -90,70 +91,97 @@ class SelectLearnLanguage extends StatelessWidget {
         border: Border.all(color: Colors.white.withValues(alpha: 0.2)),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton<String>(
-          value: selected.code,
-          isExpanded: true,
-          icon: const Icon(
-            Icons.keyboard_arrow_down_rounded,
-            color: Colors.white70,
-          ),
-          style: AppTextStyles.body(
-            14,
-            weight: FontWeight.bold,
-            color: Colors.white,
-          ),
-          borderRadius: BorderRadius.circular(16),
-          dropdownColor: const Color(0xFF171721),
-          selectedItemBuilder: (context) {
-            return languages.map((lang) {
-              return Row(
-                children: [
-                  Spacer(),
-                  Text(
-                    lang.label,
-                    style: AppTextStyles.body(
-                      14,
-                      weight: FontWeight.bold,
-                      color: Colors.white,
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final fieldWidth = constraints.maxWidth;
+          const horizontalInset = 16.0;
+          final menuWidth = fieldWidth + (horizontalInset * 2);
+
+          return Theme(
+            data: Theme.of(context).copyWith(platform: TargetPlatform.android),
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton2<String>(
+                value: selected.code,
+                isExpanded: true,
+                iconStyleData: const IconStyleData(
+                  icon: Icon(
+                    Icons.keyboard_arrow_down_rounded,
+                    color: Colors.white70,
+                  ),
+                ),
+                buttonStyleData: ButtonStyleData(height: 46, width: fieldWidth),
+                style: AppTextStyles.body(
+                  14,
+                  weight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+                dropdownStyleData: DropdownStyleData(
+                  width: menuWidth,
+                  maxHeight: 150,
+                  offset: const Offset(-horizontalInset, -5),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF171721),
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(
+                      color: Colors.white.withValues(alpha: 0.25),
                     ),
                   ),
-                  Spacer(),
-                ],
-              );
-            }).toList();
-          },
-          items: languages.map((lang) {
-            return DropdownMenuItem<String>(
-              value: lang.code,
-              child: Row(
-                children: [
-                  Spacer(),
-                  Expanded(
-                    child: Text(
-                      lang.label,
-                      overflow: TextOverflow.ellipsis,
-                      style: AppTextStyles.body(
-                        14,
-                        weight: lang.code == selected.code
-                            ? FontWeight.w700
-                            : FontWeight.w600,
-                        color: Colors.white,
+                  scrollbarTheme: ScrollbarThemeData(
+                    thumbColor: WidgetStateProperty.resolveWith(
+                      (_) => Colors.white,
+                    ),
+                    thumbVisibility: WidgetStateProperty.all(true),
+                    trackVisibility: WidgetStateProperty.all(false),
+                    thickness: WidgetStateProperty.all(1.5),
+                    radius: const Radius.circular(8),
+                  ),
+                ),
+                menuItemStyleData: const MenuItemStyleData(
+                  height: 44,
+                  padding: EdgeInsets.symmetric(horizontal: 4),
+                ),
+                selectedItemBuilder: (context) {
+                  return languages.map((lang) {
+                    return Center(
+                      child: Text(
+                        lang.label,
+                        style: AppTextStyles.body(
+                          14,
+                          weight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    );
+                  }).toList();
+                },
+                items: languages.map((lang) {
+                  return DropdownMenuItem<String>(
+                    value: lang.code,
+                    child: Center(
+                      child: Text(
+                        lang.label,
+                        overflow: TextOverflow.ellipsis,
+                        style: AppTextStyles.body(
+                          14,
+                          weight: lang.code == selected.code
+                              ? FontWeight.w700
+                              : FontWeight.w600,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
-                  ),
-                  Spacer(),
-                ],
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  if (value == null) return;
+                  onChanged?.call(value);
+                  LocaleSettings.setLocale(AppLocale.values.byName(value));
+                  SecureStorageService().saveLanguage(value);
+                },
               ),
-            );
-          }).toList(),
-          onChanged: (value) {
-            if (value == null) return;
-            onChanged?.call(value);
-            LocaleSettings.setLocale(AppLocale.values.byName(value));
-            SecureStorageService().saveLanguage(value);
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }

@@ -67,9 +67,12 @@ class AppIcons {
   static const String minuscircle = 'assets/icons/minuscircle.svg';
   static const String notification = 'assets/icons/notification.svg';
   static const String notifications = 'assets/icons/notifications.svg';
-  static const String premium = 'assets/icons/premium.png';
+  static const String premium = 'assets/icons/premium.svg';
+  static const String premiumIcon = 'assets/icons/premium_icon.png';
   static const String profile = 'assets/icons/profile.png';
   static const String profileVideo = 'assets/icons/profilevideo.png';
+  static const String videoProfile = 'assets/icons/profilevideo.svg';
+  static const String homeProfile = 'assets/icons/homeprofile.svg';
   static const String profileFolow = 'assets/icons/profilefollow.png';
   static const String premiumBackground = 'assets/icons/premiumbackground.png';
   static const String rateUs = 'assets/icons/rateus.svg';

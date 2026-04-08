@@ -70,6 +70,10 @@ class TranslationsJa with BaseTranslations<AppLocale, Translations> implements T
 	@override String get successfully => '成功しました';
 	@override String get save => '保存';
 	@override late final _TranslationsLanguageOptionsJa languageOptions = _TranslationsLanguageOptionsJa._(_root);
+	@override late final _TranslationsCommonJa common = _TranslationsCommonJa._(_root);
+	@override String get permissionsRequired => '権限が必要です';
+	@override late final _TranslationsPermissionHelperJa permissionHelper = _TranslationsPermissionHelperJa._(_root);
+	@override late final _TranslationsVideoViewJa videoView = _TranslationsVideoViewJa._(_root);
 }
 
 // Path: termOfService
@@ -98,11 +102,11 @@ class _TranslationsOnboardingJa implements TranslationsOnboardingEn {
 	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsOnboardingStep5Ja step5 = _TranslationsOnboardingStep5Ja._(_root);
 	@override late final _TranslationsOnboardingStep1Ja step1 = _TranslationsOnboardingStep1Ja._(_root);
 	@override late final _TranslationsOnboardingStep2Ja step2 = _TranslationsOnboardingStep2Ja._(_root);
 	@override late final _TranslationsOnboardingStep3Ja step3 = _TranslationsOnboardingStep3Ja._(_root);
 	@override late final _TranslationsOnboardingStep4Ja step4 = _TranslationsOnboardingStep4Ja._(_root);
-	@override late final _TranslationsOnboardingStep5Ja step5 = _TranslationsOnboardingStep5Ja._(_root);
 	@override late final _TranslationsOnboardingLoadingJa loading = _TranslationsOnboardingLoadingJa._(_root);
 	@override String get allowAccess => 'アクセスを許可';
 	@override String get iUnderstand => '理解しました';
@@ -186,6 +190,8 @@ class _TranslationsVideoChatJa implements TranslationsVideoChatEn {
 	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
+	@override String get networkHiccup => 'ネットワークの問題が検出されました。再接続しています...';
+	@override String get failedToUpdateFollow => 'フォロー状態の更新に失敗しました。';
 	@override String get connecting => '接続中...';
 	@override String get callEnded => '通話終了';
 	@override String callFailed({required Object error}) => '通話に失敗しました: ${error}';
@@ -319,6 +325,45 @@ class _TranslationsLanguageOptionsJa implements TranslationsLanguageOptionsEn {
 	@override String get portuguese => 'ポルトガル語';
 }
 
+// Path: common
+class _TranslationsCommonJa implements TranslationsCommonEn {
+	_TranslationsCommonJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get tryAgain => '再試行';
+	@override String get retry => 'やり直す';
+	@override String get close => '閉じる';
+}
+
+// Path: permissionHelper
+class _TranslationsPermissionHelperJa implements TranslationsPermissionHelperEn {
+	_TranslationsPermissionHelperJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get camAndMicRequired => 'ビデオ通話にはカメラとマイクの権限が必要です。設定で有効にしてください。';
+	@override String get micRequired => '音声通話にはマイクの権限が必要です。設定で有効にしてください。';
+	@override String get cancel => 'キャンセル';
+	@override String get openSettings => '設定を開く';
+}
+
+// Path: videoView
+class _TranslationsVideoViewJa implements TranslationsVideoViewEn {
+	_TranslationsVideoViewJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'カメラフィルター';
+	@override String get subtitle => 'カメラプレビューのプレビューを選択します。';
+	@override String get errorLoad => 'コンパニオンを読み込めませんでした：';
+	@override String get noComps => '利用可能なコンパニオンはまだありません。';
+	@override late final _TranslationsVideoViewFiltersJa filters = _TranslationsVideoViewFiltersJa._(_root);
+}
+
 // Path: termOfService.privacyPolicy
 class _TranslationsTermOfServicePrivacyPolicyJa implements TranslationsTermOfServicePrivacyPolicyEn {
 	_TranslationsTermOfServicePrivacyPolicyJa._(this._root);
@@ -400,6 +445,25 @@ class _TranslationsTermOfServiceCookiePolicyJa implements TranslationsTermOfServ
 	@override String get section6Body => '📩 問い合わせ先：support@fly-work.com';
 }
 
+// Path: onboarding.step5
+class _TranslationsOnboardingStep5Ja implements TranslationsOnboardingStep5En {
+	_TranslationsOnboardingStep5Ja._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get permissionRequired => '許可が必要です';
+	@override String get notNow => '後で';
+	@override String get openSettings => '設定を開く';
+	@override String get title => '権限';
+	@override String get permission1 => 'カメラアクセス';
+	@override String get permission1Subtitle => 'カメラアクセスを許可';
+	@override String get permission2 => 'マイクアクセス';
+	@override String get permission2Subtitle => 'マイクアクセスを許可';
+	@override String get permission3 => '位置情報アクセス';
+	@override String get permission3Subtitle => '位置情報アクセスを許可';
+}
+
 // Path: onboarding.step1
 class _TranslationsOnboardingStep1Ja implements TranslationsOnboardingStep1En {
 	_TranslationsOnboardingStep1Ja._(this._root);
@@ -454,22 +518,6 @@ class _TranslationsOnboardingStep4Ja implements TranslationsOnboardingStep4En {
 	@override String get entry4 => '18 以上のみ';
 	@override String get subentry4 => '未成年には適していません';
 	@override String get communityRules => 'コミュニティルール';
-}
-
-// Path: onboarding.step5
-class _TranslationsOnboardingStep5Ja implements TranslationsOnboardingStep5En {
-	_TranslationsOnboardingStep5Ja._(this._root);
-
-	final TranslationsJa _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => '権限';
-	@override String get permission1 => 'カメラアクセス';
-	@override String get permission1Subtitle => 'カメラアクセスを許可';
-	@override String get permission2 => 'マイクアクセス';
-	@override String get permission2Subtitle => 'マイクアクセスを許可';
-	@override String get permission3 => '位置情報アクセス';
-	@override String get permission3Subtitle => '位置情報アクセスを許可';
 }
 
 // Path: onboarding.loading
@@ -544,6 +592,45 @@ class _TranslationsDeleteAccountStepsJa implements TranslationsDeleteAccountStep
 	@override late final _TranslationsDeleteAccountStepsStep3Ja step3 = _TranslationsDeleteAccountStepsStep3Ja._(_root);
 }
 
+// Path: videoView.filters
+class _TranslationsVideoViewFiltersJa implements TranslationsVideoViewFiltersEn {
+	_TranslationsVideoViewFiltersJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get ORIGINAL => 'オリジナル';
+	@override String get ADDICTIVE_BLUE => '中毒性のある青';
+	@override String get ADDICTIVE_RED => '中毒性のある赤';
+	@override String get ADEN => 'Aden';
+	@override String get AMARO => 'Amaro';
+	@override String get ASHBY => 'Ashby';
+	@override String get BRANNAN => 'Brannan';
+	@override String get BROOKLYN => 'Brooklyn';
+	@override String get CLARENDON => 'Clarendon';
+	@override String get CREMA => 'Crema';
+	@override String get DOGPATCH => 'Dogpatch';
+	@override String get GINGHAM => 'Gingham';
+	@override String get GINZA => 'Ginza';
+	@override String get HEFE => 'Hefe';
+	@override String get HUDSON => 'Hudson';
+	@override String get INKWELL => 'Inkwell';
+	@override String get JUNO => 'Juno';
+	@override String get LARK => 'Lark';
+	@override String get LOFI => 'LoFi';
+	@override String get LUDWIG => 'Ludwig';
+	@override String get MOON => 'Moon';
+	@override String get PERPETUA => 'Perpetua';
+	@override String get REYES => 'Reyes';
+	@override String get SIERRA => 'Sierra';
+	@override String get SLUMBER => 'Slumber';
+	@override String get STINSON => 'Stinson';
+	@override String get SUTRO => 'Sutro';
+	@override String get WALDEN => 'Walden';
+	@override String get WILLOW => 'Willow';
+	@override String get XPROII => 'XProII';
+}
+
 // Path: deleteAccount.steps.step1
 class _TranslationsDeleteAccountStepsStep1Ja implements TranslationsDeleteAccountStepsStep1En {
 	_TranslationsDeleteAccountStepsStep1Ja._(this._root);
@@ -551,13 +638,13 @@ class _TranslationsDeleteAccountStepsStep1Ja implements TranslationsDeleteAccoun
 	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '行ってほしくはないですが、理解します。';
-	@override String get subtitle => 'ChatFace の体験を改善するために、なぜ離れたいのか理由を教えていただけますか？';
-	@override String get option1 => 'AI キャラクターが現実的ではないと感じました。';
-	@override String get option2 => 'ビデオチャットで技術的な問題を経験しています。';
-	@override String get option3 => 'サブスクリプション価格が予想以上に高い。';
-	@override String get option4 => '探していたスタイルのキャラクターが見つかりませんでした。';
-	@override String get option5 => '短期間だけ試したかっただけです。';
+	@override String get title => '去ってほしくはありませんが、理解しています。';
+	@override String get subtitle => 'ChatFaceのエクスペリエンスを向上させるために、退会を希望する理由を教えていただけますか？';
+	@override String get option1 => 'AIキャラクターがリアルではないと感じた。';
+	@override String get option2 => 'ビデオチャットで技術的な問題が発生している。';
+	@override String get option3 => 'サブスクリプション価格が期待よりも高い。';
+	@override String get option4 => '探していたタイプのキャラクターが見つからなかった。';
+	@override String get option5 => '短期間だけ試してみたかった。';
 	@override String get option6 => 'その他';
 }
 
@@ -568,15 +655,15 @@ class _TranslationsDeleteAccountStepsStep2Ja implements TranslationsDeleteAccoun
 	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'アカウントを削除すると、以下を失います：';
-	@override String get subtitle1 => '深い繋がりと記憶：';
-	@override String get subtitle1Desc => 'チャットしたキャラクターはあなたとの過去、共有した秘密、あなたの個人的な習慣を完全に忘れてしまいます。';
-	@override String get subtitle2 => 'ビデオ通話の特典：';
-	@override String get subtitle2Desc => 'いつでもアクセスできたあなただけの AI パートナーとの対面コミュニケーションの権利を失います。';
+	@override String get title => 'アカウントを削除すると、以下に別れを告げることになります：';
+	@override String get subtitle1 => '深いつながりと記憶：';
+	@override String get subtitle1Desc => 'チャットするキャラクターは、あなたとの過去や共有した秘密を完全に忘れます。';
+	@override String get subtitle2 => 'ビデオ通話の特権：';
+	@override String get subtitle2Desc => 'AIパートナーと対面でコミュニケーションする権利を失います。';
 	@override String get subtitle3 => '高度なアルゴリズム：';
-	@override String get subtitle3Desc => 'あなたの好みに基づく「あなた向け」キャラクターマッチがリセットされます。';
-	@override String get subtitle4 => 'プロファイルデータ：';
-	@override String get subtitle4Desc => '獲得した実績、解放した専用キャラクター、およびチャット履歴は復元不可能に削除されます。';
+	@override String get subtitle3Desc => 'あなたに合わせたキャラクターの提案がリセットされます。';
+	@override String get subtitle4 => 'プロフィールデータ：';
+	@override String get subtitle4Desc => '獲得した実績、特別なキャラクター、チャット履歴は取り消しできなくなります。';
 }
 
 // Path: deleteAccount.steps.step3
@@ -586,14 +673,14 @@ class _TranslationsDeleteAccountStepsStep3Ja implements TranslationsDeleteAccoun
 	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '行く前に特別なオファーがあります！';
-	@override String get description => 'もう少し時間やより良いオファーがあれば十分かもしれません。アカウントを削除する代わりに以下を検討しますか？';
-	@override String description1({required Object offer}) => 'あなたに居てほしい。次回の購読で ${offer} を提供します！このオファーを利用しますか？';
-	@override String get description1Offer => '50％割引を提供しました';
-	@override String description2({required Object offer}) => 'まだ試していない新しいキャラクターを発見するために ${offer} クレジットを付与しました。';
-	@override String get description2Offer => '3 回の無料ビデオ通話';
-	@override String get acceptOffer => '50% 割引を受け入れる';
-	@override String get deleteMyAccount => 'アカウントを削除';
+	@override String get title => '去る前に特別なオファーがあります！';
+	@override String get description => 'もう少し時間が必要なのかもしれません。アカウントを削除する代わりに、これを検討しませんか？';
+	@override String description1({required Object offer}) => 'あなたを引き留めることは私たちにとって貴重です。次回のサブスクリプションで${offer}！';
+	@override String get description1Offer => '50%割引を適用しました';
+	@override String description2({required Object offer}) => '新しいキャラクターを発見できるように、${offer}クレジットを付与しました。';
+	@override String get description2Offer => '無料ビデオ通話3回';
+	@override String get acceptOffer => '50%割引オファーを受け入れる';
+	@override String get deleteMyAccount => 'アカウントを削除する';
 }
 
 /// The flat map containing all translations for locale <ja>.
@@ -675,6 +762,16 @@ extension on TranslationsJa {
 			'termOfService.cookiePolicy.section6Body' => '📩 問い合わせ先：support@fly-work.com',
 			'cookies' => 'クッキーポリシー',
 			'privacy' => 'プライバシーポリシー',
+			'onboarding.step5.permissionRequired' => '許可が必要です',
+			'onboarding.step5.notNow' => '後で',
+			'onboarding.step5.openSettings' => '設定を開く',
+			'onboarding.step5.title' => '権限',
+			'onboarding.step5.permission1' => 'カメラアクセス',
+			'onboarding.step5.permission1Subtitle' => 'カメラアクセスを許可',
+			'onboarding.step5.permission2' => 'マイクアクセス',
+			'onboarding.step5.permission2Subtitle' => 'マイクアクセスを許可',
+			'onboarding.step5.permission3' => '位置情報アクセス',
+			'onboarding.step5.permission3Subtitle' => '位置情報アクセスを許可',
 			'onboarding.step1.title' => 'あなたの名前は何ですか？',
 			'onboarding.step1.subtitle' => '名前を入力してください',
 			'onboarding.step1.hint' => 'フルネーム',
@@ -695,13 +792,6 @@ extension on TranslationsJa {
 			'onboarding.step4.entry4' => '18 以上のみ',
 			'onboarding.step4.subentry4' => '未成年には適していません',
 			'onboarding.step4.communityRules' => 'コミュニティルール',
-			'onboarding.step5.title' => '権限',
-			'onboarding.step5.permission1' => 'カメラアクセス',
-			'onboarding.step5.permission1Subtitle' => 'カメラアクセスを許可',
-			'onboarding.step5.permission2' => 'マイクアクセス',
-			'onboarding.step5.permission2Subtitle' => 'マイクアクセスを許可',
-			'onboarding.step5.permission3' => '位置情報アクセス',
-			'onboarding.step5.permission3Subtitle' => '位置情報アクセスを許可',
 			'onboarding.loading.titlePart1' => 'あなたの個人アカウントは',
 			'onboarding.loading.titlePart2' => '作成中です',
 			'onboarding.loading.subtitle' => 'しばらくお待ちください、プロフィールを準備しています。',
@@ -742,6 +832,8 @@ extension on TranslationsJa {
 			'notifications.noNotifications' => 'まだ通知はありません。',
 			'notifications.noNotificationsSubtitle' => '通知を受け取ったら、もう一度確認するのを忘れないでください。',
 			'notifications.allDeleted' => 'すべての通知が正常に削除されました',
+			'videoChat.networkHiccup' => 'ネットワークの問題が検出されました。再接続しています...',
+			'videoChat.failedToUpdateFollow' => 'フォロー状態の更新に失敗しました。',
 			'videoChat.connecting' => '接続中...',
 			'videoChat.callEnded' => '通話終了',
 			'videoChat.callFailed' => ({required Object error}) => '通話に失敗しました: ${error}',
@@ -806,31 +898,31 @@ extension on TranslationsJa {
 			'deleteAccount.warning' => '本当にアカウントを削除しますか？',
 			'deleteAccount.description' => 'この操作は取り消せません。あなたのすべての履歴とデータは完全に削除されます。',
 			'deleteAccount.deleteFailed' => ({required Object error}) => 'アカウント削除に失敗しました: ${error}',
-			'deleteAccount.steps.step1.title' => '行ってほしくはないですが、理解します。',
-			'deleteAccount.steps.step1.subtitle' => 'ChatFace の体験を改善するために、なぜ離れたいのか理由を教えていただけますか？',
-			'deleteAccount.steps.step1.option1' => 'AI キャラクターが現実的ではないと感じました。',
-			'deleteAccount.steps.step1.option2' => 'ビデオチャットで技術的な問題を経験しています。',
-			'deleteAccount.steps.step1.option3' => 'サブスクリプション価格が予想以上に高い。',
-			'deleteAccount.steps.step1.option4' => '探していたスタイルのキャラクターが見つかりませんでした。',
-			'deleteAccount.steps.step1.option5' => '短期間だけ試したかっただけです。',
+			'deleteAccount.steps.step1.title' => '去ってほしくはありませんが、理解しています。',
+			'deleteAccount.steps.step1.subtitle' => 'ChatFaceのエクスペリエンスを向上させるために、退会を希望する理由を教えていただけますか？',
+			'deleteAccount.steps.step1.option1' => 'AIキャラクターがリアルではないと感じた。',
+			'deleteAccount.steps.step1.option2' => 'ビデオチャットで技術的な問題が発生している。',
+			'deleteAccount.steps.step1.option3' => 'サブスクリプション価格が期待よりも高い。',
+			'deleteAccount.steps.step1.option4' => '探していたタイプのキャラクターが見つからなかった。',
+			'deleteAccount.steps.step1.option5' => '短期間だけ試してみたかった。',
 			'deleteAccount.steps.step1.option6' => 'その他',
-			'deleteAccount.steps.step2.title' => 'アカウントを削除すると、以下を失います：',
-			'deleteAccount.steps.step2.subtitle1' => '深い繋がりと記憶：',
-			'deleteAccount.steps.step2.subtitle1Desc' => 'チャットしたキャラクターはあなたとの過去、共有した秘密、あなたの個人的な習慣を完全に忘れてしまいます。',
-			'deleteAccount.steps.step2.subtitle2' => 'ビデオ通話の特典：',
-			'deleteAccount.steps.step2.subtitle2Desc' => 'いつでもアクセスできたあなただけの AI パートナーとの対面コミュニケーションの権利を失います。',
+			'deleteAccount.steps.step2.title' => 'アカウントを削除すると、以下に別れを告げることになります：',
+			'deleteAccount.steps.step2.subtitle1' => '深いつながりと記憶：',
+			'deleteAccount.steps.step2.subtitle1Desc' => 'チャットするキャラクターは、あなたとの過去や共有した秘密を完全に忘れます。',
+			'deleteAccount.steps.step2.subtitle2' => 'ビデオ通話の特権：',
+			'deleteAccount.steps.step2.subtitle2Desc' => 'AIパートナーと対面でコミュニケーションする権利を失います。',
 			'deleteAccount.steps.step2.subtitle3' => '高度なアルゴリズム：',
-			'deleteAccount.steps.step2.subtitle3Desc' => 'あなたの好みに基づく「あなた向け」キャラクターマッチがリセットされます。',
-			'deleteAccount.steps.step2.subtitle4' => 'プロファイルデータ：',
-			'deleteAccount.steps.step2.subtitle4Desc' => '獲得した実績、解放した専用キャラクター、およびチャット履歴は復元不可能に削除されます。',
-			'deleteAccount.steps.step3.title' => '行く前に特別なオファーがあります！',
-			'deleteAccount.steps.step3.description' => 'もう少し時間やより良いオファーがあれば十分かもしれません。アカウントを削除する代わりに以下を検討しますか？',
-			'deleteAccount.steps.step3.description1' => ({required Object offer}) => 'あなたに居てほしい。次回の購読で ${offer} を提供します！このオファーを利用しますか？',
-			'deleteAccount.steps.step3.description1Offer' => '50％割引を提供しました',
-			'deleteAccount.steps.step3.description2' => ({required Object offer}) => 'まだ試していない新しいキャラクターを発見するために ${offer} クレジットを付与しました。',
-			'deleteAccount.steps.step3.description2Offer' => '3 回の無料ビデオ通話',
-			'deleteAccount.steps.step3.acceptOffer' => '50% 割引を受け入れる',
-			'deleteAccount.steps.step3.deleteMyAccount' => 'アカウントを削除',
+			'deleteAccount.steps.step2.subtitle3Desc' => 'あなたに合わせたキャラクターの提案がリセットされます。',
+			'deleteAccount.steps.step2.subtitle4' => 'プロフィールデータ：',
+			'deleteAccount.steps.step2.subtitle4Desc' => '獲得した実績、特別なキャラクター、チャット履歴は取り消しできなくなります。',
+			'deleteAccount.steps.step3.title' => '去る前に特別なオファーがあります！',
+			'deleteAccount.steps.step3.description' => 'もう少し時間が必要なのかもしれません。アカウントを削除する代わりに、これを検討しませんか？',
+			'deleteAccount.steps.step3.description1' => ({required Object offer}) => 'あなたを引き留めることは私たちにとって貴重です。次回のサブスクリプションで${offer}！',
+			'deleteAccount.steps.step3.description1Offer' => '50%割引を適用しました',
+			'deleteAccount.steps.step3.description2' => ({required Object offer}) => '新しいキャラクターを発見できるように、${offer}クレジットを付与しました。',
+			'deleteAccount.steps.step3.description2Offer' => '無料ビデオ通話3回',
+			'deleteAccount.steps.step3.acceptOffer' => '50%割引オファーを受け入れる',
+			'deleteAccount.steps.step3.deleteMyAccount' => 'アカウントを削除する',
 			'cancel' => 'キャンセル',
 			'delete' => '削除',
 			'premium' => 'プレミアム',
@@ -851,6 +943,48 @@ extension on TranslationsJa {
 			'languageOptions.korean' => '韓国語',
 			'languageOptions.hindi' => 'ヒンディー語',
 			'languageOptions.portuguese' => 'ポルトガル語',
+			'common.tryAgain' => '再試行',
+			'common.retry' => 'やり直す',
+			'common.close' => '閉じる',
+			'permissionsRequired' => '権限が必要です',
+			'permissionHelper.camAndMicRequired' => 'ビデオ通話にはカメラとマイクの権限が必要です。設定で有効にしてください。',
+			'permissionHelper.micRequired' => '音声通話にはマイクの権限が必要です。設定で有効にしてください。',
+			'permissionHelper.cancel' => 'キャンセル',
+			'permissionHelper.openSettings' => '設定を開く',
+			'videoView.title' => 'カメラフィルター',
+			'videoView.subtitle' => 'カメラプレビューのプレビューを選択します。',
+			'videoView.errorLoad' => 'コンパニオンを読み込めませんでした：',
+			'videoView.noComps' => '利用可能なコンパニオンはまだありません。',
+			'videoView.filters.ORIGINAL' => 'オリジナル',
+			'videoView.filters.ADDICTIVE_BLUE' => '中毒性のある青',
+			'videoView.filters.ADDICTIVE_RED' => '中毒性のある赤',
+			'videoView.filters.ADEN' => 'Aden',
+			'videoView.filters.AMARO' => 'Amaro',
+			'videoView.filters.ASHBY' => 'Ashby',
+			'videoView.filters.BRANNAN' => 'Brannan',
+			'videoView.filters.BROOKLYN' => 'Brooklyn',
+			'videoView.filters.CLARENDON' => 'Clarendon',
+			'videoView.filters.CREMA' => 'Crema',
+			'videoView.filters.DOGPATCH' => 'Dogpatch',
+			'videoView.filters.GINGHAM' => 'Gingham',
+			'videoView.filters.GINZA' => 'Ginza',
+			'videoView.filters.HEFE' => 'Hefe',
+			'videoView.filters.HUDSON' => 'Hudson',
+			'videoView.filters.INKWELL' => 'Inkwell',
+			'videoView.filters.JUNO' => 'Juno',
+			'videoView.filters.LARK' => 'Lark',
+			'videoView.filters.LOFI' => 'LoFi',
+			'videoView.filters.LUDWIG' => 'Ludwig',
+			'videoView.filters.MOON' => 'Moon',
+			'videoView.filters.PERPETUA' => 'Perpetua',
+			'videoView.filters.REYES' => 'Reyes',
+			'videoView.filters.SIERRA' => 'Sierra',
+			'videoView.filters.SLUMBER' => 'Slumber',
+			'videoView.filters.STINSON' => 'Stinson',
+			'videoView.filters.SUTRO' => 'Sutro',
+			'videoView.filters.WALDEN' => 'Walden',
+			'videoView.filters.WILLOW' => 'Willow',
+			'videoView.filters.XPROII' => 'XProII',
 			_ => null,
 		};
 	}

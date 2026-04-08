@@ -10,6 +10,7 @@ import 'package:chatface/Views/ChatView/chat_view.dart';
 import 'package:chatface/gen/strings.g.dart';
 import 'package:chatface/shared/blurred_gradient_background.dart';
 import 'package:chatface/utils/app_assets.dart';
+import 'package:chatface/utils/print.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -31,8 +32,7 @@ class CharacterDetailView extends HookConsumerWidget {
       personasAsync.asData?.value,
       args!.character,
     );
-    final user = ref.watch(userProfileProvider).value?.user;
-
+    final user = ref.watch(userProfileProvider);
     Future<void> fetchOfferings() async {
       if (isFetchingOfferings.value) return;
       isFetchingOfferings.value = true;
@@ -73,83 +73,94 @@ class CharacterDetailView extends HookConsumerWidget {
       body: Stack(
         children: [
           const Positioned.fill(child: BlurredGradientBackground()),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: kToolbarHeight),
-                  CharacterDetailAppBar(
-                    onBack: () => Navigator.of(context).pop(),
-                    title: character.name,
-                  ),
-                  const SizedBox(height: 24),
-                  Hero(
-                    tag: 'character-${character.id}',
-                    child: CharacterHeroCard(character: character),
-                  ),
-                  const SizedBox(height: 20),
-
-                  CharacterPrimaryActionButton(
-                    label: t.characters.characterDetails.videoCall,
-                    iconPath: AppIcons.videoCall,
-                    onPressed: () {
-                      if (!user!.isPremium) {
-                        handlePremiumBannerTap();
-                        return;
-                      }
-                      Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        AppRoutes.main,
-                        (route) => false,
-                        arguments: <String, dynamic>{
-                          'initialIndex': 1,
-                          'initialVideoCharacter': character,
-                        },
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
+          user.when(
+            data: (profile) {
+              Print.info(
+                'Building CharacterDetailView for character: ${character.name}, '
+                'user is premium: ${profile!.user.isPremium}',
+              );
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: CharacterSecondaryActionButton(
-                          label: t.characters.characterDetails.message,
-                          iconPath: AppIcons.messageBubble,
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (_) => ChatView(persona: character),
-                              ),
-                            );
-                          },
-                        ),
+                      SizedBox(height: kToolbarHeight),
+                      CharacterDetailAppBar(
+                        onBack: () => Navigator.of(context).pop(),
+                        title: character.name,
                       ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: CharacterSecondaryActionButton(
-                          label: t.characters.characterDetails.voiceCall,
-                          iconPath: AppIcons.voiceCall,
-                          onPressed: () {
-                            if (user!.isPremium) {
-                              handlePremiumBannerTap();
-                              return;
-                            }
-                            Navigator.pushNamed(
-                              context,
-                              AppRoutes.call,
-                              arguments: {'character': character},
-                            );
-                          },
-                        ),
+                      const SizedBox(height: 24),
+                      Hero(
+                        tag: 'character-${character.id}',
+                        child: CharacterHeroCard(character: character),
                       ),
+                      const SizedBox(height: 20),
+
+                      CharacterPrimaryActionButton(
+                        label: t.characters.characterDetails.videoCall,
+                        iconPath: AppIcons.videoCall,
+                        onPressed: () {
+                          if (!profile.user.isPremium) {
+                            handlePremiumBannerTap();
+                            return;
+                          }
+                          Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            AppRoutes.main,
+                            (route) => false,
+                            arguments: <String, dynamic>{
+                              'initialIndex': 1,
+                              'initialVideoCharacter': character,
+                            },
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: CharacterSecondaryActionButton(
+                              label: t.characters.characterDetails.message,
+                              iconPath: AppIcons.messageBubble,
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (_) =>
+                                        ChatView(persona: character),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: CharacterSecondaryActionButton(
+                              label: t.characters.characterDetails.voiceCall,
+                              iconPath: AppIcons.voiceCall,
+                              onPressed: () {
+                                if (!profile.user.isPremium) {
+                                  handlePremiumBannerTap();
+                                  return;
+                                }
+                                Navigator.pushNamed(
+                                  context,
+                                  AppRoutes.call,
+                                  arguments: {'character': character},
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: kBottomNavigationBarHeight + 24),
                     ],
                   ),
-                  const SizedBox(height: kBottomNavigationBarHeight + 24),
-                ],
-              ),
-            ),
+                ),
+              );
+            },
+            error: (e, st) => Text('Error: $e \n$st'),
+            loading: () => CircularProgressIndicator(),
           ),
         ],
       ),

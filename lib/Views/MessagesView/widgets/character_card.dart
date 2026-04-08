@@ -23,7 +23,7 @@ class CharacterCard extends StatelessWidget {
                 image: character.isNetworkImage
                     ? NetworkImage(character.displayImagePath)
                     : AssetImage(character.displayImagePath) as ImageProvider,
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
               ),
             ),
           ),

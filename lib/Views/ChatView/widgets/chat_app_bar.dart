@@ -23,6 +23,7 @@ class ChatAppBar extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(12, 8, 16, 6),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           GestureDetector(
             onTap: () => Navigator.of(context).maybePop(),
@@ -50,43 +51,42 @@ class ChatAppBar extends StatelessWidget {
                 : AssetImage(characterImageUrl) as ImageProvider,
           ),
           Spacer(),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  characterName,
-                  style: AppTextStyles.body(
-                    16,
-                    color: Colors.white,
-                    weight: FontWeight.bold,
+
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Text(
+                characterName,
+                style: AppTextStyles.body(
+                  16,
+                  color: Colors.white,
+                  weight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 2),
+              Row(
+                children: [
+                  Container(
+                    width: 7,
+                    height: 7,
+                    decoration: const BoxDecoration(
+                      color: Colors.greenAccent,
+                      shape: BoxShape.circle,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 2),
-                Row(
-                  children: [
-                    Container(
-                      width: 7,
-                      height: 7,
-                      decoration: const BoxDecoration(
-                        color: Colors.greenAccent,
-                        shape: BoxShape.circle,
-                      ),
+                  const SizedBox(width: 4),
+                  Text(
+                    context.t.chat.online,
+                    style: AppTextStyles.body(
+                      12,
+                      color: Colors.greenAccent,
+                      weight: FontWeight.w500,
                     ),
-                    const SizedBox(width: 4),
-                    Text(
-                      context.t.chat.online,
-                      style: AppTextStyles.body(
-                        12,
-                        color: Colors.greenAccent,
-                        weight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+            ],
           ),
           Spacer(),
           GestureDetector(

@@ -1,3 +1,4 @@
+import 'package:chatface/gen/strings.g.dart';
 import 'package:chatface/utils/print.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -40,9 +41,8 @@ class PermissionHelper {
       if (camStatus.isPermanentlyDenied || camStatus.isDenied) {
         await showPermissionDeniedDialog(
           context,
-          title: 'Permissions Required',
-          message:
-              'Camera and microphone permissions are required for video calls. Please enable them in settings.',
+          title: context.t.permissionsRequired,
+          message: context.t.permissionHelper.camAndMicRequired,
         );
       }
     }
@@ -75,9 +75,8 @@ class PermissionHelper {
       if (micStatus.isPermanentlyDenied || micStatus.isDenied) {
         await showPermissionDeniedDialog(
           context,
-          title: 'Permissions Required',
-          message:
-              'Microphone permission is required for voice calls. Please enable it in settings.',
+          title: context.t.permissionsRequired,
+          message: context.t.permissionHelper.micRequired,
         );
       }
     }
@@ -123,7 +122,7 @@ class PermissionHelper {
           TextButton(
             onPressed: () => Navigator.pop(context),
             child: Text(
-              'Cancel',
+              context.t.permissionHelper.cancel,
               style: GoogleFonts.rubik(color: Colors.white54),
             ),
           ),
@@ -133,7 +132,7 @@ class PermissionHelper {
               openAppSettings();
             },
             child: Text(
-              'Open Settings',
+              context.t.permissionHelper.openSettings,
               style: GoogleFonts.rubik(
                 color: const Color(0xFF7C3AED),
                 fontWeight: FontWeight.w600,

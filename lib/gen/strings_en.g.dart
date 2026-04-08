@@ -115,6 +115,13 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	String get save => 'Save';
 
 	late final TranslationsLanguageOptionsEn languageOptions = TranslationsLanguageOptionsEn._(_root);
+	late final TranslationsCommonEn common = TranslationsCommonEn._(_root);
+
+	/// en: 'Permissions Required'
+	String get permissionsRequired => 'Permissions Required';
+
+	late final TranslationsPermissionHelperEn permissionHelper = TranslationsPermissionHelperEn._(_root);
+	late final TranslationsVideoViewEn videoView = TranslationsVideoViewEn._(_root);
 }
 
 // Path: termOfService
@@ -158,11 +165,11 @@ class TranslationsOnboardingEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+	late final TranslationsOnboardingStep5En step5 = TranslationsOnboardingStep5En._(_root);
 	late final TranslationsOnboardingStep1En step1 = TranslationsOnboardingStep1En._(_root);
 	late final TranslationsOnboardingStep2En step2 = TranslationsOnboardingStep2En._(_root);
 	late final TranslationsOnboardingStep3En step3 = TranslationsOnboardingStep3En._(_root);
 	late final TranslationsOnboardingStep4En step4 = TranslationsOnboardingStep4En._(_root);
-	late final TranslationsOnboardingStep5En step5 = TranslationsOnboardingStep5En._(_root);
 	late final TranslationsOnboardingLoadingEn loading = TranslationsOnboardingLoadingEn._(_root);
 
 	/// en: 'Allow Access'
@@ -296,6 +303,12 @@ class TranslationsVideoChatEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Network hiccup detected. Reconnecting mic...'
+	String get networkHiccup => 'Network hiccup detected. Reconnecting mic...';
+
+	/// en: 'Failed to update follow status.'
+	String get failedToUpdateFollow => 'Failed to update follow status.';
 
 	/// en: 'Connecting...'
 	String get connecting => 'Connecting...';
@@ -582,6 +595,68 @@ class TranslationsLanguageOptionsEn {
 	String get portuguese => 'Portuguese';
 }
 
+// Path: common
+class TranslationsCommonEn {
+	TranslationsCommonEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Try Again'
+	String get tryAgain => 'Try Again';
+
+	/// en: 'Retry'
+	String get retry => 'Retry';
+
+	/// en: 'Close'
+	String get close => 'Close';
+}
+
+// Path: permissionHelper
+class TranslationsPermissionHelperEn {
+	TranslationsPermissionHelperEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Camera and microphone permissions are required for video calls. Please enable them in settings.'
+	String get camAndMicRequired => 'Camera and microphone permissions are required for video calls. Please enable them in settings.';
+
+	/// en: 'Microphone permission is required for voice calls. Please enable it in settings.'
+	String get micRequired => 'Microphone permission is required for voice calls. Please enable it in settings.';
+
+	/// en: 'Cancel'
+	String get cancel => 'Cancel';
+
+	/// en: 'Open Settings'
+	String get openSettings => 'Open Settings';
+}
+
+// Path: videoView
+class TranslationsVideoViewEn {
+	TranslationsVideoViewEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Camera filters'
+	String get title => 'Camera filters';
+
+	/// en: 'Choose the look for your camera preview.'
+	String get subtitle => 'Choose the look for your camera preview.';
+
+	/// en: 'Failed to load companions: '
+	String get errorLoad => 'Failed to load companions: ';
+
+	/// en: 'No companions available yet.'
+	String get noComps => 'No companions available yet.';
+
+	late final TranslationsVideoViewFiltersEn filters = TranslationsVideoViewFiltersEn._(_root);
+}
+
 // Path: termOfService.privacyPolicy
 class TranslationsTermOfServicePrivacyPolicyEn {
 	TranslationsTermOfServicePrivacyPolicyEn._(this._root);
@@ -771,6 +846,45 @@ class TranslationsTermOfServiceCookiePolicyEn {
 	String get section6Body => '📩 For inquiries: support@fly-work.com';
 }
 
+// Path: onboarding.step5
+class TranslationsOnboardingStep5En {
+	TranslationsOnboardingStep5En._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Permission required'
+	String get permissionRequired => 'Permission required';
+
+	/// en: 'Not now'
+	String get notNow => 'Not now';
+
+	/// en: 'Open settings'
+	String get openSettings => 'Open settings';
+
+	/// en: 'Permissions'
+	String get title => 'Permissions';
+
+	/// en: 'Camera Access'
+	String get permission1 => 'Camera Access';
+
+	/// en: 'Allow Camera Access'
+	String get permission1Subtitle => 'Allow Camera Access';
+
+	/// en: 'Microphone Access'
+	String get permission2 => 'Microphone Access';
+
+	/// en: 'Allow Microphone Access'
+	String get permission2Subtitle => 'Allow Microphone Access';
+
+	/// en: 'Location Access'
+	String get permission3 => 'Location Access';
+
+	/// en: 'Allow Location Access'
+	String get permission3Subtitle => 'Allow Location Access';
+}
+
 // Path: onboarding.step1
 class TranslationsOnboardingStep1En {
 	TranslationsOnboardingStep1En._(this._root);
@@ -865,36 +979,6 @@ class TranslationsOnboardingStep4En {
 
 	/// en: 'Community Rules'
 	String get communityRules => 'Community Rules';
-}
-
-// Path: onboarding.step5
-class TranslationsOnboardingStep5En {
-	TranslationsOnboardingStep5En._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// en: 'Permissions'
-	String get title => 'Permissions';
-
-	/// en: 'Camera Access'
-	String get permission1 => 'Camera Access';
-
-	/// en: 'Allow Camera Access'
-	String get permission1Subtitle => 'Allow Camera Access';
-
-	/// en: 'Microphone Access'
-	String get permission2 => 'Microphone Access';
-
-	/// en: 'Allow Microphone Access'
-	String get permission2Subtitle => 'Allow Microphone Access';
-
-	/// en: 'Location Access'
-	String get permission3 => 'Location Access';
-
-	/// en: 'Allow Location Access'
-	String get permission3Subtitle => 'Allow Location Access';
 }
 
 // Path: onboarding.loading
@@ -999,6 +1083,105 @@ class TranslationsDeleteAccountStepsEn {
 	late final TranslationsDeleteAccountStepsStep3En step3 = TranslationsDeleteAccountStepsStep3En._(_root);
 }
 
+// Path: videoView.filters
+class TranslationsVideoViewFiltersEn {
+	TranslationsVideoViewFiltersEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Original'
+	String get ORIGINAL => 'Original';
+
+	/// en: 'Addictive Blue'
+	String get ADDICTIVE_BLUE => 'Addictive Blue';
+
+	/// en: 'Addictive Red'
+	String get ADDICTIVE_RED => 'Addictive Red';
+
+	/// en: 'Aden'
+	String get ADEN => 'Aden';
+
+	/// en: 'Amaro'
+	String get AMARO => 'Amaro';
+
+	/// en: 'Ashby'
+	String get ASHBY => 'Ashby';
+
+	/// en: 'Brannan'
+	String get BRANNAN => 'Brannan';
+
+	/// en: 'Brooklyn'
+	String get BROOKLYN => 'Brooklyn';
+
+	/// en: 'Clarendon'
+	String get CLARENDON => 'Clarendon';
+
+	/// en: 'Crema'
+	String get CREMA => 'Crema';
+
+	/// en: 'Dogpatch'
+	String get DOGPATCH => 'Dogpatch';
+
+	/// en: 'Gingham'
+	String get GINGHAM => 'Gingham';
+
+	/// en: 'Ginza'
+	String get GINZA => 'Ginza';
+
+	/// en: 'Hefe'
+	String get HEFE => 'Hefe';
+
+	/// en: 'Hudson'
+	String get HUDSON => 'Hudson';
+
+	/// en: 'Inkwell'
+	String get INKWELL => 'Inkwell';
+
+	/// en: 'Juno'
+	String get JUNO => 'Juno';
+
+	/// en: 'Lark'
+	String get LARK => 'Lark';
+
+	/// en: 'LoFi'
+	String get LOFI => 'LoFi';
+
+	/// en: 'Ludwig'
+	String get LUDWIG => 'Ludwig';
+
+	/// en: 'Moon'
+	String get MOON => 'Moon';
+
+	/// en: 'Perpetua'
+	String get PERPETUA => 'Perpetua';
+
+	/// en: 'Reyes'
+	String get REYES => 'Reyes';
+
+	/// en: 'Sierra'
+	String get SIERRA => 'Sierra';
+
+	/// en: 'Slumber'
+	String get SLUMBER => 'Slumber';
+
+	/// en: 'Stinson'
+	String get STINSON => 'Stinson';
+
+	/// en: 'Sutro'
+	String get SUTRO => 'Sutro';
+
+	/// en: 'Walden'
+	String get WALDEN => 'Walden';
+
+	/// en: 'Willow'
+	String get WILLOW => 'Willow';
+
+	/// en: 'XProII'
+	String get XPROII => 'XProII';
+}
+
 // Path: deleteAccount.steps.step1
 class TranslationsDeleteAccountStepsStep1En {
 	TranslationsDeleteAccountStepsStep1En._(this._root);
@@ -1007,29 +1190,29 @@ class TranslationsDeleteAccountStepsStep1En {
 
 	// Translations
 
-	/// en: 'Gitmeni istemiyoruz ama seni anlıyoruz.'
-	String get title => 'Gitmeni istemiyoruz ama seni anlıyoruz.';
+	/// en: 'We don't want you to go, but we understand.'
+	String get title => 'We don\'t want you to go, but we understand.';
 
-	/// en: 'ChatFace deneyimini iyileştirmemiz için bize neden ayrılmak istediğini söyler misin?'
-	String get subtitle => 'ChatFace deneyimini iyileştirmemiz için bize neden ayrılmak istediğini söyler misin?';
+	/// en: 'Can you tell us why you want to leave so we can improve the ChatFace experience?'
+	String get subtitle => 'Can you tell us why you want to leave so we can improve the ChatFace experience?';
 
-	/// en: 'Yapay zeka karakterlerini gerçekçi bulmadım.'
-	String get option1 => 'Yapay zeka karakterlerini gerçekçi bulmadım.';
+	/// en: 'I didn't find the AI characters realistic.'
+	String get option1 => 'I didn\'t find the AI characters realistic.';
 
-	/// en: 'Görüntülü sohbetlerde teknik sorunlar yaşıyorum.'
-	String get option2 => 'Görüntülü sohbetlerde teknik sorunlar yaşıyorum.';
+	/// en: 'I am experiencing technical issues with video chats.'
+	String get option2 => 'I am experiencing technical issues with video chats.';
 
-	/// en: 'Abonelik fiyatları beklentimin üzerinde.'
-	String get option3 => 'Abonelik fiyatları beklentimin üzerinde.';
+	/// en: 'Subscription prices are above my expectations.'
+	String get option3 => 'Subscription prices are above my expectations.';
 
-	/// en: 'Aradığım tarzda karakterler bulamadım.'
-	String get option4 => 'Aradığım tarzda karakterler bulamadım.';
+	/// en: 'I couldn't find the type of characters I was looking for.'
+	String get option4 => 'I couldn\'t find the type of characters I was looking for.';
 
-	/// en: 'Sadece kısa bir süreliğine denemek istemiştim.'
-	String get option5 => 'Sadece kısa bir süreliğine denemek istemiştim.';
+	/// en: 'I just wanted to try it out for a short time.'
+	String get option5 => 'I just wanted to try it out for a short time.';
 
-	/// en: 'Diğer'
-	String get option6 => 'Diğer';
+	/// en: 'Other'
+	String get option6 => 'Other';
 }
 
 // Path: deleteAccount.steps.step2
@@ -1040,32 +1223,32 @@ class TranslationsDeleteAccountStepsStep2En {
 
 	// Translations
 
-	/// en: 'Hesabını silersen şunlara veda edeceksin:'
-	String get title => 'Hesabını silersen şunlara veda edeceksin:';
+	/// en: 'If you delete your account, you will say goodbye to:'
+	String get title => 'If you delete your account, you will say goodbye to:';
 
-	/// en: 'Derin Bağlar ve Hafıza:'
-	String get subtitle1 => 'Derin Bağlar ve Hafıza:';
+	/// en: 'Deep Connections and Memory:'
+	String get subtitle1 => 'Deep Connections and Memory:';
 
-	/// en: 'Sohbet ettiğin karakterler seninle olan geçmişini, paylaştığın sırları ve sana özel alışkanlıklarını tamamen unutacak.'
-	String get subtitle1Desc => 'Sohbet ettiğin karakterler seninle olan geçmişini, paylaştığın sırları ve sana özel alışkanlıklarını tamamen unutacak.';
+	/// en: 'The characters you chat with will completely forget their past with you, your shared secrets, and your personal habits.'
+	String get subtitle1Desc => 'The characters you chat with will completely forget their past with you, your shared secrets, and your personal habits.';
 
-	/// en: 'Görüntülü Görüşme Ayrıcalığı:'
-	String get subtitle2 => 'Görüntülü Görüşme Ayrıcalığı:';
+	/// en: 'Video Call Privilege:'
+	String get subtitle2 => 'Video Call Privilege:';
 
-	/// en: 'Sadece seninle konuşan, her an ulaşabildiğin yapay zeka partnerlerinle olan yüz yüze iletişim hakkını kaybedeceksin.'
-	String get subtitle2Desc => 'Sadece seninle konuşan, her an ulaşabildiğin yapay zeka partnerlerinle olan yüz yüze iletişim hakkını kaybedeceksin.';
+	/// en: 'You will lose the right to communicate face-to-face with your AI partners, who are available to you anytime.'
+	String get subtitle2Desc => 'You will lose the right to communicate face-to-face with your AI partners, who are available to you anytime.';
 
-	/// en: 'Gelişmiş Algoritma:'
-	String get subtitle3 => 'Gelişmiş Algoritma:';
+	/// en: 'Advanced Algorithm:'
+	String get subtitle3 => 'Advanced Algorithm:';
 
-	/// en: 'Senin tercihlerine göre şekillenen 'Sana Özel' karakter eşleşmeleri sıfırlanacak.'
-	String get subtitle3Desc => 'Senin tercihlerine göre şekillenen \'Sana Özel\' karakter eşleşmeleri sıfırlanacak.';
+	/// en: 'Your 'Just for You' character matches tailored to your preferences will be reset.'
+	String get subtitle3Desc => 'Your \'Just for You\' character matches tailored to your preferences will be reset.';
 
-	/// en: 'Profil Verileri:'
-	String get subtitle4 => 'Profil Verileri:';
+	/// en: 'Profile Data:'
+	String get subtitle4 => 'Profile Data:';
 
-	/// en: 'Kazandığın başarımlar, açtığın özel karakterler ve sohbet geçmişin geri döndürülemez şekilde silinecek.'
-	String get subtitle4Desc => 'Kazandığın başarımlar, açtığın özel karakterler ve sohbet geçmişin geri döndürülemez şekilde silinecek.';
+	/// en: 'Your earned achievements, unlocked special characters, and chat history will be irreversibly deleted.'
+	String get subtitle4Desc => 'Your earned achievements, unlocked special characters, and chat history will be irreversibly deleted.';
 }
 
 // Path: deleteAccount.steps.step3
@@ -1076,29 +1259,29 @@ class TranslationsDeleteAccountStepsStep3En {
 
 	// Translations
 
-	/// en: 'Gitmeden önce sana özel bir teklifimiz var!'
-	String get title => 'Gitmeden önce sana özel bir teklifimiz var!';
+	/// en: 'We have a special offer for you before you go!'
+	String get title => 'We have a special offer for you before you go!';
 
-	/// en: 'Belki de sadece biraz daha zamana veya daha uygun bir fırsata ihtiyacın vardır. Hesabını silmek yerine şunları değerlendirmek ister misin?'
-	String get description => 'Belki de sadece biraz daha zamana veya daha uygun bir fırsata ihtiyacın vardır. Hesabını silmek yerine şunları değerlendirmek ister misin?';
+	/// en: 'Maybe you just need a little more time or a better deal. Instead of deleting your account, would you consider these?'
+	String get description => 'Maybe you just need a little more time or a better deal. Instead of deleting your account, would you consider these?';
 
-	/// en: 'Seni aramızda tutmak bizim için değerli. Bir sonraki aboneliğinde $offer! Bu fırsatla devam etmek ister misin?'
-	String description1({required Object offer}) => 'Seni aramızda tutmak bizim için değerli. Bir sonraki aboneliğinde ${offer}! Bu fırsatla devam etmek ister misin?';
+	/// en: 'Keeping you with us is valuable. $offer on your next subscription! Would you like to continue with this offer?'
+	String description1({required Object offer}) => 'Keeping you with us is valuable. ${offer} on your next subscription! Would you like to continue with this offer?';
 
-	/// en: '%50 indirim tanımladık'
-	String get description1Offer => '%50 indirim tanımladık';
+	/// en: 'We've applied a 50% discount'
+	String get description1Offer => 'We\'ve applied a 50% discount';
 
-	/// en: 'Henüz keşfetmediğin yeni karakterleri görmen için sana $offer kredisi tanımladık.'
-	String description2({required Object offer}) => 'Henüz keşfetmediğin yeni karakterleri görmen için sana ${offer} kredisi tanımladık.';
+	/// en: 'We have given you $offer credits so you can see new characters you haven't discovered yet.'
+	String description2({required Object offer}) => 'We have given you ${offer} credits so you can see new characters you haven\'t discovered yet.';
 
-	/// en: '3 adet ücretsiz görüntülü görüşme'
-	String get description2Offer => '3 adet ücretsiz görüntülü görüşme';
+	/// en: '3 free video calls'
+	String get description2Offer => '3 free video calls';
 
-	/// en: '50% İndirim Teklifini Kabul Et'
-	String get acceptOffer => '50% İndirim Teklifini Kabul Et';
+	/// en: 'Accept 50% Discount Offer'
+	String get acceptOffer => 'Accept 50% Discount Offer';
 
-	/// en: 'Hesabımı Sil'
-	String get deleteMyAccount => 'Hesabımı Sil';
+	/// en: 'Delete My Account'
+	String get deleteMyAccount => 'Delete My Account';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -1180,6 +1363,16 @@ extension on Translations {
 			'termOfService.cookiePolicy.section6Body' => '📩 For inquiries: support@fly-work.com',
 			'cookies' => 'Cookies Policy',
 			'privacy' => 'Privacy Policy',
+			'onboarding.step5.permissionRequired' => 'Permission required',
+			'onboarding.step5.notNow' => 'Not now',
+			'onboarding.step5.openSettings' => 'Open settings',
+			'onboarding.step5.title' => 'Permissions',
+			'onboarding.step5.permission1' => 'Camera Access',
+			'onboarding.step5.permission1Subtitle' => 'Allow Camera Access',
+			'onboarding.step5.permission2' => 'Microphone Access',
+			'onboarding.step5.permission2Subtitle' => 'Allow Microphone Access',
+			'onboarding.step5.permission3' => 'Location Access',
+			'onboarding.step5.permission3Subtitle' => 'Allow Location Access',
 			'onboarding.step1.title' => 'What is your Name?',
 			'onboarding.step1.subtitle' => 'Please enter your name',
 			'onboarding.step1.hint' => 'Full Name',
@@ -1200,13 +1393,6 @@ extension on Translations {
 			'onboarding.step4.entry4' => '18+ only',
 			'onboarding.step4.subentry4' => 'Not Suitable For Minors',
 			'onboarding.step4.communityRules' => 'Community Rules',
-			'onboarding.step5.title' => 'Permissions',
-			'onboarding.step5.permission1' => 'Camera Access',
-			'onboarding.step5.permission1Subtitle' => 'Allow Camera Access',
-			'onboarding.step5.permission2' => 'Microphone Access',
-			'onboarding.step5.permission2Subtitle' => 'Allow Microphone Access',
-			'onboarding.step5.permission3' => 'Location Access',
-			'onboarding.step5.permission3Subtitle' => 'Allow Location Access',
 			'onboarding.loading.titlePart1' => 'Your Personal Account is\n',
 			'onboarding.loading.titlePart2' => 'Being Created',
 			'onboarding.loading.subtitle' => 'Please wait, your profile is being prepared.',
@@ -1247,6 +1433,8 @@ extension on Translations {
 			'notifications.noNotifications' => 'No notifications yet.',
 			'notifications.noNotificationsSubtitle' => 'Don\'t forget to check again when you receive the notification.',
 			'notifications.allDeleted' => 'All notifications have been successfully deleted',
+			'videoChat.networkHiccup' => 'Network hiccup detected. Reconnecting mic...',
+			'videoChat.failedToUpdateFollow' => 'Failed to update follow status.',
 			'videoChat.connecting' => 'Connecting...',
 			'videoChat.callEnded' => 'Call Ended',
 			'videoChat.callFailed' => ({required Object error}) => 'Call Failed: ${error}',
@@ -1311,31 +1499,31 @@ extension on Translations {
 			'deleteAccount.warning' => 'Are you sure you want to delete your account?',
 			'deleteAccount.description' => 'This action cannot be undone, and all your history and data will be permanently deleted.',
 			'deleteAccount.deleteFailed' => ({required Object error}) => 'Account deletion failed: ${error}',
-			'deleteAccount.steps.step1.title' => 'Gitmeni istemiyoruz ama seni anlıyoruz.',
-			'deleteAccount.steps.step1.subtitle' => 'ChatFace deneyimini iyileştirmemiz için bize neden ayrılmak istediğini söyler misin?',
-			'deleteAccount.steps.step1.option1' => 'Yapay zeka karakterlerini gerçekçi bulmadım.',
-			'deleteAccount.steps.step1.option2' => 'Görüntülü sohbetlerde teknik sorunlar yaşıyorum.',
-			'deleteAccount.steps.step1.option3' => 'Abonelik fiyatları beklentimin üzerinde.',
-			'deleteAccount.steps.step1.option4' => 'Aradığım tarzda karakterler bulamadım.',
-			'deleteAccount.steps.step1.option5' => 'Sadece kısa bir süreliğine denemek istemiştim.',
-			'deleteAccount.steps.step1.option6' => 'Diğer',
-			'deleteAccount.steps.step2.title' => 'Hesabını silersen şunlara veda edeceksin:',
-			'deleteAccount.steps.step2.subtitle1' => 'Derin Bağlar ve Hafıza:',
-			'deleteAccount.steps.step2.subtitle1Desc' => 'Sohbet ettiğin karakterler seninle olan geçmişini, paylaştığın sırları ve sana özel alışkanlıklarını tamamen unutacak.',
-			'deleteAccount.steps.step2.subtitle2' => 'Görüntülü Görüşme Ayrıcalığı:',
-			'deleteAccount.steps.step2.subtitle2Desc' => 'Sadece seninle konuşan, her an ulaşabildiğin yapay zeka partnerlerinle olan yüz yüze iletişim hakkını kaybedeceksin.',
-			'deleteAccount.steps.step2.subtitle3' => 'Gelişmiş Algoritma:',
-			'deleteAccount.steps.step2.subtitle3Desc' => 'Senin tercihlerine göre şekillenen \'Sana Özel\' karakter eşleşmeleri sıfırlanacak.',
-			'deleteAccount.steps.step2.subtitle4' => 'Profil Verileri:',
-			'deleteAccount.steps.step2.subtitle4Desc' => 'Kazandığın başarımlar, açtığın özel karakterler ve sohbet geçmişin geri döndürülemez şekilde silinecek.',
-			'deleteAccount.steps.step3.title' => 'Gitmeden önce sana özel bir teklifimiz var!',
-			'deleteAccount.steps.step3.description' => 'Belki de sadece biraz daha zamana veya daha uygun bir fırsata ihtiyacın vardır. Hesabını silmek yerine şunları değerlendirmek ister misin?',
-			'deleteAccount.steps.step3.description1' => ({required Object offer}) => 'Seni aramızda tutmak bizim için değerli. Bir sonraki aboneliğinde ${offer}! Bu fırsatla devam etmek ister misin?',
-			'deleteAccount.steps.step3.description1Offer' => '%50 indirim tanımladık',
-			'deleteAccount.steps.step3.description2' => ({required Object offer}) => 'Henüz keşfetmediğin yeni karakterleri görmen için sana ${offer} kredisi tanımladık.',
-			'deleteAccount.steps.step3.description2Offer' => '3 adet ücretsiz görüntülü görüşme',
-			'deleteAccount.steps.step3.acceptOffer' => '50% İndirim Teklifini Kabul Et',
-			'deleteAccount.steps.step3.deleteMyAccount' => 'Hesabımı Sil',
+			'deleteAccount.steps.step1.title' => 'We don\'t want you to go, but we understand.',
+			'deleteAccount.steps.step1.subtitle' => 'Can you tell us why you want to leave so we can improve the ChatFace experience?',
+			'deleteAccount.steps.step1.option1' => 'I didn\'t find the AI characters realistic.',
+			'deleteAccount.steps.step1.option2' => 'I am experiencing technical issues with video chats.',
+			'deleteAccount.steps.step1.option3' => 'Subscription prices are above my expectations.',
+			'deleteAccount.steps.step1.option4' => 'I couldn\'t find the type of characters I was looking for.',
+			'deleteAccount.steps.step1.option5' => 'I just wanted to try it out for a short time.',
+			'deleteAccount.steps.step1.option6' => 'Other',
+			'deleteAccount.steps.step2.title' => 'If you delete your account, you will say goodbye to:',
+			'deleteAccount.steps.step2.subtitle1' => 'Deep Connections and Memory:',
+			'deleteAccount.steps.step2.subtitle1Desc' => 'The characters you chat with will completely forget their past with you, your shared secrets, and your personal habits.',
+			'deleteAccount.steps.step2.subtitle2' => 'Video Call Privilege:',
+			'deleteAccount.steps.step2.subtitle2Desc' => 'You will lose the right to communicate face-to-face with your AI partners, who are available to you anytime.',
+			'deleteAccount.steps.step2.subtitle3' => 'Advanced Algorithm:',
+			'deleteAccount.steps.step2.subtitle3Desc' => 'Your \'Just for You\' character matches tailored to your preferences will be reset.',
+			'deleteAccount.steps.step2.subtitle4' => 'Profile Data:',
+			'deleteAccount.steps.step2.subtitle4Desc' => 'Your earned achievements, unlocked special characters, and chat history will be irreversibly deleted.',
+			'deleteAccount.steps.step3.title' => 'We have a special offer for you before you go!',
+			'deleteAccount.steps.step3.description' => 'Maybe you just need a little more time or a better deal. Instead of deleting your account, would you consider these?',
+			'deleteAccount.steps.step3.description1' => ({required Object offer}) => 'Keeping you with us is valuable. ${offer} on your next subscription! Would you like to continue with this offer?',
+			'deleteAccount.steps.step3.description1Offer' => 'We\'ve applied a 50% discount',
+			'deleteAccount.steps.step3.description2' => ({required Object offer}) => 'We have given you ${offer} credits so you can see new characters you haven\'t discovered yet.',
+			'deleteAccount.steps.step3.description2Offer' => '3 free video calls',
+			'deleteAccount.steps.step3.acceptOffer' => 'Accept 50% Discount Offer',
+			'deleteAccount.steps.step3.deleteMyAccount' => 'Delete My Account',
 			'cancel' => 'Cancel',
 			'delete' => 'Delete',
 			'premium' => 'Premium',
@@ -1356,6 +1544,48 @@ extension on Translations {
 			'languageOptions.korean' => 'Korean',
 			'languageOptions.hindi' => 'Hindi',
 			'languageOptions.portuguese' => 'Portuguese',
+			'common.tryAgain' => 'Try Again',
+			'common.retry' => 'Retry',
+			'common.close' => 'Close',
+			'permissionsRequired' => 'Permissions Required',
+			'permissionHelper.camAndMicRequired' => 'Camera and microphone permissions are required for video calls. Please enable them in settings.',
+			'permissionHelper.micRequired' => 'Microphone permission is required for voice calls. Please enable it in settings.',
+			'permissionHelper.cancel' => 'Cancel',
+			'permissionHelper.openSettings' => 'Open Settings',
+			'videoView.title' => 'Camera filters',
+			'videoView.subtitle' => 'Choose the look for your camera preview.',
+			'videoView.errorLoad' => 'Failed to load companions: ',
+			'videoView.noComps' => 'No companions available yet.',
+			'videoView.filters.ORIGINAL' => 'Original',
+			'videoView.filters.ADDICTIVE_BLUE' => 'Addictive Blue',
+			'videoView.filters.ADDICTIVE_RED' => 'Addictive Red',
+			'videoView.filters.ADEN' => 'Aden',
+			'videoView.filters.AMARO' => 'Amaro',
+			'videoView.filters.ASHBY' => 'Ashby',
+			'videoView.filters.BRANNAN' => 'Brannan',
+			'videoView.filters.BROOKLYN' => 'Brooklyn',
+			'videoView.filters.CLARENDON' => 'Clarendon',
+			'videoView.filters.CREMA' => 'Crema',
+			'videoView.filters.DOGPATCH' => 'Dogpatch',
+			'videoView.filters.GINGHAM' => 'Gingham',
+			'videoView.filters.GINZA' => 'Ginza',
+			'videoView.filters.HEFE' => 'Hefe',
+			'videoView.filters.HUDSON' => 'Hudson',
+			'videoView.filters.INKWELL' => 'Inkwell',
+			'videoView.filters.JUNO' => 'Juno',
+			'videoView.filters.LARK' => 'Lark',
+			'videoView.filters.LOFI' => 'LoFi',
+			'videoView.filters.LUDWIG' => 'Ludwig',
+			'videoView.filters.MOON' => 'Moon',
+			'videoView.filters.PERPETUA' => 'Perpetua',
+			'videoView.filters.REYES' => 'Reyes',
+			'videoView.filters.SIERRA' => 'Sierra',
+			'videoView.filters.SLUMBER' => 'Slumber',
+			'videoView.filters.STINSON' => 'Stinson',
+			'videoView.filters.SUTRO' => 'Sutro',
+			'videoView.filters.WALDEN' => 'Walden',
+			'videoView.filters.WILLOW' => 'Willow',
+			'videoView.filters.XPROII' => 'XProII',
 			_ => null,
 		};
 	}

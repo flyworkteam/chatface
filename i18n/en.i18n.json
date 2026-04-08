@@ -79,6 +79,18 @@
     "cookies": "Cookies Policy",
     "privacy": "Privacy Policy",
     "onboarding": {
+        "step5": {
+            "permissionRequired": "Permission required",
+            "notNow": "Not now",
+            "openSettings": "Open settings",
+            "title": "Permissions",
+            "permission1": "Camera Access",
+            "permission1Subtitle": "Allow Camera Access",
+            "permission2": "Microphone Access",
+            "permission2Subtitle": "Allow Microphone Access",
+            "permission3": "Location Access",
+            "permission3Subtitle": "Allow Location Access"
+        },
         "step1": {
             "title": "What is your Name?",
             "subtitle": "Please enter your name",
@@ -106,15 +118,6 @@
             "entry4": "18+ only",
             "subentry4": "Not Suitable For Minors",
             "communityRules": "Community Rules"
-        },
-        "step5": {
-            "title": "Permissions",
-            "permission1": "Camera Access",
-            "permission1Subtitle": "Allow Camera Access",
-            "permission2": "Microphone Access",
-            "permission2Subtitle": "Allow Microphone Access",
-            "permission3": "Location Access",
-            "permission3Subtitle": "Allow Location Access"
         },
         "loading": {
             "titlePart1": "Your Personal Account is\n",
@@ -178,6 +181,8 @@
         "allDeleted": "All notifications have been successfully deleted"
     },
     "videoChat": {
+        "networkHiccup": "Network hiccup detected. Reconnecting mic...",
+        "failedToUpdateFollow": "Failed to update follow status.",
         "connecting": "Connecting...",
         "callEnded": "Call Ended",
         "callFailed": "Call Failed: $error",
@@ -254,35 +259,35 @@
         "deleteFailed": "Account deletion failed: $error",
         "steps": {
             "step1": {
-                "title": "Gitmeni istemiyoruz ama seni anlıyoruz.",
-                "subtitle": "ChatFace deneyimini iyileştirmemiz için bize neden ayrılmak istediğini söyler misin?",
-                "option1": "Yapay zeka karakterlerini gerçekçi bulmadım.",
-                "option2": "Görüntülü sohbetlerde teknik sorunlar yaşıyorum.",
-                "option3": "Abonelik fiyatları beklentimin üzerinde.",
-                "option4": "Aradığım tarzda karakterler bulamadım.",
-                "option5": "Sadece kısa bir süreliğine denemek istemiştim.",
-                "option6": "Diğer"
+                "title": "We don't want you to go, but we understand.",
+                "subtitle": "Can you tell us why you want to leave so we can improve the ChatFace experience?",
+                "option1": "I didn't find the AI characters realistic.",
+                "option2": "I am experiencing technical issues with video chats.",
+                "option3": "Subscription prices are above my expectations.",
+                "option4": "I couldn't find the type of characters I was looking for.",
+                "option5": "I just wanted to try it out for a short time.",
+                "option6": "Other"
             },
             "step2": {
-                "title": "Hesabını silersen şunlara veda edeceksin:",
-                "subtitle1": "Derin Bağlar ve Hafıza:",
-                "subtitle1Desc": "Sohbet ettiğin karakterler seninle olan geçmişini, paylaştığın sırları ve sana özel alışkanlıklarını tamamen unutacak.",
-                "subtitle2": "Görüntülü Görüşme Ayrıcalığı:",
-                "subtitle2Desc": "Sadece seninle konuşan, her an ulaşabildiğin yapay zeka partnerlerinle olan yüz yüze iletişim hakkını kaybedeceksin.",
-                "subtitle3": "Gelişmiş Algoritma:",
-                "subtitle3Desc": "Senin tercihlerine göre şekillenen 'Sana Özel' karakter eşleşmeleri sıfırlanacak.",
-                "subtitle4": "Profil Verileri:",
-                "subtitle4Desc": "Kazandığın başarımlar, açtığın özel karakterler ve sohbet geçmişin geri döndürülemez şekilde silinecek."
+                "title": "If you delete your account, you will say goodbye to:",
+                "subtitle1": "Deep Connections and Memory:",
+                "subtitle1Desc": "The characters you chat with will completely forget their past with you, your shared secrets, and your personal habits.",
+                "subtitle2": "Video Call Privilege:",
+                "subtitle2Desc": "You will lose the right to communicate face-to-face with your AI partners, who are available to you anytime.",
+                "subtitle3": "Advanced Algorithm:",
+                "subtitle3Desc": "Your 'Just for You' character matches tailored to your preferences will be reset.",
+                "subtitle4": "Profile Data:",
+                "subtitle4Desc": "Your earned achievements, unlocked special characters, and chat history will be irreversibly deleted."
             },
             "step3": {
-                "title": "Gitmeden önce sana özel bir teklifimiz var!",
-                "description": "Belki de sadece biraz daha zamana veya daha uygun bir fırsata ihtiyacın vardır. Hesabını silmek yerine şunları değerlendirmek ister misin?",
-                "description1": "Seni aramızda tutmak bizim için değerli. Bir sonraki aboneliğinde $offer! Bu fırsatla devam etmek ister misin?",
-                "description1Offer": "%50 indirim tanımladık",
-                "description2": "Henüz keşfetmediğin yeni karakterleri görmen için sana $offer kredisi tanımladık.",
-                "description2Offer": "3 adet ücretsiz görüntülü görüşme",
-                "acceptOffer": "50% İndirim Teklifini Kabul Et",
-                "deleteMyAccount": "Hesabımı Sil"
+                "title": "We have a special offer for you before you go!",
+                "description": "Maybe you just need a little more time or a better deal. Instead of deleting your account, would you consider these?",
+                "description1": "Keeping you with us is valuable. $offer on your next subscription! Would you like to continue with this offer?",
+                "description1Offer": "We've applied a 50% discount",
+                "description2": "We have given you $offer credits so you can see new characters you haven't discovered yet.",
+                "description2Offer": "3 free video calls",
+                "acceptOffer": "Accept 50% Discount Offer",
+                "deleteMyAccount": "Delete My Account"
             }
         }
     },
@@ -307,5 +312,55 @@
         "korean": "Korean",
         "hindi": "Hindi",
         "portuguese": "Portuguese"
+    },
+    "common": {
+        "tryAgain": "Try Again",
+        "retry": "Retry",
+        "close": "Close"
+    },
+    "permissionsRequired": "Permissions Required",
+    "permissionHelper": {
+        "camAndMicRequired": "Camera and microphone permissions are required for video calls. Please enable them in settings.",
+        "micRequired": "Microphone permission is required for voice calls. Please enable it in settings.",
+        "cancel": "Cancel",
+        "openSettings": "Open Settings"
+    },
+    "videoView": {
+        "title": "Camera filters",
+        "subtitle": "Choose the look for your camera preview.",
+        "errorLoad": "Failed to load companions: ",
+        "noComps": "No companions available yet.",
+        "filters": {
+            "ORIGINAL": "Original",
+            "ADDICTIVE_BLUE": "Addictive Blue",
+            "ADDICTIVE_RED": "Addictive Red",
+            "ADEN": "Aden",
+            "AMARO": "Amaro",
+            "ASHBY": "Ashby",
+            "BRANNAN": "Brannan",
+            "BROOKLYN": "Brooklyn",
+            "CLARENDON": "Clarendon",
+            "CREMA": "Crema",
+            "DOGPATCH": "Dogpatch",
+            "GINGHAM": "Gingham",
+            "GINZA": "Ginza",
+            "HEFE": "Hefe",
+            "HUDSON": "Hudson",
+            "INKWELL": "Inkwell",
+            "JUNO": "Juno",
+            "LARK": "Lark",
+            "LOFI": "LoFi",
+            "LUDWIG": "Ludwig",
+            "MOON": "Moon",
+            "PERPETUA": "Perpetua",
+            "REYES": "Reyes",
+            "SIERRA": "Sierra",
+            "SLUMBER": "Slumber",
+            "STINSON": "Stinson",
+            "SUTRO": "Sutro",
+            "WALDEN": "Walden",
+            "WILLOW": "Willow",
+            "XPROII": "XProII"
+        }
     }
 }

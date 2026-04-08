@@ -1,3 +1,4 @@
+import 'package:chatface/gen/strings.g.dart';
 import 'package:chatface/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -206,7 +207,7 @@ class _LanguagePickerSheet extends StatelessWidget {
                     icon: const Icon(Icons.close_rounded),
                     color: Colors.white.withValues(alpha: 0.78),
                     splashRadius: 20,
-                    tooltip: 'Close',
+                    tooltip: context.t.common.close,
                   ),
                 ],
               ),

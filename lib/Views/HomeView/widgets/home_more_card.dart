@@ -70,10 +70,11 @@ class HomeMoreCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      character.name,
+                      '${character.name}, ${character.age}',
                       style: AppTextStyles.body(
-                        14,
+                        13,
                         weight: FontWeight.w400,
+                        letterSpacing: -0.05,
                         color: Colors.white,
                         height: 24 * 1.15,
                       ),

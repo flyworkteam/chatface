@@ -1,311 +1,366 @@
 {
-  "welcome": "Hoş geldin, $name",
-  "welcome2": "$appName'e hoş geldiniz",
-  "get_started": "Başlayın",
-  "next": "İleri",
-  "back": "Geri",
-  "skip": "Atla",
-  "profile": "Profil",
-  "continue": "Devam Et",
-  "termOfService": {
-    "text1": "swipe'e kaydolarak, bizim ",
-    "link1": "Hizmet Şartları",
-    "text2": " ile aynı zamanda verilerinizi nasıl işlediğimizi öğrenmek için ",
-    "link2": "Gizlilik Politikası",
-    "text3": " ve ",
-    "link3": "Çerez Politikası",
-    "text4": "",
-    "privacyPolicy": {
-      "title": "Gizlilik Politikası",
-      "lastUpdated": "Son güncelleme: 2026",
-      "intro": "ChatFace, kullanıcı gizliliğini ve veri güvenliğini temel bir öncelik olarak görür. Tüm kişisel verileriniz yürürlükteki veri koruma kurallarına uygun olarak işlenir.",
-      "section1Title": "1. TOPLANAN BİLGİLER",
-      "section1sub1Title": "1.1 Kullanıcı Tarafından Sağlanan Bilgiler",
-      "section1sub1Body": "• İsim, takma ad veya profil bilgileri.\n• Kayıt, abonelik ve destek için e-posta adresi.\n• Etkileşim tercihleri, dil ve deneyim ayarları.\n• Geri bildirim ve destek mesajları.",
-      "section1sub2Title": "1.2 Otomatik Olarak Toplanan Veriler",
-      "section1sub2Body": "Cihaz türü, işletim sistemi, tahmini konum (şehir/ülke) ve uygulama kullanım verileri gibi bilgiler toplanır. Kesin konum verileri toplanmaz.",
-      "section2Title": "2. VERİ İŞLEME AMAÇLARI",
-      "section2Body": "Kişisel verileriniz aşağıdaki amaçlarla işlenir:\n\n• Uygulamanın düzgün çalışmasını sağlamak.\n• Yapay zekâ destekli video görüşmesi ve özelleştirme sağlamak.\n• Sistem performansını iyileştirmek ve hataları tespit etmek.\n• Yasal yükümlülükleri yerine getirmek.\n Verileriniz üçüncü taraflara satılmaz.",
-      "section3Title": "3. VERİ SAKLAMA VE SİLME",
-      "section3Body": "Verileriniz, hesabınız aktif olduğu sürece veya yasal gereklilikler süresince saklanır. Hesabınız silindiğinde, kişisel veriler geri döndürülemez şekilde sistemlerden kaldırılır.",
-      "section4Title": "4. KULLANICI HAKLARI",
-      "section4Body": "GDPR ve diğer yasalar kapsamında erişim, düzeltme, silme (unutulma hakkı) ve veri taşınabilirliği haklarına sahipsiniz. Talepleriniz için bizimle iletişime geçebilirsiniz.",
-      "section5Title": "5. ÇOCUK GİZLİLİĞİ",
-      "section5Body": "ChatFace 18 yaş altı kullanıcılar için tasarlanmamıştır. Bu yaş grubundan bilerek veri toplanmaz; tespit edilmesi durumunda hesap kapatılır ve veriler silinir.",
-      "section6Title": "6. İLETİŞİM",
-      "section6Body": "📩 İletişim: support@fly-work.com"
+    "welcome": "Hoş geldin, $name",
+    "welcome2": "$appName'e hoş geldiniz",
+    "get_started": "Başlayın",
+    "next": "İleri",
+    "back": "Geri",
+    "skip": "Atla",
+    "profile": "Profil",
+    "continue": "Devam Et",
+    "termOfService": {
+        "text1": "swipe'e kaydolarak, bizim ",
+        "link1": "Hizmet Şartları",
+        "text2": " ile aynı zamanda verilerinizi nasıl işlediğimizi öğrenmek için ",
+        "link2": "Gizlilik Politikası",
+        "text3": " ve ",
+        "link3": "Çerez Politikası",
+        "text4": "",
+        "privacyPolicy": {
+            "title": "Gizlilik Politikası",
+            "lastUpdated": "Son güncelleme: 2026",
+            "intro": "ChatFace, kullanıcı gizliliğini ve veri güvenliğini temel bir öncelik olarak görür. Tüm kişisel verileriniz yürürlükteki veri koruma kurallarına uygun olarak işlenir.",
+            "section1Title": "1. TOPLANAN BİLGİLER",
+            "section1sub1Title": "1.1 Kullanıcı Tarafından Sağlanan Bilgiler",
+            "section1sub1Body": "• İsim, takma ad veya profil bilgileri.\n• Kayıt, abonelik ve destek için e-posta adresi.\n• Etkileşim tercihleri, dil ve deneyim ayarları.\n• Geri bildirim ve destek mesajları.",
+            "section1sub2Title": "1.2 Otomatik Olarak Toplanan Veriler",
+            "section1sub2Body": "Cihaz türü, işletim sistemi, tahmini konum (şehir/ülke) ve uygulama kullanım verileri gibi bilgiler toplanır. Kesin konum verileri toplanmaz.",
+            "section2Title": "2. VERİ İŞLEME AMAÇLARI",
+            "section2Body": "Kişisel verileriniz aşağıdaki amaçlarla işlenir:\n\n• Uygulamanın düzgün çalışmasını sağlamak.\n• Yapay zekâ destekli video görüşmesi ve özelleştirme sağlamak.\n• Sistem performansını iyileştirmek ve hataları tespit etmek.\n• Yasal yükümlülükleri yerine getirmek.\n Verileriniz üçüncü taraflara satılmaz.",
+            "section3Title": "3. VERİ SAKLAMA VE SİLME",
+            "section3Body": "Verileriniz, hesabınız aktif olduğu sürece veya yasal gereklilikler süresince saklanır. Hesabınız silindiğinde, kişisel veriler geri döndürülemez şekilde sistemlerden kaldırılır.",
+            "section4Title": "4. KULLANICI HAKLARI",
+            "section4Body": "GDPR ve diğer yasalar kapsamında erişim, düzeltme, silme (unutulma hakkı) ve veri taşınabilirliği haklarına sahipsiniz. Talepleriniz için bizimle iletişime geçebilirsiniz.",
+            "section5Title": "5. ÇOCUK GİZLİLİĞİ",
+            "section5Body": "ChatFace 18 yaş altı kullanıcılar için tasarlanmamıştır. Bu yaş grubundan bilerek veri toplanmaz; tespit edilmesi durumunda hesap kapatılır ve veriler silinir.",
+            "section6Title": "6. İLETİŞİM",
+            "section6Body": "📩 İletişim: support@fly-work.com"
+        },
+        "termsOfService": {
+            "title": "Hizmet Şartları",
+            "lastUpdated": "Son güncelleme: 2026",
+            "intro": "Bu Şartlar, ChatFace mobil uygulamasının kullanımını düzenler. Uygulamayı kullanarak bu Şartları kabul etmiş olursunuz.",
+            "disclaimer": "Sorumluluk Reddi: ChatFace, yapay zekâ destekli bir video etkileşim uygulamasıdır. Hukuki, akademik, tıbbi veya profesyonel danışmanlık sağlamaz.",
+            "section1Title": "1. HİZMET KAPSAMI",
+            "section1Body": "ChatFace, yapay zekâ destekli video etkileşimleri sağlar:\n\n• Yapay zekâ ile video aramaları ve sohbetler.\n• Kişiselleştirilmiş etkileşim ayarları.\n• Etkileşim geçmişine ve kayıtlara erişim.\n\nHizmetler resmi tavsiye veya profesyonel danışmanlık yerine geçmez.",
+            "section2Title": "2. KULLANIM KOŞULLARI",
+            "section2Body": "• 18 yaşından büyük olmalısınız (18 yaş altı erişim yasaktır).\n• Hesap bilgileri doğru olmalıdır.\n• Uygulama sadece yasal ve kişisel amaçlar için kullanılmalıdır.",
+            "section3Title": "3. YASAK İFADELER",
+            "section3Body": "Başkasının kimliğine bürünme, nefret söylemi, çocukların güvenliğini tehdit eden davranışlar, güvenlik ihlali girişimleri ve yapay zekâyı manipüle etmeye yönelik eylemler yasaktır.",
+            "section4Title": "4. ABONELİKLER VE ÖDEMELER",
+            "section4Body": "Premium özellikler App Store ve Google Play politikalarına tabidir. Abonelik iptalleri ve iadeler ilgili mağazalar tarafından yönetilir.",
+            "section5Title": "5. İÇERİK SORUMLULUĞU REDDİ",
+            "section5Body": "İçerik yapay zekâ tarafından oluşturulur ve profesyonel tavsiye yerine geçmez. ChatFace içeriğin doğruluğu veya belirli bir amaç için uygunluğu konusunda garanti vermez.",
+            "section6Title": "6. FİKRİ MÜLKİYET",
+            "section6Body": "Tasarım, yazılım ve algoritmalar dahil olmak üzere tüm içerik ChatFace'e aittir. Yetkisiz çoğaltma veya dağıtım yasaktır.",
+            "section7Title": "7. GEÇERLİ HUKUK",
+            "section7Body": "Bu Şartlar Türkiye Cumhuriyeti yasalarına tabidir. Uyuşmazlıklarda İstanbul mahkemeleri yetkilidir.",
+            "section8Title": "8. İLETİŞİM",
+            "section8Body": "📩 İletişim: support@fly-work.com"
+        },
+        "cookiePolicy": {
+            "title": "Çerez Politikası",
+            "lastUpdated": "Son güncelleme: 2026",
+            "intro": "ChatFace'e hoş geldiniz. Yapay zekâ destekli video deneyiminizi daha sorunsuz, güvenli ve kişiselleştirilmiş hale getirmek için dijital yardımcı teknolojiler kullanıyoruz.",
+            "important": "Bu politika çerezlerin ne olduğunu, amaçlarını ve ayarlarınızı nasıl yönetebileceğinizi açıklar.",
+            "section1Title": "1. ÇEREZ NEDİR?",
+            "section1Body": "Çerezler cihazınıza yerleştirilen küçük veri dosyalarıdır. Doğrudan sizi tanımlamaz; şu amaçlarla hatırlama yaparlar:\n• Arama ve dil ayarları\n• Oturum ve performans tercihleri.",
+            "section2Title": "2. HANGİ TEKNOLOJİLERİ KULLANIYORUZ?",
+            "section2Body": "Kesinlikle gerekli teknolojiler\nOturum yönetimi ve güvenlik kontrolü için gereklidir. Bu bileşenler olmadan uygulama doğru çalışmayabilir.\n\nPerformans ve analiz\nHangi içeriklerin daha çok kullanıldığını anlamamıza yardımcı olur. Veriler anonim olarak değerlendirilir.\n\nKişiselleştirme\nTercih edilen dil ve okuma düzeyi gibi ayarları hatırlayarak kişiselleştirilmiş deneyim sağlar.",
+            "section3Title": "3. BU TEKNOLOJİLERİ NEDEN KULLANIYORUZ?",
+            "section3Body": "• Uygulamanın güvenli ve sorunsuz çalışması için.\n• Okuma deneyimini kolaylaştırmak için.\n• Tekrarlanan ayarları hatırlamak için.\n• Gelecekteki özellik geliştirmelerini belirlemek için.",
+            "section4Title": "4. ÜÇÜNCÜ TARAF TEKNOLOJİLERİ",
+            "section4Body": "Bazı teknolojiler hizmet sağlayıcılarımız tarafından sağlanabilir ve kendi politikalarına tabi olabilir. ChatFace, bu ortaklıklarda veri güvenliğine öncelik verir.",
+            "section5Title": "5. ÇEREZ KONTROLÜ VE YÖNETİM",
+            "section5Body": "Kullanıcılar cihaz veya uygulama ayarları aracılığıyla bu teknolojileri sınırlayabilir. Gerekli teknolojilerin devre dışı bırakılması, örneğin video araması başlatılamaması gibi sorunlara yol açabilir.",
+            "section6Title": "6. İLETİŞİM",
+            "section6Body": "📩 İletişim: support@fly-work.com"
+        }
     },
-    "termsOfService": {
-      "title": "Hizmet Şartları",
-      "lastUpdated": "Son güncelleme: 2026",
-      "intro": "Bu Şartlar, ChatFace mobil uygulamasının kullanımını düzenler. Uygulamayı kullanarak bu Şartları kabul etmiş olursunuz.",
-      "disclaimer": "Sorumluluk Reddi: ChatFace, yapay zekâ destekli bir video etkileşim uygulamasıdır. Hukuki, akademik, tıbbi veya profesyonel danışmanlık sağlamaz.",
-      "section1Title": "1. HİZMET KAPSAMI",
-      "section1Body": "ChatFace, yapay zekâ destekli video etkileşimleri sağlar:\n\n• Yapay zekâ ile video aramaları ve sohbetler.\n• Kişiselleştirilmiş etkileşim ayarları.\n• Etkileşim geçmişine ve kayıtlara erişim.\n\nHizmetler resmi tavsiye veya profesyonel danışmanlık yerine geçmez.",
-      "section2Title": "2. KULLANIM KOŞULLARI",
-      "section2Body": "• 18 yaşından büyük olmalısınız (18 yaş altı erişim yasaktır).\n• Hesap bilgileri doğru olmalıdır.\n• Uygulama sadece yasal ve kişisel amaçlar için kullanılmalıdır.",
-      "section3Title": "3. YASAK İFADELER",
-      "section3Body": "Başkasının kimliğine bürünme, nefret söylemi, çocukların güvenliğini tehdit eden davranışlar, güvenlik ihlali girişimleri ve yapay zekâyı manipüle etmeye yönelik eylemler yasaktır.",
-      "section4Title": "4. ABONELİKLER VE ÖDEMELER",
-      "section4Body": "Premium özellikler App Store ve Google Play politikalarına tabidir. Abonelik iptalleri ve iadeler ilgili mağazalar tarafından yönetilir.",
-      "section5Title": "5. İÇERİK SORUMLULUĞU REDDİ",
-      "section5Body": "İçerik yapay zekâ tarafından oluşturulur ve profesyonel tavsiye yerine geçmez. ChatFace içeriğin doğruluğu veya belirli bir amaç için uygunluğu konusunda garanti vermez.",
-      "section6Title": "6. FİKRİ MÜLKİYET",
-      "section6Body": "Tasarım, yazılım ve algoritmalar dahil olmak üzere tüm içerik ChatFace'e aittir. Yetkisiz çoğaltma veya dağıtım yasaktır.",
-      "section7Title": "7. GEÇERLİ HUKUK",
-      "section7Body": "Bu Şartlar Türkiye Cumhuriyeti yasalarına tabidir. Uyuşmazlıklarda İstanbul mahkemeleri yetkilidir.",
-      "section8Title": "8. İLETİŞİM",
-      "section8Body": "📩 İletişim: support@fly-work.com"
+    "cookies": "Çerez Politikası",
+    "privacy": "Gizlilik Politikası",
+    "onboarding": {
+        "step5": {
+            "permissionRequired": "İzin gerekiyor",
+            "notNow": "Şimdi değil",
+            "openSettings": "Ayarları aç",
+            "title": "İzinler",
+            "permission1": "Kamera erişimi",
+            "permission1Subtitle": "Kamera erişimine izin ver",
+            "permission2": "Mikrofon erişimi",
+            "permission2Subtitle": "Mikrofon erişimine izin ver",
+            "permission3": "Konum erişimi",
+            "permission3Subtitle": "Konum erişimine izin ver"
+        },
+        "step1": {
+            "title": "Adınız nedir?",
+            "subtitle": "Lütfen adınızı girin",
+            "hint": "Tam isim"
+        },
+        "step2": {
+            "title": "Kaç yaşındasınız?",
+            "subtitle": "Kaydolmak için en az 18 yaşında olmalısınız."
+        },
+        "step3": {
+            "title": "Cinsiyetiniz?",
+            "subtitle": "Lütfen cinsiyetinizi seçin",
+            "male": "Erkek",
+            "female": "Kadın",
+            "dontWantToMention": "Belirtmek istemiyorum"
+        },
+        "step4": {
+            "title": "Eğlenin ve \ngüvende kalın",
+            "entry1": "Güvenli bir deneyim sağlıyoruz",
+            "subentry1": "Gerçek zamanlı AI izlemesi etkin",
+            "entry2": "Ekran kaydı",
+            "subentry2": "İzinsiz kayıt yasaktır",
+            "entry3": "7/24 destek",
+            "subentry3": "Şikayetler her zaman ele alınır",
+            "entry4": "Sadece 18+",
+            "subentry4": "Reşit olmayanlar için uygun değildir",
+            "communityRules": "Topluluk Kuralları"
+        },
+        "loading": {
+            "titlePart1": "Kişisel hesabınız",
+            "titlePart2": "oluşturuluyor",
+            "subtitle": "Lütfen bekleyin, profiliniz hazırlanıyor."
+        },
+        "allowAccess": "Erişime izin ver",
+        "iUnderstand": "Anladım"
     },
-    "cookiePolicy": {
-      "title": "Çerez Politikası",
-      "lastUpdated": "Son güncelleme: 2026",
-      "intro": "ChatFace'e hoş geldiniz. Yapay zekâ destekli video deneyiminizi daha sorunsuz, güvenli ve kişiselleştirilmiş hale getirmek için dijital yardımcı teknolojiler kullanıyoruz.",
-      "important": "Bu politika çerezlerin ne olduğunu, amaçlarını ve ayarlarınızı nasıl yönetebileceğinizi açıklar.",
-      "section1Title": "1. ÇEREZ NEDİR?",
-      "section1Body": "Çerezler cihazınıza yerleştirilen küçük veri dosyalarıdır. Doğrudan sizi tanımlamaz; şu amaçlarla hatırlama yaparlar:\n• Arama ve dil ayarları\n• Oturum ve performans tercihleri.",
-      "section2Title": "2. HANGİ TEKNOLOJİLERİ KULLANIYORUZ?",
-      "section2Body": "Kesinlikle gerekli teknolojiler\nOturum yönetimi ve güvenlik kontrolü için gereklidir. Bu bileşenler olmadan uygulama doğru çalışmayabilir.\n\nPerformans ve analiz\nHangi içeriklerin daha çok kullanıldığını anlamamıza yardımcı olur. Veriler anonim olarak değerlendirilir.\n\nKişiselleştirme\nTercih edilen dil ve okuma düzeyi gibi ayarları hatırlayarak kişiselleştirilmiş deneyim sağlar.",
-      "section3Title": "3. BU TEKNOLOJİLERİ NEDEN KULLANIYORUZ?",
-      "section3Body": "• Uygulamanın güvenli ve sorunsuz çalışması için.\n• Okuma deneyimini kolaylaştırmak için.\n• Tekrarlanan ayarları hatırlamak için.\n• Gelecekteki özellik geliştirmelerini belirlemek için.",
-      "section4Title": "4. ÜÇÜNCÜ TARAF TEKNOLOJİLERİ",
-      "section4Body": "Bazı teknolojiler hizmet sağlayıcılarımız tarafından sağlanabilir ve kendi politikalarına tabi olabilir. ChatFace, bu ortaklıklarda veri güvenliğine öncelik verir.",
-      "section5Title": "5. ÇEREZ KONTROLÜ VE YÖNETİM",
-      "section5Body": "Kullanıcılar cihaz veya uygulama ayarları aracılığıyla bu teknolojileri sınırlayabilir. Gerekli teknolojilerin devre dışı bırakılması, örneğin video araması başlatılamaması gibi sorunlara yol açabilir.",
-      "section6Title": "6. İLETİŞİM",
-      "section6Body": "📩 İletişim: support@fly-work.com"
+    "pressBackAgainToExit": "Çıkmak için tekrar Geri tuşuna basın",
+    "splash": {
+        "screen1": {
+            "title": "Yapay zekâ ile \n yeni yüzlü video sohbet",
+            "description": "Kameranızı açın ve yapay zekâ ile yüz yüze konuşun. Duygularınızı, tonlamanızı ve bağlamınızı anlayan daha doğal bir iletişim deneyimi yaşayın."
+        },
+        "screen2": {
+            "title": "Gerçek ve doğal \n iletişim",
+            "description": "Sadece metin ile sınırlı kalmayın. Video çağrılarıyla daha akıcı, daha insancıl sohbetler yapın."
+        }
+    },
+    "auth": {
+        "google": "Google ile devam et",
+        "facebook": "Facebook ile devam et",
+        "apple": "Apple ile devam et",
+        "guest": "Misafir olarak devam et",
+        "signInFailed": "Giriş başarısız oldu: $error"
+    },
+    "home": {
+        "seeAll": "Hepsini görüntüle",
+        "more": "Daha fazla",
+        "online": "Çevrimiçi",
+        "offline": "Çevrimdışı",
+        "placeholders": {
+            "fashionDesigner": "Moda Tasarımcısı",
+            "comedian": "Komedyen",
+            "influencer": "Influencer",
+            "teacher": "Öğretmen",
+            "friend": "Arkadaş"
+        }
+    },
+    "characters": {
+        "all": "Tümü",
+        "favorites": "Favoriler",
+        "recent": "Son",
+        "characters": "Karakterler",
+        "placeholderSubtitle": "Kullanıcı odaklı, basit ve kullanılabilir ürün tasarımcısı.",
+        "characterDetails": {
+            "videoCall": "Video Arama",
+            "message": "Mesaj",
+            "voiceCall": "Sesli Arama"
+        }
+    },
+    "notifications": {
+        "today": "Bugün",
+        "yesterday": "Dün",
+        "weekAgo": "${week} hafta önce",
+        "monthAgo": "${month} ay önce",
+        "yearAgo": "${year} yıl önce",
+        "noNotifications": "Henüz bildirim yok.",
+        "noNotificationsSubtitle": "Daha sonra bildirim geldiğinde kontrol etmeyi unutmayın.",
+        "allDeleted": "Tüm bildirimler başarıyla silindi"
+    },
+    "videoChat": {
+        "networkHiccup": "Ağ sorunu algılandı. Mikrofon yeniden bağlanıyor...",
+        "failedToUpdateFollow": "Takip durumu güncellenemedi.",
+        "connecting": "Bağlanıyor...",
+        "callEnded": "Arama sona erdi",
+        "callFailed": "Arama başarısız oldu: $error",
+        "mute": "Sessize al",
+        "unmute": "Sessizi aç",
+        "endCall": "Aramayı sonlandır",
+        "swipeToChat": "Sohbete başlamak için kaydırın",
+        "male": "Erkek",
+        "female": "Kadın",
+        "country": "Ülke",
+        "follow": "Takip et",
+        "unfollow": "Takibi bırak",
+        "callEndedMessage": "Video araması sona erdi.",
+        "swipeForNewChat": "Yeni sohbet için kaydırın"
+    },
+    "voiceChat": {
+        "connecting": "Bağlanıyor...",
+        "callEnded": "Arama sona erdi",
+        "callFailed": "Arama başarısız oldu: $error",
+        "calling": "Aranıyor..."
+    },
+    "chat": {
+        "message": "Mesaj",
+        "history": "Geçmiş",
+        "noMessages": "Henüz mesaj yok.",
+        "noMessagesSubtitle": "Bir mesaj göndererek sohbet başlatın.",
+        "online": "Çevrimiçi",
+        "offline": "Çevrimdışı",
+        "gallery": "Galeri",
+        "camera": "Kamera",
+        "typeAMessage": "Mesaj yazın...",
+        "pleaseUpgrade": "Lütfen Pro sürümüne yükseltin.",
+        "photo": "Photo",
+        "photoUploadFailed": "Couldn't upload photo. Please try again.",
+        "tapToViewPhoto": "Tap to view photo",
+        "voiceCallEnded": "Sesli arama sona erdi",
+        "videoCallEnded": "Video araması sona erdi",
+        "uploadingPhoto": "Uploading photo...",
+        "mediaPermissionDenied": "Allow camera or photo permissions to share images."
+    },
+    "editProfile": {
+        "aboutMe": "Hakkımda",
+        "aboutMeHint": "Kendiniz hakkında bir şeyler yazın",
+        "fullName": "Tam isim",
+        "gender": "Cinsiyet",
+        "male": "Erkek",
+        "female": "Kadın",
+        "dontWantToMention": "Belirtmek istemiyorum",
+        "country": "Ülke",
+        "languagePreferences": "Dil tercihi",
+        "selectLanguage": "Tercih edilen bir dil ekleyin",
+        "saved": "Kaydedildi",
+        "changesSaved": "Değişiklikler kaydedildi."
+    },
+    "settingsSupport": {
+        "title": "Ayarlar ve Destek",
+        "premiumTitle": "Tüm özelliklere \nsınırsız erişim",
+        "getPremium": "Premium al",
+        "settingsHub": "Ayarlar Merkezi",
+        "shareTheApp": "Uygulamayı paylaş",
+        "rateUs": "Bizi değerlendir",
+        "version": "Sürüm",
+        "notifications": "Bildirimler",
+        "accountManagement": "Hesap Yönetimi",
+        "deleteAccount": "Hesabı sil",
+        "logOut": "Çıkış Yap",
+        "logOutTitle": "Çıkış yapmak üzeresiniz",
+        "logOutSubtitle": "Tekrar görüşmek üzere! \n Sizi özleyeceğiz."
+    },
+    "deleteAccount": {
+        "title": "Hesabı sil",
+        "warning": "Hesabınızı silmek istediğinize emin misiniz?",
+        "description": "Bu işlem geri alınamaz ve tüm verileriniz ile geçmişiniz kalıcı olarak silinecektir.",
+        "deleteFailed": "Hesap silme başarısız oldu: $error",
+        "steps": {
+            "step1": {
+                "title": "Sizi kaybetmek istemeyiz ama kararınızı anlıyoruz.",
+                "subtitle": "ChatFace deneyimini geliştirmek için neden ayrılmak istediğinizi söyleyebilir misiniz?",
+                "option1": "Yapay zekâ karakterleri gerçekçi değilmiş gibi hissettim.",
+                "option2": "Video sohbetleriyle ilgili teknik sorunlar yaşadım.",
+                "option3": "Abonelik fiyatları beklentimin üzerindeydi.",
+                "option4": "Aradığım karakter tarzını bulamadım.",
+                "option5": "Sadece kısa süreli denemek istemiştim.",
+                "option6": "Diğer"
+            },
+            "step2": {
+                "title": "Hesabınızı silerseniz, veda edeceksiniz:",
+                "subtitle1": "Derin bağlantılar ve anılar:",
+                "subtitle1Desc": "İletişim kurduğunuz karakterler, paylaşılan sırları ve kişisel alışkanlıklarınızı tamamen unutacaktır.",
+                "subtitle2": "Video arama ayrıcalıkları:",
+                "subtitle2Desc": "İstediğiniz zaman erişebildiğiniz kişisel AI görüşmelerini kaybedeceksiniz.",
+                "subtitle3": "Gelişmiş algoritma:",
+                "subtitle3Desc": "Tercihleriniz temelinde size sunulan 'Sana Özel' eşleştirmeleri sıfırlanacaktır.",
+                "subtitle4": "Profil verileri:",
+                "subtitle4Desc": "Başarılarınız, özel karakterler ve sohbet geçmişiniz geri döndürülemez şekilde silinecektir."
+            },
+            "step3": {
+                "title": "Gitmeden önce sizin için özel bir teklifimiz var!",
+                "description": "Belki biraz daha zamana veya daha uygun bir teklife ihtiyacınız vardır. Silme yerine bunları değerlendirmek ister misiniz?",
+                "description1": "Sizin kalmanızı önemsiyoruz. Bir sonraki aboneliğinizde size $offer sunuyoruz! Bu teklifi değerlendirmek ister misiniz?",
+                "description1Offer": "%50 indirim sunduk",
+                "description2": "Size yeni karakterleri keşfetmeniz için $offer kredi verdik.",
+                "description2Offer": "3 ücretsiz video araması",
+                "acceptOffer": "%50 indirimi kabul et",
+                "deleteMyAccount": "Hesabımı sil"
+            }
+        }
+    },
+    "cancel": "İptal",
+    "delete": "Sil",
+    "premium": "Premium",
+    "profileEdit": "Profili düzenle",
+    "settings": "Ayarlar",
+    "undo": "Geri al",
+    "successfully": "Başarıyla",
+    "save": "Kaydet",
+    "languageOptions": {
+        "english": "İngilizce",
+        "chinese": "Çince",
+        "german": "Almanca",
+        "italian": "İtalyanca",
+        "french": "Fransızca",
+        "japanese": "Japonca",
+        "spanish": "İspanyolca",
+        "russian": "Rusça",
+        "turkish": "Türkçe",
+        "korean": "Korece",
+        "hindi": "Hintçe",
+        "portuguese": "Portekizce"
+    },
+    "common": {
+        "tryAgain": "Tekrar Dene",
+        "retry": "Yeniden Dene",
+        "close": "Kapat"
+    },
+    "permissionsRequired": "İzinler Gerekli",
+    "permissionHelper": {
+        "camAndMicRequired": "Görüntülü aramalar için kamera ve mikrofon izinleri gereklidir. Lütfen ayarlardan etkinleştirin.",
+        "micRequired": "Sesli aramalar için mikrofon izni gereklidir. Lütfen ayarlardan etkinleştirin.",
+        "cancel": "İptal",
+        "openSettings": "Ayarları Aç"
+    },
+    "videoView": {
+        "title": "Kamera filtreleri",
+        "subtitle": "Kamera önizlemesi için bir görünüm seç.",
+        "errorLoad": "Karakterler yüklenemedi: ",
+        "noComps": "Henüz hiç karakter yok.",
+        "filters": {
+            "ORIGINAL": "Orijinal",
+            "ADDICTIVE_BLUE": "Bağımlılık Mavisi",
+            "ADDICTIVE_RED": "Bağımlılık Kırmızısı",
+            "ADEN": "Aden",
+            "AMARO": "Amaro",
+            "ASHBY": "Ashby",
+            "BRANNAN": "Brannan",
+            "BROOKLYN": "Brooklyn",
+            "CLARENDON": "Clarendon",
+            "CREMA": "Crema",
+            "DOGPATCH": "Dogpatch",
+            "GINGHAM": "Gingham",
+            "GINZA": "Ginza",
+            "HEFE": "Hefe",
+            "HUDSON": "Hudson",
+            "INKWELL": "Inkwell",
+            "JUNO": "Juno",
+            "LARK": "Lark",
+            "LOFI": "LoFi",
+            "LUDWIG": "Ludwig",
+            "MOON": "Moon",
+            "PERPETUA": "Perpetua",
+            "REYES": "Reyes",
+            "SIERRA": "Sierra",
+            "SLUMBER": "Slumber",
+            "STINSON": "Stinson",
+            "SUTRO": "Sutro",
+            "WALDEN": "Walden",
+            "WILLOW": "Willow",
+            "XPROII": "XProII"
+        }
     }
-  },
-  "cookies": "Çerez Politikası",
-  "privacy": "Gizlilik Politikası",
-  "onboarding": {
-    "step1": {
-      "title": "Adınız nedir?",
-      "subtitle": "Lütfen adınızı girin",
-      "hint": "Tam isim"
-    },
-    "step2": {
-      "title": "Kaç yaşındasınız?",
-      "subtitle": "Kaydolmak için en az 18 yaşında olmalısınız."
-    },
-    "step3": {
-      "title": "Cinsiyetiniz?",
-      "subtitle": "Lütfen cinsiyetinizi seçin",
-      "male": "Erkek",
-      "female": "Kadın",
-      "dontWantToMention": "Belirtmek istemiyorum"
-    },
-    "step4": {
-      "title": "Eğlenin ve \ngüvende kalın",
-      "entry1": "Güvenli bir deneyim sağlıyoruz",
-      "subentry1": "Gerçek zamanlı AI izlemesi etkin",
-      "entry2": "Ekran kaydı",
-      "subentry2": "İzinsiz kayıt yasaktır",
-      "entry3": "7/24 destek",
-      "subentry3": "Şikayetler her zaman ele alınır",
-      "entry4": "Sadece 18+",
-      "subentry4": "Reşit olmayanlar için uygun değildir",
-      "communityRules": "Topluluk Kuralları"
-    },
-    "step5": {
-      "title": "İzinler",
-      "permission1": "Kamera erişimi",
-      "permission1Subtitle": "Kamera erişimine izin ver",
-      "permission2": "Mikrofon erişimi",
-      "permission2Subtitle": "Mikrofon erişimine izin ver",
-      "permission3": "Konum erişimi",
-      "permission3Subtitle": "Konum erişimine izin ver"
-    },
-    "loading": {
-      "titlePart1": "Kişisel hesabınız",
-      "titlePart2": "oluşturuluyor",
-      "subtitle": "Lütfen bekleyin, profiliniz hazırlanıyor."
-    },
-    "allowAccess": "Erişime izin ver",
-    "iUnderstand": "Anladım"
-  },
-  "pressBackAgainToExit": "Çıkmak için tekrar Geri tuşuna basın",
-  "splash": {
-    "screen1": {
-      "title": "Yapay zekâ ile \n yeni yüzlü video sohbet",
-      "description": "Kameranızı açın ve yapay zekâ ile yüz yüze konuşun. Duygularınızı, tonlamanızı ve bağlamınızı anlayan daha doğal bir iletişim deneyimi yaşayın."
-    },
-    "screen2": {
-      "title": "Gerçek ve doğal \n iletişim",
-      "description": "Sadece metin ile sınırlı kalmayın. Video çağrılarıyla daha akıcı, daha insancıl sohbetler yapın."
-    }
-  },
-  "auth": {
-    "google": "Google ile devam et",
-    "facebook": "Facebook ile devam et",
-    "apple": "Apple ile devam et",
-    "guest": "Misafir olarak devam et",
-    "signInFailed": "Giriş başarısız oldu: $error"
-  },
-  "home": {
-    "seeAll": "Hepsini görüntüle",
-    "more": "Daha fazla",
-    "online": "Çevrimiçi",
-    "offline": "Çevrimdışı",
-    "placeholders": {
-      "fashionDesigner": "Moda Tasarımcısı",
-      "comedian": "Komedyen",
-      "influencer": "Influencer",
-      "teacher": "Öğretmen",
-      "friend": "Arkadaş"
-    }
-  },
-  "characters": {
-    "all": "Tümü",
-    "favorites": "Favoriler",
-    "recent": "Son",
-    "characters": "Karakterler",
-    "placeholderSubtitle": "Kullanıcı odaklı, basit ve kullanılabilir ürün tasarımcısı.",
-    "characterDetails": {
-      "videoCall": "Video Arama",
-      "message": "Mesaj",
-      "voiceCall": "Sesli Arama"
-    }
-  },
-  "notifications": {
-    "today": "Bugün",
-    "yesterday": "Dün",
-    "weekAgo": "${week} hafta önce",
-    "monthAgo": "${month} ay önce",
-    "yearAgo": "${year} yıl önce",
-    "noNotifications": "Henüz bildirim yok.",
-    "noNotificationsSubtitle": "Daha sonra bildirim geldiğinde kontrol etmeyi unutmayın.",
-    "allDeleted": "Tüm bildirimler başarıyla silindi"
-  },
-  "videoChat": {
-    "connecting": "Bağlanıyor...",
-    "callEnded": "Arama sona erdi",
-    "callFailed": "Arama başarısız oldu: $error",
-    "mute": "Sessize al",
-    "unmute": "Sessizi aç",
-    "endCall": "Aramayı sonlandır",
-    "swipeToChat": "Sohbete başlamak için kaydırın",
-    "male": "Erkek",
-    "female": "Kadın",
-    "country": "Ülke",
-    "follow": "Takip et",
-    "unfollow": "Takibi bırak",
-    "callEndedMessage": "Video araması sona erdi.",
-    "swipeForNewChat": "Yeni sohbet için kaydırın"
-  },
-  "voiceChat": {
-    "connecting": "Bağlanıyor...",
-    "callEnded": "Arama sona erdi",
-    "callFailed": "Arama başarısız oldu: $error",
-    "calling": "Aranıyor..."
-  },
-  "chat": {
-    "message": "Mesaj",
-    "history": "Geçmiş",
-    "noMessages": "Henüz mesaj yok.",
-    "noMessagesSubtitle": "Bir mesaj göndererek sohbet başlatın.",
-    "online": "Çevrimiçi",
-    "offline": "Çevrimdışı",
-    "gallery": "Galeri",
-    "camera": "Kamera",
-    "typeAMessage": "Mesaj yazın...",
-    "pleaseUpgrade": "Lütfen Pro sürümüne yükseltin.",
-    "photo": "Photo",
-    "photoUploadFailed": "Couldn't upload photo. Please try again.",
-    "tapToViewPhoto": "Tap to view photo",
-    "voiceCallEnded": "Sesli arama sona erdi",
-    "videoCallEnded": "Video araması sona erdi",
-    "uploadingPhoto": "Uploading photo...",
-    "mediaPermissionDenied": "Allow camera or photo permissions to share images."
-  },
-  "editProfile": {
-    "aboutMe": "Hakkımda",
-    "aboutMeHint": "Kendiniz hakkında bir şeyler yazın",
-    "fullName": "Tam isim",
-    "gender": "Cinsiyet",
-    "male": "Erkek",
-    "female": "Kadın",
-    "dontWantToMention": "Belirtmek istemiyorum",
-    "country": "Ülke",
-    "languagePreferences": "Dil tercihi",
-    "selectLanguage": "Tercih edilen bir dil ekleyin",
-    "saved": "Kaydedildi",
-    "changesSaved": "Değişiklikler kaydedildi."
-  },
-  "settingsSupport": {
-    "title": "Ayarlar ve Destek",
-    "premiumTitle": "Tüm özelliklere \nsınırsız erişim",
-    "getPremium": "Premium al",
-    "settingsHub": "Ayarlar Merkezi",
-    "shareTheApp": "Uygulamayı paylaş",
-    "rateUs": "Bizi değerlendir",
-    "version": "Sürüm",
-    "notifications": "Bildirimler",
-    "accountManagement": "Hesap Yönetimi",
-    "deleteAccount": "Hesabı sil",
-    "logOut": "Çıkış Yap",
-    "logOutTitle": "Çıkış yapmak üzeresiniz",
-    "logOutSubtitle": "Tekrar görüşmek üzere! \n Sizi özleyeceğiz."
-  },
-  "deleteAccount": {
-    "title": "Hesabı sil",
-    "warning": "Hesabınızı silmek istediğinize emin misiniz?",
-    "description": "Bu işlem geri alınamaz ve tüm verileriniz ile geçmişiniz kalıcı olarak silinecektir.",
-    "deleteFailed": "Hesap silme başarısız oldu: $error",
-    "steps": {
-      "step1": {
-        "title": "Sizi kaybetmek istemeyiz ama kararınızı anlıyoruz.",
-        "subtitle": "ChatFace deneyimini geliştirmek için neden ayrılmak istediğinizi söyleyebilir misiniz?",
-        "option1": "Yapay zekâ karakterleri gerçekçi değilmiş gibi hissettim.",
-        "option2": "Video sohbetleriyle ilgili teknik sorunlar yaşadım.",
-        "option3": "Abonelik fiyatları beklentimin üzerindeydi.",
-        "option4": "Aradığım karakter tarzını bulamadım.",
-        "option5": "Sadece kısa süreli denemek istemiştim.",
-        "option6": "Diğer"
-      },
-      "step2": {
-        "title": "Hesabınızı silerseniz, veda edeceksiniz:",
-        "subtitle1": "Derin bağlantılar ve anılar:",
-        "subtitle1Desc": "İletişim kurduğunuz karakterler, paylaşılan sırları ve kişisel alışkanlıklarınızı tamamen unutacaktır.",
-        "subtitle2": "Video arama ayrıcalıkları:",
-        "subtitle2Desc": "İstediğiniz zaman erişebildiğiniz kişisel AI görüşmelerini kaybedeceksiniz.",
-        "subtitle3": "Gelişmiş algoritma:",
-        "subtitle3Desc": "Tercihleriniz temelinde size sunulan 'Sana Özel' eşleştirmeleri sıfırlanacaktır.",
-        "subtitle4": "Profil verileri:",
-        "subtitle4Desc": "Başarılarınız, özel karakterler ve sohbet geçmişiniz geri döndürülemez şekilde silinecektir."
-      },
-      "step3": {
-        "title": "Gitmeden önce sizin için özel bir teklifimiz var!",
-        "description": "Belki biraz daha zamana veya daha uygun bir teklife ihtiyacınız vardır. Silme yerine bunları değerlendirmek ister misiniz?",
-        "description1": "Sizin kalmanızı önemsiyoruz. Bir sonraki aboneliğinizde size $offer sunuyoruz! Bu teklifi değerlendirmek ister misiniz?",
-        "description1Offer": "%50 indirim sunduk",
-        "description2": "Size yeni karakterleri keşfetmeniz için $offer kredi verdik.",
-        "description2Offer": "3 ücretsiz video araması",
-        "acceptOffer": "%50 indirimi kabul et",
-        "deleteMyAccount": "Hesabımı sil"
-      }
-    }
-  },
-  "cancel": "İptal",
-  "delete": "Sil",
-  "premium": "Premium",
-  "profileEdit": "Profili düzenle",
-  "settings": "Ayarlar",
-  "undo": "Geri al",
-  "successfully": "Başarıyla",
-  "save": "Kaydet",
-  "languageOptions": {
-    "english": "İngilizce",
-    "chinese": "Çince",
-    "german": "Almanca",
-    "italian": "İtalyanca",
-    "french": "Fransızca",
-    "japanese": "Japonca",
-    "spanish": "İspanyolca",
-    "russian": "Rusça",
-    "turkish": "Türkçe",
-    "korean": "Korece",
-    "hindi": "Hintçe",
-    "portuguese": "Portekizce"
-  }
 }

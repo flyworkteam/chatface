@@ -149,7 +149,7 @@ class _NotificationsViewState extends ConsumerState<NotificationsView> {
                                     .read(notificationHistoryProvider.notifier)
                                     .refresh();
                               },
-                              child: const Text('Retry'),
+                              child: Text(t.common.retry),
                             ),
                           ],
                         ),
@@ -220,6 +220,7 @@ class _NotificationsViewState extends ConsumerState<NotificationsView> {
             color: Colors.white,
             elevation: 4,
             offset: const Offset(0, 46),
+            constraints: const BoxConstraints(minWidth: 50, maxWidth: 70),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
@@ -234,7 +235,10 @@ class _NotificationsViewState extends ConsumerState<NotificationsView> {
             itemBuilder: (context) => [
               PopupMenuItem<String>(
                 value: 'delete_all',
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+
                 child: Row(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     SvgPicture.asset(
                       AppIcons.deleteAll,

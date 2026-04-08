@@ -1,311 +1,366 @@
 {
-  "welcome": "欢迎 $name",
-  "welcome2": "欢迎来到 $appName",
-  "get_started": "开始使用",
-  "next": "下一步",
-  "back": "返回",
-  "skip": "跳过",
-  "profile": "个人资料",
-  "continue": "继续",
-  "termOfService": {
-    "text1": "注册 swipe 即表示您同意我们的 ",
-    "link1": "服务条款",
-    "text2": "。了解我们如何在我们的 ",
-    "link2": "隐私政策",
-    "text3": " 和 ",
-    "link3": "Cookie 政策",
-    "text4": "",
-    "privacyPolicy": {
-      "title": "隐私政策",
-      "lastUpdated": "最后更新：2026",
-      "intro": "ChatFace 将用户隐私和数据安全作为核心原则。您的所有个人数据均按照有效的数据保护法规进行处理。",
-      "section1Title": "1. 收集的信息",
-      "section1sub1Title": "1.1 用户提供的数据",
-      "section1sub1Body": "• 姓名、昵称或个人资料信息。\n• 电子邮件地址（用于注册、订阅和支持）。 \n• 互动偏好、语言设置和互动记录。 \n• 反馈和支持消息。",
-      "section1sub2Title": "1.2 自动收集的数据",
-      "section1sub2Body": "收集的信息包括设备类型、操作系统、近似位置（城市/国家）和应用使用数据。不收集精确位置数据。",
-      "section2Title": "2. 数据处理目的",
-      "section2Body": "您的个人数据将用于以下目的：\n\n• 确保应用的无缝运行。\n• 提供并个性化 AI 驱动的视频通话体验。\n• 优化系统性能并检测错误。\n• 履行法律义务。\n 您的数据绝不会出售给第三方。",
-      "section3Title": "3. 数据保留与删除",
-      "section3Body": "只要您的帐户处于活动状态或出于法律义务的期间，我们将存储您的数据。当帐户被删除时，所有个人数据将从系统中不可逆转地删除。",
-      "section4Title": "4. 用户权利",
-      "section4Body": "根据 GDPR 和相关法规，您有权访问、更正、删除（被遗忘权）并请求数据可移植性。您可联系我们提出请求。",
-      "section5Title": "5. 儿童隐私",
-      "section5Body": "ChatFace 不面向 18 岁以下用户。我们不会有意收集该年龄组的数据；一经发现，此类帐户将被关闭并删除数据。",
-      "section6Title": "6. 联系方式",
-      "section6Body": "📩 咨询：support@fly-work.com"
+    "welcome": "欢迎 $name",
+    "welcome2": "欢迎来到 $appName",
+    "get_started": "开始使用",
+    "next": "下一步",
+    "back": "返回",
+    "skip": "跳过",
+    "profile": "个人资料",
+    "continue": "继续",
+    "termOfService": {
+        "text1": "注册 swipe 即表示您同意我们的 ",
+        "link1": "服务条款",
+        "text2": "。了解我们如何在我们的 ",
+        "link2": "隐私政策",
+        "text3": " 和 ",
+        "link3": "Cookie 政策",
+        "text4": "",
+        "privacyPolicy": {
+            "title": "隐私政策",
+            "lastUpdated": "最后更新：2026",
+            "intro": "ChatFace 将用户隐私和数据安全作为核心原则。您的所有个人数据均按照有效的数据保护法规进行处理。",
+            "section1Title": "1. 收集的信息",
+            "section1sub1Title": "1.1 用户提供的数据",
+            "section1sub1Body": "• 姓名、昵称或个人资料信息。\n• 电子邮件地址（用于注册、订阅和支持）。 \n• 互动偏好、语言设置和互动记录。 \n• 反馈和支持消息。",
+            "section1sub2Title": "1.2 自动收集的数据",
+            "section1sub2Body": "收集的信息包括设备类型、操作系统、近似位置（城市/国家）和应用使用数据。不收集精确位置数据。",
+            "section2Title": "2. 数据处理目的",
+            "section2Body": "您的个人数据将用于以下目的：\n\n• 确保应用的无缝运行。\n• 提供并个性化 AI 驱动的视频通话体验。\n• 优化系统性能并检测错误。\n• 履行法律义务。\n 您的数据绝不会出售给第三方。",
+            "section3Title": "3. 数据保留与删除",
+            "section3Body": "只要您的帐户处于活动状态或出于法律义务的期间，我们将存储您的数据。当帐户被删除时，所有个人数据将从系统中不可逆转地删除。",
+            "section4Title": "4. 用户权利",
+            "section4Body": "根据 GDPR 和相关法规，您有权访问、更正、删除（被遗忘权）并请求数据可移植性。您可联系我们提出请求。",
+            "section5Title": "5. 儿童隐私",
+            "section5Body": "ChatFace 不面向 18 岁以下用户。我们不会有意收集该年龄组的数据；一经发现，此类帐户将被关闭并删除数据。",
+            "section6Title": "6. 联系方式",
+            "section6Body": "📩 咨询：support@fly-work.com"
+        },
+        "termsOfService": {
+            "title": "服务条款",
+            "lastUpdated": "最后更新：2026",
+            "intro": "这些条款规范 ChatFace 移动应用的使用。使用本应用即表示您同意这些条款。",
+            "disclaimer": "免责声明：ChatFace 是一款 AI 视频互动应用。它不提供法律、学术、医疗或专业咨询服务。",
+            "section1Title": "1. 服务范围",
+            "section1Body": "ChatFace 提供 AI 驱动的视频互动体验：\n\n• AI 视频通话与对话。\n• 个性化互动偏好。\n• 访问互动历史和记录。\n\n服务不构成正式意见或专业指导。",
+            "section2Title": "2. 使用条件",
+            "section2Body": "• 您必须年满 18 岁（禁止 18 岁以下访问）。\n• 您必须提供准确的帐户信息。\n• 应仅将应用用于合法和个人目的。",
+            "section3Title": "3. 禁止使用",
+            "section3Body": "冒充、仇恨言论、危及儿童安全、尝试入侵安全和操纵 AI 系统均严格禁止。",
+            "section4Title": "4. 订阅与付款",
+            "section4Body": "高级功能受 App Store 和 Google Play 政策约束。订阅取消和退款由相应商店管理。",
+            "section5Title": "5. 内容免责声明",
+            "section5Body": "内容由 AI 生成，不替代专业建议。ChatFace 不保证准确性或适用性。",
+            "section6Title": "6. 知识产权",
+            "section6Body": "所有内容包括设计、软件和算法均归 ChatFace 所有。未经授权不得复制或再分发。",
+            "section7Title": "7. 适用法律",
+            "section7Body": "这些条款受土耳其共和国法律管辖。伊斯坦布尔中央法院对争议拥有管辖权。",
+            "section8Title": "8. 联系方式",
+            "section8Body": "📩 咨询：support@fly-work.com"
+        },
+        "cookiePolicy": {
+            "title": "Cookie 政策",
+            "lastUpdated": "最后更新：2026",
+            "intro": "欢迎使用 ChatFace。我们使用数字辅助技术使您的 AI 视频通话体验更流畅、更安全并更具个性化。",
+            "important": "本政策解释了什么是 Cookie、它们的用途以及如何管理您的偏好。",
+            "section1Title": "1. 什么是 Cookie？",
+            "section1Body": "Cookie 是存放在您设备上的小数据文件。它们不会直接识别您；它们像数字便签，记住：\n• 通话和语言设置\n• 会话和性能偏好。",
+            "section2Title": "2. 我们使用哪些技术？",
+            "section2Body": "严格必要的技术\n用于会话管理和安全控制。没有这些组件应用可能无法正常工作。\n\n性能与分析\n帮助我们了解哪些内容被阅读以及哪些区域需要改进。数据以匿名方式评估。\n\n个性化\n记住语言偏好和阅读级别以提供个性化体验。",
+            "section3Title": "3. 我们为何使用这些技术？",
+            "section3Body": "• 确保应用安全平稳运行。\n• 使使用体验更流畅。\n• 记住重复设置。\n• 为未来功能识别改进方向。",
+            "section4Title": "4. 第三方技术",
+            "section4Body": "某些技术可能由技术服务提供商提供，并受其自身政策约束。ChatFace 在这些合作中优先考虑数据安全。",
+            "section5Title": "5. Cookie 控制与管理",
+            "section5Body": "用户可以通过设备或应用设置限制这些技术。禁用必要技术可能导致例如无法启动视频通话等问题。",
+            "section6Title": "6. 联系方式",
+            "section6Body": "📩 咨询：support@fly-work.com"
+        }
     },
-    "termsOfService": {
-      "title": "服务条款",
-      "lastUpdated": "最后更新：2026",
-      "intro": "这些条款规范 ChatFace 移动应用的使用。使用本应用即表示您同意这些条款。",
-      "disclaimer": "免责声明：ChatFace 是一款 AI 视频互动应用。它不提供法律、学术、医疗或专业咨询服务。",
-      "section1Title": "1. 服务范围",
-      "section1Body": "ChatFace 提供 AI 驱动的视频互动体验：\n\n• AI 视频通话与对话。\n• 个性化互动偏好。\n• 访问互动历史和记录。\n\n服务不构成正式意见或专业指导。",
-      "section2Title": "2. 使用条件",
-      "section2Body": "• 您必须年满 18 岁（禁止 18 岁以下访问）。\n• 您必须提供准确的帐户信息。\n• 应仅将应用用于合法和个人目的。",
-      "section3Title": "3. 禁止使用",
-      "section3Body": "冒充、仇恨言论、危及儿童安全、尝试入侵安全和操纵 AI 系统均严格禁止。",
-      "section4Title": "4. 订阅与付款",
-      "section4Body": "高级功能受 App Store 和 Google Play 政策约束。订阅取消和退款由相应商店管理。",
-      "section5Title": "5. 内容免责声明",
-      "section5Body": "内容由 AI 生成，不替代专业建议。ChatFace 不保证准确性或适用性。",
-      "section6Title": "6. 知识产权",
-      "section6Body": "所有内容包括设计、软件和算法均归 ChatFace 所有。未经授权不得复制或再分发。",
-      "section7Title": "7. 适用法律",
-      "section7Body": "这些条款受土耳其共和国法律管辖。伊斯坦布尔中央法院对争议拥有管辖权。",
-      "section8Title": "8. 联系方式",
-      "section8Body": "📩 咨询：support@fly-work.com"
+    "cookies": "Cookie 政策",
+    "privacy": "隐私政策",
+    "onboarding": {
+        "step5": {
+            "permissionRequired": "需要权限",
+            "notNow": "暂不",
+            "openSettings": "打开设置",
+            "title": "权限",
+            "permission1": "相机访问",
+            "permission1Subtitle": "允许访问相机",
+            "permission2": "麦克风访问",
+            "permission2Subtitle": "允许访问麦克风",
+            "permission3": "位置访问",
+            "permission3Subtitle": "允许访问位置"
+        },
+        "step1": {
+            "title": "你叫什么名字？",
+            "subtitle": "请输入你的姓名",
+            "hint": "全名"
+        },
+        "step2": {
+            "title": "你多少岁？",
+            "subtitle": "注册时您必须年满 18 岁。"
+        },
+        "step3": {
+            "title": "你的性别是？",
+            "subtitle": "请选择你的性别",
+            "male": "男",
+            "female": "女",
+            "dontWantToMention": "我不想说明。"
+        },
+        "step4": {
+            "title": "玩得开心且\n保持安全",
+            "entry1": "我们维护秩序",
+            "subentry1": "实时 AI 监控开启",
+            "entry2": "屏幕录制",
+            "subentry2": "未经同意不得录制",
+            "entry3": "全天候支持",
+            "subentry3": "投诉将随时审查",
+            "entry4": "仅限 18+",
+            "subentry4": "不适合未成年人",
+            "communityRules": "社区规则"
+        },
+        "loading": {
+            "titlePart1": "您的个人帐户正在",
+            "titlePart2": "创建中",
+            "subtitle": "请稍候，您的个人资料正在准备中。"
+        },
+        "allowAccess": "允许访问",
+        "iUnderstand": "我知道了"
     },
-    "cookiePolicy": {
-      "title": "Cookie 政策",
-      "lastUpdated": "最后更新：2026",
-      "intro": "欢迎使用 ChatFace。我们使用数字辅助技术使您的 AI 视频通话体验更流畅、更安全并更具个性化。",
-      "important": "本政策解释了什么是 Cookie、它们的用途以及如何管理您的偏好。",
-      "section1Title": "1. 什么是 Cookie？",
-      "section1Body": "Cookie 是存放在您设备上的小数据文件。它们不会直接识别您；它们像数字便签，记住：\n• 通话和语言设置\n• 会话和性能偏好。",
-      "section2Title": "2. 我们使用哪些技术？",
-      "section2Body": "严格必要的技术\n用于会话管理和安全控制。没有这些组件应用可能无法正常工作。\n\n性能与分析\n帮助我们了解哪些内容被阅读以及哪些区域需要改进。数据以匿名方式评估。\n\n个性化\n记住语言偏好和阅读级别以提供个性化体验。",
-      "section3Title": "3. 我们为何使用这些技术？",
-      "section3Body": "• 确保应用安全平稳运行。\n• 使使用体验更流畅。\n• 记住重复设置。\n• 为未来功能识别改进方向。",
-      "section4Title": "4. 第三方技术",
-      "section4Body": "某些技术可能由技术服务提供商提供，并受其自身政策约束。ChatFace 在这些合作中优先考虑数据安全。",
-      "section5Title": "5. Cookie 控制与管理",
-      "section5Body": "用户可以通过设备或应用设置限制这些技术。禁用必要技术可能导致例如无法启动视频通话等问题。",
-      "section6Title": "6. 联系方式",
-      "section6Body": "📩 咨询：support@fly-work.com"
+    "pressBackAgainToExit": "再次按返回退出",
+    "splash": {
+        "screen1": {
+            "title": "视频聊天的全新面孔 \n 与 AI",
+            "description": "打开相机，与 AI 面对面交谈。体验更自然的交流，AI 能理解面部表情、语气和上下文。"
+        },
+        "screen2": {
+            "title": "实时且自然的 \n 交流",
+            "description": "不要被文字限制。通过视频通话进行更流畅、更有人情味的对话。"
+        }
+    },
+    "auth": {
+        "google": "使用 Google 登录",
+        "facebook": "使用 Facebook 登录",
+        "apple": "使用 Apple 登录",
+        "guest": "以游客身份继续",
+        "signInFailed": "登录失败： $error"
+    },
+    "home": {
+        "seeAll": "查看全部",
+        "more": "更多",
+        "online": "在线",
+        "offline": "离线",
+        "placeholders": {
+            "fashionDesigner": "时装设计师",
+            "comedian": "喜剧演员",
+            "influencer": "网红",
+            "teacher": "教师",
+            "friend": "朋友"
+        }
+    },
+    "characters": {
+        "all": "全部",
+        "favorites": "收藏",
+        "recent": "最近",
+        "characters": "角色",
+        "placeholderSubtitle": "专注于简洁性和可用性的产品设计师。",
+        "characterDetails": {
+            "videoCall": "视频通话",
+            "message": "消息",
+            "voiceCall": "语音通话"
+        }
+    },
+    "notifications": {
+        "today": "今天",
+        "yesterday": "昨天",
+        "weekAgo": "${week} 周前",
+        "monthAgo": "${month} 月前",
+        "yearAgo": "${year} 年前",
+        "noNotifications": "还没有通知。",
+        "noNotificationsSubtitle": "收到通知时别忘了再来查看。",
+        "allDeleted": "所有通知已成功删除"
+    },
+    "videoChat": {
+        "networkHiccup": "检测到网络问题。正在重新连接...",
+        "failedToUpdateFollow": "更新关注状态失败。",
+        "connecting": "连接中...",
+        "callEnded": "通话结束",
+        "callFailed": "通话失败： $error",
+        "mute": "静音",
+        "unmute": "取消静音",
+        "endCall": "结束通话",
+        "swipeToChat": "滑动开始聊天",
+        "male": "男",
+        "female": "女",
+        "country": "国家",
+        "follow": "关注",
+        "unfollow": "取消关注",
+        "callEndedMessage": "视频通话已结束。",
+        "swipeForNewChat": "滑动以开始新聊天"
+    },
+    "voiceChat": {
+        "connecting": "连接中...",
+        "callEnded": "通话结束",
+        "callFailed": "通话失败： $error",
+        "calling": "呼叫中..."
+    },
+    "chat": {
+        "message": "消息",
+        "history": "历史",
+        "noMessages": "还没有消息。",
+        "noMessagesSubtitle": "发送消息开始对话。",
+        "online": "在线",
+        "offline": "离线",
+        "gallery": "图库",
+        "camera": "相机",
+        "typeAMessage": "输入消息...",
+        "pleaseUpgrade": "请升级到专业版。",
+        "photo": "Photo",
+        "photoUploadFailed": "Couldn't upload photo. Please try again.",
+        "tapToViewPhoto": "Tap to view photo",
+        "voiceCallEnded": "语音通话已结束",
+        "videoCallEnded": "视频通话已结束",
+        "uploadingPhoto": "Uploading photo...",
+        "mediaPermissionDenied": "Allow camera or photo permissions to share images."
+    },
+    "editProfile": {
+        "aboutMe": "关于我",
+        "aboutMeHint": "写点关于你自己的事",
+        "fullName": "全名",
+        "gender": "性别",
+        "male": "男",
+        "female": "女",
+        "dontWantToMention": "我不想说明。",
+        "country": "国家",
+        "languagePreferences": "语言偏好",
+        "selectLanguage": "添加您偏好的语言",
+        "saved": "已保存",
+        "changesSaved": "更改已保存。"
+    },
+    "settingsSupport": {
+        "title": "设置与支持",
+        "premiumTitle": "无限访问所有功能",
+        "getPremium": "获取高级版",
+        "settingsHub": "设置中心",
+        "shareTheApp": "分享应用",
+        "rateUs": "给我们评分",
+        "version": "版本",
+        "notifications": "通知",
+        "accountManagement": "账户管理",
+        "deleteAccount": "删除账户",
+        "logOut": "登出",
+        "logOutTitle": "您即将登出",
+        "logOutSubtitle": "很快再见！\n我们会想念你。"
+    },
+    "deleteAccount": {
+        "title": "删除账户",
+        "warning": "您确定要删除您的账户吗？",
+        "description": "此操作无法撤销，您的所有历史记录和数据将被永久删除。",
+        "deleteFailed": "删除账户失败： $error",
+        "steps": {
+            "step1": {
+                "title": "我们不希望您离开，但我们理解。",
+                "subtitle": "您能告诉我们为什么想离开，以便我们改善ChatFace体验吗？",
+                "option1": "我觉得人工智能角色不逼真。",
+                "option2": "我在视频聊天时遇到技术问题。",
+                "option3": "订阅价格超出我的预期。",
+                "option4": "我找不到我想要的角色类型。",
+                "option5": "我只是想短暂尝试一下。",
+                "option6": "其他"
+            },
+            "step2": {
+                "title": "如果删除帐户，您将告别：",
+                "subtitle1": "深层联系和记忆：",
+                "subtitle1Desc": "与您聊天的角色将完全忘记你们的过去和共享的秘密。",
+                "subtitle2": "视频通话特权：",
+                "subtitle2Desc": "您将失去随时与AI伙伴进行面对面交流的权利。",
+                "subtitle3": "高级算法：",
+                "subtitle3Desc": "为您量身定制的专属角色匹配将被重置。",
+                "subtitle4": "资料数据：",
+                "subtitle4Desc": "您获得的成就、解锁的特殊角色和聊天记录将被不可撤销地删除。"
+            },
+            "step3": {
+                "title": "在您离开之前，我们有一个特别优惠！",
+                "description": "也许您只需要更多的时间或更好的优惠。不删除帐户，您会考虑这个吗？",
+                "description1": "保留您对我们来说很重要。下次订阅可享$offer！",
+                "description1Offer": "我们已应用50%折扣",
+                "description2": "我们已为您提供$offer学分，以便您发现新角色。",
+                "description2Offer": "3次免费视频通话",
+                "acceptOffer": "接受50%折扣优惠",
+                "deleteMyAccount": "删除我的帐户"
+            }
+        }
+    },
+    "cancel": "取消",
+    "delete": "删除",
+    "premium": "高级",
+    "profileEdit": "编辑个人资料",
+    "settings": "设置",
+    "undo": "撤销",
+    "successfully": "成功",
+    "save": "保存",
+    "languageOptions": {
+        "english": "英语",
+        "chinese": "中文",
+        "german": "德语",
+        "italian": "意大利语",
+        "french": "法语",
+        "japanese": "日语",
+        "spanish": "西班牙语",
+        "russian": "俄语",
+        "turkish": "土耳其语",
+        "korean": "韩语",
+        "hindi": "印地语",
+        "portuguese": "葡萄牙语"
+    },
+    "common": {
+        "tryAgain": "重试",
+        "retry": "重试",
+        "close": "关闭"
+    },
+    "permissionsRequired": "需要权限",
+    "permissionHelper": {
+        "camAndMicRequired": "视频通话需要摄像头和麦克风权限。请在设置中启用。",
+        "micRequired": "语音通话需要麦克风权限。请在设置中启用。",
+        "cancel": "取消",
+        "openSettings": "打开设置"
+    },
+    "videoView": {
+        "title": "相机滤镜",
+        "subtitle": "为您的相机预览选择外观。",
+        "errorLoad": "无法加载伙伴：",
+        "noComps": "目前没有伙伴可用。",
+        "filters": {
+            "ORIGINAL": "原来的",
+            "ADDICTIVE_BLUE": "令人上瘾的蓝色",
+            "ADDICTIVE_RED": "令人上瘾的红色",
+            "ADEN": "Aden",
+            "AMARO": "Amaro",
+            "ASHBY": "Ashby",
+            "BRANNAN": "Brannan",
+            "BROOKLYN": "Brooklyn",
+            "CLARENDON": "Clarendon",
+            "CREMA": "Crema",
+            "DOGPATCH": "Dogpatch",
+            "GINGHAM": "Gingham",
+            "GINZA": "Ginza",
+            "HEFE": "Hefe",
+            "HUDSON": "Hudson",
+            "INKWELL": "Inkwell",
+            "JUNO": "Juno",
+            "LARK": "Lark",
+            "LOFI": "LoFi",
+            "LUDWIG": "Ludwig",
+            "MOON": "Moon",
+            "PERPETUA": "Perpetua",
+            "REYES": "Reyes",
+            "SIERRA": "Sierra",
+            "SLUMBER": "Slumber",
+            "STINSON": "Stinson",
+            "SUTRO": "Sutro",
+            "WALDEN": "Walden",
+            "WILLOW": "Willow",
+            "XPROII": "XProII"
+        }
     }
-  },
-  "cookies": "Cookie 政策",
-  "privacy": "隐私政策",
-  "onboarding": {
-    "step1": {
-      "title": "你叫什么名字？",
-      "subtitle": "请输入你的姓名",
-      "hint": "全名"
-    },
-    "step2": {
-      "title": "你多少岁？",
-      "subtitle": "注册时您必须年满 18 岁。"
-    },
-    "step3": {
-      "title": "你的性别是？",
-      "subtitle": "请选择你的性别",
-      "male": "男",
-      "female": "女",
-      "dontWantToMention": "我不想说明。"
-    },
-    "step4": {
-      "title": "玩得开心且\n保持安全",
-      "entry1": "我们维护秩序",
-      "subentry1": "实时 AI 监控开启",
-      "entry2": "屏幕录制",
-      "subentry2": "未经同意不得录制",
-      "entry3": "全天候支持",
-      "subentry3": "投诉将随时审查",
-      "entry4": "仅限 18+",
-      "subentry4": "不适合未成年人",
-      "communityRules": "社区规则"
-    },
-    "step5": {
-      "title": "权限",
-      "permission1": "相机访问",
-      "permission1Subtitle": "允许访问相机",
-      "permission2": "麦克风访问",
-      "permission2Subtitle": "允许访问麦克风",
-      "permission3": "位置访问",
-      "permission3Subtitle": "允许访问位置"
-    },
-    "loading": {
-      "titlePart1": "您的个人帐户正在",
-      "titlePart2": "创建中",
-      "subtitle": "请稍候，您的个人资料正在准备中。"
-    },
-    "allowAccess": "允许访问",
-    "iUnderstand": "我知道了"
-  },
-  "pressBackAgainToExit": "再次按返回退出",
-  "splash": {
-    "screen1": {
-      "title": "视频聊天的全新面孔 \n 与 AI",
-      "description": "打开相机，与 AI 面对面交谈。体验更自然的交流，AI 能理解面部表情、语气和上下文。"
-    },
-    "screen2": {
-      "title": "实时且自然的 \n 交流",
-      "description": "不要被文字限制。通过视频通话进行更流畅、更有人情味的对话。"
-    }
-  },
-  "auth": {
-    "google": "使用 Google 登录",
-    "facebook": "使用 Facebook 登录",
-    "apple": "使用 Apple 登录",
-    "guest": "以游客身份继续",
-    "signInFailed": "登录失败： $error"
-  },
-  "home": {
-    "seeAll": "查看全部",
-    "more": "更多",
-    "online": "在线",
-    "offline": "离线",
-    "placeholders": {
-      "fashionDesigner": "时装设计师",
-      "comedian": "喜剧演员",
-      "influencer": "网红",
-      "teacher": "教师",
-      "friend": "朋友"
-    }
-  },
-  "characters": {
-    "all": "全部",
-    "favorites": "收藏",
-    "recent": "最近",
-    "characters": "角色",
-    "placeholderSubtitle": "专注于简洁性和可用性的产品设计师。",
-    "characterDetails": {
-      "videoCall": "视频通话",
-      "message": "消息",
-      "voiceCall": "语音通话"
-    }
-  },
-  "notifications": {
-    "today": "今天",
-    "yesterday": "昨天",
-    "weekAgo": "${week} 周前",
-    "monthAgo": "${month} 月前",
-    "yearAgo": "${year} 年前",
-    "noNotifications": "还没有通知。",
-    "noNotificationsSubtitle": "收到通知时别忘了再来查看。",
-    "allDeleted": "所有通知已成功删除"
-  },
-  "videoChat": {
-    "connecting": "连接中...",
-    "callEnded": "通话结束",
-    "callFailed": "通话失败： $error",
-    "mute": "静音",
-    "unmute": "取消静音",
-    "endCall": "结束通话",
-    "swipeToChat": "滑动开始聊天",
-    "male": "男",
-    "female": "女",
-    "country": "国家",
-    "follow": "关注",
-    "unfollow": "取消关注",
-    "callEndedMessage": "视频通话已结束。",
-    "swipeForNewChat": "滑动以开始新聊天"
-  },
-  "voiceChat": {
-    "connecting": "连接中...",
-    "callEnded": "通话结束",
-    "callFailed": "通话失败： $error",
-    "calling": "呼叫中..."
-  },
-  "chat": {
-    "message": "消息",
-    "history": "历史",
-    "noMessages": "还没有消息。",
-    "noMessagesSubtitle": "发送消息开始对话。",
-    "online": "在线",
-    "offline": "离线",
-    "gallery": "图库",
-    "camera": "相机",
-    "typeAMessage": "输入消息...",
-    "pleaseUpgrade": "请升级到专业版。",
-    "photo": "Photo",
-    "photoUploadFailed": "Couldn't upload photo. Please try again.",
-    "tapToViewPhoto": "Tap to view photo",
-    "voiceCallEnded": "语音通话已结束",
-    "videoCallEnded": "视频通话已结束",
-    "uploadingPhoto": "Uploading photo...",
-    "mediaPermissionDenied": "Allow camera or photo permissions to share images."
-  },
-  "editProfile": {
-    "aboutMe": "关于我",
-    "aboutMeHint": "写点关于你自己的事",
-    "fullName": "全名",
-    "gender": "性别",
-    "male": "男",
-    "female": "女",
-    "dontWantToMention": "我不想说明。",
-    "country": "国家",
-    "languagePreferences": "语言偏好",
-    "selectLanguage": "添加您偏好的语言",
-    "saved": "已保存",
-    "changesSaved": "更改已保存。"
-  },
-  "settingsSupport": {
-    "title": "设置与支持",
-    "premiumTitle": "无限访问所有功能",
-    "getPremium": "获取高级版",
-    "settingsHub": "设置中心",
-    "shareTheApp": "分享应用",
-    "rateUs": "给我们评分",
-    "version": "版本",
-    "notifications": "通知",
-    "accountManagement": "账户管理",
-    "deleteAccount": "删除账户",
-    "logOut": "登出",
-    "logOutTitle": "您即将登出",
-    "logOutSubtitle": "很快再见！\n我们会想念你。"
-  },
-  "deleteAccount": {
-    "title": "删除账户",
-    "warning": "您确定要删除您的账户吗？",
-    "description": "此操作无法撤销，您的所有历史记录和数据将被永久删除。",
-    "deleteFailed": "删除账户失败： $error",
-    "steps": {
-      "step1": {
-        "title": "我们不想让你走，但我们理解你。",
-        "subtitle": "为了改进 ChatFace 体验，你能告诉我们为什么想离开吗？",
-        "option1": "我觉得 AI 角色不够真实。",
-        "option2": "我在视频聊天中遇到技术问题。",
-        "option3": "订阅价格超出我的预期。",
-        "option4": "找不到我想要的角色类型。",
-        "option5": "我只是想短期尝试。",
-        "option6": "其他"
-      },
-      "step2": {
-        "title": "如果您删除帐户，您将失去：",
-        "subtitle1": "深厚的联系与记忆：",
-        "subtitle1Desc": "与您聊天的角色将完全忘记与你的过去、你分享的秘密以及你个人的习惯。",
-        "subtitle2": "视频通话特权：",
-        "subtitle2Desc": "您将失去那些只与您交谈、随时可达的 AI 伙伴的面对面沟通权利。",
-        "subtitle3": "高级算法：",
-        "subtitle3Desc": "根据您的偏好形成的“为你定制”的角色匹配将被重置。",
-        "subtitle4": "个人资料数据：",
-        "subtitle4Desc": "您获得的成就、解锁的专属角色和聊天历史将被不可恢复地删除。"
-      },
-      "step3": {
-        "title": "在你离开之前我们有一个专属优惠！",
-        "description": "也许你只需要更多时间或更合适的优惠。我们是否可以请你考虑下面的选项而不是删除账户？",
-        "description1": "保留你对我们很重要。下次订阅我们给你 $offer！想继续使用该优惠吗？",
-        "description1Offer": "我们为你提供 50% 折扣",
-        "description2": "我们为你提供 $offer 学分，让你发现尚未体验的新角色。",
-        "description2Offer": "3 次免费视频通话",
-        "acceptOffer": "接受 50% 折扣",
-        "deleteMyAccount": "删除我的账户"
-      }
-    }
-  },
-  "cancel": "取消",
-  "delete": "删除",
-  "premium": "高级",
-  "profileEdit": "编辑个人资料",
-  "settings": "设置",
-  "undo": "撤销",
-  "successfully": "成功",
-  "save": "保存",
-  "languageOptions": {
-    "english": "英语",
-    "chinese": "中文",
-    "german": "德语",
-    "italian": "意大利语",
-    "french": "法语",
-    "japanese": "日语",
-    "spanish": "西班牙语",
-    "russian": "俄语",
-    "turkish": "土耳其语",
-    "korean": "韩语",
-    "hindi": "印地语",
-    "portuguese": "葡萄牙语"
-  }
 }

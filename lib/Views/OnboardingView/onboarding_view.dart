@@ -93,12 +93,23 @@ class OnboardingView extends HookConsumerWidget {
       return null;
     }
 
-    void animateToStep(int step) {
-      pageController.animateToPage(
-        step,
-        duration: const Duration(milliseconds: 350),
-        curve: Curves.easeInOut,
-      );
+    Future<void> goToStep(int step, {bool animate = true}) async {
+      if (!pageController.hasClients) {
+        currentStep.value = step;
+        return;
+      }
+
+      if (animate) {
+        await pageController.animateToPage(
+          step,
+          duration: const Duration(milliseconds: 350),
+          curve: Curves.easeInOut,
+        );
+        return;
+      }
+
+      currentStep.value = step;
+      pageController.jumpToPage(step);
     }
 
     useEffect(() {
@@ -177,19 +188,23 @@ class OnboardingView extends HookConsumerWidget {
 
     void nextPage() {
       final nextStep = findNextStep(currentStep.value);
-      if (nextStep != null) animateToStep(nextStep);
+      if (nextStep != null) {
+        goToStep(nextStep);
+      }
     }
 
     void prevPage() {
       if (!isUserStep) return;
       final prevStep = findPrevStep(currentStep.value);
-      if (prevStep != null) animateToStep(prevStep);
+      if (prevStep != null) {
+        goToStep(prevStep);
+      }
     }
 
     void skipToEnd() {
       if (!isUserStep) return;
 
-      animateToStep(_kLoadingStep);
+      goToStep(_kLoadingStep);
     }
 
     void handleOnPressed() {
@@ -273,11 +288,9 @@ class OnboardingView extends HookConsumerWidget {
                     controller: pageController,
                     physics: const NeverScrollableScrollPhysics(),
                     onPageChanged: (index) {
-                      if (currentStep.value >= _kLoadingStep &&
-                          index < _kLoadingStep) {
-                        return;
+                      if (currentStep.value != index) {
+                        currentStep.value = index;
                       }
-                      currentStep.value = index;
                     },
                     children: [
                       // Step 1: Name
@@ -310,7 +323,7 @@ class OnboardingView extends HookConsumerWidget {
                       // Loading
                       LoadingScreen(
                         isActive: isLoadingScreen,
-                        onComplete: nextPage,
+                        onComplete: () => goToStep(_kFinalStep, animate: false),
                         onProgressChanged: (progress) {
                           loadingProgress.value = progress;
                         },

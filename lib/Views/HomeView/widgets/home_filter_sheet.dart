@@ -180,8 +180,7 @@ class HomeFilterSheet extends HookConsumerWidget {
                   await notifier.setGender(selectedGender.value);
                   if (selectedLanguage.value != null) {
                     final selected = selectedLanguage.value!;
-                    // Map the selected language key (e.g. 'english') to the
-                    // locale code (e.g. 'en') expected by `AppLocale`.
+
                     final code = _languageOptionValues[selected] ?? selected;
                     LocaleSettings.setLocale(AppLocale.values.byName(code));
                     SecureStorageService().saveLanguage(code);

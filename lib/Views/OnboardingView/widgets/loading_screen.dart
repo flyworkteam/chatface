@@ -155,7 +155,7 @@ class LoadingScreen extends HookConsumerWidget {
                         ),
                         const SizedBox(height: 12),
                         CustomButton(
-                          label: 'Retry',
+                          label: t.common.retry,
                           size: CustomButtonSize.medium,
                           fullWidth: false,
                           onPressed: () => retryToken.value++,
@@ -198,10 +198,51 @@ class LoadingScreen extends HookConsumerWidget {
     if (isDisposed()) return;
     updateProgress(0.85);
 
-    await userNotifier.refresh();
+    await _refreshProfileUntilPersisted(
+      userNotifier: userNotifier,
+      onboardingData: onboardingData,
+    );
 
     if (isDisposed()) return;
     updateProgress(1.0);
+  }
+
+  Future<void> _refreshProfileUntilPersisted({
+    required UserNotifier userNotifier,
+    required Map<String, dynamic> onboardingData,
+  }) async {
+    final expectedName = (onboardingData['name'] as String?)?.trim();
+    final expectedGender = _normalizeGender(
+      onboardingData['gender'] as String?,
+    );
+
+    for (var attempt = 1; attempt <= 3; attempt++) {
+      final profileData = await userNotifier.refresh();
+      final user = profileData?.user;
+      final actualName = user?.fullName?.trim();
+      final actualGender = _normalizeGender(user?.gender);
+      final onboardingCompleted = user?.onboardingCompleted == true;
+
+      final nameMatches =
+          expectedName == null ||
+          expectedName.isEmpty ||
+          actualName == expectedName;
+
+      final genderMatches =
+          expectedGender == null || actualGender == expectedGender;
+
+      if (user != null && onboardingCompleted && nameMatches && genderMatches) {
+        return;
+      }
+
+      if (attempt < 3) {
+        await Future.delayed(const Duration(milliseconds: 300));
+      }
+    }
+
+    throw StateError(
+      'Onboarding data was not persisted correctly after savePreferences.',
+    );
   }
 
   Future<void> _savePreferences(
@@ -222,19 +263,25 @@ class LoadingScreen extends HookConsumerWidget {
 
     if (payload.isEmpty) return;
 
-    await repo.savePreferences(
+    final saved = await repo.savePreferences(
       preferredLanguage: payload['preferred_language'] as String?,
-      preferredCategories: [''],
       fullName: payload['full_name'] as String?,
       age: payload['age'] as int?,
       gender: payload['gender'] as String?,
     );
+
+    if (!saved) {
+      throw StateError('savePreferences returned success=false');
+    }
   }
 
   Future<void> _saveOneSignalId(UserRepository repo) async {
     final playerId = OneSignal.User.pushSubscription.id;
     if (playerId == null || playerId.isEmpty) return;
-    await repo.saveOneSignalPlayerId(playerId: playerId);
+    final saved = await repo.saveOneSignalPlayerId(playerId: playerId);
+    if (!saved) {
+      Print.error('saveOneSignalPlayerId returned success=false');
+    }
   }
 
   static int? _calculateAge(String? birthDateIso) {

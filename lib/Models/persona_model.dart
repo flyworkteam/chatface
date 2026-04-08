@@ -44,6 +44,7 @@ class PersonaProfile {
   const PersonaProfile({
     required this.id,
     required this.name,
+    required this.age,
     required this.description,
     required this.shortDescription,
     required this.jobTitle,
@@ -61,6 +62,7 @@ class PersonaProfile {
 
   final String id;
   final String name;
+  final int age;
   final String description;
   final String shortDescription;
   final String jobTitle;
@@ -104,6 +106,7 @@ class PersonaProfile {
     return PersonaProfile(
       id: data.string('id'),
       name: data.string('name', fallback: 'Companion'),
+      age: data.intValue('age') ?? 0,
       description: data.string('description'),
       shortDescription: data.string('short_description', fallback: ''),
       jobTitle: data.string('job_title', fallback: ''),
@@ -129,6 +132,8 @@ class PersonaProfile {
   factory PersonaProfile.fallback({
     required String id,
     required String name,
+    int age = 18,
+
     String description = '',
     String shortDescription = '',
     String jobTitle = '',
@@ -146,6 +151,7 @@ class PersonaProfile {
     return PersonaProfile(
       id: id,
       name: name,
+      age: age,
       description: description,
       shortDescription: shortDescription,
       jobTitle: jobTitle,
@@ -165,6 +171,7 @@ class PersonaProfile {
   PersonaProfile copyWith({
     String? id,
     String? name,
+    int? age,
     String? description,
     String? jobTitle,
     String? shortDescription,
@@ -182,6 +189,7 @@ class PersonaProfile {
     return PersonaProfile(
       id: id ?? this.id,
       name: name ?? this.name,
+      age: age ?? this.age,
       description: description ?? this.description,
       shortDescription: shortDescription ?? this.shortDescription,
       defaultLanguage: defaultLanguage ?? this.defaultLanguage,

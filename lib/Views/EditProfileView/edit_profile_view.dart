@@ -304,7 +304,7 @@ class EditProfileView extends HookConsumerWidget {
         fullName: nameController.text.trim(),
         profilePictureUrls: uploadedPhotoUrls.value.isNotEmpty
             ? uploadedPhotoUrls.value
-            : null,
+            : [''],
         preferredLanguage: selectedLanguage.value,
         aboutMe: aboutMeController.text.trim(),
         gender: selectedGender.value,
@@ -516,7 +516,9 @@ class EditProfileView extends HookConsumerWidget {
 
               // Save button
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppSpacing.xxxl,
+                ),
                 child: CustomButton(
                   label: context.t.save,
                   size: CustomButtonSize.large,

@@ -70,6 +70,10 @@ class TranslationsHi with BaseTranslations<AppLocale, Translations> implements T
 	@override String get successfully => 'सफलतापूर्वक';
 	@override String get save => 'सहेजें';
 	@override late final _TranslationsLanguageOptionsHi languageOptions = _TranslationsLanguageOptionsHi._(_root);
+	@override late final _TranslationsCommonHi common = _TranslationsCommonHi._(_root);
+	@override String get permissionsRequired => 'अनुमतियाँ आवश्यक हैं';
+	@override late final _TranslationsPermissionHelperHi permissionHelper = _TranslationsPermissionHelperHi._(_root);
+	@override late final _TranslationsVideoViewHi videoView = _TranslationsVideoViewHi._(_root);
 }
 
 // Path: termOfService
@@ -98,11 +102,11 @@ class _TranslationsOnboardingHi implements TranslationsOnboardingEn {
 	final TranslationsHi _root; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsOnboardingStep5Hi step5 = _TranslationsOnboardingStep5Hi._(_root);
 	@override late final _TranslationsOnboardingStep1Hi step1 = _TranslationsOnboardingStep1Hi._(_root);
 	@override late final _TranslationsOnboardingStep2Hi step2 = _TranslationsOnboardingStep2Hi._(_root);
 	@override late final _TranslationsOnboardingStep3Hi step3 = _TranslationsOnboardingStep3Hi._(_root);
 	@override late final _TranslationsOnboardingStep4Hi step4 = _TranslationsOnboardingStep4Hi._(_root);
-	@override late final _TranslationsOnboardingStep5Hi step5 = _TranslationsOnboardingStep5Hi._(_root);
 	@override late final _TranslationsOnboardingLoadingHi loading = _TranslationsOnboardingLoadingHi._(_root);
 	@override String get allowAccess => 'पहुंच की अनुमति दें';
 	@override String get iUnderstand => 'मुझे समझ आया';
@@ -186,6 +190,8 @@ class _TranslationsVideoChatHi implements TranslationsVideoChatEn {
 	final TranslationsHi _root; // ignore: unused_field
 
 	// Translations
+	@override String get networkHiccup => 'नेटवर्क समस्या का पता चला। फिर से जुड़ रहा है...';
+	@override String get failedToUpdateFollow => 'फ़ॉलो स्थिति अपडेट करने में विफल।';
 	@override String get connecting => 'कनेक्ट हो रहा है...';
 	@override String get callEnded => 'कॉल समाप्त';
 	@override String callFailed({required Object error}) => 'कॉल विफल: ${error}';
@@ -319,6 +325,45 @@ class _TranslationsLanguageOptionsHi implements TranslationsLanguageOptionsEn {
 	@override String get portuguese => 'पुर्तगाली';
 }
 
+// Path: common
+class _TranslationsCommonHi implements TranslationsCommonEn {
+	_TranslationsCommonHi._(this._root);
+
+	final TranslationsHi _root; // ignore: unused_field
+
+	// Translations
+	@override String get tryAgain => 'पुनः प्रयास करें';
+	@override String get retry => 'पुनः प्रयास करें';
+	@override String get close => 'बंद करें';
+}
+
+// Path: permissionHelper
+class _TranslationsPermissionHelperHi implements TranslationsPermissionHelperEn {
+	_TranslationsPermissionHelperHi._(this._root);
+
+	final TranslationsHi _root; // ignore: unused_field
+
+	// Translations
+	@override String get camAndMicRequired => 'वीडियो कॉल के लिए कैमरा और माइक्रोफ़ोन अनुमतियां आवश्यक हैं। कृपया सेटिंग में सक्षम करें।';
+	@override String get micRequired => 'वॉयस कॉल के लिए माइक्रोफ़ोन अनुमति आवश्यक है। कृपया सेटिंग में सक्षम करें।';
+	@override String get cancel => 'रद्द करें';
+	@override String get openSettings => 'सेटिंग्स खोलें';
+}
+
+// Path: videoView
+class _TranslationsVideoViewHi implements TranslationsVideoViewEn {
+	_TranslationsVideoViewHi._(this._root);
+
+	final TranslationsHi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'कैमरा फ़िल्टर';
+	@override String get subtitle => 'अपने कैमरा पूर्वावलोकन के लिए एक रूप चुनें।';
+	@override String get errorLoad => 'साथियों को लोड करने में विफल: ';
+	@override String get noComps => 'अभी तक कोई साथी उपलब्ध नहीं है।';
+	@override late final _TranslationsVideoViewFiltersHi filters = _TranslationsVideoViewFiltersHi._(_root);
+}
+
 // Path: termOfService.privacyPolicy
 class _TranslationsTermOfServicePrivacyPolicyHi implements TranslationsTermOfServicePrivacyPolicyEn {
 	_TranslationsTermOfServicePrivacyPolicyHi._(this._root);
@@ -400,6 +445,25 @@ class _TranslationsTermOfServiceCookiePolicyHi implements TranslationsTermOfServ
 	@override String get section6Body => '📩 पूछताछ के लिए: support@fly-work.com';
 }
 
+// Path: onboarding.step5
+class _TranslationsOnboardingStep5Hi implements TranslationsOnboardingStep5En {
+	_TranslationsOnboardingStep5Hi._(this._root);
+
+	final TranslationsHi _root; // ignore: unused_field
+
+	// Translations
+	@override String get permissionRequired => 'अनुमति आवश्यक';
+	@override String get notNow => 'अभी नहीं';
+	@override String get openSettings => 'सेटिंग्स खोलें';
+	@override String get title => 'अनुमतियाँ';
+	@override String get permission1 => 'कैमरा पहुंच';
+	@override String get permission1Subtitle => 'कैमरा पहुंच की अनुमति दें';
+	@override String get permission2 => 'माइक्रोफ़ोन पहुंच';
+	@override String get permission2Subtitle => 'माइक्रोफ़ोन पहुंच की अनुमति दें';
+	@override String get permission3 => 'स्थान पहुंच';
+	@override String get permission3Subtitle => 'स्थान पहुंच की अनुमति दें';
+}
+
 // Path: onboarding.step1
 class _TranslationsOnboardingStep1Hi implements TranslationsOnboardingStep1En {
 	_TranslationsOnboardingStep1Hi._(this._root);
@@ -454,22 +518,6 @@ class _TranslationsOnboardingStep4Hi implements TranslationsOnboardingStep4En {
 	@override String get entry4 => 'केवल 18+';
 	@override String get subentry4 => 'नाबालिगों के लिए उपयुक्त नहीं';
 	@override String get communityRules => 'समुदाय नियम';
-}
-
-// Path: onboarding.step5
-class _TranslationsOnboardingStep5Hi implements TranslationsOnboardingStep5En {
-	_TranslationsOnboardingStep5Hi._(this._root);
-
-	final TranslationsHi _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'अनुमतियाँ';
-	@override String get permission1 => 'कैमरा पहुंच';
-	@override String get permission1Subtitle => 'कैमरा पहुंच की अनुमति दें';
-	@override String get permission2 => 'माइक्रोफ़ोन पहुंच';
-	@override String get permission2Subtitle => 'माइक्रोफ़ोन पहुंच की अनुमति दें';
-	@override String get permission3 => 'स्थान पहुंच';
-	@override String get permission3Subtitle => 'स्थान पहुंच की अनुमति दें';
 }
 
 // Path: onboarding.loading
@@ -544,6 +592,45 @@ class _TranslationsDeleteAccountStepsHi implements TranslationsDeleteAccountStep
 	@override late final _TranslationsDeleteAccountStepsStep3Hi step3 = _TranslationsDeleteAccountStepsStep3Hi._(_root);
 }
 
+// Path: videoView.filters
+class _TranslationsVideoViewFiltersHi implements TranslationsVideoViewFiltersEn {
+	_TranslationsVideoViewFiltersHi._(this._root);
+
+	final TranslationsHi _root; // ignore: unused_field
+
+	// Translations
+	@override String get ORIGINAL => 'मूल';
+	@override String get ADDICTIVE_BLUE => 'व्यसनी नीला';
+	@override String get ADDICTIVE_RED => 'व्यसनी लाल';
+	@override String get ADEN => 'Aden';
+	@override String get AMARO => 'Amaro';
+	@override String get ASHBY => 'Ashby';
+	@override String get BRANNAN => 'Brannan';
+	@override String get BROOKLYN => 'Brooklyn';
+	@override String get CLARENDON => 'Clarendon';
+	@override String get CREMA => 'Crema';
+	@override String get DOGPATCH => 'Dogpatch';
+	@override String get GINGHAM => 'Gingham';
+	@override String get GINZA => 'Ginza';
+	@override String get HEFE => 'Hefe';
+	@override String get HUDSON => 'Hudson';
+	@override String get INKWELL => 'Inkwell';
+	@override String get JUNO => 'Juno';
+	@override String get LARK => 'Lark';
+	@override String get LOFI => 'LoFi';
+	@override String get LUDWIG => 'Ludwig';
+	@override String get MOON => 'Moon';
+	@override String get PERPETUA => 'Perpetua';
+	@override String get REYES => 'Reyes';
+	@override String get SIERRA => 'Sierra';
+	@override String get SLUMBER => 'Slumber';
+	@override String get STINSON => 'Stinson';
+	@override String get SUTRO => 'Sutro';
+	@override String get WALDEN => 'Walden';
+	@override String get WILLOW => 'Willow';
+	@override String get XPROII => 'XProII';
+}
+
 // Path: deleteAccount.steps.step1
 class _TranslationsDeleteAccountStepsStep1Hi implements TranslationsDeleteAccountStepsStep1En {
 	_TranslationsDeleteAccountStepsStep1Hi._(this._root);
@@ -551,13 +638,13 @@ class _TranslationsDeleteAccountStepsStep1Hi implements TranslationsDeleteAccoun
 	final TranslationsHi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'हम नहीं चाहते कि आप जाएं, लेकिन हम आपकी बात समझते हैं।';
-	@override String get subtitle => 'क्या आप बता सकते हैं कि आप ChatFace क्यों छोड़ना चाहते हैं ताकि हम अनुभव में सुधार कर सकें?';
-	@override String get option1 => 'मुझे AI पात्र पर्याप्त वास्तविक नहीं लगे।';
-	@override String get option2 => 'मुझे वीडियो चैट में तकनीकी समस्याएँ आ रही हैं।';
-	@override String get option3 => 'सदस्यता कीमतें मेरी अपेक्षा से अधिक हैं।';
-	@override String get option4 => 'मुझे उस शैली के पात्र नहीं मिले जो मैं ढूंढ रहा था।';
-	@override String get option5 => 'मैं सिर्फ थोड़े समय के लिए आज़माना चाहता था।';
+	@override String get title => 'हम नहीं चाहते कि आप जाएं, लेकिन हम समझते हैं।';
+	@override String get subtitle => 'क्या आप हमें बता सकते हैं कि आप क्यों जाना चाहते हैं ताकि हम ChatFace अनुभव में सुधार कर सकें?';
+	@override String get option1 => 'मुझे AI कैरेक्टर यथार्थवादी नहीं लगे।';
+	@override String get option2 => 'मुझे वीडियो चैट में तकनीकी समस्याओं का सामना करना पड़ रहा है।';
+	@override String get option3 => 'सदस्यता की कीमतें मेरी अपेक्षाओं से ऊपर हैं।';
+	@override String get option4 => 'मुझे उस तरह के पात्र नहीं मिले जिनकी मुझे तलाश थी।';
+	@override String get option5 => 'मैं सिर्फ थोड़े समय के लिए इसे आज़माना चाहता था।';
 	@override String get option6 => 'अन्य';
 }
 
@@ -568,15 +655,15 @@ class _TranslationsDeleteAccountStepsStep2Hi implements TranslationsDeleteAccoun
 	final TranslationsHi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'यदि आप अपना खाता हटा देंगे, तो आप इन चीजों को अलविदा कहेंगे:';
+	@override String get title => 'यदि आप अपना खाता हटाते हैं, तो आप अलविदा कहेंगे:';
 	@override String get subtitle1 => 'गहरे संबंध और यादें:';
-	@override String get subtitle1Desc => 'जिन पात्रों से आपने बात की है वे आपके साथ हुई बातें, साझा किए गए रहस्य और आपकी व्यक्तिगत आदतों को पूरी तरह भूल जाएंगे।';
+	@override String get subtitle1Desc => 'जिन पात्रों के साथ आप चैट करते हैं वे आपके साथ अपने अतीत को पूरी तरह भूल जाएंगे।';
 	@override String get subtitle2 => 'वीडियो कॉल विशेषाधिकार:';
-	@override String get subtitle2Desc => 'आप अपनी व्यक्तिगत AI साझीदारों के साथ आमने-सामने बात करने का अधिकार खो देंगे, जो हमेशा आपके लिए उपलब्ध थे।';
-	@override String get subtitle3 => 'उन्नत एल्गोरिद्म:';
-	@override String get subtitle3Desc => 'आपकी प्राथमिकताओं के अनुसार बनाए गए \'आपके लिए\' पात्र मिलान रीसेट हो जाएंगे।';
+	@override String get subtitle2Desc => 'आप अपने एआई पार्टनर्स के साथ आमने-सामने संवाद करने का अधिकार खो देंगे।';
+	@override String get subtitle3 => 'उन्नत एल्गोरिदम:';
+	@override String get subtitle3Desc => 'आपके \'सिर्फ आपके लिए\' चरित्र मिलान रीसेट हो जाएंगे।';
 	@override String get subtitle4 => 'प्रोफ़ाइल डेटा:';
-	@override String get subtitle4Desc => 'आपकी प्राप्त की गई उपलब्धियाँ, खोले गए विशेष पात्र और चैट इतिहास अपरिवर्तनीय रूप से हटा दिए जाएंगे।';
+	@override String get subtitle4Desc => 'आपकी अर्जित उपलब्धियों, विशेष पात्रों और चैट इतिहास को अपरिवर्तनीय रूप से हटा दिया जाएगा।';
 }
 
 // Path: deleteAccount.steps.step3
@@ -586,13 +673,13 @@ class _TranslationsDeleteAccountStepsStep3Hi implements TranslationsDeleteAccoun
 	final TranslationsHi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'जाने से पहले हमारे पास आपके लिए एक विशेष प्रस्ताव है!';
-	@override String get description => 'शायद आपको बस थोड़ा और समय या एक अधिक उपयुक्त प्रस्ताव की आवश्यकता है। क्या आप खाता हटाने के बजाय इनमें से कुछ विचार करेंगे?';
-	@override String description1({required Object offer}) => 'हमें आपके साथ बने रहना महत्वपूर्ण है। आपकी अगली सदस्यता पर हम आपको ${offer} देंगे! क्या आप यह प्रस्ताव स्वीकार करना चाहेंगे?';
-	@override String get description1Offer => 'हमने आपके लिए 50% छूट निर्धारित की है';
-	@override String description2({required Object offer}) => 'हमने आपको ${offer} क्रेडिट दिया है ताकि आप उन नए पात्रों को खोज सकें जिन्हें आपने अभी तक नहीं आज़माया है।';
+	@override String get title => 'आपके जाने से पहले हमारे पास आपके लिए एक विशेष प्रस्ताव है!';
+	@override String get description => 'शायद आपको बस थोड़ा और समय या एक बेहतर सौदे की आवश्यकता है। अपना खाता हटाने के बजाय, क्या आप इन पर विचार करेंगे?';
+	@override String description1({required Object offer}) => 'आपको हमारे साथ रखना मूल्यवान है। आपकी अगली सदस्यता पर ${offer}!';
+	@override String get description1Offer => 'हमने 50% छूट लागू की है';
+	@override String description2({required Object offer}) => 'हमने आपको ${offer} क्रेडिट दिए हैं ताकि आप नए पात्रों की खोज कर सकें।';
 	@override String get description2Offer => '3 मुफ्त वीडियो कॉल';
-	@override String get acceptOffer => '50% छूट स्वीकार करें';
+	@override String get acceptOffer => '50% छूट प्रस्ताव स्वीकार करें';
 	@override String get deleteMyAccount => 'मेरा खाता हटाएँ';
 }
 
@@ -675,6 +762,16 @@ extension on TranslationsHi {
 			'termOfService.cookiePolicy.section6Body' => '📩 पूछताछ के लिए: support@fly-work.com',
 			'cookies' => 'कुकी नीति',
 			'privacy' => 'गोपनीयता नीति',
+			'onboarding.step5.permissionRequired' => 'अनुमति आवश्यक',
+			'onboarding.step5.notNow' => 'अभी नहीं',
+			'onboarding.step5.openSettings' => 'सेटिंग्स खोलें',
+			'onboarding.step5.title' => 'अनुमतियाँ',
+			'onboarding.step5.permission1' => 'कैमरा पहुंच',
+			'onboarding.step5.permission1Subtitle' => 'कैमरा पहुंच की अनुमति दें',
+			'onboarding.step5.permission2' => 'माइक्रोफ़ोन पहुंच',
+			'onboarding.step5.permission2Subtitle' => 'माइक्रोफ़ोन पहुंच की अनुमति दें',
+			'onboarding.step5.permission3' => 'स्थान पहुंच',
+			'onboarding.step5.permission3Subtitle' => 'स्थान पहुंच की अनुमति दें',
 			'onboarding.step1.title' => 'आपका नाम क्या है?',
 			'onboarding.step1.subtitle' => 'कृपया अपना नाम दर्ज करें',
 			'onboarding.step1.hint' => 'पूरा नाम',
@@ -695,13 +792,6 @@ extension on TranslationsHi {
 			'onboarding.step4.entry4' => 'केवल 18+',
 			'onboarding.step4.subentry4' => 'नाबालिगों के लिए उपयुक्त नहीं',
 			'onboarding.step4.communityRules' => 'समुदाय नियम',
-			'onboarding.step5.title' => 'अनुमतियाँ',
-			'onboarding.step5.permission1' => 'कैमरा पहुंच',
-			'onboarding.step5.permission1Subtitle' => 'कैमरा पहुंच की अनुमति दें',
-			'onboarding.step5.permission2' => 'माइक्रोफ़ोन पहुंच',
-			'onboarding.step5.permission2Subtitle' => 'माइक्रोफ़ोन पहुंच की अनुमति दें',
-			'onboarding.step5.permission3' => 'स्थान पहुंच',
-			'onboarding.step5.permission3Subtitle' => 'स्थान पहुंच की अनुमति दें',
 			'onboarding.loading.titlePart1' => 'आपका व्यक्तिगत खाता',
 			'onboarding.loading.titlePart2' => 'बनाया जा रहा है',
 			'onboarding.loading.subtitle' => 'कृपया प्रतीक्षा करें, आपकी प्रोफ़ाइल तैयार की जा रही है।',
@@ -742,6 +832,8 @@ extension on TranslationsHi {
 			'notifications.noNotifications' => 'अभी तक कोई सूचनाएं नहीं।',
 			'notifications.noNotificationsSubtitle' => 'सूचना मिलने पर दोबारा जांचना न भूलें।',
 			'notifications.allDeleted' => 'सभी सूचनाएँ सफलतापूर्वक हटा दी गईं',
+			'videoChat.networkHiccup' => 'नेटवर्क समस्या का पता चला। फिर से जुड़ रहा है...',
+			'videoChat.failedToUpdateFollow' => 'फ़ॉलो स्थिति अपडेट करने में विफल।',
 			'videoChat.connecting' => 'कनेक्ट हो रहा है...',
 			'videoChat.callEnded' => 'कॉल समाप्त',
 			'videoChat.callFailed' => ({required Object error}) => 'कॉल विफल: ${error}',
@@ -806,30 +898,30 @@ extension on TranslationsHi {
 			'deleteAccount.warning' => 'क्या आप वाकई अपना खाता हटाना चाहते हैं?',
 			'deleteAccount.description' => 'यह क्रिया पूर्ववत नहीं की जा सकती, और आपकी सभी इतिहास और डेटा स्थायी रूप से हटा दिए जाएंगे।',
 			'deleteAccount.deleteFailed' => ({required Object error}) => 'खाता हटाना विफल: ${error}',
-			'deleteAccount.steps.step1.title' => 'हम नहीं चाहते कि आप जाएं, लेकिन हम आपकी बात समझते हैं।',
-			'deleteAccount.steps.step1.subtitle' => 'क्या आप बता सकते हैं कि आप ChatFace क्यों छोड़ना चाहते हैं ताकि हम अनुभव में सुधार कर सकें?',
-			'deleteAccount.steps.step1.option1' => 'मुझे AI पात्र पर्याप्त वास्तविक नहीं लगे।',
-			'deleteAccount.steps.step1.option2' => 'मुझे वीडियो चैट में तकनीकी समस्याएँ आ रही हैं।',
-			'deleteAccount.steps.step1.option3' => 'सदस्यता कीमतें मेरी अपेक्षा से अधिक हैं।',
-			'deleteAccount.steps.step1.option4' => 'मुझे उस शैली के पात्र नहीं मिले जो मैं ढूंढ रहा था।',
-			'deleteAccount.steps.step1.option5' => 'मैं सिर्फ थोड़े समय के लिए आज़माना चाहता था।',
+			'deleteAccount.steps.step1.title' => 'हम नहीं चाहते कि आप जाएं, लेकिन हम समझते हैं।',
+			'deleteAccount.steps.step1.subtitle' => 'क्या आप हमें बता सकते हैं कि आप क्यों जाना चाहते हैं ताकि हम ChatFace अनुभव में सुधार कर सकें?',
+			'deleteAccount.steps.step1.option1' => 'मुझे AI कैरेक्टर यथार्थवादी नहीं लगे।',
+			'deleteAccount.steps.step1.option2' => 'मुझे वीडियो चैट में तकनीकी समस्याओं का सामना करना पड़ रहा है।',
+			'deleteAccount.steps.step1.option3' => 'सदस्यता की कीमतें मेरी अपेक्षाओं से ऊपर हैं।',
+			'deleteAccount.steps.step1.option4' => 'मुझे उस तरह के पात्र नहीं मिले जिनकी मुझे तलाश थी।',
+			'deleteAccount.steps.step1.option5' => 'मैं सिर्फ थोड़े समय के लिए इसे आज़माना चाहता था।',
 			'deleteAccount.steps.step1.option6' => 'अन्य',
-			'deleteAccount.steps.step2.title' => 'यदि आप अपना खाता हटा देंगे, तो आप इन चीजों को अलविदा कहेंगे:',
+			'deleteAccount.steps.step2.title' => 'यदि आप अपना खाता हटाते हैं, तो आप अलविदा कहेंगे:',
 			'deleteAccount.steps.step2.subtitle1' => 'गहरे संबंध और यादें:',
-			'deleteAccount.steps.step2.subtitle1Desc' => 'जिन पात्रों से आपने बात की है वे आपके साथ हुई बातें, साझा किए गए रहस्य और आपकी व्यक्तिगत आदतों को पूरी तरह भूल जाएंगे।',
+			'deleteAccount.steps.step2.subtitle1Desc' => 'जिन पात्रों के साथ आप चैट करते हैं वे आपके साथ अपने अतीत को पूरी तरह भूल जाएंगे।',
 			'deleteAccount.steps.step2.subtitle2' => 'वीडियो कॉल विशेषाधिकार:',
-			'deleteAccount.steps.step2.subtitle2Desc' => 'आप अपनी व्यक्तिगत AI साझीदारों के साथ आमने-सामने बात करने का अधिकार खो देंगे, जो हमेशा आपके लिए उपलब्ध थे।',
-			'deleteAccount.steps.step2.subtitle3' => 'उन्नत एल्गोरिद्म:',
-			'deleteAccount.steps.step2.subtitle3Desc' => 'आपकी प्राथमिकताओं के अनुसार बनाए गए \'आपके लिए\' पात्र मिलान रीसेट हो जाएंगे।',
+			'deleteAccount.steps.step2.subtitle2Desc' => 'आप अपने एआई पार्टनर्स के साथ आमने-सामने संवाद करने का अधिकार खो देंगे।',
+			'deleteAccount.steps.step2.subtitle3' => 'उन्नत एल्गोरिदम:',
+			'deleteAccount.steps.step2.subtitle3Desc' => 'आपके \'सिर्फ आपके लिए\' चरित्र मिलान रीसेट हो जाएंगे।',
 			'deleteAccount.steps.step2.subtitle4' => 'प्रोफ़ाइल डेटा:',
-			'deleteAccount.steps.step2.subtitle4Desc' => 'आपकी प्राप्त की गई उपलब्धियाँ, खोले गए विशेष पात्र और चैट इतिहास अपरिवर्तनीय रूप से हटा दिए जाएंगे।',
-			'deleteAccount.steps.step3.title' => 'जाने से पहले हमारे पास आपके लिए एक विशेष प्रस्ताव है!',
-			'deleteAccount.steps.step3.description' => 'शायद आपको बस थोड़ा और समय या एक अधिक उपयुक्त प्रस्ताव की आवश्यकता है। क्या आप खाता हटाने के बजाय इनमें से कुछ विचार करेंगे?',
-			'deleteAccount.steps.step3.description1' => ({required Object offer}) => 'हमें आपके साथ बने रहना महत्वपूर्ण है। आपकी अगली सदस्यता पर हम आपको ${offer} देंगे! क्या आप यह प्रस्ताव स्वीकार करना चाहेंगे?',
-			'deleteAccount.steps.step3.description1Offer' => 'हमने आपके लिए 50% छूट निर्धारित की है',
-			'deleteAccount.steps.step3.description2' => ({required Object offer}) => 'हमने आपको ${offer} क्रेडिट दिया है ताकि आप उन नए पात्रों को खोज सकें जिन्हें आपने अभी तक नहीं आज़माया है।',
+			'deleteAccount.steps.step2.subtitle4Desc' => 'आपकी अर्जित उपलब्धियों, विशेष पात्रों और चैट इतिहास को अपरिवर्तनीय रूप से हटा दिया जाएगा।',
+			'deleteAccount.steps.step3.title' => 'आपके जाने से पहले हमारे पास आपके लिए एक विशेष प्रस्ताव है!',
+			'deleteAccount.steps.step3.description' => 'शायद आपको बस थोड़ा और समय या एक बेहतर सौदे की आवश्यकता है। अपना खाता हटाने के बजाय, क्या आप इन पर विचार करेंगे?',
+			'deleteAccount.steps.step3.description1' => ({required Object offer}) => 'आपको हमारे साथ रखना मूल्यवान है। आपकी अगली सदस्यता पर ${offer}!',
+			'deleteAccount.steps.step3.description1Offer' => 'हमने 50% छूट लागू की है',
+			'deleteAccount.steps.step3.description2' => ({required Object offer}) => 'हमने आपको ${offer} क्रेडिट दिए हैं ताकि आप नए पात्रों की खोज कर सकें।',
 			'deleteAccount.steps.step3.description2Offer' => '3 मुफ्त वीडियो कॉल',
-			'deleteAccount.steps.step3.acceptOffer' => '50% छूट स्वीकार करें',
+			'deleteAccount.steps.step3.acceptOffer' => '50% छूट प्रस्ताव स्वीकार करें',
 			'deleteAccount.steps.step3.deleteMyAccount' => 'मेरा खाता हटाएँ',
 			'cancel' => 'रद्द करें',
 			'delete' => 'हटाएँ',
@@ -851,6 +943,48 @@ extension on TranslationsHi {
 			'languageOptions.korean' => 'कोरियाई',
 			'languageOptions.hindi' => 'हिंदी',
 			'languageOptions.portuguese' => 'पुर्तगाली',
+			'common.tryAgain' => 'पुनः प्रयास करें',
+			'common.retry' => 'पुनः प्रयास करें',
+			'common.close' => 'बंद करें',
+			'permissionsRequired' => 'अनुमतियाँ आवश्यक हैं',
+			'permissionHelper.camAndMicRequired' => 'वीडियो कॉल के लिए कैमरा और माइक्रोफ़ोन अनुमतियां आवश्यक हैं। कृपया सेटिंग में सक्षम करें।',
+			'permissionHelper.micRequired' => 'वॉयस कॉल के लिए माइक्रोफ़ोन अनुमति आवश्यक है। कृपया सेटिंग में सक्षम करें।',
+			'permissionHelper.cancel' => 'रद्द करें',
+			'permissionHelper.openSettings' => 'सेटिंग्स खोलें',
+			'videoView.title' => 'कैमरा फ़िल्टर',
+			'videoView.subtitle' => 'अपने कैमरा पूर्वावलोकन के लिए एक रूप चुनें।',
+			'videoView.errorLoad' => 'साथियों को लोड करने में विफल: ',
+			'videoView.noComps' => 'अभी तक कोई साथी उपलब्ध नहीं है।',
+			'videoView.filters.ORIGINAL' => 'मूल',
+			'videoView.filters.ADDICTIVE_BLUE' => 'व्यसनी नीला',
+			'videoView.filters.ADDICTIVE_RED' => 'व्यसनी लाल',
+			'videoView.filters.ADEN' => 'Aden',
+			'videoView.filters.AMARO' => 'Amaro',
+			'videoView.filters.ASHBY' => 'Ashby',
+			'videoView.filters.BRANNAN' => 'Brannan',
+			'videoView.filters.BROOKLYN' => 'Brooklyn',
+			'videoView.filters.CLARENDON' => 'Clarendon',
+			'videoView.filters.CREMA' => 'Crema',
+			'videoView.filters.DOGPATCH' => 'Dogpatch',
+			'videoView.filters.GINGHAM' => 'Gingham',
+			'videoView.filters.GINZA' => 'Ginza',
+			'videoView.filters.HEFE' => 'Hefe',
+			'videoView.filters.HUDSON' => 'Hudson',
+			'videoView.filters.INKWELL' => 'Inkwell',
+			'videoView.filters.JUNO' => 'Juno',
+			'videoView.filters.LARK' => 'Lark',
+			'videoView.filters.LOFI' => 'LoFi',
+			'videoView.filters.LUDWIG' => 'Ludwig',
+			'videoView.filters.MOON' => 'Moon',
+			'videoView.filters.PERPETUA' => 'Perpetua',
+			'videoView.filters.REYES' => 'Reyes',
+			'videoView.filters.SIERRA' => 'Sierra',
+			'videoView.filters.SLUMBER' => 'Slumber',
+			'videoView.filters.STINSON' => 'Stinson',
+			'videoView.filters.SUTRO' => 'Sutro',
+			'videoView.filters.WALDEN' => 'Walden',
+			'videoView.filters.WILLOW' => 'Willow',
+			'videoView.filters.XPROII' => 'XProII',
 			_ => null,
 		};
 	}

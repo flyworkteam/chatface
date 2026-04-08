@@ -5,6 +5,29 @@ import 'package:google_fonts/google_fonts.dart';
 class AppTextStyles {
   AppTextStyles._();
 
+  static const double _baseWidth = 393;
+  static const double _minScale = 0.90;
+  static const double _maxScale = 1.18;
+
+  static double _textScale = 1.0;
+
+  static void syncScale(MediaQueryData mediaQuery) {
+    _textScale = scaleForWidth(mediaQuery.size.width);
+  }
+
+  static double scaleForWidth(double width) {
+    if (width <= 0 || width.isNaN || width.isInfinite) {
+      return 1.0;
+    }
+
+    return (width / _baseWidth).clamp(_minScale, _maxScale).toDouble();
+  }
+
+  static double scaledFontSize(double size, {double? width}) {
+    final scale = width == null ? _textScale : scaleForWidth(width);
+    return size * scale;
+  }
+
   static TextTheme textTheme(ColorScheme colorScheme) {
     final Color displayColor = colorScheme.onSurface;
     final Color bodyColor = colorScheme.onSurface;
@@ -109,7 +132,7 @@ class AppTextStyles {
     Color? color,
   }) {
     return GoogleFonts.rubik(
-      fontSize: size,
+      fontSize: scaledFontSize(size),
       fontWeight: weight,
       letterSpacing: letterSpacing,
       height: height,
@@ -125,7 +148,7 @@ class AppTextStyles {
     Color? color,
   }) {
     return GoogleFonts.rubik(
-      fontSize: size,
+      fontSize: scaledFontSize(size),
       fontWeight: weight,
       letterSpacing: letterSpacing,
       height: height,
@@ -140,11 +163,14 @@ class AppTextStyles {
     double? height,
     Color? color,
   }) {
+    final scaledSize = scaledFontSize(size);
+
     return GoogleFonts.rubik(
-      fontSize: size,
+      fontSize: scaledSize,
       fontWeight: weight,
-      letterSpacing: letterSpacing != null ? size * letterSpacing : null,
+      letterSpacing: letterSpacing != null ? scaledSize * letterSpacing : null,
       height: height != null ? height / size : null,
+      decoration: TextDecoration.none,
       color: color ?? AppColors.black,
     );
   }

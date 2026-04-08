@@ -70,6 +70,10 @@ class TranslationsPt with BaseTranslations<AppLocale, Translations> implements T
 	@override String get successfully => 'Com sucesso';
 	@override String get save => 'Salvar';
 	@override late final _TranslationsLanguageOptionsPt languageOptions = _TranslationsLanguageOptionsPt._(_root);
+	@override late final _TranslationsCommonPt common = _TranslationsCommonPt._(_root);
+	@override String get permissionsRequired => 'Permissões Necessárias';
+	@override late final _TranslationsPermissionHelperPt permissionHelper = _TranslationsPermissionHelperPt._(_root);
+	@override late final _TranslationsVideoViewPt videoView = _TranslationsVideoViewPt._(_root);
 }
 
 // Path: termOfService
@@ -98,11 +102,11 @@ class _TranslationsOnboardingPt implements TranslationsOnboardingEn {
 	final TranslationsPt _root; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsOnboardingStep5Pt step5 = _TranslationsOnboardingStep5Pt._(_root);
 	@override late final _TranslationsOnboardingStep1Pt step1 = _TranslationsOnboardingStep1Pt._(_root);
 	@override late final _TranslationsOnboardingStep2Pt step2 = _TranslationsOnboardingStep2Pt._(_root);
 	@override late final _TranslationsOnboardingStep3Pt step3 = _TranslationsOnboardingStep3Pt._(_root);
 	@override late final _TranslationsOnboardingStep4Pt step4 = _TranslationsOnboardingStep4Pt._(_root);
-	@override late final _TranslationsOnboardingStep5Pt step5 = _TranslationsOnboardingStep5Pt._(_root);
 	@override late final _TranslationsOnboardingLoadingPt loading = _TranslationsOnboardingLoadingPt._(_root);
 	@override String get allowAccess => 'Permitir acesso';
 	@override String get iUnderstand => 'Entendi';
@@ -186,6 +190,8 @@ class _TranslationsVideoChatPt implements TranslationsVideoChatEn {
 	final TranslationsPt _root; // ignore: unused_field
 
 	// Translations
+	@override String get networkHiccup => 'Problema de rede detectado. Reconectando...';
+	@override String get failedToUpdateFollow => 'Falha ao atualizar status de seguir.';
 	@override String get connecting => 'Conectando...';
 	@override String get callEnded => 'Chamada encerrada';
 	@override String callFailed({required Object error}) => 'Chamada falhou: ${error}';
@@ -319,6 +325,45 @@ class _TranslationsLanguageOptionsPt implements TranslationsLanguageOptionsEn {
 	@override String get portuguese => 'Português';
 }
 
+// Path: common
+class _TranslationsCommonPt implements TranslationsCommonEn {
+	_TranslationsCommonPt._(this._root);
+
+	final TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get tryAgain => 'Tentar Novamente';
+	@override String get retry => 'Repetir';
+	@override String get close => 'Fechar';
+}
+
+// Path: permissionHelper
+class _TranslationsPermissionHelperPt implements TranslationsPermissionHelperEn {
+	_TranslationsPermissionHelperPt._(this._root);
+
+	final TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get camAndMicRequired => 'Permissões de câmera e microfone são necessárias para videochamadas. Habilite-as nas configurações.';
+	@override String get micRequired => 'A permissão do microfone é necessária para chamadas de voz. Habilite-a nas configurações.';
+	@override String get cancel => 'Cancelar';
+	@override String get openSettings => 'Abrir configurações';
+}
+
+// Path: videoView
+class _TranslationsVideoViewPt implements TranslationsVideoViewEn {
+	_TranslationsVideoViewPt._(this._root);
+
+	final TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Filtros de câmera';
+	@override String get subtitle => 'Escolha a aparência para a visualização da sua câmera.';
+	@override String get errorLoad => 'Falha ao carregar companheiros: ';
+	@override String get noComps => 'Nenhum companheiro disponível ainda.';
+	@override late final _TranslationsVideoViewFiltersPt filters = _TranslationsVideoViewFiltersPt._(_root);
+}
+
 // Path: termOfService.privacyPolicy
 class _TranslationsTermOfServicePrivacyPolicyPt implements TranslationsTermOfServicePrivacyPolicyEn {
 	_TranslationsTermOfServicePrivacyPolicyPt._(this._root);
@@ -400,6 +445,25 @@ class _TranslationsTermOfServiceCookiePolicyPt implements TranslationsTermOfServ
 	@override String get section6Body => '📩 Para perguntas: support@fly-work.com';
 }
 
+// Path: onboarding.step5
+class _TranslationsOnboardingStep5Pt implements TranslationsOnboardingStep5En {
+	_TranslationsOnboardingStep5Pt._(this._root);
+
+	final TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get permissionRequired => 'Permissão necessária';
+	@override String get notNow => 'Agora não';
+	@override String get openSettings => 'Abrir configurações';
+	@override String get title => 'Permissões';
+	@override String get permission1 => 'Acesso à câmera';
+	@override String get permission1Subtitle => 'Permitir acesso à câmera';
+	@override String get permission2 => 'Acesso ao microfone';
+	@override String get permission2Subtitle => 'Permitir acesso ao microfone';
+	@override String get permission3 => 'Acesso à localização';
+	@override String get permission3Subtitle => 'Permitir acesso à localização';
+}
+
 // Path: onboarding.step1
 class _TranslationsOnboardingStep1Pt implements TranslationsOnboardingStep1En {
 	_TranslationsOnboardingStep1Pt._(this._root);
@@ -454,22 +518,6 @@ class _TranslationsOnboardingStep4Pt implements TranslationsOnboardingStep4En {
 	@override String get entry4 => 'Apenas 18+';
 	@override String get subentry4 => 'Não adequado para menores';
 	@override String get communityRules => 'Regras da comunidade';
-}
-
-// Path: onboarding.step5
-class _TranslationsOnboardingStep5Pt implements TranslationsOnboardingStep5En {
-	_TranslationsOnboardingStep5Pt._(this._root);
-
-	final TranslationsPt _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Permissões';
-	@override String get permission1 => 'Acesso à câmera';
-	@override String get permission1Subtitle => 'Permitir acesso à câmera';
-	@override String get permission2 => 'Acesso ao microfone';
-	@override String get permission2Subtitle => 'Permitir acesso ao microfone';
-	@override String get permission3 => 'Acesso à localização';
-	@override String get permission3Subtitle => 'Permitir acesso à localização';
 }
 
 // Path: onboarding.loading
@@ -544,6 +592,45 @@ class _TranslationsDeleteAccountStepsPt implements TranslationsDeleteAccountStep
 	@override late final _TranslationsDeleteAccountStepsStep3Pt step3 = _TranslationsDeleteAccountStepsStep3Pt._(_root);
 }
 
+// Path: videoView.filters
+class _TranslationsVideoViewFiltersPt implements TranslationsVideoViewFiltersEn {
+	_TranslationsVideoViewFiltersPt._(this._root);
+
+	final TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get ORIGINAL => 'Original';
+	@override String get ADDICTIVE_BLUE => 'Azul Viciante';
+	@override String get ADDICTIVE_RED => 'Vermelho Viciante';
+	@override String get ADEN => 'Aden';
+	@override String get AMARO => 'Amaro';
+	@override String get ASHBY => 'Ashby';
+	@override String get BRANNAN => 'Brannan';
+	@override String get BROOKLYN => 'Brooklyn';
+	@override String get CLARENDON => 'Clarendon';
+	@override String get CREMA => 'Crema';
+	@override String get DOGPATCH => 'Dogpatch';
+	@override String get GINGHAM => 'Gingham';
+	@override String get GINZA => 'Ginza';
+	@override String get HEFE => 'Hefe';
+	@override String get HUDSON => 'Hudson';
+	@override String get INKWELL => 'Inkwell';
+	@override String get JUNO => 'Juno';
+	@override String get LARK => 'Lark';
+	@override String get LOFI => 'LoFi';
+	@override String get LUDWIG => 'Ludwig';
+	@override String get MOON => 'Moon';
+	@override String get PERPETUA => 'Perpetua';
+	@override String get REYES => 'Reyes';
+	@override String get SIERRA => 'Sierra';
+	@override String get SLUMBER => 'Slumber';
+	@override String get STINSON => 'Stinson';
+	@override String get SUTRO => 'Sutro';
+	@override String get WALDEN => 'Walden';
+	@override String get WILLOW => 'Willow';
+	@override String get XPROII => 'XProII';
+}
+
 // Path: deleteAccount.steps.step1
 class _TranslationsDeleteAccountStepsStep1Pt implements TranslationsDeleteAccountStepsStep1En {
 	_TranslationsDeleteAccountStepsStep1Pt._(this._root);
@@ -552,12 +639,12 @@ class _TranslationsDeleteAccountStepsStep1Pt implements TranslationsDeleteAccoun
 
 	// Translations
 	@override String get title => 'Não queremos que você vá, mas entendemos.';
-	@override String get subtitle => 'Você pode nos dizer por que deseja sair para que possamos melhorar a experiência do ChatFace?';
-	@override String get option1 => 'Achei os personagens de IA pouco realistas.';
-	@override String get option2 => 'Estou enfrentando problemas técnicos em chamadas de vídeo.';
-	@override String get option3 => 'Os preços de assinatura estão acima do esperado.';
-	@override String get option4 => 'Não encontrei o estilo de personagens que procurava.';
-	@override String get option5 => 'Só queria experimentar por um curto período.';
+	@override String get subtitle => 'Pode nos dizer por que deseja sair para melhorarmos o ChatFace?';
+	@override String get option1 => 'Não achei os personagens de IA realistas.';
+	@override String get option2 => 'Estou tendo problemas técnicos com chats de vídeo.';
+	@override String get option3 => 'Os preços das assinaturas estão acima das minhas expectativas.';
+	@override String get option4 => 'Não consegui encontrar o tipo de personagens que procurava.';
+	@override String get option5 => 'Eu só queria tentar por um curto período.';
 	@override String get option6 => 'Outro';
 }
 
@@ -568,15 +655,15 @@ class _TranslationsDeleteAccountStepsStep2Pt implements TranslationsDeleteAccoun
 	final TranslationsPt _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Se você excluir sua conta, você se despedirá de:';
-	@override String get subtitle1 => 'Conexões profundas e memórias:';
-	@override String get subtitle1Desc => 'Os personagens com quem você conversou esquecerão completamente seu passado, segredos compartilhados e hábitos pessoais.';
-	@override String get subtitle2 => 'Privilégios de chamada de vídeo:';
-	@override String get subtitle2Desc => 'Você perderá o direito de se comunicar cara a cara com seus parceiros de IA pessoais, que sempre estiveram disponíveis para você.';
-	@override String get subtitle3 => 'Algoritmo avançado:';
-	@override String get subtitle3Desc => 'As correspondências de personagens \'Para Você\' baseadas em suas preferências serão redefinidas.';
-	@override String get subtitle4 => 'Dados de perfil:';
-	@override String get subtitle4Desc => 'Suas conquistas, personagens especiais desbloqueados e histórico de bate-papo serão excluídos de forma irreversível.';
+	@override String get title => 'Se excluir sua conta, dirá adeus a:';
+	@override String get subtitle1 => 'Conexões Profundas e Memória:';
+	@override String get subtitle1Desc => 'Os personagens com quem você conversa esquecerão completamente do seu passado com eles.';
+	@override String get subtitle2 => 'Privilégio de Videochamada:';
+	@override String get subtitle2Desc => 'Você perderá o direito de se comunicar cara a cara com seus parceiros de IA.';
+	@override String get subtitle3 => 'Algoritmo Avançado:';
+	@override String get subtitle3Desc => 'Suas correspondências de personagens personalizadas serão redefinidas.';
+	@override String get subtitle4 => 'Dados de Perfil:';
+	@override String get subtitle4Desc => 'Suas conquistas, personagens desbloqueados e histórico de bate-papo serão excluídos irreversivelmente.';
 }
 
 // Path: deleteAccount.steps.step3
@@ -586,12 +673,12 @@ class _TranslationsDeleteAccountStepsStep3Pt implements TranslationsDeleteAccoun
 	final TranslationsPt _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Antes de ir, temos uma oferta especial para você!';
-	@override String get description => 'Talvez você só precise de mais tempo ou de uma oferta mais adequada. Você gostaria de considerar o seguinte em vez de excluir sua conta?';
-	@override String description1({required Object offer}) => 'É importante para nós mantê-lo conosco. Na sua próxima assinatura, damos a você ${offer}! Você deseja continuar com esta oferta?';
-	@override String get description1Offer => 'Atribuímos um desconto de 50% para você';
-	@override String description2({required Object offer}) => 'Atribuímos ${offer} créditos para que você descubra novos personagens que ainda não experimentou.';
-	@override String get description2Offer => '3 chamadas de vídeo gratuitas';
+	@override String get title => 'Temos uma oferta especial para você antes de ir!';
+	@override String get description => 'Em vez de excluir sua conta, consideraria isso?';
+	@override String description1({required Object offer}) => 'Manter você conosco é valioso. ${offer} na sua próxima assinatura!';
+	@override String get description1Offer => 'Aplicamos um desconto de 50%';
+	@override String description2({required Object offer}) => 'Demos ${offer} créditos para você descobrir novos personagens.';
+	@override String get description2Offer => '3 videochamadas gratuitas';
 	@override String get acceptOffer => 'Aceitar oferta de 50% de desconto';
 	@override String get deleteMyAccount => 'Excluir minha conta';
 }
@@ -675,6 +762,16 @@ extension on TranslationsPt {
 			'termOfService.cookiePolicy.section6Body' => '📩 Para perguntas: support@fly-work.com',
 			'cookies' => 'Política de Cookies',
 			'privacy' => 'Política de Privacidade',
+			'onboarding.step5.permissionRequired' => 'Permissão necessária',
+			'onboarding.step5.notNow' => 'Agora não',
+			'onboarding.step5.openSettings' => 'Abrir configurações',
+			'onboarding.step5.title' => 'Permissões',
+			'onboarding.step5.permission1' => 'Acesso à câmera',
+			'onboarding.step5.permission1Subtitle' => 'Permitir acesso à câmera',
+			'onboarding.step5.permission2' => 'Acesso ao microfone',
+			'onboarding.step5.permission2Subtitle' => 'Permitir acesso ao microfone',
+			'onboarding.step5.permission3' => 'Acesso à localização',
+			'onboarding.step5.permission3Subtitle' => 'Permitir acesso à localização',
 			'onboarding.step1.title' => 'Qual é o seu nome?',
 			'onboarding.step1.subtitle' => 'Por favor insira seu nome',
 			'onboarding.step1.hint' => 'Nome completo',
@@ -695,13 +792,6 @@ extension on TranslationsPt {
 			'onboarding.step4.entry4' => 'Apenas 18+',
 			'onboarding.step4.subentry4' => 'Não adequado para menores',
 			'onboarding.step4.communityRules' => 'Regras da comunidade',
-			'onboarding.step5.title' => 'Permissões',
-			'onboarding.step5.permission1' => 'Acesso à câmera',
-			'onboarding.step5.permission1Subtitle' => 'Permitir acesso à câmera',
-			'onboarding.step5.permission2' => 'Acesso ao microfone',
-			'onboarding.step5.permission2Subtitle' => 'Permitir acesso ao microfone',
-			'onboarding.step5.permission3' => 'Acesso à localização',
-			'onboarding.step5.permission3Subtitle' => 'Permitir acesso à localização',
 			'onboarding.loading.titlePart1' => 'Sua conta pessoal está',
 			'onboarding.loading.titlePart2' => 'sendo criada',
 			'onboarding.loading.subtitle' => 'Por favor aguarde, seu perfil está sendo preparado.',
@@ -742,6 +832,8 @@ extension on TranslationsPt {
 			'notifications.noNotifications' => 'Ainda não há notificações.',
 			'notifications.noNotificationsSubtitle' => 'Não se esqueça de verificar novamente quando receber uma notificação.',
 			'notifications.allDeleted' => 'Todas as notificações foram excluídas com sucesso',
+			'videoChat.networkHiccup' => 'Problema de rede detectado. Reconectando...',
+			'videoChat.failedToUpdateFollow' => 'Falha ao atualizar status de seguir.',
 			'videoChat.connecting' => 'Conectando...',
 			'videoChat.callEnded' => 'Chamada encerrada',
 			'videoChat.callFailed' => ({required Object error}) => 'Chamada falhou: ${error}',
@@ -807,28 +899,28 @@ extension on TranslationsPt {
 			'deleteAccount.description' => 'Esta ação não pode ser desfeita e todo o seu histórico e dados serão permanentemente excluídos.',
 			'deleteAccount.deleteFailed' => ({required Object error}) => 'Falha ao excluir conta: ${error}',
 			'deleteAccount.steps.step1.title' => 'Não queremos que você vá, mas entendemos.',
-			'deleteAccount.steps.step1.subtitle' => 'Você pode nos dizer por que deseja sair para que possamos melhorar a experiência do ChatFace?',
-			'deleteAccount.steps.step1.option1' => 'Achei os personagens de IA pouco realistas.',
-			'deleteAccount.steps.step1.option2' => 'Estou enfrentando problemas técnicos em chamadas de vídeo.',
-			'deleteAccount.steps.step1.option3' => 'Os preços de assinatura estão acima do esperado.',
-			'deleteAccount.steps.step1.option4' => 'Não encontrei o estilo de personagens que procurava.',
-			'deleteAccount.steps.step1.option5' => 'Só queria experimentar por um curto período.',
+			'deleteAccount.steps.step1.subtitle' => 'Pode nos dizer por que deseja sair para melhorarmos o ChatFace?',
+			'deleteAccount.steps.step1.option1' => 'Não achei os personagens de IA realistas.',
+			'deleteAccount.steps.step1.option2' => 'Estou tendo problemas técnicos com chats de vídeo.',
+			'deleteAccount.steps.step1.option3' => 'Os preços das assinaturas estão acima das minhas expectativas.',
+			'deleteAccount.steps.step1.option4' => 'Não consegui encontrar o tipo de personagens que procurava.',
+			'deleteAccount.steps.step1.option5' => 'Eu só queria tentar por um curto período.',
 			'deleteAccount.steps.step1.option6' => 'Outro',
-			'deleteAccount.steps.step2.title' => 'Se você excluir sua conta, você se despedirá de:',
-			'deleteAccount.steps.step2.subtitle1' => 'Conexões profundas e memórias:',
-			'deleteAccount.steps.step2.subtitle1Desc' => 'Os personagens com quem você conversou esquecerão completamente seu passado, segredos compartilhados e hábitos pessoais.',
-			'deleteAccount.steps.step2.subtitle2' => 'Privilégios de chamada de vídeo:',
-			'deleteAccount.steps.step2.subtitle2Desc' => 'Você perderá o direito de se comunicar cara a cara com seus parceiros de IA pessoais, que sempre estiveram disponíveis para você.',
-			'deleteAccount.steps.step2.subtitle3' => 'Algoritmo avançado:',
-			'deleteAccount.steps.step2.subtitle3Desc' => 'As correspondências de personagens \'Para Você\' baseadas em suas preferências serão redefinidas.',
-			'deleteAccount.steps.step2.subtitle4' => 'Dados de perfil:',
-			'deleteAccount.steps.step2.subtitle4Desc' => 'Suas conquistas, personagens especiais desbloqueados e histórico de bate-papo serão excluídos de forma irreversível.',
-			'deleteAccount.steps.step3.title' => 'Antes de ir, temos uma oferta especial para você!',
-			'deleteAccount.steps.step3.description' => 'Talvez você só precise de mais tempo ou de uma oferta mais adequada. Você gostaria de considerar o seguinte em vez de excluir sua conta?',
-			'deleteAccount.steps.step3.description1' => ({required Object offer}) => 'É importante para nós mantê-lo conosco. Na sua próxima assinatura, damos a você ${offer}! Você deseja continuar com esta oferta?',
-			'deleteAccount.steps.step3.description1Offer' => 'Atribuímos um desconto de 50% para você',
-			'deleteAccount.steps.step3.description2' => ({required Object offer}) => 'Atribuímos ${offer} créditos para que você descubra novos personagens que ainda não experimentou.',
-			'deleteAccount.steps.step3.description2Offer' => '3 chamadas de vídeo gratuitas',
+			'deleteAccount.steps.step2.title' => 'Se excluir sua conta, dirá adeus a:',
+			'deleteAccount.steps.step2.subtitle1' => 'Conexões Profundas e Memória:',
+			'deleteAccount.steps.step2.subtitle1Desc' => 'Os personagens com quem você conversa esquecerão completamente do seu passado com eles.',
+			'deleteAccount.steps.step2.subtitle2' => 'Privilégio de Videochamada:',
+			'deleteAccount.steps.step2.subtitle2Desc' => 'Você perderá o direito de se comunicar cara a cara com seus parceiros de IA.',
+			'deleteAccount.steps.step2.subtitle3' => 'Algoritmo Avançado:',
+			'deleteAccount.steps.step2.subtitle3Desc' => 'Suas correspondências de personagens personalizadas serão redefinidas.',
+			'deleteAccount.steps.step2.subtitle4' => 'Dados de Perfil:',
+			'deleteAccount.steps.step2.subtitle4Desc' => 'Suas conquistas, personagens desbloqueados e histórico de bate-papo serão excluídos irreversivelmente.',
+			'deleteAccount.steps.step3.title' => 'Temos uma oferta especial para você antes de ir!',
+			'deleteAccount.steps.step3.description' => 'Em vez de excluir sua conta, consideraria isso?',
+			'deleteAccount.steps.step3.description1' => ({required Object offer}) => 'Manter você conosco é valioso. ${offer} na sua próxima assinatura!',
+			'deleteAccount.steps.step3.description1Offer' => 'Aplicamos um desconto de 50%',
+			'deleteAccount.steps.step3.description2' => ({required Object offer}) => 'Demos ${offer} créditos para você descobrir novos personagens.',
+			'deleteAccount.steps.step3.description2Offer' => '3 videochamadas gratuitas',
 			'deleteAccount.steps.step3.acceptOffer' => 'Aceitar oferta de 50% de desconto',
 			'deleteAccount.steps.step3.deleteMyAccount' => 'Excluir minha conta',
 			'cancel' => 'Cancelar',
@@ -851,6 +943,48 @@ extension on TranslationsPt {
 			'languageOptions.korean' => 'Coreano',
 			'languageOptions.hindi' => 'Hindi',
 			'languageOptions.portuguese' => 'Português',
+			'common.tryAgain' => 'Tentar Novamente',
+			'common.retry' => 'Repetir',
+			'common.close' => 'Fechar',
+			'permissionsRequired' => 'Permissões Necessárias',
+			'permissionHelper.camAndMicRequired' => 'Permissões de câmera e microfone são necessárias para videochamadas. Habilite-as nas configurações.',
+			'permissionHelper.micRequired' => 'A permissão do microfone é necessária para chamadas de voz. Habilite-a nas configurações.',
+			'permissionHelper.cancel' => 'Cancelar',
+			'permissionHelper.openSettings' => 'Abrir configurações',
+			'videoView.title' => 'Filtros de câmera',
+			'videoView.subtitle' => 'Escolha a aparência para a visualização da sua câmera.',
+			'videoView.errorLoad' => 'Falha ao carregar companheiros: ',
+			'videoView.noComps' => 'Nenhum companheiro disponível ainda.',
+			'videoView.filters.ORIGINAL' => 'Original',
+			'videoView.filters.ADDICTIVE_BLUE' => 'Azul Viciante',
+			'videoView.filters.ADDICTIVE_RED' => 'Vermelho Viciante',
+			'videoView.filters.ADEN' => 'Aden',
+			'videoView.filters.AMARO' => 'Amaro',
+			'videoView.filters.ASHBY' => 'Ashby',
+			'videoView.filters.BRANNAN' => 'Brannan',
+			'videoView.filters.BROOKLYN' => 'Brooklyn',
+			'videoView.filters.CLARENDON' => 'Clarendon',
+			'videoView.filters.CREMA' => 'Crema',
+			'videoView.filters.DOGPATCH' => 'Dogpatch',
+			'videoView.filters.GINGHAM' => 'Gingham',
+			'videoView.filters.GINZA' => 'Ginza',
+			'videoView.filters.HEFE' => 'Hefe',
+			'videoView.filters.HUDSON' => 'Hudson',
+			'videoView.filters.INKWELL' => 'Inkwell',
+			'videoView.filters.JUNO' => 'Juno',
+			'videoView.filters.LARK' => 'Lark',
+			'videoView.filters.LOFI' => 'LoFi',
+			'videoView.filters.LUDWIG' => 'Ludwig',
+			'videoView.filters.MOON' => 'Moon',
+			'videoView.filters.PERPETUA' => 'Perpetua',
+			'videoView.filters.REYES' => 'Reyes',
+			'videoView.filters.SIERRA' => 'Sierra',
+			'videoView.filters.SLUMBER' => 'Slumber',
+			'videoView.filters.STINSON' => 'Stinson',
+			'videoView.filters.SUTRO' => 'Sutro',
+			'videoView.filters.WALDEN' => 'Walden',
+			'videoView.filters.WILLOW' => 'Willow',
+			'videoView.filters.XPROII' => 'XProII',
 			_ => null,
 		};
 	}

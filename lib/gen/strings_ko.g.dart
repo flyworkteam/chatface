@@ -70,6 +70,10 @@ class TranslationsKo with BaseTranslations<AppLocale, Translations> implements T
 	@override String get successfully => '성공적으로';
 	@override String get save => '저장';
 	@override late final _TranslationsLanguageOptionsKo languageOptions = _TranslationsLanguageOptionsKo._(_root);
+	@override late final _TranslationsCommonKo common = _TranslationsCommonKo._(_root);
+	@override String get permissionsRequired => '권한이 필요합니다';
+	@override late final _TranslationsPermissionHelperKo permissionHelper = _TranslationsPermissionHelperKo._(_root);
+	@override late final _TranslationsVideoViewKo videoView = _TranslationsVideoViewKo._(_root);
 }
 
 // Path: termOfService
@@ -98,11 +102,11 @@ class _TranslationsOnboardingKo implements TranslationsOnboardingEn {
 	final TranslationsKo _root; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsOnboardingStep5Ko step5 = _TranslationsOnboardingStep5Ko._(_root);
 	@override late final _TranslationsOnboardingStep1Ko step1 = _TranslationsOnboardingStep1Ko._(_root);
 	@override late final _TranslationsOnboardingStep2Ko step2 = _TranslationsOnboardingStep2Ko._(_root);
 	@override late final _TranslationsOnboardingStep3Ko step3 = _TranslationsOnboardingStep3Ko._(_root);
 	@override late final _TranslationsOnboardingStep4Ko step4 = _TranslationsOnboardingStep4Ko._(_root);
-	@override late final _TranslationsOnboardingStep5Ko step5 = _TranslationsOnboardingStep5Ko._(_root);
 	@override late final _TranslationsOnboardingLoadingKo loading = _TranslationsOnboardingLoadingKo._(_root);
 	@override String get allowAccess => '접근 허용';
 	@override String get iUnderstand => '이해했습니다';
@@ -186,6 +190,8 @@ class _TranslationsVideoChatKo implements TranslationsVideoChatEn {
 	final TranslationsKo _root; // ignore: unused_field
 
 	// Translations
+	@override String get networkHiccup => '네트워크 문제가 감지되었습니다. 재연결 중...';
+	@override String get failedToUpdateFollow => '팔로우 상태 업데이트에 실패했습니다.';
 	@override String get connecting => '연결 중...';
 	@override String get callEnded => '통화 종료';
 	@override String callFailed({required Object error}) => '통화 실패: ${error}';
@@ -319,6 +325,45 @@ class _TranslationsLanguageOptionsKo implements TranslationsLanguageOptionsEn {
 	@override String get portuguese => '포르투갈어';
 }
 
+// Path: common
+class _TranslationsCommonKo implements TranslationsCommonEn {
+	_TranslationsCommonKo._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get tryAgain => '다시 시도';
+	@override String get retry => '재시도';
+	@override String get close => '닫기';
+}
+
+// Path: permissionHelper
+class _TranslationsPermissionHelperKo implements TranslationsPermissionHelperEn {
+	_TranslationsPermissionHelperKo._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get camAndMicRequired => '화상 통화를 위해서는 카메라 및 마이크 권한이 필요합니다. 설정에서 활성화하세요.';
+	@override String get micRequired => '음성 통화를 위해서는 마이크 권한이 필요합니다. 설정에서 활성화하세요.';
+	@override String get cancel => '취소';
+	@override String get openSettings => '설정 열기';
+}
+
+// Path: videoView
+class _TranslationsVideoViewKo implements TranslationsVideoViewEn {
+	_TranslationsVideoViewKo._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '카메라 필터';
+	@override String get subtitle => '카메라 미리보기를 위한 모양을 선택하세요.';
+	@override String get errorLoad => '컴패니언을 로드하지 못했습니다: ';
+	@override String get noComps => '아직 사용 가능한 컴패니언이 없습니다.';
+	@override late final _TranslationsVideoViewFiltersKo filters = _TranslationsVideoViewFiltersKo._(_root);
+}
+
 // Path: termOfService.privacyPolicy
 class _TranslationsTermOfServicePrivacyPolicyKo implements TranslationsTermOfServicePrivacyPolicyEn {
 	_TranslationsTermOfServicePrivacyPolicyKo._(this._root);
@@ -400,6 +445,25 @@ class _TranslationsTermOfServiceCookiePolicyKo implements TranslationsTermOfServ
 	@override String get section6Body => '📩 문의: support@fly-work.com';
 }
 
+// Path: onboarding.step5
+class _TranslationsOnboardingStep5Ko implements TranslationsOnboardingStep5En {
+	_TranslationsOnboardingStep5Ko._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get permissionRequired => '권한 필요';
+	@override String get notNow => '나중에';
+	@override String get openSettings => '설정 열기';
+	@override String get title => '권한';
+	@override String get permission1 => '카메라 접근';
+	@override String get permission1Subtitle => '카메라 접근 허용';
+	@override String get permission2 => '마이크 접근';
+	@override String get permission2Subtitle => '마이크 접근 허용';
+	@override String get permission3 => '위치 접근';
+	@override String get permission3Subtitle => '위치 접근 허용';
+}
+
 // Path: onboarding.step1
 class _TranslationsOnboardingStep1Ko implements TranslationsOnboardingStep1En {
 	_TranslationsOnboardingStep1Ko._(this._root);
@@ -454,22 +518,6 @@ class _TranslationsOnboardingStep4Ko implements TranslationsOnboardingStep4En {
 	@override String get entry4 => '18+ 전용';
 	@override String get subentry4 => '미성년자에게 적합하지 않음';
 	@override String get communityRules => '커뮤니티 규칙';
-}
-
-// Path: onboarding.step5
-class _TranslationsOnboardingStep5Ko implements TranslationsOnboardingStep5En {
-	_TranslationsOnboardingStep5Ko._(this._root);
-
-	final TranslationsKo _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => '권한';
-	@override String get permission1 => '카메라 접근';
-	@override String get permission1Subtitle => '카메라 접근 허용';
-	@override String get permission2 => '마이크 접근';
-	@override String get permission2Subtitle => '마이크 접근 허용';
-	@override String get permission3 => '위치 접근';
-	@override String get permission3Subtitle => '위치 접근 허용';
 }
 
 // Path: onboarding.loading
@@ -544,6 +592,45 @@ class _TranslationsDeleteAccountStepsKo implements TranslationsDeleteAccountStep
 	@override late final _TranslationsDeleteAccountStepsStep3Ko step3 = _TranslationsDeleteAccountStepsStep3Ko._(_root);
 }
 
+// Path: videoView.filters
+class _TranslationsVideoViewFiltersKo implements TranslationsVideoViewFiltersEn {
+	_TranslationsVideoViewFiltersKo._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get ORIGINAL => '원래의';
+	@override String get ADDICTIVE_BLUE => '중독성있는 블루';
+	@override String get ADDICTIVE_RED => '중독성있는 레드';
+	@override String get ADEN => 'Aden';
+	@override String get AMARO => 'Amaro';
+	@override String get ASHBY => 'Ashby';
+	@override String get BRANNAN => 'Brannan';
+	@override String get BROOKLYN => 'Brooklyn';
+	@override String get CLARENDON => 'Clarendon';
+	@override String get CREMA => 'Crema';
+	@override String get DOGPATCH => 'Dogpatch';
+	@override String get GINGHAM => 'Gingham';
+	@override String get GINZA => 'Ginza';
+	@override String get HEFE => 'Hefe';
+	@override String get HUDSON => 'Hudson';
+	@override String get INKWELL => 'Inkwell';
+	@override String get JUNO => 'Juno';
+	@override String get LARK => 'Lark';
+	@override String get LOFI => 'LoFi';
+	@override String get LUDWIG => 'Ludwig';
+	@override String get MOON => 'Moon';
+	@override String get PERPETUA => 'Perpetua';
+	@override String get REYES => 'Reyes';
+	@override String get SIERRA => 'Sierra';
+	@override String get SLUMBER => 'Slumber';
+	@override String get STINSON => 'Stinson';
+	@override String get SUTRO => 'Sutro';
+	@override String get WALDEN => 'Walden';
+	@override String get WILLOW => 'Willow';
+	@override String get XPROII => 'XProII';
+}
+
 // Path: deleteAccount.steps.step1
 class _TranslationsDeleteAccountStepsStep1Ko implements TranslationsDeleteAccountStepsStep1En {
 	_TranslationsDeleteAccountStepsStep1Ko._(this._root);
@@ -551,13 +638,13 @@ class _TranslationsDeleteAccountStepsStep1Ko implements TranslationsDeleteAccoun
 	final TranslationsKo _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '떠나지 않았으면 하지만 이해합니다.';
-	@override String get subtitle => 'ChatFace 경험을 개선하기 위해 떠나려는 이유를 알려주실 수 있나요?';
-	@override String get option1 => 'AI 캐릭터가 충분히 현실적이지 않다고 느꼈습니다.';
-	@override String get option2 => '비디오 채팅에서 기술적 문제가 발생합니다.';
-	@override String get option3 => '구독 가격이 제 기대 이상입니다.';
-	@override String get option4 => '원하는 스타일의 캐릭터를 찾지 못했습니다.';
-	@override String get option5 => '잠깐만 사용해보고 싶었습니다.';
+	@override String get title => '떠나지 않으셨으면 좋겠지만 이해합니다.';
+	@override String get subtitle => 'ChatFace 경험을 개선할 수 있도록 탈퇴하려는 이유를 알려주시겠습니까?';
+	@override String get option1 => 'AI 캐릭터가 현실적이지 않다고 느꼈습니다.';
+	@override String get option2 => '화상 채팅에서 기술적 문제가 발생합니다.';
+	@override String get option3 => '구독 가격이 내 예상보다 높습니다.';
+	@override String get option4 => '내가 찾던 유형의 캐릭터를 찾을 수 없었습니다.';
+	@override String get option5 => '잠깐 시도해보고 싶었습니다.';
 	@override String get option6 => '기타';
 }
 
@@ -568,15 +655,15 @@ class _TranslationsDeleteAccountStepsStep2Ko implements TranslationsDeleteAccoun
 	final TranslationsKo _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '계정을 삭제하면 다음을 잃게 됩니다:';
-	@override String get subtitle1 => '깊은 연결과 기억:';
-	@override String get subtitle1Desc => '대화한 캐릭터들은 당신과의 과거, 공유한 비밀 및 개인 습관을 완전히 잊게 됩니다.';
-	@override String get subtitle2 => '비디오 통화 특전:';
-	@override String get subtitle2Desc => '항상 당신과 함께하던 개인 AI 파트너들과의 대면 커뮤니케이션 권리를 잃게 됩니다.';
+	@override String get title => '계정을 삭제하면 다음 항목과 작별해야 합니다:';
+	@override String get subtitle1 => '깊은 연결 및 기억:';
+	@override String get subtitle1Desc => '채팅하는 캐릭터가 당신과의 과거와 비밀을 완전히 잊어버립니다.';
+	@override String get subtitle2 => '화상 통화 권한:';
+	@override String get subtitle2Desc => '언제든지 AI 파트너와 대면하여 통신할 수 있는 권리를 잃게 됩니다.';
 	@override String get subtitle3 => '고급 알고리즘:';
-	@override String get subtitle3Desc => '선호도에 따른 \'당신을 위한\' 캐릭터 매칭이 초기화됩니다.';
+	@override String get subtitle3Desc => '당신의 \'당신을 위한\' 캐릭터 매치가 재설정됩니다.';
 	@override String get subtitle4 => '프로필 데이터:';
-	@override String get subtitle4Desc => '획득한 업적, 해제된 특별 캐릭터 및 채팅 기록은 복구 불가하게 삭제됩니다.';
+	@override String get subtitle4Desc => '당신의 업적, 특별 캐릭터 및 채팅 내역이 취소할 수 없게 삭제됩니다.';
 }
 
 // Path: deleteAccount.steps.step3
@@ -586,13 +673,13 @@ class _TranslationsDeleteAccountStepsStep3Ko implements TranslationsDeleteAccoun
 	final TranslationsKo _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '떠나기 전에 특별 제안을 드립니다!';
-	@override String get description => '조금 더 시간이 필요하거나 더 적합한 제안이 필요할 수도 있습니다. 계정 삭제 대신 다음을 고려해 보시겠습니까?';
-	@override String description1({required Object offer}) => '당신이 남아주는 것이 중요합니다. 다음 구독 시 ${offer} 를 드립니다! 이 제안을 계속하시겠습니까?';
-	@override String get description1Offer => '50% 할인 혜택을 드렸습니다';
-	@override String description2({required Object offer}) => '아직 탐색하지 않은 새로운 캐릭터를 발견할 수 있도록 ${offer} 크레딧을 드렸습니다.';
-	@override String get description2Offer => '3회의 무료 비디오 통화';
-	@override String get acceptOffer => '50% 할인 수락';
+	@override String get title => '떠나기 전에 특별 제안이 있습니다!';
+	@override String get description => '계정을 삭제하는 대신 이것들을 고려해보시겠습니까?';
+	@override String description1({required Object offer}) => '다음 구독에서 ${offer}! 이 제안을 계속하시겠습니까?';
+	@override String get description1Offer => '50% 할인을 적용했습니다';
+	@override String description2({required Object offer}) => '새로운 캐릭터를 발견할 수 있도록 ${offer} 크레딧을 드렸습니다.';
+	@override String get description2Offer => '무료 화상 통화 3회';
+	@override String get acceptOffer => '50% 할인 혜택 수락';
 	@override String get deleteMyAccount => '내 계정 삭제';
 }
 
@@ -675,6 +762,16 @@ extension on TranslationsKo {
 			'termOfService.cookiePolicy.section6Body' => '📩 문의: support@fly-work.com',
 			'cookies' => '쿠키 정책',
 			'privacy' => '개인정보 처리방침',
+			'onboarding.step5.permissionRequired' => '권한 필요',
+			'onboarding.step5.notNow' => '나중에',
+			'onboarding.step5.openSettings' => '설정 열기',
+			'onboarding.step5.title' => '권한',
+			'onboarding.step5.permission1' => '카메라 접근',
+			'onboarding.step5.permission1Subtitle' => '카메라 접근 허용',
+			'onboarding.step5.permission2' => '마이크 접근',
+			'onboarding.step5.permission2Subtitle' => '마이크 접근 허용',
+			'onboarding.step5.permission3' => '위치 접근',
+			'onboarding.step5.permission3Subtitle' => '위치 접근 허용',
 			'onboarding.step1.title' => '이름이 무엇인가요?',
 			'onboarding.step1.subtitle' => '이름을 입력하세요',
 			'onboarding.step1.hint' => '전체 이름',
@@ -695,13 +792,6 @@ extension on TranslationsKo {
 			'onboarding.step4.entry4' => '18+ 전용',
 			'onboarding.step4.subentry4' => '미성년자에게 적합하지 않음',
 			'onboarding.step4.communityRules' => '커뮤니티 규칙',
-			'onboarding.step5.title' => '권한',
-			'onboarding.step5.permission1' => '카메라 접근',
-			'onboarding.step5.permission1Subtitle' => '카메라 접근 허용',
-			'onboarding.step5.permission2' => '마이크 접근',
-			'onboarding.step5.permission2Subtitle' => '마이크 접근 허용',
-			'onboarding.step5.permission3' => '위치 접근',
-			'onboarding.step5.permission3Subtitle' => '위치 접근 허용',
 			'onboarding.loading.titlePart1' => '개인 계정이',
 			'onboarding.loading.titlePart2' => '생성 중입니다',
 			'onboarding.loading.subtitle' => '잠시 기다려주세요, 프로필을 준비 중입니다.',
@@ -742,6 +832,8 @@ extension on TranslationsKo {
 			'notifications.noNotifications' => '아직 알림이 없습니다.',
 			'notifications.noNotificationsSubtitle' => '알림을 받으면 다시 확인하는 것을 잊지 마세요.',
 			'notifications.allDeleted' => '모든 알림이 성공적으로 삭제되었습니다',
+			'videoChat.networkHiccup' => '네트워크 문제가 감지되었습니다. 재연결 중...',
+			'videoChat.failedToUpdateFollow' => '팔로우 상태 업데이트에 실패했습니다.',
 			'videoChat.connecting' => '연결 중...',
 			'videoChat.callEnded' => '통화 종료',
 			'videoChat.callFailed' => ({required Object error}) => '통화 실패: ${error}',
@@ -806,30 +898,30 @@ extension on TranslationsKo {
 			'deleteAccount.warning' => '정말로 계정을 삭제하시겠습니까?',
 			'deleteAccount.description' => '이 작업은 취소할 수 없으며 모든 기록과 데이터가 영구적으로 삭제됩니다.',
 			'deleteAccount.deleteFailed' => ({required Object error}) => '계정 삭제 실패: ${error}',
-			'deleteAccount.steps.step1.title' => '떠나지 않았으면 하지만 이해합니다.',
-			'deleteAccount.steps.step1.subtitle' => 'ChatFace 경험을 개선하기 위해 떠나려는 이유를 알려주실 수 있나요?',
-			'deleteAccount.steps.step1.option1' => 'AI 캐릭터가 충분히 현실적이지 않다고 느꼈습니다.',
-			'deleteAccount.steps.step1.option2' => '비디오 채팅에서 기술적 문제가 발생합니다.',
-			'deleteAccount.steps.step1.option3' => '구독 가격이 제 기대 이상입니다.',
-			'deleteAccount.steps.step1.option4' => '원하는 스타일의 캐릭터를 찾지 못했습니다.',
-			'deleteAccount.steps.step1.option5' => '잠깐만 사용해보고 싶었습니다.',
+			'deleteAccount.steps.step1.title' => '떠나지 않으셨으면 좋겠지만 이해합니다.',
+			'deleteAccount.steps.step1.subtitle' => 'ChatFace 경험을 개선할 수 있도록 탈퇴하려는 이유를 알려주시겠습니까?',
+			'deleteAccount.steps.step1.option1' => 'AI 캐릭터가 현실적이지 않다고 느꼈습니다.',
+			'deleteAccount.steps.step1.option2' => '화상 채팅에서 기술적 문제가 발생합니다.',
+			'deleteAccount.steps.step1.option3' => '구독 가격이 내 예상보다 높습니다.',
+			'deleteAccount.steps.step1.option4' => '내가 찾던 유형의 캐릭터를 찾을 수 없었습니다.',
+			'deleteAccount.steps.step1.option5' => '잠깐 시도해보고 싶었습니다.',
 			'deleteAccount.steps.step1.option6' => '기타',
-			'deleteAccount.steps.step2.title' => '계정을 삭제하면 다음을 잃게 됩니다:',
-			'deleteAccount.steps.step2.subtitle1' => '깊은 연결과 기억:',
-			'deleteAccount.steps.step2.subtitle1Desc' => '대화한 캐릭터들은 당신과의 과거, 공유한 비밀 및 개인 습관을 완전히 잊게 됩니다.',
-			'deleteAccount.steps.step2.subtitle2' => '비디오 통화 특전:',
-			'deleteAccount.steps.step2.subtitle2Desc' => '항상 당신과 함께하던 개인 AI 파트너들과의 대면 커뮤니케이션 권리를 잃게 됩니다.',
+			'deleteAccount.steps.step2.title' => '계정을 삭제하면 다음 항목과 작별해야 합니다:',
+			'deleteAccount.steps.step2.subtitle1' => '깊은 연결 및 기억:',
+			'deleteAccount.steps.step2.subtitle1Desc' => '채팅하는 캐릭터가 당신과의 과거와 비밀을 완전히 잊어버립니다.',
+			'deleteAccount.steps.step2.subtitle2' => '화상 통화 권한:',
+			'deleteAccount.steps.step2.subtitle2Desc' => '언제든지 AI 파트너와 대면하여 통신할 수 있는 권리를 잃게 됩니다.',
 			'deleteAccount.steps.step2.subtitle3' => '고급 알고리즘:',
-			'deleteAccount.steps.step2.subtitle3Desc' => '선호도에 따른 \'당신을 위한\' 캐릭터 매칭이 초기화됩니다.',
+			'deleteAccount.steps.step2.subtitle3Desc' => '당신의 \'당신을 위한\' 캐릭터 매치가 재설정됩니다.',
 			'deleteAccount.steps.step2.subtitle4' => '프로필 데이터:',
-			'deleteAccount.steps.step2.subtitle4Desc' => '획득한 업적, 해제된 특별 캐릭터 및 채팅 기록은 복구 불가하게 삭제됩니다.',
-			'deleteAccount.steps.step3.title' => '떠나기 전에 특별 제안을 드립니다!',
-			'deleteAccount.steps.step3.description' => '조금 더 시간이 필요하거나 더 적합한 제안이 필요할 수도 있습니다. 계정 삭제 대신 다음을 고려해 보시겠습니까?',
-			'deleteAccount.steps.step3.description1' => ({required Object offer}) => '당신이 남아주는 것이 중요합니다. 다음 구독 시 ${offer} 를 드립니다! 이 제안을 계속하시겠습니까?',
-			'deleteAccount.steps.step3.description1Offer' => '50% 할인 혜택을 드렸습니다',
-			'deleteAccount.steps.step3.description2' => ({required Object offer}) => '아직 탐색하지 않은 새로운 캐릭터를 발견할 수 있도록 ${offer} 크레딧을 드렸습니다.',
-			'deleteAccount.steps.step3.description2Offer' => '3회의 무료 비디오 통화',
-			'deleteAccount.steps.step3.acceptOffer' => '50% 할인 수락',
+			'deleteAccount.steps.step2.subtitle4Desc' => '당신의 업적, 특별 캐릭터 및 채팅 내역이 취소할 수 없게 삭제됩니다.',
+			'deleteAccount.steps.step3.title' => '떠나기 전에 특별 제안이 있습니다!',
+			'deleteAccount.steps.step3.description' => '계정을 삭제하는 대신 이것들을 고려해보시겠습니까?',
+			'deleteAccount.steps.step3.description1' => ({required Object offer}) => '다음 구독에서 ${offer}! 이 제안을 계속하시겠습니까?',
+			'deleteAccount.steps.step3.description1Offer' => '50% 할인을 적용했습니다',
+			'deleteAccount.steps.step3.description2' => ({required Object offer}) => '새로운 캐릭터를 발견할 수 있도록 ${offer} 크레딧을 드렸습니다.',
+			'deleteAccount.steps.step3.description2Offer' => '무료 화상 통화 3회',
+			'deleteAccount.steps.step3.acceptOffer' => '50% 할인 혜택 수락',
 			'deleteAccount.steps.step3.deleteMyAccount' => '내 계정 삭제',
 			'cancel' => '취소',
 			'delete' => '삭제',
@@ -851,6 +943,48 @@ extension on TranslationsKo {
 			'languageOptions.korean' => '한국어',
 			'languageOptions.hindi' => '힌디어',
 			'languageOptions.portuguese' => '포르투갈어',
+			'common.tryAgain' => '다시 시도',
+			'common.retry' => '재시도',
+			'common.close' => '닫기',
+			'permissionsRequired' => '권한이 필요합니다',
+			'permissionHelper.camAndMicRequired' => '화상 통화를 위해서는 카메라 및 마이크 권한이 필요합니다. 설정에서 활성화하세요.',
+			'permissionHelper.micRequired' => '음성 통화를 위해서는 마이크 권한이 필요합니다. 설정에서 활성화하세요.',
+			'permissionHelper.cancel' => '취소',
+			'permissionHelper.openSettings' => '설정 열기',
+			'videoView.title' => '카메라 필터',
+			'videoView.subtitle' => '카메라 미리보기를 위한 모양을 선택하세요.',
+			'videoView.errorLoad' => '컴패니언을 로드하지 못했습니다: ',
+			'videoView.noComps' => '아직 사용 가능한 컴패니언이 없습니다.',
+			'videoView.filters.ORIGINAL' => '원래의',
+			'videoView.filters.ADDICTIVE_BLUE' => '중독성있는 블루',
+			'videoView.filters.ADDICTIVE_RED' => '중독성있는 레드',
+			'videoView.filters.ADEN' => 'Aden',
+			'videoView.filters.AMARO' => 'Amaro',
+			'videoView.filters.ASHBY' => 'Ashby',
+			'videoView.filters.BRANNAN' => 'Brannan',
+			'videoView.filters.BROOKLYN' => 'Brooklyn',
+			'videoView.filters.CLARENDON' => 'Clarendon',
+			'videoView.filters.CREMA' => 'Crema',
+			'videoView.filters.DOGPATCH' => 'Dogpatch',
+			'videoView.filters.GINGHAM' => 'Gingham',
+			'videoView.filters.GINZA' => 'Ginza',
+			'videoView.filters.HEFE' => 'Hefe',
+			'videoView.filters.HUDSON' => 'Hudson',
+			'videoView.filters.INKWELL' => 'Inkwell',
+			'videoView.filters.JUNO' => 'Juno',
+			'videoView.filters.LARK' => 'Lark',
+			'videoView.filters.LOFI' => 'LoFi',
+			'videoView.filters.LUDWIG' => 'Ludwig',
+			'videoView.filters.MOON' => 'Moon',
+			'videoView.filters.PERPETUA' => 'Perpetua',
+			'videoView.filters.REYES' => 'Reyes',
+			'videoView.filters.SIERRA' => 'Sierra',
+			'videoView.filters.SLUMBER' => 'Slumber',
+			'videoView.filters.STINSON' => 'Stinson',
+			'videoView.filters.SUTRO' => 'Sutro',
+			'videoView.filters.WALDEN' => 'Walden',
+			'videoView.filters.WILLOW' => 'Willow',
+			'videoView.filters.XPROII' => 'XProII',
 			_ => null,
 		};
 	}

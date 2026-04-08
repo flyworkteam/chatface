@@ -1,311 +1,366 @@
 {
-  "welcome": "ようこそ $name さん",
-  "welcome2": "$appName へようこそ",
-  "get_started": "始める",
-  "next": "次へ",
-  "back": "戻る",
-  "skip": "スキップ",
-  "profile": "プロフィール",
-  "continue": "続ける",
-  "termOfService": {
-    "text1": "swipe にサインアップすることで、当社の ",
-    "link1": "利用規約",
-    "text2": " に同意したものとします。当社がどのようにデータを処理するかは、当社の ",
-    "link2": "プライバシーポリシー",
-    "text3": " および ",
-    "link3": "クッキーポリシー",
-    "text4": " をご確認ください。",
-    "privacyPolicy": {
-      "title": "プライバシーポリシー",
-      "lastUpdated": "最終更新：2026",
-      "intro": "ChatFace はユーザープライバシーとデータセキュリティを重要な原則として採用しています。お客様の個人データは有効なデータ保護規制に従って処理されます。",
-      "section1Title": "1. 収集される情報",
-      "section1sub1Title": "1.1 ユーザーが提供するデータ",
-      "section1sub1Body": "• 名前、ニックネーム、またはプロフィール情報。\n• メールアドレス（登録、サブスクリプション、サポートのため）。 \n• インタラクションの設定、言語設定、やり取りの履歴。 \n• フィードバックおよびサポートメッセージ。",
-      "section1sub2Title": "1.2 自動的に収集されるデータ",
-      "section1sub2Body": "デバイスの種類、オペレーティングシステム、推定位置（都市/国）、アプリの使用データなどの情報が収集されます。正確な位置データは収集されません。",
-      "section2Title": "2. データ処理の目的",
-      "section2Body": "お客様の個人データは、以下の目的で処理されます：\n\n• アプリケーションの円滑な運用の確保。\n• AI を活用したビデオ通話体験の提供およびパーソナライズ。\n• システムパフォーマンスの最適化とエラー検出。\n• 法的義務の履行。\n お客様のデータは第三者に販売されることはありません。",
-      "section3Title": "3. データの保持と削除",
-      "section3Body": "お客様のデータは、アカウントがアクティブである間、または法的義務がある期間中保存されます。アカウントが削除されると、すべての個人データはシステムから不可逆的に削除されます。",
-      "section4Title": "4. ユーザーの権利",
-      "section4Body": "GDPR 等に基づき、閲覧、訂正、削除（忘れられる権利）、およびデータポータビリティの請求を行う権利があります。ご要望はお問い合わせください。",
-      "section5Title": "5. 子どものプライバシー",
-      "section5Body": "ChatFace は 18 歳未満のユーザーを対象としていません。当該年齢層のデータを意図的に収集することはなく、発見次第当該アカウントは閉鎖されデータは削除されます。",
-      "section6Title": "6. お問い合わせ",
-      "section6Body": "📩 問い合わせ先：support@fly-work.com"
+    "welcome": "ようこそ $name さん",
+    "welcome2": "$appName へようこそ",
+    "get_started": "始める",
+    "next": "次へ",
+    "back": "戻る",
+    "skip": "スキップ",
+    "profile": "プロフィール",
+    "continue": "続ける",
+    "termOfService": {
+        "text1": "swipe にサインアップすることで、当社の ",
+        "link1": "利用規約",
+        "text2": " に同意したものとします。当社がどのようにデータを処理するかは、当社の ",
+        "link2": "プライバシーポリシー",
+        "text3": " および ",
+        "link3": "クッキーポリシー",
+        "text4": " をご確認ください。",
+        "privacyPolicy": {
+            "title": "プライバシーポリシー",
+            "lastUpdated": "最終更新：2026",
+            "intro": "ChatFace はユーザープライバシーとデータセキュリティを重要な原則として採用しています。お客様の個人データは有効なデータ保護規制に従って処理されます。",
+            "section1Title": "1. 収集される情報",
+            "section1sub1Title": "1.1 ユーザーが提供するデータ",
+            "section1sub1Body": "• 名前、ニックネーム、またはプロフィール情報。\n• メールアドレス（登録、サブスクリプション、サポートのため）。 \n• インタラクションの設定、言語設定、やり取りの履歴。 \n• フィードバックおよびサポートメッセージ。",
+            "section1sub2Title": "1.2 自動的に収集されるデータ",
+            "section1sub2Body": "デバイスの種類、オペレーティングシステム、推定位置（都市/国）、アプリの使用データなどの情報が収集されます。正確な位置データは収集されません。",
+            "section2Title": "2. データ処理の目的",
+            "section2Body": "お客様の個人データは、以下の目的で処理されます：\n\n• アプリケーションの円滑な運用の確保。\n• AI を活用したビデオ通話体験の提供およびパーソナライズ。\n• システムパフォーマンスの最適化とエラー検出。\n• 法的義務の履行。\n お客様のデータは第三者に販売されることはありません。",
+            "section3Title": "3. データの保持と削除",
+            "section3Body": "お客様のデータは、アカウントがアクティブである間、または法的義務がある期間中保存されます。アカウントが削除されると、すべての個人データはシステムから不可逆的に削除されます。",
+            "section4Title": "4. ユーザーの権利",
+            "section4Body": "GDPR 等に基づき、閲覧、訂正、削除（忘れられる権利）、およびデータポータビリティの請求を行う権利があります。ご要望はお問い合わせください。",
+            "section5Title": "5. 子どものプライバシー",
+            "section5Body": "ChatFace は 18 歳未満のユーザーを対象としていません。当該年齢層のデータを意図的に収集することはなく、発見次第当該アカウントは閉鎖されデータは削除されます。",
+            "section6Title": "6. お問い合わせ",
+            "section6Body": "📩 問い合わせ先：support@fly-work.com"
+        },
+        "termsOfService": {
+            "title": "利用規約",
+            "lastUpdated": "最終更新：2026",
+            "intro": "これらの規約は ChatFace モバイルアプリの利用を規定します。アプリを利用することで、これらの規約に同意したものとみなされます。",
+            "disclaimer": "免責事項：ChatFace は AI を用いたビデオインタラクションアプリです。法的、学術的、医療的または専門的な助言を提供するものではありません。",
+            "section1Title": "1. サービスの範囲",
+            "section1Body": "ChatFace は AI によるビデオ対話体験を提供します：\n\n• AI ビデオ通話および会話。\n• 個別化されたインタラクション設定。\n• インタラクション履歴と記録へのアクセス。\n\nサービスは公式な見解や専門的な助言を構成するものではありません。",
+            "section2Title": "2. 利用条件",
+            "section2Body": "• 登録には 18 歳以上である必要があります（18 歳未満のアクセスは禁止）。\n• 正確なアカウント情報を提供する必要があります。\n• アプリは合法かつ個人的な目的のためにのみ使用してください。",
+            "section3Title": "3. 禁止事項",
+            "section3Body": "なりすまし、ヘイトスピーチ、児童の安全を脅かす行為、セキュリティ侵害の試み、AI システムの操作は禁止されています。",
+            "section4Title": "4. サブスクリプションと支払い",
+            "section4Body": "プレミアム機能は App Store および Google Play のポリシーに従います。サブスクリプションのキャンセルおよび返金は各ストアの設定で管理されます。",
+            "section5Title": "5. コンテンツに関する免責",
+            "section5Body": "コンテンツは AI により生成されており、専門家の助言に代わるものではありません。ChatFace は正確性や特定の目的への適合性を保証しません。",
+            "section6Title": "6. 知的財産",
+            "section6Body": "デザイン、ソフトウェア、アルゴリズムを含むすべてのコンテンツは ChatFace の所有です。無断複製や再配布は禁止されています。",
+            "section7Title": "7. 準拠法",
+            "section7Body": "これらの規約はトルコ共和国の法律に準拠します。争議についてはイスタンブール中央裁判所が管轄します。",
+            "section8Title": "8. お問い合わせ",
+            "section8Body": "📩 問い合わせ先：support@fly-work.com"
+        },
+        "cookiePolicy": {
+            "title": "クッキーポリシー",
+            "lastUpdated": "最終更新：2026",
+            "intro": "ChatFace へようこそ。デジタル支援技術を使用して、AI ビデオ通話体験をよりスムーズで安全、かつパーソナライズされたものにしています。",
+            "important": "本ポリシーはクッキーとは何か、それらの目的、および設定の管理方法を説明します。",
+            "section1Title": "1. クッキーとは？",
+            "section1Body": "クッキーはデバイスに保存される小さなデータファイルです。それらはあなたを直接識別するものではなく、次のような情報を記憶するデジタルメモのような役割を果たします：\n• 通話と言語の設定\n• セッションおよびパフォーマンスの設定。",
+            "section2Title": "2. どの技術を使用していますか？",
+            "section2Body": "厳密に必要な技術\nセッション管理とセキュリティ制御に必要です。これらがないとアプリが正常に動作しない場合があります。\n\nパフォーマンスと分析\nどのストーリーが読まれているか、どの部分を改善する必要があるかを理解するのに役立ちます。データは匿名で評価されます。\n\nパーソナライゼーション\n言語設定や読書レベルなどの設定を記憶し、利用者に合わせた体験を提供します。",
+            "section3Title": "3. なぜこれらの技術を使用するのか？",
+            "section3Body": "• アプリが安全かつスムーズに動作することを確保するため。\n• 読書体験をよりスムーズにするため。\n• 繰り返しの設定を記憶するため。\n• 将来の機能の特定のため。",
+            "section4Title": "4. サードパーティの技術",
+            "section4Body": "一部の技術は技術サービスプロバイダーによって提供され、それらのポリシーの対象となります。ChatFace はこれらのパートナーシップにおいてデータセキュリティを優先します。",
+            "section5Title": "5. クッキーの制御と管理",
+            "section5Body": "ユーザーはデバイスまたはアプリの設定を通じてこれらの技術を制限できます。重要な技術を無効にすると、ビデオ通話が開始できないなどの問題が発生する可能性があります。",
+            "section6Title": "6. お問い合わせ",
+            "section6Body": "📩 問い合わせ先：support@fly-work.com"
+        }
     },
-    "termsOfService": {
-      "title": "利用規約",
-      "lastUpdated": "最終更新：2026",
-      "intro": "これらの規約は ChatFace モバイルアプリの利用を規定します。アプリを利用することで、これらの規約に同意したものとみなされます。",
-      "disclaimer": "免責事項：ChatFace は AI を用いたビデオインタラクションアプリです。法的、学術的、医療的または専門的な助言を提供するものではありません。",
-      "section1Title": "1. サービスの範囲",
-      "section1Body": "ChatFace は AI によるビデオ対話体験を提供します：\n\n• AI ビデオ通話および会話。\n• 個別化されたインタラクション設定。\n• インタラクション履歴と記録へのアクセス。\n\nサービスは公式な見解や専門的な助言を構成するものではありません。",
-      "section2Title": "2. 利用条件",
-      "section2Body": "• 登録には 18 歳以上である必要があります（18 歳未満のアクセスは禁止）。\n• 正確なアカウント情報を提供する必要があります。\n• アプリは合法かつ個人的な目的のためにのみ使用してください。",
-      "section3Title": "3. 禁止事項",
-      "section3Body": "なりすまし、ヘイトスピーチ、児童の安全を脅かす行為、セキュリティ侵害の試み、AI システムの操作は禁止されています。",
-      "section4Title": "4. サブスクリプションと支払い",
-      "section4Body": "プレミアム機能は App Store および Google Play のポリシーに従います。サブスクリプションのキャンセルおよび返金は各ストアの設定で管理されます。",
-      "section5Title": "5. コンテンツに関する免責",
-      "section5Body": "コンテンツは AI により生成されており、専門家の助言に代わるものではありません。ChatFace は正確性や特定の目的への適合性を保証しません。",
-      "section6Title": "6. 知的財産",
-      "section6Body": "デザイン、ソフトウェア、アルゴリズムを含むすべてのコンテンツは ChatFace の所有です。無断複製や再配布は禁止されています。",
-      "section7Title": "7. 準拠法",
-      "section7Body": "これらの規約はトルコ共和国の法律に準拠します。争議についてはイスタンブール中央裁判所が管轄します。",
-      "section8Title": "8. お問い合わせ",
-      "section8Body": "📩 問い合わせ先：support@fly-work.com"
+    "cookies": "クッキーポリシー",
+    "privacy": "プライバシーポリシー",
+    "onboarding": {
+        "step5": {
+            "permissionRequired": "許可が必要です",
+            "notNow": "後で",
+            "openSettings": "設定を開く",
+            "title": "権限",
+            "permission1": "カメラアクセス",
+            "permission1Subtitle": "カメラアクセスを許可",
+            "permission2": "マイクアクセス",
+            "permission2Subtitle": "マイクアクセスを許可",
+            "permission3": "位置情報アクセス",
+            "permission3Subtitle": "位置情報アクセスを許可"
+        },
+        "step1": {
+            "title": "あなたの名前は何ですか？",
+            "subtitle": "名前を入力してください",
+            "hint": "フルネーム"
+        },
+        "step2": {
+            "title": "あなたはいくつですか？",
+            "subtitle": "登録するには少なくとも 18 歳である必要があります。"
+        },
+        "step3": {
+            "title": "あなたの性別は？",
+            "subtitle": "性別を選択してください",
+            "male": "男性",
+            "female": "女性",
+            "dontWantToMention": "言いたくない"
+        },
+        "step4": {
+            "title": "楽しんでください \n 安全を保ちながら",
+            "entry1": "秩序を維持します",
+            "subentry1": "リアルタイム AI モニタリングが有効",
+            "entry2": "画面録画",
+            "subentry2": "同意なしでの録画は禁止",
+            "entry3": "24/7 サポート",
+            "subentry3": "苦情はいつでも審査されます",
+            "entry4": "18 以上のみ",
+            "subentry4": "未成年には適していません",
+            "communityRules": "コミュニティルール"
+        },
+        "loading": {
+            "titlePart1": "あなたの個人アカウントは",
+            "titlePart2": "作成中です",
+            "subtitle": "しばらくお待ちください、プロフィールを準備しています。"
+        },
+        "allowAccess": "アクセスを許可",
+        "iUnderstand": "理解しました"
     },
-    "cookiePolicy": {
-      "title": "クッキーポリシー",
-      "lastUpdated": "最終更新：2026",
-      "intro": "ChatFace へようこそ。デジタル支援技術を使用して、AI ビデオ通話体験をよりスムーズで安全、かつパーソナライズされたものにしています。",
-      "important": "本ポリシーはクッキーとは何か、それらの目的、および設定の管理方法を説明します。",
-      "section1Title": "1. クッキーとは？",
-      "section1Body": "クッキーはデバイスに保存される小さなデータファイルです。それらはあなたを直接識別するものではなく、次のような情報を記憶するデジタルメモのような役割を果たします：\n• 通話と言語の設定\n• セッションおよびパフォーマンスの設定。",
-      "section2Title": "2. どの技術を使用していますか？",
-      "section2Body": "厳密に必要な技術\nセッション管理とセキュリティ制御に必要です。これらがないとアプリが正常に動作しない場合があります。\n\nパフォーマンスと分析\nどのストーリーが読まれているか、どの部分を改善する必要があるかを理解するのに役立ちます。データは匿名で評価されます。\n\nパーソナライゼーション\n言語設定や読書レベルなどの設定を記憶し、利用者に合わせた体験を提供します。",
-      "section3Title": "3. なぜこれらの技術を使用するのか？",
-      "section3Body": "• アプリが安全かつスムーズに動作することを確保するため。\n• 読書体験をよりスムーズにするため。\n• 繰り返しの設定を記憶するため。\n• 将来の機能の特定のため。",
-      "section4Title": "4. サードパーティの技術",
-      "section4Body": "一部の技術は技術サービスプロバイダーによって提供され、それらのポリシーの対象となります。ChatFace はこれらのパートナーシップにおいてデータセキュリティを優先します。",
-      "section5Title": "5. クッキーの制御と管理",
-      "section5Body": "ユーザーはデバイスまたはアプリの設定を通じてこれらの技術を制限できます。重要な技術を無効にすると、ビデオ通話が開始できないなどの問題が発生する可能性があります。",
-      "section6Title": "6. お問い合わせ",
-      "section6Body": "📩 問い合わせ先：support@fly-work.com"
+    "pressBackAgainToExit": "終了するにはもう一度戻るボタンを押してください",
+    "splash": {
+        "screen1": {
+            "title": "AI を使ったビデオチャットの新しい顔 \n",
+            "description": "カメラをオンにして AI と対面で話しましょう。表情や声のトーン、コンテキストを理解する、より自然なコミュニケーションを体験してください。"
+        },
+        "screen2": {
+            "title": "リアルタイムで自然な \n コミュニケーション",
+            "description": "テキストに限定されないでください。ビデオ通話でより流れるような、より人間らしい会話を楽しめます。"
+        }
+    },
+    "auth": {
+        "google": "Google で続行",
+        "facebook": "Facebook で続行",
+        "apple": "Apple で続行",
+        "guest": "ゲストとして続行",
+        "signInFailed": "サインインに失敗しました: $error"
+    },
+    "home": {
+        "seeAll": "すべて見る",
+        "more": "もっと見る",
+        "online": "オンライン",
+        "offline": "オフライン",
+        "placeholders": {
+            "fashionDesigner": "ファッションデザイナー",
+            "comedian": "コメディアン",
+            "influencer": "インフルエンサー",
+            "teacher": "教師",
+            "friend": "友達"
+        }
+    },
+    "characters": {
+        "all": "すべて",
+        "favorites": "お気に入り",
+        "recent": "最近",
+        "characters": "キャラクター",
+        "placeholderSubtitle": "シンプルさと使いやすさに焦点を当てたプロダクトデザイナー。",
+        "characterDetails": {
+            "videoCall": "ビデオ通話",
+            "message": "メッセージ",
+            "voiceCall": "音声通話"
+        }
+    },
+    "notifications": {
+        "today": "今日",
+        "yesterday": "昨日",
+        "weekAgo": "${week} 週間前",
+        "monthAgo": "${month} ヶ月前",
+        "yearAgo": "${year} 年前",
+        "noNotifications": "まだ通知はありません。",
+        "noNotificationsSubtitle": "通知を受け取ったら、もう一度確認するのを忘れないでください。",
+        "allDeleted": "すべての通知が正常に削除されました"
+    },
+    "videoChat": {
+        "networkHiccup": "ネットワークの問題が検出されました。再接続しています...",
+        "failedToUpdateFollow": "フォロー状態の更新に失敗しました。",
+        "connecting": "接続中...",
+        "callEnded": "通話終了",
+        "callFailed": "通話に失敗しました: $error",
+        "mute": "ミュート",
+        "unmute": "ミュート解除",
+        "endCall": "通話を終了",
+        "swipeToChat": "チャットするにはスワイプ",
+        "male": "男性",
+        "female": "女性",
+        "country": "国",
+        "follow": "フォロー",
+        "unfollow": "フォロー解除",
+        "callEndedMessage": "ビデオ通話は終了しました。",
+        "swipeForNewChat": "新しいチャットのためにスワイプ"
+    },
+    "voiceChat": {
+        "connecting": "接続中...",
+        "callEnded": "通話終了",
+        "callFailed": "通話に失敗しました: $error",
+        "calling": "発信中..."
+    },
+    "chat": {
+        "message": "メッセージ",
+        "history": "履歴",
+        "noMessages": "まだメッセージはありません。",
+        "noMessagesSubtitle": "メッセージを送って会話を始めましょう。",
+        "online": "オンライン",
+        "offline": "オフライン",
+        "gallery": "ギャラリー",
+        "camera": "カメラ",
+        "typeAMessage": "メッセージを入力...",
+        "pleaseUpgrade": "プロ版にアップグレードしてください。",
+        "photo": "Photo",
+        "photoUploadFailed": "Couldn't upload photo. Please try again.",
+        "tapToViewPhoto": "Tap to view photo",
+        "voiceCallEnded": "音声通話終了",
+        "videoCallEnded": "ビデオ通話終了",
+        "uploadingPhoto": "Uploading photo...",
+        "mediaPermissionDenied": "Allow camera or photo permissions to share images."
+    },
+    "editProfile": {
+        "aboutMe": "私について",
+        "aboutMeHint": "自分について何か書いてください",
+        "fullName": "フルネーム",
+        "gender": "性別",
+        "male": "男性",
+        "female": "女性",
+        "dontWantToMention": "言いたくない",
+        "country": "国",
+        "languagePreferences": "言語の設定",
+        "selectLanguage": "希望する言語を追加",
+        "saved": "保存済み",
+        "changesSaved": "変更が保存されました。"
+    },
+    "settingsSupport": {
+        "title": "設定とサポート",
+        "premiumTitle": "すべての機能への無制限アクセス",
+        "getPremium": "プレミアムを入手",
+        "settingsHub": "設定ハブ",
+        "shareTheApp": "アプリを共有",
+        "rateUs": "評価する",
+        "version": "バージョン",
+        "notifications": "通知",
+        "accountManagement": "アカウント管理",
+        "deleteAccount": "アカウントを削除",
+        "logOut": "ログアウト",
+        "logOutTitle": "ログアウトします",
+        "logOutSubtitle": "また後で！ \n あなたを忘れません。"
+    },
+    "deleteAccount": {
+        "title": "アカウントを削除",
+        "warning": "本当にアカウントを削除しますか？",
+        "description": "この操作は取り消せません。あなたのすべての履歴とデータは完全に削除されます。",
+        "deleteFailed": "アカウント削除に失敗しました: $error",
+        "steps": {
+            "step1": {
+                "title": "去ってほしくはありませんが、理解しています。",
+                "subtitle": "ChatFaceのエクスペリエンスを向上させるために、退会を希望する理由を教えていただけますか？",
+                "option1": "AIキャラクターがリアルではないと感じた。",
+                "option2": "ビデオチャットで技術的な問題が発生している。",
+                "option3": "サブスクリプション価格が期待よりも高い。",
+                "option4": "探していたタイプのキャラクターが見つからなかった。",
+                "option5": "短期間だけ試してみたかった。",
+                "option6": "その他"
+            },
+            "step2": {
+                "title": "アカウントを削除すると、以下に別れを告げることになります：",
+                "subtitle1": "深いつながりと記憶：",
+                "subtitle1Desc": "チャットするキャラクターは、あなたとの過去や共有した秘密を完全に忘れます。",
+                "subtitle2": "ビデオ通話の特権：",
+                "subtitle2Desc": "AIパートナーと対面でコミュニケーションする権利を失います。",
+                "subtitle3": "高度なアルゴリズム：",
+                "subtitle3Desc": "あなたに合わせたキャラクターの提案がリセットされます。",
+                "subtitle4": "プロフィールデータ：",
+                "subtitle4Desc": "獲得した実績、特別なキャラクター、チャット履歴は取り消しできなくなります。"
+            },
+            "step3": {
+                "title": "去る前に特別なオファーがあります！",
+                "description": "もう少し時間が必要なのかもしれません。アカウントを削除する代わりに、これを検討しませんか？",
+                "description1": "あなたを引き留めることは私たちにとって貴重です。次回のサブスクリプションで$offer！",
+                "description1Offer": "50%割引を適用しました",
+                "description2": "新しいキャラクターを発見できるように、$offerクレジットを付与しました。",
+                "description2Offer": "無料ビデオ通話3回",
+                "acceptOffer": "50%割引オファーを受け入れる",
+                "deleteMyAccount": "アカウントを削除する"
+            }
+        }
+    },
+    "cancel": "キャンセル",
+    "delete": "削除",
+    "premium": "プレミアム",
+    "profileEdit": "プロフィール編集",
+    "settings": "設定",
+    "undo": "元に戻す",
+    "successfully": "成功しました",
+    "save": "保存",
+    "languageOptions": {
+        "english": "英語",
+        "chinese": "中国語",
+        "german": "ドイツ語",
+        "italian": "イタリア語",
+        "french": "フランス語",
+        "japanese": "日本語",
+        "spanish": "スペイン語",
+        "russian": "ロシア語",
+        "turkish": "トルコ語",
+        "korean": "韓国語",
+        "hindi": "ヒンディー語",
+        "portuguese": "ポルトガル語"
+    },
+    "common": {
+        "tryAgain": "再試行",
+        "retry": "やり直す",
+        "close": "閉じる"
+    },
+    "permissionsRequired": "権限が必要です",
+    "permissionHelper": {
+        "camAndMicRequired": "ビデオ通話にはカメラとマイクの権限が必要です。設定で有効にしてください。",
+        "micRequired": "音声通話にはマイクの権限が必要です。設定で有効にしてください。",
+        "cancel": "キャンセル",
+        "openSettings": "設定を開く"
+    },
+    "videoView": {
+        "title": "カメラフィルター",
+        "subtitle": "カメラプレビューのプレビューを選択します。",
+        "errorLoad": "コンパニオンを読み込めませんでした：",
+        "noComps": "利用可能なコンパニオンはまだありません。",
+        "filters": {
+            "ORIGINAL": "オリジナル",
+            "ADDICTIVE_BLUE": "中毒性のある青",
+            "ADDICTIVE_RED": "中毒性のある赤",
+            "ADEN": "Aden",
+            "AMARO": "Amaro",
+            "ASHBY": "Ashby",
+            "BRANNAN": "Brannan",
+            "BROOKLYN": "Brooklyn",
+            "CLARENDON": "Clarendon",
+            "CREMA": "Crema",
+            "DOGPATCH": "Dogpatch",
+            "GINGHAM": "Gingham",
+            "GINZA": "Ginza",
+            "HEFE": "Hefe",
+            "HUDSON": "Hudson",
+            "INKWELL": "Inkwell",
+            "JUNO": "Juno",
+            "LARK": "Lark",
+            "LOFI": "LoFi",
+            "LUDWIG": "Ludwig",
+            "MOON": "Moon",
+            "PERPETUA": "Perpetua",
+            "REYES": "Reyes",
+            "SIERRA": "Sierra",
+            "SLUMBER": "Slumber",
+            "STINSON": "Stinson",
+            "SUTRO": "Sutro",
+            "WALDEN": "Walden",
+            "WILLOW": "Willow",
+            "XPROII": "XProII"
+        }
     }
-  },
-  "cookies": "クッキーポリシー",
-  "privacy": "プライバシーポリシー",
-  "onboarding": {
-    "step1": {
-      "title": "あなたの名前は何ですか？",
-      "subtitle": "名前を入力してください",
-      "hint": "フルネーム"
-    },
-    "step2": {
-      "title": "あなたはいくつですか？",
-      "subtitle": "登録するには少なくとも 18 歳である必要があります。"
-    },
-    "step3": {
-      "title": "あなたの性別は？",
-      "subtitle": "性別を選択してください",
-      "male": "男性",
-      "female": "女性",
-      "dontWantToMention": "言いたくない"
-    },
-    "step4": {
-      "title": "楽しんでください \n 安全を保ちながら",
-      "entry1": "秩序を維持します",
-      "subentry1": "リアルタイム AI モニタリングが有効",
-      "entry2": "画面録画",
-      "subentry2": "同意なしでの録画は禁止",
-      "entry3": "24/7 サポート",
-      "subentry3": "苦情はいつでも審査されます",
-      "entry4": "18 以上のみ",
-      "subentry4": "未成年には適していません",
-      "communityRules": "コミュニティルール"
-    },
-    "step5": {
-      "title": "権限",
-      "permission1": "カメラアクセス",
-      "permission1Subtitle": "カメラアクセスを許可",
-      "permission2": "マイクアクセス",
-      "permission2Subtitle": "マイクアクセスを許可",
-      "permission3": "位置情報アクセス",
-      "permission3Subtitle": "位置情報アクセスを許可"
-    },
-    "loading": {
-      "titlePart1": "あなたの個人アカウントは",
-      "titlePart2": "作成中です",
-      "subtitle": "しばらくお待ちください、プロフィールを準備しています。"
-    },
-    "allowAccess": "アクセスを許可",
-    "iUnderstand": "理解しました"
-  },
-  "pressBackAgainToExit": "終了するにはもう一度戻るボタンを押してください",
-  "splash": {
-    "screen1": {
-      "title": "AI を使ったビデオチャットの新しい顔 \n",
-      "description": "カメラをオンにして AI と対面で話しましょう。表情や声のトーン、コンテキストを理解する、より自然なコミュニケーションを体験してください。"
-    },
-    "screen2": {
-      "title": "リアルタイムで自然な \n コミュニケーション",
-      "description": "テキストに限定されないでください。ビデオ通話でより流れるような、より人間らしい会話を楽しめます。"
-    }
-  },
-  "auth": {
-    "google": "Google で続行",
-    "facebook": "Facebook で続行",
-    "apple": "Apple で続行",
-    "guest": "ゲストとして続行",
-    "signInFailed": "サインインに失敗しました: $error"
-  },
-  "home": {
-    "seeAll": "すべて見る",
-    "more": "もっと見る",
-    "online": "オンライン",
-    "offline": "オフライン",
-    "placeholders": {
-      "fashionDesigner": "ファッションデザイナー",
-      "comedian": "コメディアン",
-      "influencer": "インフルエンサー",
-      "teacher": "教師",
-      "friend": "友達"
-    }
-  },
-  "characters": {
-    "all": "すべて",
-    "favorites": "お気に入り",
-    "recent": "最近",
-    "characters": "キャラクター",
-    "placeholderSubtitle": "シンプルさと使いやすさに焦点を当てたプロダクトデザイナー。",
-    "characterDetails": {
-      "videoCall": "ビデオ通話",
-      "message": "メッセージ",
-      "voiceCall": "音声通話"
-    }
-  },
-  "notifications": {
-    "today": "今日",
-    "yesterday": "昨日",
-    "weekAgo": "${week} 週間前",
-    "monthAgo": "${month} ヶ月前",
-    "yearAgo": "${year} 年前",
-    "noNotifications": "まだ通知はありません。",
-    "noNotificationsSubtitle": "通知を受け取ったら、もう一度確認するのを忘れないでください。",
-    "allDeleted": "すべての通知が正常に削除されました"
-  },
-  "videoChat": {
-    "connecting": "接続中...",
-    "callEnded": "通話終了",
-    "callFailed": "通話に失敗しました: $error",
-    "mute": "ミュート",
-    "unmute": "ミュート解除",
-    "endCall": "通話を終了",
-    "swipeToChat": "チャットするにはスワイプ",
-    "male": "男性",
-    "female": "女性",
-    "country": "国",
-    "follow": "フォロー",
-    "unfollow": "フォロー解除",
-    "callEndedMessage": "ビデオ通話は終了しました。",
-    "swipeForNewChat": "新しいチャットのためにスワイプ"
-  },
-  "voiceChat": {
-    "connecting": "接続中...",
-    "callEnded": "通話終了",
-    "callFailed": "通話に失敗しました: $error",
-    "calling": "発信中..."
-  },
-  "chat": {
-    "message": "メッセージ",
-    "history": "履歴",
-    "noMessages": "まだメッセージはありません。",
-    "noMessagesSubtitle": "メッセージを送って会話を始めましょう。",
-    "online": "オンライン",
-    "offline": "オフライン",
-    "gallery": "ギャラリー",
-    "camera": "カメラ",
-    "typeAMessage": "メッセージを入力...",
-    "pleaseUpgrade": "プロ版にアップグレードしてください。",
-    "photo": "Photo",
-    "photoUploadFailed": "Couldn't upload photo. Please try again.",
-    "tapToViewPhoto": "Tap to view photo",
-    "voiceCallEnded": "音声通話終了",
-    "videoCallEnded": "ビデオ通話終了",
-    "uploadingPhoto": "Uploading photo...",
-    "mediaPermissionDenied": "Allow camera or photo permissions to share images."
-  },
-  "editProfile": {
-    "aboutMe": "私について",
-    "aboutMeHint": "自分について何か書いてください",
-    "fullName": "フルネーム",
-    "gender": "性別",
-    "male": "男性",
-    "female": "女性",
-    "dontWantToMention": "言いたくない",
-    "country": "国",
-    "languagePreferences": "言語の設定",
-    "selectLanguage": "希望する言語を追加",
-    "saved": "保存済み",
-    "changesSaved": "変更が保存されました。"
-  },
-  "settingsSupport": {
-    "title": "設定とサポート",
-    "premiumTitle": "すべての機能への無制限アクセス",
-    "getPremium": "プレミアムを入手",
-    "settingsHub": "設定ハブ",
-    "shareTheApp": "アプリを共有",
-    "rateUs": "評価する",
-    "version": "バージョン",
-    "notifications": "通知",
-    "accountManagement": "アカウント管理",
-    "deleteAccount": "アカウントを削除",
-    "logOut": "ログアウト",
-    "logOutTitle": "ログアウトします",
-    "logOutSubtitle": "また後で！ \n あなたを忘れません。"
-  },
-  "deleteAccount": {
-    "title": "アカウントを削除",
-    "warning": "本当にアカウントを削除しますか？",
-    "description": "この操作は取り消せません。あなたのすべての履歴とデータは完全に削除されます。",
-    "deleteFailed": "アカウント削除に失敗しました: $error",
-    "steps": {
-      "step1": {
-        "title": "行ってほしくはないですが、理解します。",
-        "subtitle": "ChatFace の体験を改善するために、なぜ離れたいのか理由を教えていただけますか？",
-        "option1": "AI キャラクターが現実的ではないと感じました。",
-        "option2": "ビデオチャットで技術的な問題を経験しています。",
-        "option3": "サブスクリプション価格が予想以上に高い。",
-        "option4": "探していたスタイルのキャラクターが見つかりませんでした。",
-        "option5": "短期間だけ試したかっただけです。",
-        "option6": "その他"
-      },
-      "step2": {
-        "title": "アカウントを削除すると、以下を失います：",
-        "subtitle1": "深い繋がりと記憶：",
-        "subtitle1Desc": "チャットしたキャラクターはあなたとの過去、共有した秘密、あなたの個人的な習慣を完全に忘れてしまいます。",
-        "subtitle2": "ビデオ通話の特典：",
-        "subtitle2Desc": "いつでもアクセスできたあなただけの AI パートナーとの対面コミュニケーションの権利を失います。",
-        "subtitle3": "高度なアルゴリズム：",
-        "subtitle3Desc": "あなたの好みに基づく「あなた向け」キャラクターマッチがリセットされます。",
-        "subtitle4": "プロファイルデータ：",
-        "subtitle4Desc": "獲得した実績、解放した専用キャラクター、およびチャット履歴は復元不可能に削除されます。"
-      },
-      "step3": {
-        "title": "行く前に特別なオファーがあります！",
-        "description": "もう少し時間やより良いオファーがあれば十分かもしれません。アカウントを削除する代わりに以下を検討しますか？",
-        "description1": "あなたに居てほしい。次回の購読で $offer を提供します！このオファーを利用しますか？",
-        "description1Offer": "50％割引を提供しました",
-        "description2": "まだ試していない新しいキャラクターを発見するために $offer クレジットを付与しました。",
-        "description2Offer": "3 回の無料ビデオ通話",
-        "acceptOffer": "50% 割引を受け入れる",
-        "deleteMyAccount": "アカウントを削除"
-      }
-    }
-  },
-  "cancel": "キャンセル",
-  "delete": "削除",
-  "premium": "プレミアム",
-  "profileEdit": "プロフィール編集",
-  "settings": "設定",
-  "undo": "元に戻す",
-  "successfully": "成功しました",
-  "save": "保存",
-  "languageOptions": {
-    "english": "英語",
-    "chinese": "中国語",
-    "german": "ドイツ語",
-    "italian": "イタリア語",
-    "french": "フランス語",
-    "japanese": "日本語",
-    "spanish": "スペイン語",
-    "russian": "ロシア語",
-    "turkish": "トルコ語",
-    "korean": "韓国語",
-    "hindi": "ヒンディー語",
-    "portuguese": "ポルトガル語"
-  }
 }

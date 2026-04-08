@@ -1,24 +1,38 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:chatface/Models/ai_message_model.dart';
 import 'package:chatface/Riverpod/Providers/all_providers.dart';
 import 'package:chatface/utils/app_config.dart';
 import 'package:chatface/utils/print.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 typedef EventListener<T> = Stream<T>;
 
-class RealtimeGatewayService {
-  RealtimeGatewayService(this.ref);
+const Object _diagnosticsNoChange = Object();
+
+class RealtimeGatewayService with WidgetsBindingObserver {
+  RealtimeGatewayService(this.ref) {
+    WidgetsBinding.instance.addObserver(this);
+  }
 
   final Ref ref;
   WebSocketChannel? _channel;
   StreamSubscription? _subscription;
   Timer? _heartbeat;
+  Timer? _reconnectTimer;
+  Completer<void>? _sessionReadyCompleter;
   int _reconnectAttempts = 0;
+  RealtimeConnectRequest? _activeRequest;
+  final ValueNotifier<RealtimeDiagnosticsSnapshot> _diagnostics = ValueNotifier(
+    RealtimeDiagnosticsSnapshot.initial(
+      apiBaseUrl: AppConfig.apiBaseUrl(),
+      realtimeBaseUrl: AppConfig.realtimeBaseUrl(),
+    ),
+  );
 
   final _assistantStreamController =
       StreamController<AssistantEvent>.broadcast();
@@ -48,6 +62,8 @@ class RealtimeGatewayService {
       _languageStreamController.stream;
   EventListener<TtsLookupFailureEvent> get ttsLookupFailures =>
       _ttsLookupFailureController.stream;
+  ValueListenable<RealtimeDiagnosticsSnapshot> get diagnosticsListenable =>
+      _diagnostics;
 
   Future<void> connect({
     required String sessionId,
@@ -55,24 +71,67 @@ class RealtimeGatewayService {
     required String language,
     required String mode,
   }) async {
-    await disconnect();
+    _activeRequest = RealtimeConnectRequest(
+      sessionId: sessionId,
+      token: token,
+      language: language,
+      mode: mode,
+    );
+    await disconnect(preserveReconnectContext: true);
 
-    final baseUrl = AppConfig.realtimeBaseUrl();
-    final separator = baseUrl.contains('?') ? '&' : '?';
-    final url =
-        '$baseUrl${separator}sessionId=$sessionId&token=$token&language=$language&mode=$mode';
+    final baseUri = Uri.parse(AppConfig.realtimeBaseUrl());
+    final queryParameters = <String, String>{
+      ...baseUri.queryParameters,
+      'sessionId': sessionId,
+      'token': token,
+      'language': language,
+      'mode': mode,
+    };
+    final url = baseUri.replace(queryParameters: queryParameters);
+
+    _updateDiagnostics(
+      status: RealtimeConnectionStatus.connecting,
+      sessionId: sessionId,
+      language: language,
+      mode: mode,
+      websocketUrl: _redactRealtimeUrl(url),
+      sessionReady: false,
+      lastError: null,
+      lastEventType: 'connect_requested',
+      reconnectAttempts: _reconnectAttempts,
+    );
 
     try {
-      _channel = WebSocketChannel.connect(Uri.parse(url));
+      final channel = WebSocketChannel.connect(url);
+      final sessionReadyCompleter = Completer<void>();
+
+      _channel = channel;
+      _sessionReadyCompleter = sessionReadyCompleter;
       _subscription = _channel!.stream.listen(
         _handleMessage,
         onDone: _handleDisconnect,
         onError: (error) => _handleError(error.toString()),
       );
+      await channel.ready.timeout(
+        const Duration(seconds: 12),
+        onTimeout: () =>
+            throw TimeoutException('Timed out while opening realtime socket'),
+      );
+      _updateDiagnostics(
+        status: RealtimeConnectionStatus.socketReady,
+        lastEventType: 'socket_open',
+      );
+      await sessionReadyCompleter.future.timeout(
+        const Duration(seconds: 12),
+        onTimeout: () =>
+            throw TimeoutException('Timed out waiting for realtime session'),
+      );
+
       _startHeartbeat();
       _reconnectAttempts = 0;
       Print.info('Realtime gateway connected');
     } catch (e) {
+      await disconnect(preserveReconnectContext: true);
       _handleError('Failed to connect: $e');
       _scheduleReconnect(
         sessionId: sessionId,
@@ -187,6 +246,11 @@ class RealtimeGatewayService {
       _handleError('Realtime channel not connected');
       return;
     }
+    final sessionReadyCompleter = _sessionReadyCompleter;
+    if (sessionReadyCompleter == null || !sessionReadyCompleter.isCompleted) {
+      _handleError('Realtime channel not ready');
+      return;
+    }
 
     channel.sink.add(payload);
   }
@@ -200,6 +264,9 @@ class RealtimeGatewayService {
 
       final rawType = jsonData['type'];
       final type = rawType is String ? rawType.trim() : '';
+      if (type.isNotEmpty) {
+        _updateDiagnostics(lastEventType: type.toLowerCase());
+      }
       switch (type.toLowerCase()) {
         case 'assistant_delta':
         case 'assistant_done':
@@ -249,7 +316,10 @@ class RealtimeGatewayService {
           break;
         case 'ack':
           final clientId =
-              (jsonData['clientMessageId'] ?? jsonData['client_message_id'])
+              (jsonData['clientMessageId'] ??
+                      jsonData['client_message_id'] ??
+                      jsonData['messageId'] ??
+                      jsonData['message_id'])
                   as String?;
           if (clientId != null) {
             _ackStreamController.add(clientId);
@@ -383,6 +453,17 @@ class RealtimeGatewayService {
 
   void _handleSessionReady(Map<String, dynamic> payload) {
     final sessionId = payload['sessionId'] ?? payload['session_id'];
+    final completer = _sessionReadyCompleter;
+    if (completer != null && !completer.isCompleted) {
+      completer.complete();
+    }
+    _updateDiagnostics(
+      status: RealtimeConnectionStatus.sessionReady,
+      sessionId: sessionId?.toString(),
+      sessionReady: true,
+      lastEventType: 'session_ready',
+      lastError: null,
+    );
     Print.info('Realtime session ready: $sessionId', tag: 'RealtimeGateway');
   }
 
@@ -420,12 +501,30 @@ class RealtimeGatewayService {
   }
 
   void _handleDisconnect() {
+    _updateDiagnostics(
+      status: RealtimeConnectionStatus.disconnected,
+      sessionReady: false,
+      lastEventType: 'socket_closed',
+    );
+    _failPendingSessionReady('Realtime disconnected before session was ready');
     _handleError('Realtime disconnected');
   }
 
   void _handleError(String message) {
+    _updateDiagnostics(
+      status: RealtimeConnectionStatus.error,
+      lastError: message,
+    );
+    _failPendingSessionReady(message);
     Print.error(message, tag: 'RealtimeGateway');
     _errorStreamController.add(message);
+  }
+
+  void _failPendingSessionReady(String message) {
+    final completer = _sessionReadyCompleter;
+    if (completer != null && !completer.isCompleted) {
+      completer.completeError(StateError(message));
+    }
   }
 
   bool _dispatchSttError({
@@ -489,7 +588,9 @@ class RealtimeGatewayService {
     });
   }
 
-  Future<void> disconnect() async {
+  Future<void> disconnect({bool preserveReconnectContext = false}) async {
+    _reconnectTimer?.cancel();
+    _reconnectTimer = null;
     _heartbeat?.cancel();
     _heartbeat = null;
 
@@ -498,6 +599,14 @@ class RealtimeGatewayService {
 
     await _channel?.sink.close();
     _channel = null;
+    _sessionReadyCompleter = null;
+    if (!preserveReconnectContext) {
+      _activeRequest = null;
+    }
+    _updateDiagnostics(
+      status: RealtimeConnectionStatus.idle,
+      sessionReady: false,
+    );
   }
 
   Future<void> _scheduleReconnect({
@@ -506,11 +615,18 @@ class RealtimeGatewayService {
     required String language,
     required String mode,
   }) async {
+    _reconnectTimer?.cancel();
     if (_reconnectAttempts > 4) return;
     final delay = Duration(seconds: 2 << _reconnectAttempts);
     _reconnectAttempts += 1;
+    _updateDiagnostics(
+      status: RealtimeConnectionStatus.reconnecting,
+      reconnectAttempts: _reconnectAttempts,
+      lastEventType: 'reconnect_scheduled',
+    );
 
-    Future.delayed(delay, () {
+    _reconnectTimer = Timer(delay, () {
+      _reconnectTimer = null;
       connect(
         sessionId: sessionId,
         token: token,
@@ -518,6 +634,44 @@ class RealtimeGatewayService {
         mode: mode,
       );
     });
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        final request = _activeRequest;
+        final shouldReconnect =
+            request != null &&
+            (_channel == null ||
+                _diagnostics.value.status == RealtimeConnectionStatus.error ||
+                _diagnostics.value.status ==
+                    RealtimeConnectionStatus.disconnected);
+        if (shouldReconnect) {
+          unawaited(
+            connect(
+              sessionId: request.sessionId,
+              token: request.token,
+              language: request.language,
+              mode: request.mode,
+            ),
+          );
+        } else if (_channel != null &&
+            _diagnostics.value.status ==
+                RealtimeConnectionStatus.sessionReady &&
+            _heartbeat == null) {
+          _startHeartbeat();
+        }
+        break;
+      case AppLifecycleState.inactive:
+      case AppLifecycleState.hidden:
+      case AppLifecycleState.paused:
+        _heartbeat?.cancel();
+        _heartbeat = null;
+        break;
+      case AppLifecycleState.detached:
+        break;
+    }
   }
 
   Future<void> saveResumeToken(String? token) async {
@@ -528,6 +682,7 @@ class RealtimeGatewayService {
   }
 
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     disconnect();
     _assistantStreamController.close();
     _ttsStreamController.close();
@@ -538,6 +693,147 @@ class RealtimeGatewayService {
     _sttStreamController.close();
     _languageStreamController.close();
     _ttsLookupFailureController.close();
+    _diagnostics.dispose();
+  }
+
+  void _updateDiagnostics({
+    RealtimeConnectionStatus? status,
+    String? sessionId,
+    String? language,
+    String? mode,
+    String? websocketUrl,
+    bool? sessionReady,
+    Object? lastError = _diagnosticsNoChange,
+    String? lastEventType,
+    int? reconnectAttempts,
+  }) {
+    _diagnostics.value = _diagnostics.value.copyWith(
+      status: status,
+      sessionId: sessionId,
+      language: language,
+      mode: mode,
+      websocketUrl: websocketUrl,
+      sessionReady: sessionReady,
+      lastError: lastError,
+      lastEventType: lastEventType,
+      reconnectAttempts: reconnectAttempts,
+      updatedAt: DateTime.now(),
+    );
+  }
+
+  String _redactRealtimeUrl(Uri uri) {
+    final redactedQueryParameters = <String, String>{
+      ...uri.queryParameters,
+      if (uri.queryParameters.containsKey('token')) 'token': '<redacted>',
+    };
+    return uri.replace(queryParameters: redactedQueryParameters).toString();
+  }
+}
+
+enum RealtimeConnectionStatus {
+  idle,
+  connecting,
+  socketReady,
+  sessionReady,
+  reconnecting,
+  disconnected,
+  error,
+}
+
+class RealtimeConnectRequest {
+  const RealtimeConnectRequest({
+    required this.sessionId,
+    required this.token,
+    required this.language,
+    required this.mode,
+  });
+
+  final String sessionId;
+  final String token;
+  final String language;
+  final String mode;
+}
+
+class RealtimeDiagnosticsSnapshot {
+  const RealtimeDiagnosticsSnapshot({
+    required this.apiBaseUrl,
+    required this.realtimeBaseUrl,
+    required this.status,
+    required this.sessionReady,
+    required this.reconnectAttempts,
+    this.sessionId,
+    this.language,
+    this.mode,
+    this.websocketUrl,
+    this.lastError,
+    this.lastEventType,
+    this.updatedAt,
+  });
+
+  factory RealtimeDiagnosticsSnapshot.initial({
+    required String apiBaseUrl,
+    required String realtimeBaseUrl,
+  }) {
+    return RealtimeDiagnosticsSnapshot(
+      apiBaseUrl: apiBaseUrl,
+      realtimeBaseUrl: realtimeBaseUrl,
+      status: RealtimeConnectionStatus.idle,
+      sessionReady: false,
+      reconnectAttempts: 0,
+    );
+  }
+
+  final String apiBaseUrl;
+  final String realtimeBaseUrl;
+  final RealtimeConnectionStatus status;
+  final bool sessionReady;
+  final int reconnectAttempts;
+  final String? sessionId;
+  final String? language;
+  final String? mode;
+  final String? websocketUrl;
+  final String? lastError;
+  final String? lastEventType;
+  final DateTime? updatedAt;
+
+  String get statusLabel => switch (status) {
+    RealtimeConnectionStatus.idle => 'idle',
+    RealtimeConnectionStatus.connecting => 'connecting',
+    RealtimeConnectionStatus.socketReady => 'socket-open',
+    RealtimeConnectionStatus.sessionReady => 'session-ready',
+    RealtimeConnectionStatus.reconnecting => 'reconnecting',
+    RealtimeConnectionStatus.disconnected => 'disconnected',
+    RealtimeConnectionStatus.error => 'error',
+  };
+
+  RealtimeDiagnosticsSnapshot copyWith({
+    RealtimeConnectionStatus? status,
+    String? sessionId,
+    String? language,
+    String? mode,
+    String? websocketUrl,
+    bool? sessionReady,
+    Object? lastError = _diagnosticsNoChange,
+    String? lastEventType,
+    int? reconnectAttempts,
+    DateTime? updatedAt,
+  }) {
+    return RealtimeDiagnosticsSnapshot(
+      apiBaseUrl: apiBaseUrl,
+      realtimeBaseUrl: realtimeBaseUrl,
+      status: status ?? this.status,
+      sessionReady: sessionReady ?? this.sessionReady,
+      reconnectAttempts: reconnectAttempts ?? this.reconnectAttempts,
+      sessionId: sessionId ?? this.sessionId,
+      language: language ?? this.language,
+      mode: mode ?? this.mode,
+      websocketUrl: websocketUrl ?? this.websocketUrl,
+      lastError: identical(lastError, _diagnosticsNoChange)
+          ? this.lastError
+          : lastError as String?,
+      lastEventType: lastEventType ?? this.lastEventType,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
   }
 }
 

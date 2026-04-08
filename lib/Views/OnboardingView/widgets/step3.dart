@@ -115,14 +115,12 @@ class _GenderButton extends StatelessWidget {
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         decoration: BoxDecoration(
-          color: isSelected
-              ? Colors.white.withValues(alpha: 0.12)
-              : Colors.white.withValues(alpha: 0.06),
+          color: Colors.black.withValues(alpha: 0.5),
           borderRadius: BorderRadius.circular(50),
           border: Border.all(
             color: isSelected
                 ? Colors.white.withValues(alpha: 0.5)
-                : Colors.white.withValues(alpha: 0.12),
+                : Colors.white.withValues(alpha: 0.0),
             width: 1.5,
           ),
         ),
@@ -139,7 +137,7 @@ class _GenderButton extends StatelessWidget {
                 BlendMode.srcIn,
               ),
             ),
-            const SizedBox(width: 14),
+            Spacer(),
             Text(
               label,
               style: AppTextStyles.body(
@@ -150,6 +148,7 @@ class _GenderButton extends StatelessWidget {
                     : Colors.white.withValues(alpha: 0.55),
               ),
             ),
+            Spacer(),
           ],
         ),
       ),

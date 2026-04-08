@@ -41,18 +41,18 @@ class Step5 extends HookWidget {
         context: context,
         builder: (dialogContext) {
           return AlertDialog(
-            title: const Text('Permission required'),
+            title: Text(t.onboarding.step5.permissionRequired),
             content: const Text(
               'This permission is blocked. Open app settings to enable it?',
             ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(dialogContext).pop(false),
-                child: const Text('Not now'),
+                child: Text(t.onboarding.step5.notNow),
               ),
               TextButton(
                 onPressed: () => Navigator.of(dialogContext).pop(true),
-                child: const Text('Open settings'),
+                child: Text(t.onboarding.step5.openSettings),
               ),
             ],
           );

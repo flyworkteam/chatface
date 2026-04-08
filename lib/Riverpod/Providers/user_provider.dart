@@ -39,9 +39,10 @@ class UserNotifier extends AsyncNotifier<UserProfileData?> {
   }
 
   /// Refresh the profile from backend
-  Future<void> refresh() async {
+  Future<UserProfileData?> refresh() async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() => _fetchProfile());
+    return state.asData?.value;
   }
 
   /// Update profile fields

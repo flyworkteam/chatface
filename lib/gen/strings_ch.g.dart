@@ -70,6 +70,10 @@ class TranslationsCh with BaseTranslations<AppLocale, Translations> implements T
 	@override String get successfully => '成功';
 	@override String get save => '保存';
 	@override late final _TranslationsLanguageOptionsCh languageOptions = _TranslationsLanguageOptionsCh._(_root);
+	@override late final _TranslationsCommonCh common = _TranslationsCommonCh._(_root);
+	@override String get permissionsRequired => '需要权限';
+	@override late final _TranslationsPermissionHelperCh permissionHelper = _TranslationsPermissionHelperCh._(_root);
+	@override late final _TranslationsVideoViewCh videoView = _TranslationsVideoViewCh._(_root);
 }
 
 // Path: termOfService
@@ -98,11 +102,11 @@ class _TranslationsOnboardingCh implements TranslationsOnboardingEn {
 	final TranslationsCh _root; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsOnboardingStep5Ch step5 = _TranslationsOnboardingStep5Ch._(_root);
 	@override late final _TranslationsOnboardingStep1Ch step1 = _TranslationsOnboardingStep1Ch._(_root);
 	@override late final _TranslationsOnboardingStep2Ch step2 = _TranslationsOnboardingStep2Ch._(_root);
 	@override late final _TranslationsOnboardingStep3Ch step3 = _TranslationsOnboardingStep3Ch._(_root);
 	@override late final _TranslationsOnboardingStep4Ch step4 = _TranslationsOnboardingStep4Ch._(_root);
-	@override late final _TranslationsOnboardingStep5Ch step5 = _TranslationsOnboardingStep5Ch._(_root);
 	@override late final _TranslationsOnboardingLoadingCh loading = _TranslationsOnboardingLoadingCh._(_root);
 	@override String get allowAccess => '允许访问';
 	@override String get iUnderstand => '我知道了';
@@ -186,6 +190,8 @@ class _TranslationsVideoChatCh implements TranslationsVideoChatEn {
 	final TranslationsCh _root; // ignore: unused_field
 
 	// Translations
+	@override String get networkHiccup => '检测到网络问题。正在重新连接...';
+	@override String get failedToUpdateFollow => '更新关注状态失败。';
 	@override String get connecting => '连接中...';
 	@override String get callEnded => '通话结束';
 	@override String callFailed({required Object error}) => '通话失败： ${error}';
@@ -319,6 +325,45 @@ class _TranslationsLanguageOptionsCh implements TranslationsLanguageOptionsEn {
 	@override String get portuguese => '葡萄牙语';
 }
 
+// Path: common
+class _TranslationsCommonCh implements TranslationsCommonEn {
+	_TranslationsCommonCh._(this._root);
+
+	final TranslationsCh _root; // ignore: unused_field
+
+	// Translations
+	@override String get tryAgain => '重试';
+	@override String get retry => '重试';
+	@override String get close => '关闭';
+}
+
+// Path: permissionHelper
+class _TranslationsPermissionHelperCh implements TranslationsPermissionHelperEn {
+	_TranslationsPermissionHelperCh._(this._root);
+
+	final TranslationsCh _root; // ignore: unused_field
+
+	// Translations
+	@override String get camAndMicRequired => '视频通话需要摄像头和麦克风权限。请在设置中启用。';
+	@override String get micRequired => '语音通话需要麦克风权限。请在设置中启用。';
+	@override String get cancel => '取消';
+	@override String get openSettings => '打开设置';
+}
+
+// Path: videoView
+class _TranslationsVideoViewCh implements TranslationsVideoViewEn {
+	_TranslationsVideoViewCh._(this._root);
+
+	final TranslationsCh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '相机滤镜';
+	@override String get subtitle => '为您的相机预览选择外观。';
+	@override String get errorLoad => '无法加载伙伴：';
+	@override String get noComps => '目前没有伙伴可用。';
+	@override late final _TranslationsVideoViewFiltersCh filters = _TranslationsVideoViewFiltersCh._(_root);
+}
+
 // Path: termOfService.privacyPolicy
 class _TranslationsTermOfServicePrivacyPolicyCh implements TranslationsTermOfServicePrivacyPolicyEn {
 	_TranslationsTermOfServicePrivacyPolicyCh._(this._root);
@@ -400,6 +445,25 @@ class _TranslationsTermOfServiceCookiePolicyCh implements TranslationsTermOfServ
 	@override String get section6Body => '📩 咨询：support@fly-work.com';
 }
 
+// Path: onboarding.step5
+class _TranslationsOnboardingStep5Ch implements TranslationsOnboardingStep5En {
+	_TranslationsOnboardingStep5Ch._(this._root);
+
+	final TranslationsCh _root; // ignore: unused_field
+
+	// Translations
+	@override String get permissionRequired => '需要权限';
+	@override String get notNow => '暂不';
+	@override String get openSettings => '打开设置';
+	@override String get title => '权限';
+	@override String get permission1 => '相机访问';
+	@override String get permission1Subtitle => '允许访问相机';
+	@override String get permission2 => '麦克风访问';
+	@override String get permission2Subtitle => '允许访问麦克风';
+	@override String get permission3 => '位置访问';
+	@override String get permission3Subtitle => '允许访问位置';
+}
+
 // Path: onboarding.step1
 class _TranslationsOnboardingStep1Ch implements TranslationsOnboardingStep1En {
 	_TranslationsOnboardingStep1Ch._(this._root);
@@ -454,22 +518,6 @@ class _TranslationsOnboardingStep4Ch implements TranslationsOnboardingStep4En {
 	@override String get entry4 => '仅限 18+';
 	@override String get subentry4 => '不适合未成年人';
 	@override String get communityRules => '社区规则';
-}
-
-// Path: onboarding.step5
-class _TranslationsOnboardingStep5Ch implements TranslationsOnboardingStep5En {
-	_TranslationsOnboardingStep5Ch._(this._root);
-
-	final TranslationsCh _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => '权限';
-	@override String get permission1 => '相机访问';
-	@override String get permission1Subtitle => '允许访问相机';
-	@override String get permission2 => '麦克风访问';
-	@override String get permission2Subtitle => '允许访问麦克风';
-	@override String get permission3 => '位置访问';
-	@override String get permission3Subtitle => '允许访问位置';
 }
 
 // Path: onboarding.loading
@@ -544,6 +592,45 @@ class _TranslationsDeleteAccountStepsCh implements TranslationsDeleteAccountStep
 	@override late final _TranslationsDeleteAccountStepsStep3Ch step3 = _TranslationsDeleteAccountStepsStep3Ch._(_root);
 }
 
+// Path: videoView.filters
+class _TranslationsVideoViewFiltersCh implements TranslationsVideoViewFiltersEn {
+	_TranslationsVideoViewFiltersCh._(this._root);
+
+	final TranslationsCh _root; // ignore: unused_field
+
+	// Translations
+	@override String get ORIGINAL => '原来的';
+	@override String get ADDICTIVE_BLUE => '令人上瘾的蓝色';
+	@override String get ADDICTIVE_RED => '令人上瘾的红色';
+	@override String get ADEN => 'Aden';
+	@override String get AMARO => 'Amaro';
+	@override String get ASHBY => 'Ashby';
+	@override String get BRANNAN => 'Brannan';
+	@override String get BROOKLYN => 'Brooklyn';
+	@override String get CLARENDON => 'Clarendon';
+	@override String get CREMA => 'Crema';
+	@override String get DOGPATCH => 'Dogpatch';
+	@override String get GINGHAM => 'Gingham';
+	@override String get GINZA => 'Ginza';
+	@override String get HEFE => 'Hefe';
+	@override String get HUDSON => 'Hudson';
+	@override String get INKWELL => 'Inkwell';
+	@override String get JUNO => 'Juno';
+	@override String get LARK => 'Lark';
+	@override String get LOFI => 'LoFi';
+	@override String get LUDWIG => 'Ludwig';
+	@override String get MOON => 'Moon';
+	@override String get PERPETUA => 'Perpetua';
+	@override String get REYES => 'Reyes';
+	@override String get SIERRA => 'Sierra';
+	@override String get SLUMBER => 'Slumber';
+	@override String get STINSON => 'Stinson';
+	@override String get SUTRO => 'Sutro';
+	@override String get WALDEN => 'Walden';
+	@override String get WILLOW => 'Willow';
+	@override String get XPROII => 'XProII';
+}
+
 // Path: deleteAccount.steps.step1
 class _TranslationsDeleteAccountStepsStep1Ch implements TranslationsDeleteAccountStepsStep1En {
 	_TranslationsDeleteAccountStepsStep1Ch._(this._root);
@@ -551,13 +638,13 @@ class _TranslationsDeleteAccountStepsStep1Ch implements TranslationsDeleteAccoun
 	final TranslationsCh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '我们不想让你走，但我们理解你。';
-	@override String get subtitle => '为了改进 ChatFace 体验，你能告诉我们为什么想离开吗？';
-	@override String get option1 => '我觉得 AI 角色不够真实。';
-	@override String get option2 => '我在视频聊天中遇到技术问题。';
+	@override String get title => '我们不希望您离开，但我们理解。';
+	@override String get subtitle => '您能告诉我们为什么想离开，以便我们改善ChatFace体验吗？';
+	@override String get option1 => '我觉得人工智能角色不逼真。';
+	@override String get option2 => '我在视频聊天时遇到技术问题。';
 	@override String get option3 => '订阅价格超出我的预期。';
-	@override String get option4 => '找不到我想要的角色类型。';
-	@override String get option5 => '我只是想短期尝试。';
+	@override String get option4 => '我找不到我想要的角色类型。';
+	@override String get option5 => '我只是想短暂尝试一下。';
 	@override String get option6 => '其他';
 }
 
@@ -568,15 +655,15 @@ class _TranslationsDeleteAccountStepsStep2Ch implements TranslationsDeleteAccoun
 	final TranslationsCh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '如果您删除帐户，您将失去：';
-	@override String get subtitle1 => '深厚的联系与记忆：';
-	@override String get subtitle1Desc => '与您聊天的角色将完全忘记与你的过去、你分享的秘密以及你个人的习惯。';
+	@override String get title => '如果删除帐户，您将告别：';
+	@override String get subtitle1 => '深层联系和记忆：';
+	@override String get subtitle1Desc => '与您聊天的角色将完全忘记你们的过去和共享的秘密。';
 	@override String get subtitle2 => '视频通话特权：';
-	@override String get subtitle2Desc => '您将失去那些只与您交谈、随时可达的 AI 伙伴的面对面沟通权利。';
+	@override String get subtitle2Desc => '您将失去随时与AI伙伴进行面对面交流的权利。';
 	@override String get subtitle3 => '高级算法：';
-	@override String get subtitle3Desc => '根据您的偏好形成的“为你定制”的角色匹配将被重置。';
-	@override String get subtitle4 => '个人资料数据：';
-	@override String get subtitle4Desc => '您获得的成就、解锁的专属角色和聊天历史将被不可恢复地删除。';
+	@override String get subtitle3Desc => '为您量身定制的专属角色匹配将被重置。';
+	@override String get subtitle4 => '资料数据：';
+	@override String get subtitle4Desc => '您获得的成就、解锁的特殊角色和聊天记录将被不可撤销地删除。';
 }
 
 // Path: deleteAccount.steps.step3
@@ -586,14 +673,14 @@ class _TranslationsDeleteAccountStepsStep3Ch implements TranslationsDeleteAccoun
 	final TranslationsCh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '在你离开之前我们有一个专属优惠！';
-	@override String get description => '也许你只需要更多时间或更合适的优惠。我们是否可以请你考虑下面的选项而不是删除账户？';
-	@override String description1({required Object offer}) => '保留你对我们很重要。下次订阅我们给你 ${offer}！想继续使用该优惠吗？';
-	@override String get description1Offer => '我们为你提供 50% 折扣';
-	@override String description2({required Object offer}) => '我们为你提供 ${offer} 学分，让你发现尚未体验的新角色。';
-	@override String get description2Offer => '3 次免费视频通话';
-	@override String get acceptOffer => '接受 50% 折扣';
-	@override String get deleteMyAccount => '删除我的账户';
+	@override String get title => '在您离开之前，我们有一个特别优惠！';
+	@override String get description => '也许您只需要更多的时间或更好的优惠。不删除帐户，您会考虑这个吗？';
+	@override String description1({required Object offer}) => '保留您对我们来说很重要。下次订阅可享${offer}！';
+	@override String get description1Offer => '我们已应用50%折扣';
+	@override String description2({required Object offer}) => '我们已为您提供${offer}学分，以便您发现新角色。';
+	@override String get description2Offer => '3次免费视频通话';
+	@override String get acceptOffer => '接受50%折扣优惠';
+	@override String get deleteMyAccount => '删除我的帐户';
 }
 
 /// The flat map containing all translations for locale <ch>.
@@ -675,6 +762,16 @@ extension on TranslationsCh {
 			'termOfService.cookiePolicy.section6Body' => '📩 咨询：support@fly-work.com',
 			'cookies' => 'Cookie 政策',
 			'privacy' => '隐私政策',
+			'onboarding.step5.permissionRequired' => '需要权限',
+			'onboarding.step5.notNow' => '暂不',
+			'onboarding.step5.openSettings' => '打开设置',
+			'onboarding.step5.title' => '权限',
+			'onboarding.step5.permission1' => '相机访问',
+			'onboarding.step5.permission1Subtitle' => '允许访问相机',
+			'onboarding.step5.permission2' => '麦克风访问',
+			'onboarding.step5.permission2Subtitle' => '允许访问麦克风',
+			'onboarding.step5.permission3' => '位置访问',
+			'onboarding.step5.permission3Subtitle' => '允许访问位置',
 			'onboarding.step1.title' => '你叫什么名字？',
 			'onboarding.step1.subtitle' => '请输入你的姓名',
 			'onboarding.step1.hint' => '全名',
@@ -695,13 +792,6 @@ extension on TranslationsCh {
 			'onboarding.step4.entry4' => '仅限 18+',
 			'onboarding.step4.subentry4' => '不适合未成年人',
 			'onboarding.step4.communityRules' => '社区规则',
-			'onboarding.step5.title' => '权限',
-			'onboarding.step5.permission1' => '相机访问',
-			'onboarding.step5.permission1Subtitle' => '允许访问相机',
-			'onboarding.step5.permission2' => '麦克风访问',
-			'onboarding.step5.permission2Subtitle' => '允许访问麦克风',
-			'onboarding.step5.permission3' => '位置访问',
-			'onboarding.step5.permission3Subtitle' => '允许访问位置',
 			'onboarding.loading.titlePart1' => '您的个人帐户正在',
 			'onboarding.loading.titlePart2' => '创建中',
 			'onboarding.loading.subtitle' => '请稍候，您的个人资料正在准备中。',
@@ -742,6 +832,8 @@ extension on TranslationsCh {
 			'notifications.noNotifications' => '还没有通知。',
 			'notifications.noNotificationsSubtitle' => '收到通知时别忘了再来查看。',
 			'notifications.allDeleted' => '所有通知已成功删除',
+			'videoChat.networkHiccup' => '检测到网络问题。正在重新连接...',
+			'videoChat.failedToUpdateFollow' => '更新关注状态失败。',
 			'videoChat.connecting' => '连接中...',
 			'videoChat.callEnded' => '通话结束',
 			'videoChat.callFailed' => ({required Object error}) => '通话失败： ${error}',
@@ -806,31 +898,31 @@ extension on TranslationsCh {
 			'deleteAccount.warning' => '您确定要删除您的账户吗？',
 			'deleteAccount.description' => '此操作无法撤销，您的所有历史记录和数据将被永久删除。',
 			'deleteAccount.deleteFailed' => ({required Object error}) => '删除账户失败： ${error}',
-			'deleteAccount.steps.step1.title' => '我们不想让你走，但我们理解你。',
-			'deleteAccount.steps.step1.subtitle' => '为了改进 ChatFace 体验，你能告诉我们为什么想离开吗？',
-			'deleteAccount.steps.step1.option1' => '我觉得 AI 角色不够真实。',
-			'deleteAccount.steps.step1.option2' => '我在视频聊天中遇到技术问题。',
+			'deleteAccount.steps.step1.title' => '我们不希望您离开，但我们理解。',
+			'deleteAccount.steps.step1.subtitle' => '您能告诉我们为什么想离开，以便我们改善ChatFace体验吗？',
+			'deleteAccount.steps.step1.option1' => '我觉得人工智能角色不逼真。',
+			'deleteAccount.steps.step1.option2' => '我在视频聊天时遇到技术问题。',
 			'deleteAccount.steps.step1.option3' => '订阅价格超出我的预期。',
-			'deleteAccount.steps.step1.option4' => '找不到我想要的角色类型。',
-			'deleteAccount.steps.step1.option5' => '我只是想短期尝试。',
+			'deleteAccount.steps.step1.option4' => '我找不到我想要的角色类型。',
+			'deleteAccount.steps.step1.option5' => '我只是想短暂尝试一下。',
 			'deleteAccount.steps.step1.option6' => '其他',
-			'deleteAccount.steps.step2.title' => '如果您删除帐户，您将失去：',
-			'deleteAccount.steps.step2.subtitle1' => '深厚的联系与记忆：',
-			'deleteAccount.steps.step2.subtitle1Desc' => '与您聊天的角色将完全忘记与你的过去、你分享的秘密以及你个人的习惯。',
+			'deleteAccount.steps.step2.title' => '如果删除帐户，您将告别：',
+			'deleteAccount.steps.step2.subtitle1' => '深层联系和记忆：',
+			'deleteAccount.steps.step2.subtitle1Desc' => '与您聊天的角色将完全忘记你们的过去和共享的秘密。',
 			'deleteAccount.steps.step2.subtitle2' => '视频通话特权：',
-			'deleteAccount.steps.step2.subtitle2Desc' => '您将失去那些只与您交谈、随时可达的 AI 伙伴的面对面沟通权利。',
+			'deleteAccount.steps.step2.subtitle2Desc' => '您将失去随时与AI伙伴进行面对面交流的权利。',
 			'deleteAccount.steps.step2.subtitle3' => '高级算法：',
-			'deleteAccount.steps.step2.subtitle3Desc' => '根据您的偏好形成的“为你定制”的角色匹配将被重置。',
-			'deleteAccount.steps.step2.subtitle4' => '个人资料数据：',
-			'deleteAccount.steps.step2.subtitle4Desc' => '您获得的成就、解锁的专属角色和聊天历史将被不可恢复地删除。',
-			'deleteAccount.steps.step3.title' => '在你离开之前我们有一个专属优惠！',
-			'deleteAccount.steps.step3.description' => '也许你只需要更多时间或更合适的优惠。我们是否可以请你考虑下面的选项而不是删除账户？',
-			'deleteAccount.steps.step3.description1' => ({required Object offer}) => '保留你对我们很重要。下次订阅我们给你 ${offer}！想继续使用该优惠吗？',
-			'deleteAccount.steps.step3.description1Offer' => '我们为你提供 50% 折扣',
-			'deleteAccount.steps.step3.description2' => ({required Object offer}) => '我们为你提供 ${offer} 学分，让你发现尚未体验的新角色。',
-			'deleteAccount.steps.step3.description2Offer' => '3 次免费视频通话',
-			'deleteAccount.steps.step3.acceptOffer' => '接受 50% 折扣',
-			'deleteAccount.steps.step3.deleteMyAccount' => '删除我的账户',
+			'deleteAccount.steps.step2.subtitle3Desc' => '为您量身定制的专属角色匹配将被重置。',
+			'deleteAccount.steps.step2.subtitle4' => '资料数据：',
+			'deleteAccount.steps.step2.subtitle4Desc' => '您获得的成就、解锁的特殊角色和聊天记录将被不可撤销地删除。',
+			'deleteAccount.steps.step3.title' => '在您离开之前，我们有一个特别优惠！',
+			'deleteAccount.steps.step3.description' => '也许您只需要更多的时间或更好的优惠。不删除帐户，您会考虑这个吗？',
+			'deleteAccount.steps.step3.description1' => ({required Object offer}) => '保留您对我们来说很重要。下次订阅可享${offer}！',
+			'deleteAccount.steps.step3.description1Offer' => '我们已应用50%折扣',
+			'deleteAccount.steps.step3.description2' => ({required Object offer}) => '我们已为您提供${offer}学分，以便您发现新角色。',
+			'deleteAccount.steps.step3.description2Offer' => '3次免费视频通话',
+			'deleteAccount.steps.step3.acceptOffer' => '接受50%折扣优惠',
+			'deleteAccount.steps.step3.deleteMyAccount' => '删除我的帐户',
 			'cancel' => '取消',
 			'delete' => '删除',
 			'premium' => '高级',
@@ -851,6 +943,48 @@ extension on TranslationsCh {
 			'languageOptions.korean' => '韩语',
 			'languageOptions.hindi' => '印地语',
 			'languageOptions.portuguese' => '葡萄牙语',
+			'common.tryAgain' => '重试',
+			'common.retry' => '重试',
+			'common.close' => '关闭',
+			'permissionsRequired' => '需要权限',
+			'permissionHelper.camAndMicRequired' => '视频通话需要摄像头和麦克风权限。请在设置中启用。',
+			'permissionHelper.micRequired' => '语音通话需要麦克风权限。请在设置中启用。',
+			'permissionHelper.cancel' => '取消',
+			'permissionHelper.openSettings' => '打开设置',
+			'videoView.title' => '相机滤镜',
+			'videoView.subtitle' => '为您的相机预览选择外观。',
+			'videoView.errorLoad' => '无法加载伙伴：',
+			'videoView.noComps' => '目前没有伙伴可用。',
+			'videoView.filters.ORIGINAL' => '原来的',
+			'videoView.filters.ADDICTIVE_BLUE' => '令人上瘾的蓝色',
+			'videoView.filters.ADDICTIVE_RED' => '令人上瘾的红色',
+			'videoView.filters.ADEN' => 'Aden',
+			'videoView.filters.AMARO' => 'Amaro',
+			'videoView.filters.ASHBY' => 'Ashby',
+			'videoView.filters.BRANNAN' => 'Brannan',
+			'videoView.filters.BROOKLYN' => 'Brooklyn',
+			'videoView.filters.CLARENDON' => 'Clarendon',
+			'videoView.filters.CREMA' => 'Crema',
+			'videoView.filters.DOGPATCH' => 'Dogpatch',
+			'videoView.filters.GINGHAM' => 'Gingham',
+			'videoView.filters.GINZA' => 'Ginza',
+			'videoView.filters.HEFE' => 'Hefe',
+			'videoView.filters.HUDSON' => 'Hudson',
+			'videoView.filters.INKWELL' => 'Inkwell',
+			'videoView.filters.JUNO' => 'Juno',
+			'videoView.filters.LARK' => 'Lark',
+			'videoView.filters.LOFI' => 'LoFi',
+			'videoView.filters.LUDWIG' => 'Ludwig',
+			'videoView.filters.MOON' => 'Moon',
+			'videoView.filters.PERPETUA' => 'Perpetua',
+			'videoView.filters.REYES' => 'Reyes',
+			'videoView.filters.SIERRA' => 'Sierra',
+			'videoView.filters.SLUMBER' => 'Slumber',
+			'videoView.filters.STINSON' => 'Stinson',
+			'videoView.filters.SUTRO' => 'Sutro',
+			'videoView.filters.WALDEN' => 'Walden',
+			'videoView.filters.WILLOW' => 'Willow',
+			'videoView.filters.XPROII' => 'XProII',
 			_ => null,
 		};
 	}
