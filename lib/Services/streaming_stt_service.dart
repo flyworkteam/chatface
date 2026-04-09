@@ -29,6 +29,7 @@ class StreamingSttService {
   DateTime? _startedAt;
   int _sequence = 0;
   int _streamedMs = 0;
+  bool _loggedFirstChunk = false;
 
   Future<bool> start() async {
     if (!SttConfig.streamingEnabled) {
@@ -47,6 +48,7 @@ class StreamingSttService {
     _streamedMs = 0;
     _startedAt = null;
     _buffer.clear();
+    _loggedFirstChunk = false;
 
     _gateway.startSttStream(sampleRate: SttConfig.sampleRate);
     return _startCompleter!.future;
@@ -66,6 +68,7 @@ class StreamingSttService {
     _startedAt = null;
     _sequence = 0;
     _streamedMs = 0;
+    _loggedFirstChunk = false;
     if (closeStream) {
       _gateway.stopSttStream(close: true);
     }
@@ -177,6 +180,13 @@ class StreamingSttService {
         tag: 'StreamingSTT',
       );
       return;
+    }
+    if (!_loggedFirstChunk) {
+      _loggedFirstChunk = true;
+      Print.info(
+        'First mic chunk sent at ${now.toIso8601String()}',
+        tag: 'StreamingSTT',
+      );
     }
     _gateway.sendSttAudioChunk(bytes: chunk, sequence: _sequence++);
   }

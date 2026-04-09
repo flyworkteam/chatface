@@ -96,12 +96,7 @@ class ChatAppBar extends StatelessWidget {
           const SizedBox(width: 18),
           GestureDetector(
             onTap: onVideoCallTap?.call,
-            child: Image(
-              image: ResizeImage(AssetImage(AppIcons.videoCallChat), width: 40),
-              fit: BoxFit.contain,
-              filterQuality: FilterQuality.high,
-              isAntiAlias: true,
-            ),
+            child: SvgPicture.asset(AppIcons.chatVideoCall),
           ),
         ],
       ),

@@ -118,6 +118,10 @@ class VideoFilterBar extends HookWidget {
 
     final selectedLanguageMeta = _callLanguageForCode(selectedLanguage);
     final countryFlag = _flagForLanguageCode(selectedLanguage);
+    final languageLabel = _localizedLanguageLabel(
+      context,
+      selectedLanguageMeta?.code,
+    );
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
@@ -144,7 +148,7 @@ class VideoFilterBar extends HookWidget {
           _FilterChip(
             key: languageKey,
             iconAsset: countryFlag,
-            label: selectedLanguageMeta?.name ?? context.t.videoChat.country,
+            label: languageLabel,
             isOpen: languageOpen.value,
             onTap: toggleLanguage,
           ),
@@ -161,6 +165,37 @@ class VideoFilterBar extends HookWidget {
         return context.t.videoChat.female;
       default:
         return context.t.editProfile.gender;
+    }
+  }
+
+  String _localizedLanguageLabel(BuildContext context, String? languageCode) {
+    switch (languageCode?.toLowerCase()) {
+      case 'tr':
+        return context.t.languageOptions.turkish;
+      case 'de':
+        return context.t.languageOptions.german;
+      case 'fr':
+        return context.t.languageOptions.french;
+      case 'es':
+        return context.t.languageOptions.spanish;
+      case 'ko':
+        return context.t.languageOptions.korean;
+      case 'it':
+        return context.t.languageOptions.italian;
+      case 'ja':
+        return context.t.languageOptions.japanese;
+      case 'ru':
+        return context.t.languageOptions.russian;
+      case 'pt':
+        return context.t.languageOptions.portuguese;
+      case 'hi':
+        return context.t.languageOptions.hindi;
+      case 'zh':
+        return context.t.languageOptions.chinese;
+      case 'en':
+        return context.t.languageOptions.english;
+      default:
+        return context.t.videoChat.country;
     }
   }
 
@@ -278,8 +313,6 @@ class _GenderPopup extends StatelessWidget {
   final String? selectedGender;
   final ValueChanged<String> onSelect;
 
-  static const _genders = [('male', 'Male'), ('female', 'Female')];
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -291,40 +324,49 @@ class _GenderPopup extends StatelessWidget {
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        children: _genders.map((g) {
-          final isSelected = selectedGender?.toLowerCase() == g.$1;
-          return GestureDetector(
-            onTap: () => onSelect(g.$1),
-            behavior: HitTestBehavior.opaque,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      g.$2,
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.rubik(
-                        fontSize: 15,
-                        decoration: TextDecoration.none,
-                        fontWeight: isSelected
-                            ? FontWeight.w600
-                            : FontWeight.w400,
-                        color: isSelected ? AppColors.primary : Colors.white,
-                      ),
-                    ),
+        children:
+            [
+              ('male', context.t.videoChat.male),
+              ('female', context.t.videoChat.female),
+            ].map((g) {
+              final isSelected = selectedGender?.toLowerCase() == g.$1;
+              return GestureDetector(
+                onTap: () => onSelect(g.$1),
+                behavior: HitTestBehavior.opaque,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 13,
                   ),
-                  if (isSelected)
-                    Icon(
-                      Icons.check_rounded,
-                      color: AppColors.primary,
-                      size: 16,
-                    ),
-                ],
-              ),
-            ),
-          );
-        }).toList(),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          g.$2,
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.rubik(
+                            fontSize: 15,
+                            decoration: TextDecoration.none,
+                            fontWeight: isSelected
+                                ? FontWeight.w600
+                                : FontWeight.w400,
+                            color: isSelected
+                                ? AppColors.primary
+                                : Colors.white,
+                          ),
+                        ),
+                      ),
+                      if (isSelected)
+                        Icon(
+                          Icons.check_rounded,
+                          color: AppColors.primary,
+                          size: 16,
+                        ),
+                    ],
+                  ),
+                ),
+              );
+            }).toList(),
       ),
     );
   }
@@ -343,6 +385,36 @@ class _LanguagePopup extends StatelessWidget {
   final String? selectedLanguage;
   final ValueChanged<String> onSelect;
 
+  String _localizedLanguageName(BuildContext context, String languageCode) {
+    switch (languageCode.toLowerCase()) {
+      case 'tr':
+        return context.t.languageOptions.turkish;
+      case 'de':
+        return context.t.languageOptions.german;
+      case 'fr':
+        return context.t.languageOptions.french;
+      case 'es':
+        return context.t.languageOptions.spanish;
+      case 'ko':
+        return context.t.languageOptions.korean;
+      case 'it':
+        return context.t.languageOptions.italian;
+      case 'ja':
+        return context.t.languageOptions.japanese;
+      case 'ru':
+        return context.t.languageOptions.russian;
+      case 'pt':
+        return context.t.languageOptions.portuguese;
+      case 'hi':
+        return context.t.languageOptions.hindi;
+      case 'zh':
+        return context.t.languageOptions.chinese;
+      case 'en':
+      default:
+        return context.t.languageOptions.english;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -360,7 +432,8 @@ class _LanguagePopup extends StatelessWidget {
           itemCount: callLanguages.length,
           itemBuilder: (context, index) {
             final lang = callLanguages[index];
-            final isSelected = selectedLanguage == lang.code;
+            final isSelected =
+                selectedLanguage?.toLowerCase() == lang.code.toLowerCase();
             return GestureDetector(
               onTap: () => onSelect(lang.code),
               behavior: HitTestBehavior.opaque,
@@ -373,7 +446,7 @@ class _LanguagePopup extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        lang.name,
+                        _localizedLanguageName(context, lang.code),
                         textAlign: TextAlign.center,
                         style: GoogleFonts.rubik(
                           fontSize: 15,

@@ -12,20 +12,31 @@ class TtsPlaybackService {
   static const Duration _visemeFetchTimeout = Duration(milliseconds: 350);
 
   TtsPlaybackService() {
-    _completeSubscription = _player.onPlayerComplete.listen(
+    _player = ap.AudioPlayer();
+    _initializePlayer();
+  }
+
+  TtsPlaybackService.test();
+
+  void _initializePlayer() {
+    final player = _player;
+    if (player == null) {
+      return;
+    }
+    _completeSubscription = player.onPlayerComplete.listen(
       (_) => _handlePlaybackComplete(),
     );
     if (_preferBytesOnCurrentPlatform) {
-      _player.setPlayerMode(ap.PlayerMode.lowLatency).catchError((_) {});
+      player.setPlayerMode(ap.PlayerMode.lowLatency).catchError((_) {});
     }
   }
 
-  final ap.AudioPlayer _player = ap.AudioPlayer();
+  ap.AudioPlayer? _player;
   final _completions = StreamController<String>.broadcast();
   final _visualStateController =
       StreamController<TtsPlaybackVisualState>.broadcast();
   final Queue<_QueuedChunk> _queue = Queue<_QueuedChunk>();
-  late final StreamSubscription<void> _completeSubscription;
+  StreamSubscription<void>? _completeSubscription;
   final Dio _dio = Dio(
     BaseOptions(
       connectTimeout: const Duration(seconds: 8),
@@ -49,8 +60,19 @@ class TtsPlaybackService {
   Future<void> setOutputEnabled(bool enabled) async {
     if (_isDisposed) return;
     _volume = enabled ? 1 : 0;
+    final player = _player;
+    if (player == null) return;
     try {
-      await _player.setVolume(_volume);
+      await player.setVolume(_volume);
+    } catch (_) {}
+  }
+
+  Future<void> setAudioContext(ap.AudioContext context) async {
+    if (_isDisposed) return;
+    final player = _player;
+    if (player == null) return;
+    try {
+      await player.setAudioContext(context);
     } catch (_) {}
   }
 
@@ -115,7 +137,7 @@ class TtsPlaybackService {
         ),
       );
       try {
-        await _player.stop();
+        await _player?.stop();
       } catch (_) {}
       _emitCompletion(sequence);
     }
@@ -143,8 +165,8 @@ class TtsPlaybackService {
     await stop();
     _isDisposed = true;
     _clearVisemeTimers();
-    await _completeSubscription.cancel();
-    await _player.dispose();
+    await _completeSubscription?.cancel();
+    await _player?.dispose();
     await _completions.close();
     await _visualStateController.close();
   }
@@ -172,7 +194,7 @@ class TtsPlaybackService {
     final chunk = _queue.removeFirst();
     _currentChunk = chunk;
     _isProcessing = true;
-    await _prepareVisemes(chunk);
+    _prepareVisemes(chunk);
     if (_currentChunk != chunk || _isDisposed) {
       return;
     }
@@ -279,8 +301,17 @@ class TtsPlaybackService {
   }
 
   void _playSource(ap.Source source) {
+    Print.info(
+      'Playback started at ${DateTime.now().toIso8601String()}',
+      tag: 'TTSPlayback',
+    );
+    final player = _player;
+    if (player == null) {
+      _handlePlaybackError(StateError('Audio player is not initialized'));
+      return;
+    }
     try {
-      _player
+      player
           .play(source, volume: _volume)
           .catchError((error) => _handlePlaybackError(error));
     } catch (error) {
@@ -309,7 +340,7 @@ class TtsPlaybackService {
     return defaultTargetPlatform == TargetPlatform.iOS;
   }
 
-  Future<void> _prepareVisemes(_QueuedChunk chunk) async {
+  void _prepareVisemes(_QueuedChunk chunk) {
     if (chunk.visemesLoaded) {
       return;
     }
@@ -338,28 +369,34 @@ class TtsPlaybackService {
       return;
     }
 
-    try {
-      Print.info('Requesting visemes for audio URL: $resolvedAudioUrl');
-      final response = await _dio
-          .post(
-            'https://viseme.fly-work.com/viseme',
-            data: {'audioUrl': resolvedAudioUrl},
-          )
-          .timeout(_visemeFetchTimeout);
-      Print.info('Viseme response: ${response.data}');
-      chunk.visemes = _parseVisemeResponse(
-        response.data,
-        offsetMs: chunk.offsetMs,
-      );
-      Print.info('Received ${chunk.visemes.length} visemes');
-    } on TimeoutException {
-      Print.info(
-        'Viseme fetch timed out after '
-        '${_visemeFetchTimeout.inMilliseconds}ms for $resolvedAudioUrl',
-      );
-    } catch (_) {
-      // Fall back to idle mouth if viseme service is unavailable.
-    }
+    unawaited(() async {
+      try {
+        Print.info('Requesting visemes for audio URL: $resolvedAudioUrl');
+        final response = await _dio
+            .post(
+              'https://viseme.fly-work.com/viseme',
+              data: {'audioUrl': resolvedAudioUrl},
+            )
+            .timeout(_visemeFetchTimeout);
+        Print.info('Viseme response: ${response.data}');
+        chunk.visemes = _parseVisemeResponse(
+          response.data,
+          offsetMs: chunk.offsetMs,
+        );
+        Print.info('Received ${chunk.visemes.length} visemes');
+        if (_currentChunk?.sequence == chunk.sequence &&
+            chunk.visemes.isNotEmpty) {
+          _scheduleVisemes(chunk);
+        }
+      } on TimeoutException {
+        Print.info(
+          'Viseme fetch timed out after '
+          '${_visemeFetchTimeout.inMilliseconds}ms for $resolvedAudioUrl',
+        );
+      } catch (_) {
+        // Fall back to idle mouth if viseme service is unavailable.
+      }
+    }());
   }
 
   List<_VisemeCue> _parseVisemeResponse(dynamic raw, {int? offsetMs}) {

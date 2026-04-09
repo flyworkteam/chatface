@@ -28,11 +28,14 @@ class AppIcons {
   static const String backarrow = 'assets/icons/backarrow.svg';
   static const String callclose = 'assets/icons/callclose.svg';
   static const String callmicrophone = 'assets/icons/callmic.svg';
+  static const String callmicsslash = 'assets/icons/callmicslash.svg';
   static const String callvolume = 'assets/icons/callvolume.svg';
+  static const String callvolumeslash = 'assets/icons/callvolumeslash.svg';
   static const String camera = 'assets/icons/camera.svg';
   static const String cameraslash = 'assets/icons/cameraslash.svg';
   static const String chat = 'assets/icons/chatnavbar.svg';
   static const String chatSelected = 'assets/icons/chatnavbarselected.svg';
+  static const String chatVideoCall = 'assets/icons/chatvideocall.svg';
   static const String clock = 'assets/icons/clock.svg';
   static const String close = 'assets/icons/close.svg';
   static const String closecircle = 'assets/icons/closecircle.png';

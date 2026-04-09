@@ -6,13 +6,13 @@ import 'package:chatface/Riverpod/Providers/call_session_controller_provider.dar
 import 'package:chatface/Riverpod/Providers/persona_provider.dart';
 import 'package:chatface/Riverpod/Providers/stt_controller_provider.dart';
 import 'package:chatface/Riverpod/Providers/tts_playback_provider.dart';
+import 'package:chatface/Riverpod/Providers/all_providers.dart';
 import 'package:chatface/Services/streaming_stt_service.dart';
 import 'package:chatface/Views/CallView/widgets/call_avatar.dart';
 import 'package:chatface/Views/CallView/widgets/call_controls.dart';
 import 'package:chatface/config/stt_config.dart';
 import 'package:chatface/gen/strings.g.dart';
 import 'package:chatface/shared/blurred_gradient_background.dart';
-import 'package:chatface/shared/realtime_diagnostics_panel.dart';
 import 'package:chatface/theme/app_text_styles.dart';
 import 'package:chatface/utils/permission_helper.dart';
 import 'package:chatface/utils/print.dart';
@@ -42,9 +42,13 @@ class CallView extends HookConsumerWidget {
 
     final personasAsync = ref.watch(personaListProvider);
     final callSession = ref.watch(callSessionControllerProvider);
+    final proximityGuard = ref.watch(
+      AllProviders.callProximityGuardServiceProvider,
+    );
     final callSessionNotifier = ref.read(
       callSessionControllerProvider.notifier,
     );
+    useListenable(proximityGuard);
 
     useEffect(() {
       final subscription = container.listen<SttState>(sttControllerProvider, (
@@ -55,11 +59,7 @@ class CallView extends HookConsumerWidget {
         if ((prev?.streamStatus != StreamingSttStatus.error) &&
             next.streamStatus == StreamingSttStatus.error) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                context.t.videoChat.networkHiccup,
-              ),
-            ),
+            SnackBar(content: Text(context.t.videoChat.networkHiccup)),
           );
         }
       });
@@ -254,6 +254,9 @@ class CallView extends HookConsumerWidget {
     final isNetwork = character.isNetworkImage;
 
     return _CallScaffold(
+      overlay: proximityGuard.shouldShowOverlay
+          ? const _CallProximityOverlay()
+          : null,
       child: Column(
         children: [
           const Spacer(flex: 2),
@@ -272,7 +275,7 @@ class CallView extends HookConsumerWidget {
             padding: const EdgeInsets.only(bottom: 60),
             child: CallControls(
               isMicMuted: callSession?.isMicMuted ?? false,
-              isSpeakerOn: callSession?.isSpeakerOn ?? true,
+              isSpeakerOn: callSession?.isSpeakerOn ?? false,
               onMicToggle: () {
                 unawaited(
                   ref
@@ -303,8 +306,9 @@ class CallView extends HookConsumerWidget {
 }
 
 class _CallScaffold extends StatelessWidget {
-  const _CallScaffold({required this.child});
+  const _CallScaffold({required this.child, this.overlay});
   final Widget child;
+  final Widget? overlay;
 
   @override
   Widget build(BuildContext context) {
@@ -312,19 +316,24 @@ class _CallScaffold extends StatelessWidget {
       body: Stack(
         children: [
           BlurredGradientBackground(),
-
           SafeArea(child: child),
-          const SafeArea(
-            child: Align(
-              alignment: Alignment.topRight,
-              child: Padding(
-                padding: EdgeInsets.only(top: 8, right: 12),
-                child: RealtimeDiagnosticsPanel(scopeLabel: 'Call'),
-              ),
-            ),
-          ),
+          ...?switch (overlay) {
+            final overlay? => [overlay],
+            null => null,
+          },
         ],
       ),
+    );
+  }
+}
+
+class _CallProximityOverlay extends StatelessWidget {
+  const _CallProximityOverlay();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Positioned.fill(
+      child: ModalBarrier(dismissible: false, color: Colors.black),
     );
   }
 }

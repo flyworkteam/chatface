@@ -71,11 +71,15 @@ class RealtimeGatewayService with WidgetsBindingObserver {
     required String language,
     required String mode,
   }) async {
+    final sttTransport = _preferredSttTransport;
+    final ttsPayload = _preferredTtsPayload;
     _activeRequest = RealtimeConnectRequest(
       sessionId: sessionId,
       token: token,
       language: language,
       mode: mode,
+      sttTransport: sttTransport,
+      ttsPayload: ttsPayload,
     );
     await disconnect(preserveReconnectContext: true);
 
@@ -86,6 +90,8 @@ class RealtimeGatewayService with WidgetsBindingObserver {
       'token': token,
       'language': language,
       'mode': mode,
+      'sttTransport': sttTransport,
+      'ttsPayload': ttsPayload,
     };
     final url = baseUri.replace(queryParameters: queryParameters);
 
@@ -99,6 +105,8 @@ class RealtimeGatewayService with WidgetsBindingObserver {
       lastError: null,
       lastEventType: 'connect_requested',
       reconnectAttempts: _reconnectAttempts,
+      sttTransport: sttTransport,
+      ttsPayload: ttsPayload,
     );
 
     try {
@@ -206,6 +214,10 @@ class RealtimeGatewayService with WidgetsBindingObserver {
     bool isFinal = false,
   }) {
     if (bytes.isEmpty) {
+      return;
+    }
+    if (_activeRequest?.sttTransport == 'binary') {
+      _sendRaw(bytes);
       return;
     }
     final payload = <String, dynamic>{
@@ -706,6 +718,8 @@ class RealtimeGatewayService with WidgetsBindingObserver {
     Object? lastError = _diagnosticsNoChange,
     String? lastEventType,
     int? reconnectAttempts,
+    String? sttTransport,
+    String? ttsPayload,
   }) {
     _diagnostics.value = _diagnostics.value.copyWith(
       status: status,
@@ -718,6 +732,8 @@ class RealtimeGatewayService with WidgetsBindingObserver {
       lastEventType: lastEventType,
       reconnectAttempts: reconnectAttempts,
       updatedAt: DateTime.now(),
+      sttTransport: sttTransport,
+      ttsPayload: ttsPayload,
     );
   }
 
@@ -727,6 +743,15 @@ class RealtimeGatewayService with WidgetsBindingObserver {
       if (uri.queryParameters.containsKey('token')) 'token': '<redacted>',
     };
     return uri.replace(queryParameters: redactedQueryParameters).toString();
+  }
+
+  String get _preferredSttTransport => 'binary';
+
+  String get _preferredTtsPayload {
+    if (kIsWeb) {
+      return 'url';
+    }
+    return defaultTargetPlatform == TargetPlatform.iOS ? 'inline' : 'url';
   }
 }
 
@@ -746,12 +771,16 @@ class RealtimeConnectRequest {
     required this.token,
     required this.language,
     required this.mode,
+    required this.sttTransport,
+    required this.ttsPayload,
   });
 
   final String sessionId;
   final String token;
   final String language;
   final String mode;
+  final String sttTransport;
+  final String ttsPayload;
 }
 
 class RealtimeDiagnosticsSnapshot {
@@ -768,6 +797,8 @@ class RealtimeDiagnosticsSnapshot {
     this.lastError,
     this.lastEventType,
     this.updatedAt,
+    this.sttTransport,
+    this.ttsPayload,
   });
 
   factory RealtimeDiagnosticsSnapshot.initial({
@@ -795,6 +826,8 @@ class RealtimeDiagnosticsSnapshot {
   final String? lastError;
   final String? lastEventType;
   final DateTime? updatedAt;
+  final String? sttTransport;
+  final String? ttsPayload;
 
   String get statusLabel => switch (status) {
     RealtimeConnectionStatus.idle => 'idle',
@@ -817,6 +850,8 @@ class RealtimeDiagnosticsSnapshot {
     String? lastEventType,
     int? reconnectAttempts,
     DateTime? updatedAt,
+    String? sttTransport,
+    String? ttsPayload,
   }) {
     return RealtimeDiagnosticsSnapshot(
       apiBaseUrl: apiBaseUrl,
@@ -833,6 +868,8 @@ class RealtimeDiagnosticsSnapshot {
           : lastError as String?,
       lastEventType: lastEventType ?? this.lastEventType,
       updatedAt: updatedAt ?? this.updatedAt,
+      sttTransport: sttTransport ?? this.sttTransport,
+      ttsPayload: ttsPayload ?? this.ttsPayload,
     );
   }
 }

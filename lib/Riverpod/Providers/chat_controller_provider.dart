@@ -343,6 +343,12 @@ class ChatController extends Notifier<ChatState> {
 
   void _handleAssistantEvent(AssistantEvent event) {
     if (event.type == 'assistant_delta') {
+      if (_streamingBuffer == null) {
+        Print.info(
+          'First assistant delta rendered at ${DateTime.now().toIso8601String()}',
+          tag: 'ChatController',
+        );
+      }
       _streamingBuffer ??= StringBuffer();
       _streamingBuffer!.write(event.delta ?? '');
       _applyStreamingBuffer(event);

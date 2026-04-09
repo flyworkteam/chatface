@@ -4,6 +4,8 @@ import 'package:chatface/Riverpod/Providers/ai_session_provider.dart';
 import 'package:chatface/Riverpod/Providers/all_providers.dart';
 import 'package:chatface/Riverpod/Providers/chat_controller_provider.dart';
 import 'package:chatface/Riverpod/Providers/stt_controller_provider.dart';
+import 'package:chatface/Services/call_audio_route_service.dart';
+import 'package:chatface/Services/call_proximity_guard_service.dart';
 import 'package:chatface/Services/tts_playback_service.dart';
 import 'package:riverpod/riverpod.dart';
 
@@ -32,6 +34,10 @@ class CallSessionController extends Notifier<CallSession?> {
 
   TtsPlaybackService get _ttsService =>
       ref.read(AllProviders.ttsPlaybackServiceProvider);
+  CallAudioRouteService get _callAudioRouteService =>
+      ref.read(AllProviders.callAudioRouteServiceProvider);
+  CallProximityGuardService get _callProximityGuardService =>
+      ref.read(AllProviders.callProximityGuardServiceProvider);
 
   @override
   CallSession? build() => null;
@@ -77,6 +83,13 @@ class CallSessionController extends Notifier<CallSession?> {
   }) async {
     await endCall(markEnded: false);
     await _ttsService.setOutputEnabled(true);
+    if (callType == CallType.voice) {
+      await _callAudioRouteService.configureVoiceCall();
+      await _callProximityGuardService.setVoiceCallState(
+        active: true,
+        speakerOn: false,
+      );
+    }
 
     final mode = callType == CallType.video ? 'video_call' : 'voice_call';
     final selectedLanguage = await _resolveInitialCallLanguage(persona);
@@ -88,10 +101,19 @@ class CallSessionController extends Notifier<CallSession?> {
         .read(aiSessionProvider.notifier)
         .startSession(persona: persona, language: selectedLanguage, mode: mode);
     if (session == null) {
+      if (callType == CallType.voice) {
+        await _callAudioRouteService.reset();
+        await _callProximityGuardService.setVoiceCallState(
+          active: false,
+          speakerOn: false,
+        );
+      }
       return null;
     }
 
-    await ref.read(chatControllerProvider.notifier).attachSession(
+    await ref
+        .read(chatControllerProvider.notifier)
+        .attachSession(
           session,
           persona: persona.copyWith(selectedLanguage: selectedLanguage),
         );
@@ -102,6 +124,13 @@ class CallSessionController extends Notifier<CallSession?> {
 
     if (!sttStarted) {
       await ref.read(sttControllerProvider.notifier).stopListening();
+      if (callType == CallType.voice) {
+        await _callAudioRouteService.reset();
+        await _callProximityGuardService.setVoiceCallState(
+          active: false,
+          speakerOn: false,
+        );
+      }
       return null;
     }
 
@@ -111,6 +140,7 @@ class CallSessionController extends Notifier<CallSession?> {
       callType: callType,
       state: CallState.active,
       startedAt: DateTime.now(),
+      isSpeakerOn: callType == CallType.video,
       selectedGender: persona.gender ?? 'unknown',
       selectedLanguage: selectedLanguage,
     );
@@ -148,7 +178,15 @@ class CallSessionController extends Notifier<CallSession?> {
       return;
     }
 
-    await _ttsService.setOutputEnabled(enabled);
+    if (current.callType == CallType.voice) {
+      await _callAudioRouteService.setSpeakerOn(enabled);
+      await _callProximityGuardService.setVoiceCallState(
+        active: true,
+        speakerOn: enabled,
+      );
+    } else {
+      await _ttsService.setOutputEnabled(enabled);
+    }
     state = current.copyWith(isSpeakerOn: enabled);
   }
 
@@ -200,6 +238,16 @@ class CallSessionController extends Notifier<CallSession?> {
     await ref.read(sttControllerProvider.notifier).stopListening();
     await _ttsService.stop();
     await _ttsService.setOutputEnabled(true);
+    if (state?.callType == CallType.voice ||
+        _callProximityGuardService.isVoiceCallActive) {
+      await _callProximityGuardService.setVoiceCallState(
+        active: false,
+        speakerOn: false,
+      );
+    }
+    if (state?.callType == CallType.voice) {
+      await _callAudioRouteService.reset();
+    }
     if (state == null) {
       return;
     }

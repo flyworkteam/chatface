@@ -75,6 +75,7 @@ class SttController extends Notifier<SttState> {
 
   StreamSubscription<StreamingSttStatus>? _streamStatusSub;
   StreamSubscription<SttStreamEvent>? _sttEventSub;
+  bool _loggedFirstPartialForTurn = false;
 
   @override
   SttState build() {
@@ -107,6 +108,7 @@ class SttController extends Notifier<SttState> {
     }
 
     final started = await _streamingService.start();
+    _loggedFirstPartialForTurn = false;
     state = state.copyWith(
       isAvailable: started,
       isListening: started,
@@ -157,6 +159,13 @@ class SttController extends Notifier<SttState> {
 
   void _handleGatewayEvent(SttStreamEvent event) {
     if (event is SttStreamPartialEvent) {
+      if (!_loggedFirstPartialForTurn && event.text.trim().isNotEmpty) {
+        _loggedFirstPartialForTurn = true;
+        Print.info(
+          'First STT partial received at ${DateTime.now().toIso8601String()}',
+          tag: 'STT-CTRL',
+        );
+      }
       state = state.copyWith(
         lastPartial: event.text,
         serverPartial: event.text,
@@ -164,6 +173,11 @@ class SttController extends Notifier<SttState> {
         debugStatus: 'server_partial',
       );
     } else if (event is SttTranscriptEvent) {
+      Print.info(
+        'Final STT transcript received at ${DateTime.now().toIso8601String()}',
+        tag: 'STT-CTRL',
+      );
+      _loggedFirstPartialForTurn = false;
       state = state.copyWith(
         lastPartial: null,
         serverPartial: null,

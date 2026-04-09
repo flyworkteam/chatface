@@ -38,6 +38,25 @@ Future<void> initPlatformState() async {
   Print.info('RevenueCat initialized', tag: 'Main');
 }
 
+Future<void> initRiveNativeSafely() async {
+  try {
+    await RiveNative.init();
+    Print.info('Rive Native initialized', tag: 'Main');
+  } on MissingPluginException catch (error, stackTrace) {
+    Print.warning(
+      'Rive Native plugin unavailable on this build/device. Continuing with Flutter renderer. Error: $error',
+      tag: 'Main',
+      st: stackTrace,
+    );
+  } catch (error, stackTrace) {
+    Print.warning(
+      'Rive Native initialization failed. Continuing with Flutter renderer. Error: $error',
+      tag: 'Main',
+      st: stackTrace,
+    );
+  }
+}
+
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
 
@@ -54,7 +73,7 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   FlutterNativeSplash.remove();
-  await RiveNative.init();
+  await initRiveNativeSafely();
   await initPlatformState();
   OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);

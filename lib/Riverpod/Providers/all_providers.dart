@@ -1,3 +1,5 @@
+import 'package:chatface/Services/call_audio_route_service.dart';
+import 'package:chatface/Services/call_proximity_guard_service.dart';
 import 'package:chatface/Repositories/ai_repository.dart';
 import 'package:chatface/Repositories/auth_repository.dart';
 import 'package:chatface/Repositories/language_repository.dart';
@@ -52,6 +54,19 @@ class AllProviders {
     ref.onDispose(service.dispose);
     return service;
   });
+
+  static final callAudioRouteServiceProvider = Provider<CallAudioRouteService>((
+    ref,
+  ) {
+    return CallAudioRouteService(ref.read(ttsPlaybackServiceProvider));
+  });
+
+  static final callProximityGuardServiceProvider =
+      Provider<CallProximityGuardService>((ref) {
+        final service = CallProximityGuardService();
+        ref.onDispose(service.dispose);
+        return service;
+      });
 
   static final streamingSttServiceProvider = Provider<StreamingSttService>((
     ref,

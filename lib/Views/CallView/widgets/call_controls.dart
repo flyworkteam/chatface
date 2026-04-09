@@ -27,7 +27,7 @@ class CallControls extends StatelessWidget {
       children: [
         // Mikrofon butonu
         _ControlButton(
-          icon: isMicMuted ? AppIcons.callmicrophone : AppIcons.callmicrophone,
+          icon: isMicMuted ? AppIcons.callmicsslash : AppIcons.callmicrophone,
           backgroundColor: Colors.white.withValues(alpha: 0.5),
           iconColor: Colors.white,
           onTap: onMicToggle,
@@ -44,7 +44,7 @@ class CallControls extends StatelessWidget {
         const SizedBox(width: 24),
         // Hoparlör butonu
         _ControlButton(
-          icon: isSpeakerOn ? AppIcons.callvolume : AppIcons.callvolume,
+          icon: isSpeakerOn ? AppIcons.callvolume : AppIcons.callvolumeslash,
           backgroundColor: Colors.white.withValues(alpha: 0.5),
           iconColor: Colors.white,
           onTap: onSpeakerToggle,

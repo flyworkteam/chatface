@@ -19,7 +19,6 @@ import 'package:chatface/Views/VideoView/widgets/video_page_header.dart';
 import 'package:chatface/Views/VideoView/widgets/video_sidebar.dart';
 import 'package:chatface/config/stt_config.dart';
 import 'package:chatface/gen/strings.g.dart';
-import 'package:chatface/shared/realtime_diagnostics_panel.dart';
 import 'package:chatface/theme/app_text_styles.dart';
 import 'package:chatface/utils/app_assets.dart';
 import 'package:chatface/utils/permission_helper.dart';
@@ -471,43 +470,77 @@ class VideoView extends HookConsumerWidget {
     Future<void> showCameraFilterPicker() async {
       String filterDisplayName(AwesomeFilter filter) {
         switch (filter.id) {
-          case 'ORIGINAL': return context.t.videoView.filters.ORIGINAL;
-          case 'ADDICTIVE_BLUE': return context.t.videoView.filters.ADDICTIVE_BLUE;
-          case 'ADDICTIVE_RED': return context.t.videoView.filters.ADDICTIVE_RED;
-          case 'ADEN': return context.t.videoView.filters.ADEN;
-          case 'AMARO': return context.t.videoView.filters.AMARO;
-          case 'ASHBY': return context.t.videoView.filters.ASHBY;
-          case 'BRANNAN': return context.t.videoView.filters.BRANNAN;
-          case 'BROOKLYN': return context.t.videoView.filters.BROOKLYN;
-          case 'CLARENDON': return context.t.videoView.filters.CLARENDON;
-          case 'CREMA': return context.t.videoView.filters.CREMA;
-          case 'DOGPATCH': return context.t.videoView.filters.DOGPATCH;
-          case 'GINGHAM': return context.t.videoView.filters.GINGHAM;
-          case 'GINZA': return context.t.videoView.filters.GINZA;
-          case 'HEFE': return context.t.videoView.filters.HEFE;
-          case 'HUDSON': return context.t.videoView.filters.HUDSON;
-          case 'INKWELL': return context.t.videoView.filters.INKWELL;
-          case 'JUNO': return context.t.videoView.filters.JUNO;
-          case 'LARK': return context.t.videoView.filters.LARK;
-          case 'LOFI': return context.t.videoView.filters.LOFI;
-          case 'LUDWIG': return context.t.videoView.filters.LUDWIG;
-          case 'MOON': return context.t.videoView.filters.MOON;
-          case 'PERPETUA': return context.t.videoView.filters.PERPETUA;
-          case 'REYES': return context.t.videoView.filters.REYES;
-          case 'SIERRA': return context.t.videoView.filters.SIERRA;
-          case 'SLUMBER': return context.t.videoView.filters.SLUMBER;
-          case 'STINSON': return context.t.videoView.filters.STINSON;
-          case 'SUTRO': return context.t.videoView.filters.SUTRO;
-          case 'WALDEN': return context.t.videoView.filters.WALDEN;
-          case 'WILLOW': return context.t.videoView.filters.WILLOW;
-          case 'XPROII': return context.t.videoView.filters.XPROII;
-          default: return filter.name;
+          case 'ORIGINAL':
+            return context.t.videoView.filters.ORIGINAL;
+          case 'ADDICTIVE_BLUE':
+            return context.t.videoView.filters.ADDICTIVE_BLUE;
+          case 'ADDICTIVE_RED':
+            return context.t.videoView.filters.ADDICTIVE_RED;
+          case 'ADEN':
+            return context.t.videoView.filters.ADEN;
+          case 'AMARO':
+            return context.t.videoView.filters.AMARO;
+          case 'ASHBY':
+            return context.t.videoView.filters.ASHBY;
+          case 'BRANNAN':
+            return context.t.videoView.filters.BRANNAN;
+          case 'BROOKLYN':
+            return context.t.videoView.filters.BROOKLYN;
+          case 'CLARENDON':
+            return context.t.videoView.filters.CLARENDON;
+          case 'CREMA':
+            return context.t.videoView.filters.CREMA;
+          case 'DOGPATCH':
+            return context.t.videoView.filters.DOGPATCH;
+          case 'GINGHAM':
+            return context.t.videoView.filters.GINGHAM;
+          case 'GINZA':
+            return context.t.videoView.filters.GINZA;
+          case 'HEFE':
+            return context.t.videoView.filters.HEFE;
+          case 'HUDSON':
+            return context.t.videoView.filters.HUDSON;
+          case 'INKWELL':
+            return context.t.videoView.filters.INKWELL;
+          case 'JUNO':
+            return context.t.videoView.filters.JUNO;
+          case 'LARK':
+            return context.t.videoView.filters.LARK;
+          case 'LOFI':
+            return context.t.videoView.filters.LOFI;
+          case 'LUDWIG':
+            return context.t.videoView.filters.LUDWIG;
+          case 'MOON':
+            return context.t.videoView.filters.MOON;
+          case 'PERPETUA':
+            return context.t.videoView.filters.PERPETUA;
+          case 'REYES':
+            return context.t.videoView.filters.REYES;
+          case 'SIERRA':
+            return context.t.videoView.filters.SIERRA;
+          case 'SLUMBER':
+            return context.t.videoView.filters.SLUMBER;
+          case 'STINSON':
+            return context.t.videoView.filters.STINSON;
+          case 'SUTRO':
+            return context.t.videoView.filters.SUTRO;
+          case 'WALDEN':
+            return context.t.videoView.filters.WALDEN;
+          case 'WILLOW':
+            return context.t.videoView.filters.WILLOW;
+          case 'XPROII':
+            return context.t.videoView.filters.XPROII;
+          default:
+            return filter.name;
         }
       }
 
-      final currentFilter = cameraAwesomeFilters.any(
-        (filter) => filter.id == selectedCameraFilter.value.id,
-      ) ? selectedCameraFilter.value : cameraAwesomeFilters.first;
+      final currentFilter =
+          cameraAwesomeFilters.any(
+            (filter) => filter.id == selectedCameraFilter.value.id,
+          )
+          ? selectedCameraFilter.value
+          : cameraAwesomeFilters.first;
 
       final result = await showModalBottomSheet<AwesomeFilter>(
         context: context,
@@ -523,7 +556,11 @@ class VideoView extends HookConsumerWidget {
                 borderRadius: BorderRadius.circular(32),
                 border: Border.all(color: Colors.white.withValues(alpha: 0.15)),
                 boxShadow: const [
-                  BoxShadow(color: Colors.black54, blurRadius: 20, spreadRadius: 5),
+                  BoxShadow(
+                    color: Colors.black54,
+                    blurRadius: 20,
+                    spreadRadius: 5,
+                  ),
                 ],
               ),
               child: ClipRRect(
@@ -574,32 +611,52 @@ class VideoView extends HookConsumerWidget {
                                 duration: const Duration(milliseconds: 250),
                                 curve: Curves.easeOutCubic,
                                 margin: const EdgeInsets.only(right: 12),
-                                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                  vertical: 12,
+                                ),
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  gradient: isSelected 
-                                      ? const LinearGradient(colors: [Color(0xFF8A2BE2), Color(0xFF4B0082)])
+                                  gradient: isSelected
+                                      ? const LinearGradient(
+                                          colors: [
+                                            Color(0xFF8A2BE2),
+                                            Color(0xFF4B0082),
+                                          ],
+                                        )
                                       : null,
-                                  color: isSelected ? null : Colors.white.withValues(alpha: 0.08),
+                                  color: isSelected
+                                      ? null
+                                      : Colors.white.withValues(alpha: 0.08),
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(
-                                    color: isSelected ? Colors.white.withValues(alpha: 0.5) : Colors.transparent,
+                                    color: isSelected
+                                        ? Colors.white.withValues(alpha: 0.5)
+                                        : Colors.transparent,
                                     width: 1.5,
                                   ),
-                                  boxShadow: isSelected ? [
-                                    BoxShadow(
-                                      color: const Color(0xFF8A2BE2).withValues(alpha: 0.4),
-                                      blurRadius: 12,
-                                      spreadRadius: 2,
-                                    )
-                                  ] : [],
+                                  boxShadow: isSelected
+                                      ? [
+                                          BoxShadow(
+                                            color: const Color(
+                                              0xFF8A2BE2,
+                                            ).withValues(alpha: 0.4),
+                                            blurRadius: 12,
+                                            spreadRadius: 2,
+                                          ),
+                                        ]
+                                      : [],
                                 ),
                                 child: Text(
                                   filterDisplayName(filter),
                                   style: AppTextStyles.body(
                                     14,
-                                    color: isSelected ? Colors.white : Colors.white70,
-                                    weight: isSelected ? FontWeight.w700 : FontWeight.w600,
+                                    color: isSelected
+                                        ? Colors.white
+                                        : Colors.white70,
+                                    weight: isSelected
+                                        ? FontWeight.w700
+                                        : FontWeight.w600,
                                   ),
                                 ),
                               ),
@@ -624,9 +681,12 @@ class VideoView extends HookConsumerWidget {
       final cameraState = cameraRuntimeState.value;
       if (cameraState != null) {
         unawaited(
-          cameraState.setFilter(selectedCameraFilter.value).then((_) {
-            lastAppliedCameraFilterId.value = selectedCameraFilter.value.id;
-          }).catchError((_) {}),
+          cameraState
+              .setFilter(selectedCameraFilter.value)
+              .then((_) {
+                lastAppliedCameraFilterId.value = selectedCameraFilter.value.id;
+              })
+              .catchError((_) {}),
         );
       }
     }
@@ -821,15 +881,6 @@ class VideoView extends HookConsumerWidget {
                     }
                   }
                 },
-              ),
-            ),
-            const SafeArea(
-              child: Align(
-                alignment: Alignment.topRight,
-                child: Padding(
-                  padding: EdgeInsets.only(top: 8, right: 12),
-                  child: RealtimeDiagnosticsPanel(scopeLabel: 'Video'),
-                ),
               ),
             ),
           ],
