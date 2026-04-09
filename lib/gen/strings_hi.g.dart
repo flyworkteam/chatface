@@ -229,6 +229,7 @@ class _TranslationsChatHi implements TranslationsChatEn {
 
 	// Translations
 	@override String get message => 'संदेश';
+	@override String get readAloud => 'उच्चारण';
 	@override String get history => 'इतिहास';
 	@override String get noMessages => 'अभी तक कोई संदेश नहीं।';
 	@override String get noMessagesSubtitle => 'संदेश भेजकर बातचीत शुरू करें।';
@@ -853,6 +854,7 @@ extension on TranslationsHi {
 			'voiceChat.callFailed' => ({required Object error}) => 'कॉल विफल: ${error}',
 			'voiceChat.calling' => 'कॉल कर रहा है...',
 			'chat.message' => 'संदेश',
+			'chat.readAloud' => 'उच्चारण',
 			'chat.history' => 'इतिहास',
 			'chat.noMessages' => 'अभी तक कोई संदेश नहीं।',
 			'chat.noMessagesSubtitle' => 'संदेश भेजकर बातचीत शुरू करें।',

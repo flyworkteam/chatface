@@ -229,6 +229,7 @@ class _TranslationsChatCh implements TranslationsChatEn {
 
 	// Translations
 	@override String get message => '消息';
+	@override String get readAloud => '朗读';
 	@override String get history => '历史';
 	@override String get noMessages => '还没有消息。';
 	@override String get noMessagesSubtitle => '发送消息开始对话。';
@@ -853,6 +854,7 @@ extension on TranslationsCh {
 			'voiceChat.callFailed' => ({required Object error}) => '通话失败： ${error}',
 			'voiceChat.calling' => '呼叫中...',
 			'chat.message' => '消息',
+			'chat.readAloud' => '朗读',
 			'chat.history' => '历史',
 			'chat.noMessages' => '还没有消息。',
 			'chat.noMessagesSubtitle' => '发送消息开始对话。',

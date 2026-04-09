@@ -207,6 +207,7 @@
     "chat": {
         "message": "Mensagem",
         "history": "Histórico",
+        "readAloud": "Ler em voz alta",
         "noMessages": "Ainda não há mensagens.",
         "noMessagesSubtitle": "Comece uma conversa enviando uma mensagem.",
         "online": "Online",
@@ -215,13 +216,13 @@
         "camera": "Câmera",
         "typeAMessage": "Digite uma mensagem...",
         "pleaseUpgrade": "Por favor, atualize para a versão Pro.",
-        "photo": "Photo",
-        "photoUploadFailed": "Couldn't upload photo. Please try again.",
-        "tapToViewPhoto": "Tap to view photo",
+        "photo": "Foto",
+        "photoUploadFailed": "Não foi possível fazer o upload da foto. Por favor, tente novamente.",
+        "tapToViewPhoto": "Toque para ver a foto",
         "voiceCallEnded": "Chamada de voz encerrada",
         "videoCallEnded": "Chamada de vídeo encerrada",
-        "uploadingPhoto": "Uploading photo...",
-        "mediaPermissionDenied": "Allow camera or photo permissions to share images."
+        "uploadingPhoto": "Enviando foto...",
+        "mediaPermissionDenied": "Permita acesso à câmera ou fotos para compartilhar imagens."
     },
     "editProfile": {
         "aboutMe": "Sobre mim",

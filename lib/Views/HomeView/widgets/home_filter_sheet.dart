@@ -94,10 +94,11 @@ class HomeFilterSheet extends HookConsumerWidget {
               child: SingleChildScrollView(
                 padding: EdgeInsets.zero,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       t.editProfile.gender,
-                      textAlign: TextAlign.center,
+                      textAlign: TextAlign.left,
                       style: AppTextStyles.body(
                         18,
                         weight: FontWeight.w700,
@@ -107,23 +108,35 @@ class HomeFilterSheet extends HookConsumerWidget {
                       ),
                     ),
                     const SizedBox(height: 12),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        _SegmentButton(
-                          icon: AppIcons.male,
-                          label: t.onboarding.step3.male,
-                          isSelected: selectedGender.value == 'male',
-                          onTap: () => selectedGender.value = 'male',
-                        ),
-                        const SizedBox(width: 20),
-                        _SegmentButton(
-                          icon: AppIcons.female,
-                          label: t.onboarding.step3.female,
-                          isSelected: selectedGender.value == 'female',
-                          onTap: () => selectedGender.value = 'female',
-                        ),
-                      ],
+                    LayoutBuilder(
+                      builder: (context, constraints) {
+                        final itemWidth = (constraints.maxWidth - 32) / 2.2;
+
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: itemWidth,
+                              child: _SegmentButton(
+                                icon: AppIcons.male,
+                                label: t.onboarding.step3.male,
+                                isSelected: selectedGender.value == 'male',
+                                onTap: () => selectedGender.value = 'male',
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            SizedBox(
+                              width: itemWidth,
+                              child: _SegmentButton(
+                                icon: AppIcons.female,
+                                label: t.onboarding.step3.female,
+                                isSelected: selectedGender.value == 'female',
+                                onTap: () => selectedGender.value = 'female',
+                              ),
+                            ),
+                          ],
+                        );
+                      },
                     ),
                     const SizedBox(height: 24),
                     Text(
@@ -143,6 +156,7 @@ class HomeFilterSheet extends HookConsumerWidget {
                         final itemWidth = (constraints.maxWidth - 32) / 2.2;
 
                         return Wrap(
+                          alignment: WrapAlignment.center,
                           spacing: 12,
                           runSpacing: 10,
                           children: _languageOptions.map((option) {
@@ -156,10 +170,19 @@ class HomeFilterSheet extends HookConsumerWidget {
                                 isSelected: isSelected,
                                 label: label,
                                 iconPath: option.iconPath,
-                                onTap: () {
+                                onTap: () async {
                                   selectedLanguage.value = isSelected
                                       ? null
                                       : option.key;
+                                  LocaleSettings.setLocale(
+                                    AppLocale.values.byName(option.key),
+                                  );
+                                  await SecureStorageService().saveLanguage(
+                                    option.key,
+                                  );
+                                  await ref
+                                      .read(personaFilterProvider.notifier)
+                                      .setLanguage(selectedLanguage.value);
                                 },
                               ),
                             );
@@ -232,47 +255,44 @@ class _SegmentButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(minWidth: 140),
-      child: GestureDetector(
-        onTap: onTap,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          height: 50,
-          decoration: BoxDecoration(
-            color: const Color(0xFF180D22),
-            borderRadius: BorderRadius.circular(28),
-            border: Border.all(
-              color: isSelected ? Colors.white : Colors.transparent,
-            ),
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        height: 50,
+        decoration: BoxDecoration(
+          color: const Color(0xFF180D22),
+          borderRadius: BorderRadius.circular(28),
+          border: Border.all(
+            color: isSelected ? Colors.white : Colors.transparent,
           ),
-          alignment: Alignment.center,
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SvgPicture.asset(
-                icon,
-                height: 16,
-                width: 16,
+        ),
+        alignment: Alignment.center,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SvgPicture.asset(
+              icon,
+              height: 16,
+              width: 16,
+              color: isSelected
+                  ? Colors.white
+                  : Colors.white.withValues(alpha: 0.45),
+            ),
+            const SizedBox(width: 6),
+            Text(
+              label,
+              style: AppTextStyles.body(
+                14,
+                weight: FontWeight.w600,
+                letterSpacing: 0.1 / 14,
+                height: 14 * 1.25,
                 color: isSelected
                     ? Colors.white
-                    : Colors.white.withValues(alpha: 0.45),
+                    : Colors.white.withValues(alpha: 0.55),
               ),
-              const SizedBox(width: 6),
-              Text(
-                label,
-                style: AppTextStyles.body(
-                  14,
-                  weight: FontWeight.w600,
-                  letterSpacing: 0.1 / 14,
-                  height: 14 * 1.25,
-                  color: isSelected
-                      ? Colors.white
-                      : Colors.white.withValues(alpha: 0.55),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -307,34 +327,40 @@ class _LanguageChip extends StatelessWidget {
             color: isSelected ? Colors.white : Colors.transparent,
           ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Flexible(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Spacer(),
-                  SvgPicture.asset(iconPath, height: 16, width: 16),
-                  Spacer(),
-                  Text(
-                    label,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                    style: AppTextStyles.body(
-                      14,
-                      weight: FontWeight.w500,
-                      letterSpacing: 0.1 / 14,
-                      height: 14 * 1.25,
-                      color: Colors.white,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final labelStart = constraints.maxWidth * 0.40;
+
+            return Stack(
+              children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: SvgPicture.asset(iconPath, height: 16, width: 16),
+                ),
+                Positioned.fill(
+                  child: Padding(
+                    padding: EdgeInsets.only(left: labelStart),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        label,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.left,
+                        style: AppTextStyles.body(
+                          14,
+                          weight: FontWeight.w500,
+                          letterSpacing: 0.1 / 14,
+                          height: 14 * 1.25,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ),
-                  Spacer(),
-                ],
-              ),
-            ),
-          ],
+                ),
+              ],
+            );
+          },
         ),
       ),
     );

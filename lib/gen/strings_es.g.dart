@@ -230,6 +230,7 @@ class _TranslationsChatEs implements TranslationsChatEn {
 	// Translations
 	@override String get message => 'Mensaje';
 	@override String get history => 'Historial';
+	@override String get readAloud => 'Leer en voz alta';
 	@override String get noMessages => 'Aún no hay mensajes.';
 	@override String get noMessagesSubtitle => 'Comienza una conversación enviando un mensaje.';
 	@override String get online => 'En línea';
@@ -854,6 +855,7 @@ extension on TranslationsEs {
 			'voiceChat.calling' => 'Llamando...',
 			'chat.message' => 'Mensaje',
 			'chat.history' => 'Historial',
+			'chat.readAloud' => 'Leer en voz alta',
 			'chat.noMessages' => 'Aún no hay mensajes.',
 			'chat.noMessagesSubtitle' => 'Comienza una conversación enviando un mensaje.',
 			'chat.online' => 'En línea',

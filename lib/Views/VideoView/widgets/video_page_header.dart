@@ -26,7 +26,8 @@ class VideoPageHeader extends ConsumerWidget {
       child: Row(
         children: [
           user.when(
-            data: (profileData) => ProfileHeader(user: profileData!.user),
+            data: (profileData) =>
+                ProfileHeader(user: profileData!.user, isVideoCall: true),
             loading: () => CircularProgressIndicator(),
             error: (error, stackTrace) => SvgPicture.asset(AppIcons.warning),
           ),

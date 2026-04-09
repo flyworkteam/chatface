@@ -230,6 +230,7 @@ class _TranslationsChatPt implements TranslationsChatEn {
 	// Translations
 	@override String get message => 'Mensagem';
 	@override String get history => 'Histórico';
+	@override String get readAloud => 'Ler em voz alta';
 	@override String get noMessages => 'Ainda não há mensagens.';
 	@override String get noMessagesSubtitle => 'Comece uma conversa enviando uma mensagem.';
 	@override String get online => 'Online';
@@ -238,13 +239,13 @@ class _TranslationsChatPt implements TranslationsChatEn {
 	@override String get camera => 'Câmera';
 	@override String get typeAMessage => 'Digite uma mensagem...';
 	@override String get pleaseUpgrade => 'Por favor, atualize para a versão Pro.';
-	@override String get photo => 'Photo';
-	@override String get photoUploadFailed => 'Couldn\'t upload photo. Please try again.';
-	@override String get tapToViewPhoto => 'Tap to view photo';
+	@override String get photo => 'Foto';
+	@override String get photoUploadFailed => 'Não foi possível fazer o upload da foto. Por favor, tente novamente.';
+	@override String get tapToViewPhoto => 'Toque para ver a foto';
 	@override String get voiceCallEnded => 'Chamada de voz encerrada';
 	@override String get videoCallEnded => 'Chamada de vídeo encerrada';
-	@override String get uploadingPhoto => 'Uploading photo...';
-	@override String get mediaPermissionDenied => 'Allow camera or photo permissions to share images.';
+	@override String get uploadingPhoto => 'Enviando foto...';
+	@override String get mediaPermissionDenied => 'Permita acesso à câmera ou fotos para compartilhar imagens.';
 }
 
 // Path: editProfile
@@ -854,6 +855,7 @@ extension on TranslationsPt {
 			'voiceChat.calling' => 'Chamando...',
 			'chat.message' => 'Mensagem',
 			'chat.history' => 'Histórico',
+			'chat.readAloud' => 'Ler em voz alta',
 			'chat.noMessages' => 'Ainda não há mensagens.',
 			'chat.noMessagesSubtitle' => 'Comece uma conversa enviando uma mensagem.',
 			'chat.online' => 'Online',
@@ -862,13 +864,13 @@ extension on TranslationsPt {
 			'chat.camera' => 'Câmera',
 			'chat.typeAMessage' => 'Digite uma mensagem...',
 			'chat.pleaseUpgrade' => 'Por favor, atualize para a versão Pro.',
-			'chat.photo' => 'Photo',
-			'chat.photoUploadFailed' => 'Couldn\'t upload photo. Please try again.',
-			'chat.tapToViewPhoto' => 'Tap to view photo',
+			'chat.photo' => 'Foto',
+			'chat.photoUploadFailed' => 'Não foi possível fazer o upload da foto. Por favor, tente novamente.',
+			'chat.tapToViewPhoto' => 'Toque para ver a foto',
 			'chat.voiceCallEnded' => 'Chamada de voz encerrada',
 			'chat.videoCallEnded' => 'Chamada de vídeo encerrada',
-			'chat.uploadingPhoto' => 'Uploading photo...',
-			'chat.mediaPermissionDenied' => 'Allow camera or photo permissions to share images.',
+			'chat.uploadingPhoto' => 'Enviando foto...',
+			'chat.mediaPermissionDenied' => 'Permita acesso à câmera ou fotos para compartilhar imagens.',
 			'editProfile.aboutMe' => 'Sobre mim',
 			'editProfile.aboutMeHint' => 'Escreva algo sobre você',
 			'editProfile.fullName' => 'Nome completo',

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io' show Platform;
 
 import 'package:camerawesome/camerawesome_plugin.dart';
@@ -10,6 +11,62 @@ import 'package:chatface/utils/print.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+class VideoCharacterStage extends StatelessWidget {
+  const VideoCharacterStage({
+    super.key,
+    required this.character,
+    required this.isCompanionSpeaking,
+    required this.activeVisemeId,
+    required this.activeVisemeDurationMs,
+    this.onMediaReady,
+  });
+
+  final PersonaProfile character;
+  final bool isCompanionSpeaking;
+  final double activeVisemeId;
+  final double activeVisemeDurationMs;
+  final VoidCallback? onMediaReady;
+
+  @override
+  Widget build(BuildContext context) {
+    final rivePath = character.displayRiveAssetPath;
+    final imagePath = character.displayImagePath;
+
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        AICharacterDisplay(
+          imagePath: imagePath,
+          isNetworkImage: character.isNetworkImage,
+          riveAssetPath: rivePath,
+          isTalking: isCompanionSpeaking,
+          visemeId: activeVisemeId,
+          visemeDurationMs: activeVisemeDurationMs,
+          onMediaReady: onMediaReady,
+        ),
+        Positioned.fill(
+          child: IgnorePointer(
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.black.withValues(alpha: 0.22),
+                    Colors.transparent,
+                    Colors.black.withValues(alpha: 0.24),
+                  ],
+                  stops: const [0, 0.22, 1],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
 
 /// Aktif video görüşme ekranı
 /// AI karakter tam ekran (placeholder) + Kullanıcı kamera preview (sağ alt)
@@ -30,6 +87,7 @@ class VideoActiveScreen extends StatelessWidget {
     required this.isCompanionSpeaking,
     required this.activeVisemeId,
     required this.activeVisemeDurationMs,
+    this.characterStage,
     this.isFollowed = false,
   });
 
@@ -46,16 +104,12 @@ class VideoActiveScreen extends StatelessWidget {
   final bool isCompanionSpeaking;
   final double activeVisemeId;
   final double activeVisemeDurationMs;
+  final Widget? characterStage;
 
   final bool isFollowed;
 
   @override
   Widget build(BuildContext context) {
-    final rivePath = character.displayRiveAssetPath;
-    final imagePath = character.displayImagePath;
-
-    final riveAsset = rivePath;
-
     void reportCameraState(CameraState state) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (!context.mounted) return;
@@ -65,69 +119,25 @@ class VideoActiveScreen extends StatelessWidget {
 
     return Stack(
       children: [
-        // AI Karakter - tam ekran
-        AICharacterDisplay(
-          imagePath: imagePath,
-          isNetworkImage: character.isNetworkImage,
-          riveAssetPath: riveAsset,
-          isTalking: isCompanionSpeaking,
-          visemeId: activeVisemeId,
-          visemeDurationMs: activeVisemeDurationMs,
-          onMediaReady: onSceneReady,
-        ),
-
-        // Üst gradient overlay (status bar okunabilirliği için)
         Positioned.fill(
-          child: IgnorePointer(
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.black.withValues(alpha: 0.22),
-                    Colors.transparent,
-                    Colors.black.withValues(alpha: 0.24),
-                  ],
-                  stops: const [0, 0.22, 1],
-                ),
+          child:
+              characterStage ??
+              VideoCharacterStage(
+                character: character,
+                isCompanionSpeaking: isCompanionSpeaking,
+                activeVisemeId: activeVisemeId,
+                activeVisemeDurationMs: activeVisemeDurationMs,
+                onMediaReady: onSceneReady,
               ),
-            ),
-          ),
         ),
 
         // "Swipe to Chat >>" (sağ orta)
         Positioned(
           right: 14,
           top: MediaQuery.of(context).size.height * 0.44,
-          child: GestureDetector(
+          child: _AutoHidingSwipeToChatHint(
             onTap: onSwipeToChat,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
-              decoration: BoxDecoration(
-                color: Colors.black.withValues(alpha: 0.28),
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(
-                  color: Colors.white.withValues(alpha: 0.16),
-                  width: 1,
-                ),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    context.t.videoChat.swipeToChat,
-                    style: GoogleFonts.rubik(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const SizedBox(width: 4),
-                  SvgPicture.asset(AppIcons.forwardSwipe),
-                ],
-              ),
-            ),
+            resetToken: character.id,
           ),
         ),
 
@@ -157,8 +167,8 @@ class VideoActiveScreen extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Image.asset(AppIcons.profileFolow, width: 25, height: 25),
-                  const SizedBox(width: 6),
+                  SvgPicture.asset(AppIcons.videoFollow, width: 30, height: 30),
+                  const SizedBox(width: 10),
                   Text(
                     isFollowed
                         ? context.t.videoChat.unfollow
@@ -229,6 +239,107 @@ class VideoActiveScreen extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _AutoHidingSwipeToChatHint extends StatefulWidget {
+  const _AutoHidingSwipeToChatHint({
+    required this.onTap,
+    required this.resetToken,
+  });
+
+  final VoidCallback onTap;
+  final String resetToken;
+
+  @override
+  State<_AutoHidingSwipeToChatHint> createState() =>
+      _AutoHidingSwipeToChatHintState();
+}
+
+class _AutoHidingSwipeToChatHintState
+    extends State<_AutoHidingSwipeToChatHint> {
+  static const Duration _holdDuration = Duration(milliseconds: 1100);
+  static const Duration _fadeDuration = Duration(milliseconds: 1800);
+
+  Timer? _hideTimer;
+  bool _visible = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _startCycle();
+  }
+
+  @override
+  void didUpdateWidget(covariant _AutoHidingSwipeToChatHint oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.resetToken != widget.resetToken) {
+      _startCycle();
+    }
+  }
+
+  @override
+  void dispose() {
+    _hideTimer?.cancel();
+    super.dispose();
+  }
+
+  void _startCycle() {
+    _hideTimer?.cancel();
+
+    if (!_visible) {
+      setState(() {
+        _visible = true;
+      });
+    }
+
+    _hideTimer = Timer(_holdDuration, () {
+      if (!mounted) return;
+      setState(() {
+        _visible = false;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return IgnorePointer(
+      ignoring: !_visible,
+      child: AnimatedOpacity(
+        opacity: _visible ? 1 : 0,
+        duration: _fadeDuration,
+        curve: Curves.easeOut,
+        child: GestureDetector(
+          onTap: widget.onTap,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+            decoration: BoxDecoration(
+              color: Colors.black.withValues(alpha: 0.28),
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: Colors.white.withValues(alpha: 0.16),
+                width: 1,
+              ),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  context.t.videoChat.swipeToChat,
+                  style: GoogleFonts.rubik(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(width: 4),
+                SvgPicture.asset(AppIcons.forwardSwipe),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

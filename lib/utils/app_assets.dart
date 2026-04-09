@@ -58,6 +58,7 @@ class AppIcons {
   static const String google = 'assets/icons/google.svg';
   static const String home = 'assets/icons/homenavbar.svg';
   static const String homeSelected = 'assets/icons/homenavbarselected.svg';
+  static const String homeProfile = 'assets/icons/homeprofile.svg';
   static const String link = 'assets/icons/link.svg';
   static const String location = 'assets/icons/location.svg';
   static const String lock = 'assets/icons/lock.png';
@@ -75,8 +76,7 @@ class AppIcons {
   static const String profile = 'assets/icons/profile.png';
   static const String profileVideo = 'assets/icons/profilevideo.png';
   static const String videoProfile = 'assets/icons/profilevideo.svg';
-  static const String homeProfile = 'assets/icons/homeprofile.svg';
-  static const String profileFolow = 'assets/icons/profilefollow.png';
+  static const String profileFollow = 'assets/icons/profilefollow.png';
   static const String premiumBackground = 'assets/icons/premiumbackground.png';
   static const String rateUs = 'assets/icons/rateus.svg';
   static const String repeatarrow = 'assets/icons/repeatarrow.svg';
@@ -92,6 +92,7 @@ class AppIcons {
   static const String version = 'assets/icons/version.svg';
   static const String video = 'assets/icons/videonavbar.svg';
   static const String videoCall = 'assets/icons/videocall.svg';
+  static const String videoFollow = 'assets/icons/videofollow.svg';
   static const String videoCallChat = 'assets/icons/videocallchat.png';
   static const String videoNavSelected = 'assets/icons/videonavbarselected.svg';
   static const String voiceCall = 'assets/icons/voicecall.svg';

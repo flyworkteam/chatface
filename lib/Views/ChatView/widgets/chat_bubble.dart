@@ -4,7 +4,9 @@ import 'package:chatface/Views/ChatView/widgets/attachment_gallery.dart';
 import 'package:chatface/gen/strings.g.dart';
 import 'package:chatface/theme/app_text_styles.dart';
 import 'package:chatface/utils/app_assets.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ChatBubble extends StatelessWidget {
@@ -68,73 +70,11 @@ class ChatBubble extends StatelessWidget {
               ],
             ),
           if (hasText)
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 11),
-              decoration: BoxDecoration(
-                gradient: isUser
-                    ? const LinearGradient(
-                        colors: [
-                          Color(0xFFE46264),
-                          Color(0xFFB94991),
-                          Color(0xFFB01CD4),
-                        ],
-                        stops: [0, 0.5, 1],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      )
-                    : null,
-                color: isUser ? null : Color(0xff222021),
-                borderRadius: BorderRadius.only(
-                  topLeft: const Radius.circular(30),
-                  topRight: const Radius.circular(30),
-                  bottomLeft: Radius.circular(isUser ? 30 : 0),
-                  bottomRight: Radius.circular(isUser ? 0 : 30),
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: 12,
-                children: [
-                  Text(
-                    message.text,
-                    style: AppTextStyles.body(
-                      14,
-                      color: Colors.white,
-                      height: 14 * 1.55,
-                    ),
-                  ),
-                  if (!isUser && onListen != null) ...[
-                    SvgPicture.asset(AppIcons.divider),
-                    Row(
-                      spacing: 12,
-                      children: [
-                        GestureDetector(
-                          onTap: isListening ? null : onListen,
-                          child: SvgPicture.asset(
-                            AppIcons.callvolume,
-                            colorFilter: const ColorFilter.mode(
-                              Colors.white70,
-                              BlendMode.srcIn,
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            //TODO:copy the text
-                          },
-                          child: SvgPicture.asset(
-                            AppIcons.copyMessage,
-                            colorFilter: const ColorFilter.mode(
-                              Colors.white70,
-                              BlendMode.srcIn,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ],
-              ),
+            _MessageTextBubble(
+              text: message.text,
+              isUser: isUser,
+              onListen: onListen,
+              isListening: isListening,
             ),
 
           if (isUser && !message.isDelivered && hasAttachments)
@@ -163,6 +103,139 @@ class ChatBubble extends StatelessWidget {
     return message.text.isNotEmpty
         ? message.text
         : context.t.chat.voiceCallEnded;
+  }
+}
+
+enum _MessageAction { copy, listen }
+
+class _MessageTextBubble extends StatelessWidget {
+  const _MessageTextBubble({
+    required this.text,
+    required this.isUser,
+    this.onListen,
+    required this.isListening,
+  });
+
+  final String text;
+  final bool isUser;
+  final VoidCallback? onListen;
+  final bool isListening;
+
+  @override
+  Widget build(BuildContext context) {
+    final bubble = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 11),
+      decoration: BoxDecoration(
+        gradient: isUser
+            ? const LinearGradient(
+                colors: [
+                  Color(0xFFE46264),
+                  Color(0xFFB94991),
+                  Color(0xFFB01CD4),
+                ],
+                stops: [0, 0.5, 1],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              )
+            : null,
+        color: isUser ? null : const Color(0xff222021),
+        borderRadius: BorderRadius.only(
+          topLeft: const Radius.circular(30),
+          topRight: const Radius.circular(30),
+          bottomLeft: Radius.circular(isUser ? 30 : 0),
+          bottomRight: Radius.circular(isUser ? 0 : 30),
+        ),
+      ),
+      child: Text(
+        text,
+        style: AppTextStyles.body(14, color: Colors.white, height: 14 * 1.55),
+      ),
+    );
+
+    if (isUser) return bubble;
+
+    return DropdownButtonHideUnderline(
+      child: DropdownButton2<_MessageAction>(
+        customButton: bubble,
+        buttonStyleData: const ButtonStyleData(
+          padding: EdgeInsets.zero,
+          overlayColor: WidgetStatePropertyAll(Colors.transparent),
+        ),
+        dropdownStyleData: DropdownStyleData(
+          width: 190,
+          offset: const Offset(0, -5),
+          elevation: 0,
+          decoration: BoxDecoration(
+            color: const Color(0xFF1E1E24),
+            borderRadius: BorderRadius.circular(18),
+          ),
+        ),
+        menuItemStyleData: const MenuItemStyleData(
+          height: 56,
+          padding: EdgeInsets.symmetric(horizontal: 16),
+        ),
+        items: [
+          DropdownMenuItem<_MessageAction>(
+            value: _MessageAction.copy,
+            child: _MessageActionTile(
+              iconAsset: AppIcons.copyMessage,
+              label: MaterialLocalizations.of(context).copyButtonLabel,
+            ),
+          ),
+          if (onListen != null)
+            DropdownMenuItem<_MessageAction>(
+              value: _MessageAction.listen,
+              enabled: !isListening,
+              child: _MessageActionTile(
+                iconAsset: isListening
+                    ? AppIcons.callvolumeslash
+                    : AppIcons.callvolume,
+                label: context.t.chat.readAloud,
+                isDisabled: isListening,
+              ),
+            ),
+        ],
+        onChanged: (action) {
+          if (action == null) return;
+          switch (action) {
+            case _MessageAction.copy:
+              Clipboard.setData(ClipboardData(text: text));
+              break;
+            case _MessageAction.listen:
+              if (!isListening) onListen?.call();
+              break;
+          }
+        },
+      ),
+    );
+  }
+}
+
+class _MessageActionTile extends StatelessWidget {
+  const _MessageActionTile({
+    required this.iconAsset,
+    required this.label,
+    this.isDisabled = false,
+  });
+
+  final String iconAsset;
+  final String label;
+  final bool isDisabled;
+
+  @override
+  Widget build(BuildContext context) {
+    final itemColor = isDisabled ? Colors.white38 : Colors.white;
+
+    return Row(
+      spacing: 12,
+      children: [
+        SvgPicture.asset(
+          iconAsset,
+          colorFilter: ColorFilter.mode(itemColor, BlendMode.srcIn),
+        ),
+        Text(label, style: AppTextStyles.body(16, color: itemColor)),
+      ],
+    );
   }
 }
 

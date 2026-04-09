@@ -207,6 +207,7 @@
     "chat": {
         "message": "메시지",
         "history": "기록",
+        "readAloud": "읽어주기",
         "noMessages": "아직 메시지가 없습니다.",
         "noMessagesSubtitle": "메시지를 보내 대화를 시작하세요.",
         "online": "온라인",
@@ -215,13 +216,13 @@
         "camera": "카메라",
         "typeAMessage": "메시지를 입력...",
         "pleaseUpgrade": "프로 버전으로 업그레이드하세요.",
-        "photo": "Photo",
-        "photoUploadFailed": "Couldn't upload photo. Please try again.",
-        "tapToViewPhoto": "Tap to view photo",
+        "photo": "사진",
+        "photoUploadFailed": "사진을 업로드할 수 없습니다. 다시 시도해주세요.",
+        "tapToViewPhoto": "탭하여 사진 보기",
         "voiceCallEnded": "음성 통화 종료",
         "videoCallEnded": "영상 통화 종료",
-        "uploadingPhoto": "Uploading photo...",
-        "mediaPermissionDenied": "Allow camera or photo permissions to share images."
+        "uploadingPhoto": "사진 업로드 중...",
+        "mediaPermissionDenied": "사진을 공유하려면 카메라 또는 사진 권한을 허용하세요. 설정에서 권한을 활성화해주세요."
     },
     "editProfile": {
         "aboutMe": "내 소개",

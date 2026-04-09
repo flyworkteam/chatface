@@ -206,6 +206,7 @@
     },
     "chat": {
         "message": "消息",
+        "readAloud": "朗读",
         "history": "历史",
         "noMessages": "还没有消息。",
         "noMessagesSubtitle": "发送消息开始对话。",

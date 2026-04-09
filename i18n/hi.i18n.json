@@ -206,6 +206,7 @@
     },
     "chat": {
         "message": "संदेश",
+        "readAloud": "उच्चारण",
         "history": "इतिहास",
         "noMessages": "अभी तक कोई संदेश नहीं।",
         "noMessagesSubtitle": "संदेश भेजकर बातचीत शुरू करें।",

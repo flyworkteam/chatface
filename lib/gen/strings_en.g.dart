@@ -388,6 +388,9 @@ class TranslationsChatEn {
 	/// en: 'History'
 	String get history => 'History';
 
+	/// en: 'Read Aloud'
+	String get readAloud => 'Read Aloud';
+
 	/// en: 'No messages yet.'
 	String get noMessages => 'No messages yet.';
 
@@ -1455,6 +1458,7 @@ extension on Translations {
 			'voiceChat.calling' => 'Calling...',
 			'chat.message' => 'Message',
 			'chat.history' => 'History',
+			'chat.readAloud' => 'Read Aloud',
 			'chat.noMessages' => 'No messages yet.',
 			'chat.noMessagesSubtitle' => 'Start a conversation by sending a message.',
 			'chat.online' => 'Online',

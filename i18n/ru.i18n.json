@@ -207,6 +207,7 @@
     "chat": {
         "message": "Сообщение",
         "history": "История",
+        "readAloud": "Читать вслух",
         "noMessages": "Пока нет сообщений.",
         "noMessagesSubtitle": "Начните разговор, отправив сообщение.",
         "online": "В сети",
@@ -215,13 +216,13 @@
         "camera": "Камера",
         "typeAMessage": "Введите сообщение...",
         "pleaseUpgrade": "Пожалуйста, обновитесь до версии Pro.",
-        "photo": "Photo",
-        "photoUploadFailed": "Couldn't upload photo. Please try again.",
-        "tapToViewPhoto": "Tap to view photo",
+        "photo": "Фото",
+        "photoUploadFailed": "Не удалось загрузить фото. Пожалуйста, попробуйте снова.",
+        "tapToViewPhoto": "Нажмите, чтобы просмотреть фото",
         "voiceCallEnded": "Голосовой звонок завершён",
         "videoCallEnded": "Видеозвонок завершён",
-        "uploadingPhoto": "Uploading photo...",
-        "mediaPermissionDenied": "Allow camera or photo permissions to share images."
+        "uploadingPhoto": "Загрузка фото...",
+        "mediaPermissionDenied": "Разрешите доступ к камере или фото, чтобы делиться изображениями."
     },
     "editProfile": {
         "aboutMe": "Обо мне",

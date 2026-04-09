@@ -230,6 +230,7 @@ class _TranslationsChatKo implements TranslationsChatEn {
 	// Translations
 	@override String get message => '메시지';
 	@override String get history => '기록';
+	@override String get readAloud => '읽어주기';
 	@override String get noMessages => '아직 메시지가 없습니다.';
 	@override String get noMessagesSubtitle => '메시지를 보내 대화를 시작하세요.';
 	@override String get online => '온라인';
@@ -238,13 +239,13 @@ class _TranslationsChatKo implements TranslationsChatEn {
 	@override String get camera => '카메라';
 	@override String get typeAMessage => '메시지를 입력...';
 	@override String get pleaseUpgrade => '프로 버전으로 업그레이드하세요.';
-	@override String get photo => 'Photo';
-	@override String get photoUploadFailed => 'Couldn\'t upload photo. Please try again.';
-	@override String get tapToViewPhoto => 'Tap to view photo';
+	@override String get photo => '사진';
+	@override String get photoUploadFailed => '사진을 업로드할 수 없습니다. 다시 시도해주세요.';
+	@override String get tapToViewPhoto => '탭하여 사진 보기';
 	@override String get voiceCallEnded => '음성 통화 종료';
 	@override String get videoCallEnded => '영상 통화 종료';
-	@override String get uploadingPhoto => 'Uploading photo...';
-	@override String get mediaPermissionDenied => 'Allow camera or photo permissions to share images.';
+	@override String get uploadingPhoto => '사진 업로드 중...';
+	@override String get mediaPermissionDenied => '사진을 공유하려면 카메라 또는 사진 권한을 허용하세요. 설정에서 권한을 활성화해주세요.';
 }
 
 // Path: editProfile
@@ -854,6 +855,7 @@ extension on TranslationsKo {
 			'voiceChat.calling' => '통화 중...',
 			'chat.message' => '메시지',
 			'chat.history' => '기록',
+			'chat.readAloud' => '읽어주기',
 			'chat.noMessages' => '아직 메시지가 없습니다.',
 			'chat.noMessagesSubtitle' => '메시지를 보내 대화를 시작하세요.',
 			'chat.online' => '온라인',
@@ -862,13 +864,13 @@ extension on TranslationsKo {
 			'chat.camera' => '카메라',
 			'chat.typeAMessage' => '메시지를 입력...',
 			'chat.pleaseUpgrade' => '프로 버전으로 업그레이드하세요.',
-			'chat.photo' => 'Photo',
-			'chat.photoUploadFailed' => 'Couldn\'t upload photo. Please try again.',
-			'chat.tapToViewPhoto' => 'Tap to view photo',
+			'chat.photo' => '사진',
+			'chat.photoUploadFailed' => '사진을 업로드할 수 없습니다. 다시 시도해주세요.',
+			'chat.tapToViewPhoto' => '탭하여 사진 보기',
 			'chat.voiceCallEnded' => '음성 통화 종료',
 			'chat.videoCallEnded' => '영상 통화 종료',
-			'chat.uploadingPhoto' => 'Uploading photo...',
-			'chat.mediaPermissionDenied' => 'Allow camera or photo permissions to share images.',
+			'chat.uploadingPhoto' => '사진 업로드 중...',
+			'chat.mediaPermissionDenied' => '사진을 공유하려면 카메라 또는 사진 권한을 허용하세요. 설정에서 권한을 활성화해주세요.',
 			'editProfile.aboutMe' => '내 소개',
 			'editProfile.aboutMeHint' => '자신에 대해 적어보세요',
 			'editProfile.fullName' => '전체 이름',

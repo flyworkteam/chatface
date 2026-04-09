@@ -1,5 +1,6 @@
 import 'package:chatface/Models/persona_model.dart';
 import 'package:chatface/shared/custom_cached_network_image.dart';
+import 'package:chatface/shared/translated_job_title.dart';
 import 'package:chatface/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -79,9 +80,11 @@ class HomeMoreCard extends StatelessWidget {
                         height: 24 * 1.15,
                       ),
                     ),
-                    Text(
-                      character.jobTitle,
+
+                    TranslatedJobTitle(
+                      title: character.jobTitle,
                       maxLines: 1,
+                      textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       style: AppTextStyles.body(
                         12,

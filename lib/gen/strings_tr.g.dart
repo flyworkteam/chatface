@@ -230,6 +230,7 @@ class _TranslationsChatTr implements TranslationsChatEn {
 	// Translations
 	@override String get message => 'Mesaj';
 	@override String get history => 'Geçmiş';
+	@override String get readAloud => 'Seslendir';
 	@override String get noMessages => 'Henüz mesaj yok.';
 	@override String get noMessagesSubtitle => 'Bir mesaj göndererek sohbet başlatın.';
 	@override String get online => 'Çevrimiçi';
@@ -238,13 +239,13 @@ class _TranslationsChatTr implements TranslationsChatEn {
 	@override String get camera => 'Kamera';
 	@override String get typeAMessage => 'Mesaj yazın...';
 	@override String get pleaseUpgrade => 'Lütfen Pro sürümüne yükseltin.';
-	@override String get photo => 'Photo';
-	@override String get photoUploadFailed => 'Couldn\'t upload photo. Please try again.';
-	@override String get tapToViewPhoto => 'Tap to view photo';
+	@override String get photo => 'Fotoğraf';
+	@override String get photoUploadFailed => 'Fotoğraf yüklenemedi. Lütfen tekrar deneyin.';
+	@override String get tapToViewPhoto => 'Fotoğrafı görüntülemek için dokunun';
 	@override String get voiceCallEnded => 'Sesli arama sona erdi';
 	@override String get videoCallEnded => 'Video araması sona erdi';
-	@override String get uploadingPhoto => 'Uploading photo...';
-	@override String get mediaPermissionDenied => 'Allow camera or photo permissions to share images.';
+	@override String get uploadingPhoto => 'Fotoğraf yükleniyor...';
+	@override String get mediaPermissionDenied => 'Resim paylaşmak için kamera veya fotoğraf izni verin.';
 }
 
 // Path: editProfile
@@ -854,6 +855,7 @@ extension on TranslationsTr {
 			'voiceChat.calling' => 'Aranıyor...',
 			'chat.message' => 'Mesaj',
 			'chat.history' => 'Geçmiş',
+			'chat.readAloud' => 'Seslendir',
 			'chat.noMessages' => 'Henüz mesaj yok.',
 			'chat.noMessagesSubtitle' => 'Bir mesaj göndererek sohbet başlatın.',
 			'chat.online' => 'Çevrimiçi',
@@ -862,13 +864,13 @@ extension on TranslationsTr {
 			'chat.camera' => 'Kamera',
 			'chat.typeAMessage' => 'Mesaj yazın...',
 			'chat.pleaseUpgrade' => 'Lütfen Pro sürümüne yükseltin.',
-			'chat.photo' => 'Photo',
-			'chat.photoUploadFailed' => 'Couldn\'t upload photo. Please try again.',
-			'chat.tapToViewPhoto' => 'Tap to view photo',
+			'chat.photo' => 'Fotoğraf',
+			'chat.photoUploadFailed' => 'Fotoğraf yüklenemedi. Lütfen tekrar deneyin.',
+			'chat.tapToViewPhoto' => 'Fotoğrafı görüntülemek için dokunun',
 			'chat.voiceCallEnded' => 'Sesli arama sona erdi',
 			'chat.videoCallEnded' => 'Video araması sona erdi',
-			'chat.uploadingPhoto' => 'Uploading photo...',
-			'chat.mediaPermissionDenied' => 'Allow camera or photo permissions to share images.',
+			'chat.uploadingPhoto' => 'Fotoğraf yükleniyor...',
+			'chat.mediaPermissionDenied' => 'Resim paylaşmak için kamera veya fotoğraf izni verin.',
 			'editProfile.aboutMe' => 'Hakkımda',
 			'editProfile.aboutMeHint' => 'Kendiniz hakkında bir şeyler yazın',
 			'editProfile.fullName' => 'Tam isim',

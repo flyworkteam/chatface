@@ -207,6 +207,7 @@
     "chat": {
         "message": "Nachricht",
         "history": "Verlauf",
+        "readAloud": "Aloud lesen",
         "noMessages": "Noch keine Nachrichten.",
         "noMessagesSubtitle": "Beginnen Sie ein Gespräch, indem Sie eine Nachricht senden.",
         "online": "Online",

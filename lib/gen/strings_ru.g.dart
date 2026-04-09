@@ -230,6 +230,7 @@ class _TranslationsChatRu implements TranslationsChatEn {
 	// Translations
 	@override String get message => 'Сообщение';
 	@override String get history => 'История';
+	@override String get readAloud => 'Читать вслух';
 	@override String get noMessages => 'Пока нет сообщений.';
 	@override String get noMessagesSubtitle => 'Начните разговор, отправив сообщение.';
 	@override String get online => 'В сети';
@@ -238,13 +239,13 @@ class _TranslationsChatRu implements TranslationsChatEn {
 	@override String get camera => 'Камера';
 	@override String get typeAMessage => 'Введите сообщение...';
 	@override String get pleaseUpgrade => 'Пожалуйста, обновитесь до версии Pro.';
-	@override String get photo => 'Photo';
-	@override String get photoUploadFailed => 'Couldn\'t upload photo. Please try again.';
-	@override String get tapToViewPhoto => 'Tap to view photo';
+	@override String get photo => 'Фото';
+	@override String get photoUploadFailed => 'Не удалось загрузить фото. Пожалуйста, попробуйте снова.';
+	@override String get tapToViewPhoto => 'Нажмите, чтобы просмотреть фото';
 	@override String get voiceCallEnded => 'Голосовой звонок завершён';
 	@override String get videoCallEnded => 'Видеозвонок завершён';
-	@override String get uploadingPhoto => 'Uploading photo...';
-	@override String get mediaPermissionDenied => 'Allow camera or photo permissions to share images.';
+	@override String get uploadingPhoto => 'Загрузка фото...';
+	@override String get mediaPermissionDenied => 'Разрешите доступ к камере или фото, чтобы делиться изображениями.';
 }
 
 // Path: editProfile
@@ -854,6 +855,7 @@ extension on TranslationsRu {
 			'voiceChat.calling' => 'Звонок...',
 			'chat.message' => 'Сообщение',
 			'chat.history' => 'История',
+			'chat.readAloud' => 'Читать вслух',
 			'chat.noMessages' => 'Пока нет сообщений.',
 			'chat.noMessagesSubtitle' => 'Начните разговор, отправив сообщение.',
 			'chat.online' => 'В сети',
@@ -862,13 +864,13 @@ extension on TranslationsRu {
 			'chat.camera' => 'Камера',
 			'chat.typeAMessage' => 'Введите сообщение...',
 			'chat.pleaseUpgrade' => 'Пожалуйста, обновитесь до версии Pro.',
-			'chat.photo' => 'Photo',
-			'chat.photoUploadFailed' => 'Couldn\'t upload photo. Please try again.',
-			'chat.tapToViewPhoto' => 'Tap to view photo',
+			'chat.photo' => 'Фото',
+			'chat.photoUploadFailed' => 'Не удалось загрузить фото. Пожалуйста, попробуйте снова.',
+			'chat.tapToViewPhoto' => 'Нажмите, чтобы просмотреть фото',
 			'chat.voiceCallEnded' => 'Голосовой звонок завершён',
 			'chat.videoCallEnded' => 'Видеозвонок завершён',
-			'chat.uploadingPhoto' => 'Uploading photo...',
-			'chat.mediaPermissionDenied' => 'Allow camera or photo permissions to share images.',
+			'chat.uploadingPhoto' => 'Загрузка фото...',
+			'chat.mediaPermissionDenied' => 'Разрешите доступ к камере или фото, чтобы делиться изображениями.',
 			'editProfile.aboutMe' => 'Обо мне',
 			'editProfile.aboutMeHint' => 'Напишите что-нибудь о себе',
 			'editProfile.fullName' => 'Полное имя',

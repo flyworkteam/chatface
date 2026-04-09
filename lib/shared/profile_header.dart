@@ -4,6 +4,7 @@ import 'package:chatface/shared/custom_cached_network_image.dart';
 import 'package:chatface/shared/profile_dialog_card.dart';
 import 'package:chatface/utils/app_assets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class ProfileHeader extends StatelessWidget {
   final UserProfile? user;
@@ -40,16 +41,14 @@ class ProfileHeader extends StatelessWidget {
                   height: 44,
                   backgroundImage: AppImages.person7,
                 )
-              : Image(
-                  image: ResizeImage(
-                    AssetImage(
-                      isVideoCall ? AppIcons.profileVideo : AppIcons.profile,
-                    ),
-                    width: 400,
+              : Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: isVideoCall
+                        ? Border.all(color: Colors.white, width: 1)
+                        : null,
                   ),
-                  fit: BoxFit.contain,
-                  filterQuality: FilterQuality.high,
-                  isAntiAlias: true,
+                  child: SvgPicture.asset(AppIcons.homeProfile),
                 ),
         ),
       ),

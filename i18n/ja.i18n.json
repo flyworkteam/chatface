@@ -207,6 +207,7 @@
     "chat": {
         "message": "メッセージ",
         "history": "履歴",
+        "readAloud": "朗読",
         "noMessages": "まだメッセージはありません。",
         "noMessagesSubtitle": "メッセージを送って会話を始めましょう。",
         "online": "オンライン",
@@ -215,13 +216,13 @@
         "camera": "カメラ",
         "typeAMessage": "メッセージを入力...",
         "pleaseUpgrade": "プロ版にアップグレードしてください。",
-        "photo": "Photo",
-        "photoUploadFailed": "Couldn't upload photo. Please try again.",
-        "tapToViewPhoto": "Tap to view photo",
+        "photo": "写真",
+        "photoUploadFailed": "写真をアップロードできませんでした。もう一度お試しください。",
+        "tapToViewPhoto": "タップして写真を表示",
         "voiceCallEnded": "音声通話終了",
         "videoCallEnded": "ビデオ通話終了",
-        "uploadingPhoto": "Uploading photo...",
-        "mediaPermissionDenied": "Allow camera or photo permissions to share images."
+        "uploadingPhoto": "写真をアップロード中...",
+        "mediaPermissionDenied": "カメラまたは写真のアクセス権限を許可してください。設定でアクセスを有効にしてください。"
     },
     "editProfile": {
         "aboutMe": "私について",

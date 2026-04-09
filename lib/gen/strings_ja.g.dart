@@ -230,6 +230,7 @@ class _TranslationsChatJa implements TranslationsChatEn {
 	// Translations
 	@override String get message => 'メッセージ';
 	@override String get history => '履歴';
+	@override String get readAloud => '朗読';
 	@override String get noMessages => 'まだメッセージはありません。';
 	@override String get noMessagesSubtitle => 'メッセージを送って会話を始めましょう。';
 	@override String get online => 'オンライン';
@@ -238,13 +239,13 @@ class _TranslationsChatJa implements TranslationsChatEn {
 	@override String get camera => 'カメラ';
 	@override String get typeAMessage => 'メッセージを入力...';
 	@override String get pleaseUpgrade => 'プロ版にアップグレードしてください。';
-	@override String get photo => 'Photo';
-	@override String get photoUploadFailed => 'Couldn\'t upload photo. Please try again.';
-	@override String get tapToViewPhoto => 'Tap to view photo';
+	@override String get photo => '写真';
+	@override String get photoUploadFailed => '写真をアップロードできませんでした。もう一度お試しください。';
+	@override String get tapToViewPhoto => 'タップして写真を表示';
 	@override String get voiceCallEnded => '音声通話終了';
 	@override String get videoCallEnded => 'ビデオ通話終了';
-	@override String get uploadingPhoto => 'Uploading photo...';
-	@override String get mediaPermissionDenied => 'Allow camera or photo permissions to share images.';
+	@override String get uploadingPhoto => '写真をアップロード中...';
+	@override String get mediaPermissionDenied => 'カメラまたは写真のアクセス権限を許可してください。設定でアクセスを有効にしてください。';
 }
 
 // Path: editProfile
@@ -854,6 +855,7 @@ extension on TranslationsJa {
 			'voiceChat.calling' => '発信中...',
 			'chat.message' => 'メッセージ',
 			'chat.history' => '履歴',
+			'chat.readAloud' => '朗読',
 			'chat.noMessages' => 'まだメッセージはありません。',
 			'chat.noMessagesSubtitle' => 'メッセージを送って会話を始めましょう。',
 			'chat.online' => 'オンライン',
@@ -862,13 +864,13 @@ extension on TranslationsJa {
 			'chat.camera' => 'カメラ',
 			'chat.typeAMessage' => 'メッセージを入力...',
 			'chat.pleaseUpgrade' => 'プロ版にアップグレードしてください。',
-			'chat.photo' => 'Photo',
-			'chat.photoUploadFailed' => 'Couldn\'t upload photo. Please try again.',
-			'chat.tapToViewPhoto' => 'Tap to view photo',
+			'chat.photo' => '写真',
+			'chat.photoUploadFailed' => '写真をアップロードできませんでした。もう一度お試しください。',
+			'chat.tapToViewPhoto' => 'タップして写真を表示',
 			'chat.voiceCallEnded' => '音声通話終了',
 			'chat.videoCallEnded' => 'ビデオ通話終了',
-			'chat.uploadingPhoto' => 'Uploading photo...',
-			'chat.mediaPermissionDenied' => 'Allow camera or photo permissions to share images.',
+			'chat.uploadingPhoto' => '写真をアップロード中...',
+			'chat.mediaPermissionDenied' => 'カメラまたは写真のアクセス権限を許可してください。設定でアクセスを有効にしてください。',
 			'editProfile.aboutMe' => '私について',
 			'editProfile.aboutMeHint' => '自分について何か書いてください',
 			'editProfile.fullName' => 'フルネーム',

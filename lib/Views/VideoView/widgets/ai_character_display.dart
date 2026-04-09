@@ -1,6 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 
+import 'rive_scene_cache.dart';
+
+typedef RiveStateWidgetBuilder =
+    Widget Function(BuildContext context, RiveState state);
+typedef RiveWidgetFactory =
+    Widget Function(
+      BuildContext context,
+      RiveSceneHandle riveSceneHandle,
+      ValueChanged<RiveLoaded> onLoaded,
+      RiveStateWidgetBuilder stateBuilder,
+    );
+
 class AICharacterDisplay extends StatefulWidget {
   const AICharacterDisplay({
     super.key,
@@ -11,6 +23,8 @@ class AICharacterDisplay extends StatefulWidget {
     this.visemeId = 0,
     this.visemeDurationMs = 200,
     this.onMediaReady,
+    this.riveSceneHandle,
+    this.riveWidgetFactory,
   });
 
   final String imagePath;
@@ -20,13 +34,15 @@ class AICharacterDisplay extends StatefulWidget {
   final double visemeId;
   final double visemeDurationMs;
   final VoidCallback? onMediaReady;
+  final RiveSceneHandle? riveSceneHandle;
+  final RiveWidgetFactory? riveWidgetFactory;
 
   @override
   State<AICharacterDisplay> createState() => _AICharacterDisplayState();
 }
 
 class _AICharacterDisplayState extends State<AICharacterDisplay> {
-  FileLoader? _fileLoader;
+  RiveSceneHandle? _riveSceneHandle;
   bool _didNotifyReady = false;
   RiveWidgetController? _controller;
   ViewModelInstance? _viewModel;
@@ -34,21 +50,13 @@ class _AICharacterDisplayState extends State<AICharacterDisplay> {
   @override
   void initState() {
     super.initState();
-    _initializeRiveLoader();
+    _resolveRiveSceneHandle();
   }
 
-  void _initializeRiveLoader() {
-    if (widget.riveAssetPath == null) return;
-
-    final path = widget.riveAssetPath!;
-    _fileLoader?.dispose();
-    try {
-      _fileLoader = path.startsWith('http')
-          ? FileLoader.fromUrl(path, riveFactory: Factory.flutter)
-          : FileLoader.fromAsset(path, riveFactory: Factory.flutter);
-    } catch (e) {
-      debugPrint('Error initializing Rive FileLoader: $e');
-    }
+  void _resolveRiveSceneHandle() {
+    _riveSceneHandle =
+        widget.riveSceneHandle ??
+        RiveSceneCache.shared.handleFor(widget.riveAssetPath);
   }
 
   void _notifyReady() {
@@ -62,9 +70,10 @@ class _AICharacterDisplayState extends State<AICharacterDisplay> {
   @override
   void didUpdateWidget(covariant AICharacterDisplay oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.riveAssetPath != widget.riveAssetPath) {
+    if (oldWidget.riveAssetPath != widget.riveAssetPath ||
+        oldWidget.riveSceneHandle != widget.riveSceneHandle) {
       _didNotifyReady = false;
-      _initializeRiveLoader();
+      _resolveRiveSceneHandle();
     }
     if (oldWidget.isTalking != widget.isTalking ||
         oldWidget.visemeId != widget.visemeId ||
@@ -75,44 +84,59 @@ class _AICharacterDisplayState extends State<AICharacterDisplay> {
 
   @override
   void dispose() {
-    _fileLoader?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    // Render Rive animation if path is provided
-    final fileLoader = _fileLoader;
-    if (widget.riveAssetPath != null && fileLoader != null) {
-      return RiveWidgetBuilder(
-        fileLoader: fileLoader,
-        onLoaded: _onRiveLoaded,
-        builder: (context, state) {
-          if (state is RiveLoading) {
-            _notifyReady(); // Notify even during loading
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is RiveFailed) {
-            // Fall through to image fallback on failure
-            debugPrint('Rive loading failed: ${state.error}');
-            _notifyReady();
-            return _buildImageFallback();
-          } else if (state is RiveLoaded) {
-            _notifyReady();
-            return SizedBox.expand(
-              child: RiveWidget(
-                controller: state.controller,
-                fit: Fit.cover,
-                alignment: Alignment.center,
-              ),
-            );
-          }
-          _notifyReady();
-          return _buildImageFallback();
-        },
+    final riveSceneHandle = _riveSceneHandle;
+    if (widget.riveAssetPath != null && riveSceneHandle != null) {
+      return _buildRiveWidget(context, riveSceneHandle);
+    }
+
+    _notifyReady();
+    return _buildImageFallback();
+  }
+
+  Widget _buildRiveWidget(
+    BuildContext context,
+    RiveSceneHandle riveSceneHandle,
+  ) {
+    final builderFactory = widget.riveWidgetFactory;
+    if (builderFactory != null) {
+      return builderFactory(
+        context,
+        riveSceneHandle,
+        _onRiveLoaded,
+        (context, state) => _buildForRiveState(context, state),
       );
     }
 
-    // No Rive path provided, render image directly
+    return RiveWidgetBuilder(
+      fileLoader: riveSceneHandle.fileLoader,
+      onLoaded: _onRiveLoaded,
+      builder: (context, state) => _buildForRiveState(context, state),
+    );
+  }
+
+  Widget _buildForRiveState(BuildContext context, RiveState state) {
+    if (state is RiveLoading) {
+      return _buildImageFallback();
+    } else if (state is RiveFailed) {
+      debugPrint('Rive loading failed: ${state.error}');
+      _notifyReady();
+      return _buildImageFallback();
+    } else if (state is RiveLoaded) {
+      _notifyReady();
+      return SizedBox.expand(
+        child: RiveWidget(
+          controller: state.controller,
+          fit: Fit.cover,
+          alignment: Alignment.center,
+        ),
+      );
+    }
+
     _notifyReady();
     return _buildImageFallback();
   }

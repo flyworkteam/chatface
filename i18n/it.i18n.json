@@ -206,6 +206,7 @@
     },
     "chat": {
         "message": "Messaggio",
+        "readAloud": "Leggi ad alta voce",
         "history": "Cronologia",
         "noMessages": "Ancora nessun messaggio.",
         "noMessagesSubtitle": "Inizia una conversazione inviando un messaggio.",

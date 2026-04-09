@@ -207,6 +207,7 @@
     "chat": {
         "message": "Mesaj",
         "history": "Geçmiş",
+        "readAloud": "Seslendir",
         "noMessages": "Henüz mesaj yok.",
         "noMessagesSubtitle": "Bir mesaj göndererek sohbet başlatın.",
         "online": "Çevrimiçi",
@@ -215,13 +216,13 @@
         "camera": "Kamera",
         "typeAMessage": "Mesaj yazın...",
         "pleaseUpgrade": "Lütfen Pro sürümüne yükseltin.",
-        "photo": "Photo",
-        "photoUploadFailed": "Couldn't upload photo. Please try again.",
-        "tapToViewPhoto": "Tap to view photo",
+        "photo": "Fotoğraf",
+        "photoUploadFailed": "Fotoğraf yüklenemedi. Lütfen tekrar deneyin.",
+        "tapToViewPhoto": "Fotoğrafı görüntülemek için dokunun",
         "voiceCallEnded": "Sesli arama sona erdi",
         "videoCallEnded": "Video araması sona erdi",
-        "uploadingPhoto": "Uploading photo...",
-        "mediaPermissionDenied": "Allow camera or photo permissions to share images."
+        "uploadingPhoto": "Fotoğraf yükleniyor...",
+        "mediaPermissionDenied": "Resim paylaşmak için kamera veya fotoğraf izni verin."
     },
     "editProfile": {
         "aboutMe": "Hakkımda",
