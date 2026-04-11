@@ -17,6 +17,7 @@ class OnboardingPhotoGrid extends HookWidget {
   const OnboardingPhotoGrid({
     super.key,
     required this.gridHeight,
+    this.scrollAnimation,
     this.showBottomFade = false,
     this.fadeHeight = 120,
     this.scrollDuration = const Duration(seconds: 16),
@@ -26,6 +27,7 @@ class OnboardingPhotoGrid extends HookWidget {
   });
 
   final double gridHeight;
+  final Animation<double>? scrollAnimation;
   final bool showBottomFade;
   final double fadeHeight;
   final Duration scrollDuration;
@@ -35,12 +37,17 @@ class OnboardingPhotoGrid extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scrollCtrl = useAnimationController(duration: scrollDuration);
+    final internalScrollCtrl = useAnimationController(duration: scrollDuration);
+    final scrollCtrl = scrollAnimation ?? internalScrollCtrl;
 
     useEffect(() {
-      scrollCtrl.repeat();
+      if (scrollAnimation != null) {
+        return null;
+      }
+
+      internalScrollCtrl.repeat();
       return null;
-    }, [scrollCtrl]);
+    }, [internalScrollCtrl, scrollAnimation]);
 
     final columns = [
       [_photos[0], _photos[1], _photos[2]],

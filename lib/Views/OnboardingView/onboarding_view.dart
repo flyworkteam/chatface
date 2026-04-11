@@ -30,6 +30,15 @@ class OnboardingView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final pageController = usePageController();
+    final sharedGridScrollCtrl = useAnimationController(
+      duration: const Duration(seconds: 16),
+    );
+
+    useEffect(() {
+      sharedGridScrollCtrl.repeat();
+      return null;
+    }, [sharedGridScrollCtrl]);
+
     final currentStep = useState<int>(0);
     final hasHydratedFromProfile = useState<bool>(false);
     final hasResolvedInitialStep = useState<bool>(false);
@@ -212,7 +221,8 @@ class OnboardingView extends HookConsumerWidget {
     void nextPage() {
       final nextStep = findNextStep(currentStep.value);
       if (nextStep != null) {
-        goToStep(nextStep);
+        final shouldAnimate = nextStep < _kLoadingStep;
+        goToStep(nextStep, animate: shouldAnimate);
       }
     }
 
@@ -382,6 +392,7 @@ class OnboardingView extends HookConsumerWidget {
                         onProgressChanged: (progress) {
                           loadingProgress.value = progress;
                         },
+                        photoGridAnimation: sharedGridScrollCtrl,
                         onboardingData: {
                           'name': userName.value,
                           'birthDate': userBirthDate.value?.toIso8601String(),
@@ -390,7 +401,7 @@ class OnboardingView extends HookConsumerWidget {
                       ),
 
                       // Final
-                      const FinalScreen(),
+                      FinalScreen(photoGridAnimation: sharedGridScrollCtrl),
                     ],
                   ),
                 ),

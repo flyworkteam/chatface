@@ -17,12 +17,14 @@ class LoadingScreen extends HookConsumerWidget {
   final VoidCallback onComplete;
   final void Function(double progress)? onProgressChanged;
   final Map<String, dynamic> onboardingData;
+  final Animation<double> photoGridAnimation;
 
   const LoadingScreen({
     super.key,
     required this.isActive,
     required this.onComplete,
     required this.onboardingData,
+    required this.photoGridAnimation,
     this.onProgressChanged,
   });
 
@@ -96,7 +98,13 @@ class LoadingScreen extends HookConsumerWidget {
     return Column(
       children: [
         // ── Fotoğraf grid'i ──────────────────────────────────────────────
-        Expanded(flex: 4, child: OnboardingPhotoGrid(gridHeight: gridHeight)),
+        Expanded(
+          flex: 4,
+          child: OnboardingPhotoGrid(
+            gridHeight: gridHeight,
+            scrollAnimation: photoGridAnimation,
+          ),
+        ),
 
         // ── Metin + progress bar ─────────────────────────────────────────
         Expanded(

@@ -35,12 +35,9 @@ class HomeCharacterCard extends StatelessWidget {
         child: Stack(
           children: [
             Positioned.fill(
-              child: Hero(
-                tag: 'character-${character.id}',
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(36),
-                  child: _CharacterImage(character: character),
-                ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(36),
+                child: _CharacterImage(character: character),
               ),
             ),
             Positioned.fill(

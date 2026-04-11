@@ -21,48 +21,30 @@ class Step5 extends HookWidget {
     final micLoading = useState<bool>(false);
     final locationLoading = useState<bool>(false);
 
+    Future<void> refreshStatuses() async {
+      final camera = await Permission.camera.status;
+      final mic = await Permission.microphone.status;
+      final location = await Permission.locationWhenInUse.status;
+      cameraGranted.value = camera.isGranted;
+      micGranted.value = mic.isGranted;
+      locationGranted.value = location.isGranted;
+    }
+
     // Check current status on mount
     useEffect(() {
-      Future<void> checkStatuses() async {
-        final camera = await Permission.camera.status;
-        final mic = await Permission.microphone.status;
-        final location = await Permission.locationWhenInUse.status;
-        cameraGranted.value = camera.isGranted;
-        micGranted.value = mic.isGranted;
-        locationGranted.value = location.isGranted;
-      }
-
-      checkStatuses();
+      refreshStatuses();
       return null;
     }, []);
 
-    Future<bool> askToOpenSettings() async {
-      final shouldOpen = await showDialog<bool>(
-        context: context,
-        builder: (dialogContext) {
-          return AlertDialog(
-            title: Text(t.onboarding.step5.permissionRequired),
-            content: const Text(
-              'This permission is blocked. Open app settings to enable it?',
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(dialogContext).pop(false),
-                child: Text(t.onboarding.step5.notNow),
-              ),
-              TextButton(
-                onPressed: () => Navigator.of(dialogContext).pop(true),
-                child: Text(t.onboarding.step5.openSettings),
-              ),
-            ],
-          );
-        },
-      );
+    final appLifecycleState = useAppLifecycleState();
+    useEffect(() {
+      if (appLifecycleState == AppLifecycleState.resumed) {
+        refreshStatuses();
+      }
+      return null;
+    }, [appLifecycleState]);
 
-      return shouldOpen ?? false;
-    }
-
-    Future<void> requestPermission({
+    Future<void> togglePermission({
       required Permission permission,
       required ValueNotifier<bool> granted,
       required ValueNotifier<bool> loading,
@@ -72,40 +54,29 @@ class Step5 extends HookWidget {
       try {
         var status = await permission.status;
 
+        if (granted.value) {
+          granted.value = false;
+          return;
+        }
+
         if (status.isGranted) {
           granted.value = true;
           return;
         }
 
         if (status.isPermanentlyDenied || status.isRestricted) {
-          final shouldOpen = await askToOpenSettings();
-          if (shouldOpen) {
-            await openAppSettings();
-            status = await permission.status;
-            granted.value = status.isGranted;
-          }
           return;
         }
 
         status = await permission.request();
         granted.value = status.isGranted;
-
-        if (!status.isGranted &&
-            (status.isPermanentlyDenied || status.isRestricted)) {
-          final shouldOpen = await askToOpenSettings();
-          if (shouldOpen) {
-            await openAppSettings();
-            final updated = await permission.status;
-            granted.value = updated.isGranted;
-          }
-        }
       } finally {
         loading.value = false;
       }
     }
 
     Future<void> requestCamera() async {
-      await requestPermission(
+      await togglePermission(
         permission: Permission.camera,
         granted: cameraGranted,
         loading: cameraLoading,
@@ -113,7 +84,7 @@ class Step5 extends HookWidget {
     }
 
     Future<void> requestMic() async {
-      await requestPermission(
+      await togglePermission(
         permission: Permission.microphone,
         granted: micGranted,
         loading: micLoading,
@@ -121,7 +92,7 @@ class Step5 extends HookWidget {
     }
 
     Future<void> requestLocation() async {
-      await requestPermission(
+      await togglePermission(
         permission: Permission.locationWhenInUse,
         granted: locationGranted,
         loading: locationLoading,

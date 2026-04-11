@@ -56,7 +56,19 @@ class SettingsHub extends HookConsumerWidget {
             ),
           ),
           notificationsettings.when(
-            loading: () => const CupertinoActivityIndicator(),
+            loading: () => SettingsTileRow(
+              icon: AppIcons.notifications,
+              label: context.t.settingsSupport.notifications,
+              trailing: Switch(
+                value: true,
+                onChanged: null,
+                padding: EdgeInsets.zero,
+                activeThumbColor: Color(0xff774487),
+                activeTrackColor: Colors.white,
+                inactiveThumbColor: Colors.white54,
+                inactiveTrackColor: Colors.white24,
+              ),
+            ),
             error: (_, _) => CupertinoSwitch(value: false, onChanged: null),
             data: (settings) {
               final isEnabled = settings?.notificationsEnabled ?? false;
