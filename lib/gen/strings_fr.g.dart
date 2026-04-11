@@ -363,6 +363,7 @@ class _TranslationsVideoViewFr implements TranslationsVideoViewEn {
 	@override String get errorLoad => 'Échec du chargement des compagnons : ';
 	@override String get noComps => 'Aucun compagnon disponible pour le moment.';
 	@override late final _TranslationsVideoViewFiltersFr filters = _TranslationsVideoViewFiltersFr._(_root);
+	@override String get saveFilter => 'Enregistrer le filtre';
 }
 
 // Path: termOfService.privacyPolicy
@@ -987,6 +988,7 @@ extension on TranslationsFr {
 			'videoView.filters.WALDEN' => 'Walden',
 			'videoView.filters.WILLOW' => 'Willow',
 			'videoView.filters.XPROII' => 'XProII',
+			'videoView.saveFilter' => 'Enregistrer le filtre',
 			_ => null,
 		};
 	}

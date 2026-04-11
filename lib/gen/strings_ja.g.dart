@@ -363,6 +363,7 @@ class _TranslationsVideoViewJa implements TranslationsVideoViewEn {
 	@override String get errorLoad => 'コンパニオンを読み込めませんでした：';
 	@override String get noComps => '利用可能なコンパニオンはまだありません。';
 	@override late final _TranslationsVideoViewFiltersJa filters = _TranslationsVideoViewFiltersJa._(_root);
+	@override String get saveFilter => 'フィルターを保存';
 }
 
 // Path: termOfService.privacyPolicy
@@ -987,6 +988,7 @@ extension on TranslationsJa {
 			'videoView.filters.WALDEN' => 'Walden',
 			'videoView.filters.WILLOW' => 'Willow',
 			'videoView.filters.XPROII' => 'XProII',
+			'videoView.saveFilter' => 'フィルターを保存',
 			_ => null,
 		};
 	}

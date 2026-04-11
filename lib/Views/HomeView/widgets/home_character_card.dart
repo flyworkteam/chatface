@@ -91,7 +91,7 @@ class HomeCharacterCard extends StatelessWidget {
                           Text(
                             '${character.name}, ${character.age}',
                             style: AppTextStyles.body(
-                              24,
+                              20,
                               weight: FontWeight.w600,
                               color: Colors.white,
                               height: 24 * 1.15,

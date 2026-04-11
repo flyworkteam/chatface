@@ -1,6 +1,7 @@
 import 'dart:io' show Platform;
 
 import 'package:camerawesome/camerawesome_plugin.dart';
+import 'package:chatface/gen/strings.g.dart';
 import 'package:chatface/utils/app_assets.dart';
 import 'package:chatface/utils/print.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +63,7 @@ class VideoIdleScreen extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Swipe for new chat',
+                  context.t.videoChat.swipeForNewChat,
                   style: GoogleFonts.rubik(
                     color: Colors.white,
                     fontSize: 18,

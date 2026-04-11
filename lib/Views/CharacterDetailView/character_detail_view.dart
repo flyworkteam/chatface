@@ -91,10 +91,7 @@ class CharacterDetailView extends HookConsumerWidget {
                         title: character.name,
                       ),
                       const SizedBox(height: 24),
-                      Hero(
-                        tag: 'character-${character.id}',
-                        child: CharacterHeroCard(character: character),
-                      ),
+                      CharacterHeroCard(character: character),
                       const SizedBox(height: 20),
 
                       CharacterPrimaryActionButton(

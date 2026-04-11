@@ -363,6 +363,7 @@ class _TranslationsVideoViewKo implements TranslationsVideoViewEn {
 	@override String get errorLoad => '컴패니언을 로드하지 못했습니다: ';
 	@override String get noComps => '아직 사용 가능한 컴패니언이 없습니다.';
 	@override late final _TranslationsVideoViewFiltersKo filters = _TranslationsVideoViewFiltersKo._(_root);
+	@override String get saveFilter => '필터 저장';
 }
 
 // Path: termOfService.privacyPolicy
@@ -987,6 +988,7 @@ extension on TranslationsKo {
 			'videoView.filters.WALDEN' => 'Walden',
 			'videoView.filters.WILLOW' => 'Willow',
 			'videoView.filters.XPROII' => 'XProII',
+			'videoView.saveFilter' => '필터 저장',
 			_ => null,
 		};
 	}

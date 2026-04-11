@@ -1,6 +1,7 @@
 import 'package:chatface/Models/persona_model.dart';
 import 'package:chatface/Views/ChatView/chat_view.dart';
 import 'package:chatface/gen/strings.g.dart';
+import 'package:chatface/shared/custom_cached_network_image.dart';
 import 'package:chatface/theme/app_text_styles.dart';
 import 'package:chatface/utils/app_assets.dart';
 import 'package:flutter/material.dart';
@@ -10,28 +11,53 @@ class CharacterCard extends StatelessWidget {
   final PersonaProfile character;
   const CharacterCard({super.key, required this.character});
 
+  static const List<List<Color>> _accentPalettes = [
+    [Color(0xFF95A8C6), Color(0xFFC8A5BB)],
+    [Color(0xFF9AB7C9), Color(0xFFD1B3A4)],
+    [Color(0xFF8FB5AF), Color(0xFFBCD1B0)],
+    [Color(0xFF9FA2CC), Color(0xFFD2AFC8)],
+    [Color(0xFFB3A3D1), Color(0xFFC6C0E1)],
+    [Color(0xFF8FAECF), Color(0xFFB8C6D9)],
+  ];
+
+  List<Color> _accentFor(PersonaProfile persona) {
+    final seed =
+        '${persona.id.toLowerCase()}-${persona.name.toLowerCase()}-${persona.defaultLanguage.toLowerCase()}';
+    final index = seed.hashCode.abs() % _accentPalettes.length;
+    return _accentPalettes[index];
+  }
+
   @override
   Widget build(BuildContext context) {
+    final accent = _accentFor(character);
+    final firstName = character.name.trim().split(' ').first;
     return ClipRRect(
       borderRadius: BorderRadius.circular(18),
       child: Stack(
         fit: StackFit.expand,
         children: [
-          Container(
+          DecoratedBox(
             decoration: BoxDecoration(
-              image: DecorationImage(
-                image: character.isNetworkImage
-                    ? NetworkImage(character.displayImagePath)
-                    : AssetImage(character.displayImagePath) as ImageProvider,
-                fit: BoxFit.contain,
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: accent,
               ),
             ),
           ),
 
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: CustomCachedNetworkImage(
+              imageUrl: character.displayImageUrl,
+              fit: BoxFit.contain,
+            ),
+          ),
+
           Positioned(
-            left: 12,
+            left: 10,
             right: 10,
-            bottom: 12,
+            bottom: 10,
             child: GestureDetector(
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(builder: (_) => ChatView(persona: character)),
@@ -39,11 +65,14 @@ class CharacterCard extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 12,
-                  vertical: 8,
+                  vertical: 9,
                 ),
                 decoration: BoxDecoration(
-                  color: Colors.black.withValues(alpha: 0.5),
-                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.black.withValues(alpha: 0.44),
+                  borderRadius: BorderRadius.circular(18),
+                  border: Border.all(
+                    color: Colors.white.withValues(alpha: 0.12),
+                  ),
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -54,28 +83,36 @@ class CharacterCard extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            character.name,
+                            firstName,
                             style: AppTextStyles.body(
-                              16,
+                              14,
                               color: Colors.white,
-                              weight: FontWeight.bold,
+                              weight: FontWeight.w400,
                             ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
                           Text(
                             context.t.chat.message,
                             style: AppTextStyles.body(
                               12,
-                              color: Colors.white.withValues(alpha: 12),
+                              weight: FontWeight.w300,
+                              color: Colors.white.withValues(alpha: 0.8),
                             ),
                           ),
                         ],
                       ),
                     ),
 
+                    const SizedBox(width: 8),
                     SvgPicture.asset(
                       AppIcons.sendMessage,
-                      width: 25,
-                      height: 30,
+                      width: 22,
+                      height: 22,
+                      colorFilter: const ColorFilter.mode(
+                        Colors.white,
+                        BlendMode.srcIn,
+                      ),
                     ),
                   ],
                 ),

@@ -22,6 +22,7 @@ class AICharacterDisplay extends StatefulWidget {
     this.isTalking = false,
     this.visemeId = 0,
     this.visemeDurationMs = 200,
+    this.contentScale = 1.0,
     this.onMediaReady,
     this.riveSceneHandle,
     this.riveWidgetFactory,
@@ -33,6 +34,7 @@ class AICharacterDisplay extends StatefulWidget {
   final bool isTalking;
   final double visemeId;
   final double visemeDurationMs;
+  final double contentScale;
   final VoidCallback? onMediaReady;
   final RiveSceneHandle? riveSceneHandle;
   final RiveWidgetFactory? riveWidgetFactory;
@@ -128,11 +130,14 @@ class _AICharacterDisplayState extends State<AICharacterDisplay> {
       return _buildImageFallback();
     } else if (state is RiveLoaded) {
       _notifyReady();
-      return SizedBox.expand(
-        child: RiveWidget(
-          controller: state.controller,
-          fit: Fit.cover,
-          alignment: Alignment.center,
+      return Transform.scale(
+        scale: widget.contentScale,
+        child: SizedBox.expand(
+          child: RiveWidget(
+            controller: state.controller,
+            fit: Fit.cover,
+            alignment: Alignment.center,
+          ),
         ),
       );
     }
@@ -142,20 +147,25 @@ class _AICharacterDisplayState extends State<AICharacterDisplay> {
   }
 
   Widget _buildImageFallback() {
-    return SizedBox.expand(
-      child: widget.isNetworkImage
-          ? Image.network(
-              widget.imagePath,
-              fit: BoxFit.cover,
-              frameBuilder: (context, child, frame, _) => child,
-              errorBuilder: (context, error, stackTrace) => _errorPlaceholder(),
-            )
-          : Image.asset(
-              widget.imagePath,
-              fit: BoxFit.cover,
-              frameBuilder: (context, child, frame, _) => child,
-              errorBuilder: (context, error, stackTrace) => _errorPlaceholder(),
-            ),
+    return Transform.scale(
+      scale: widget.contentScale,
+      child: SizedBox.expand(
+        child: widget.isNetworkImage
+            ? Image.network(
+                widget.imagePath,
+                fit: BoxFit.cover,
+                frameBuilder: (context, child, frame, _) => child,
+                errorBuilder: (context, error, stackTrace) =>
+                    _errorPlaceholder(),
+              )
+            : Image.asset(
+                widget.imagePath,
+                fit: BoxFit.cover,
+                frameBuilder: (context, child, frame, _) => child,
+                errorBuilder: (context, error, stackTrace) =>
+                    _errorPlaceholder(),
+              ),
+      ),
     );
   }
 

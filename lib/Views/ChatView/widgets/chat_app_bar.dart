@@ -1,4 +1,5 @@
 import 'package:chatface/gen/strings.g.dart';
+import 'package:chatface/shared/custom_cached_network_image.dart';
 import 'package:chatface/theme/app_text_styles.dart';
 import 'package:chatface/utils/app_assets.dart';
 import 'package:flutter/material.dart';
@@ -46,9 +47,11 @@ class ChatAppBar extends StatelessWidget {
           const SizedBox(width: 10),
           CircleAvatar(
             radius: 20,
-            backgroundImage: characterImageUrl.startsWith('http')
-                ? NetworkImage(characterImageUrl)
-                : AssetImage(characterImageUrl) as ImageProvider,
+
+            child: CustomCachedNetworkImage(
+              imageUrl: characterImageUrl,
+              fit: BoxFit.contain,
+            ),
           ),
           Spacer(),
 

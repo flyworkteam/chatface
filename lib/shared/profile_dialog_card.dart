@@ -25,7 +25,11 @@ class ProfileDialogCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = AppTextStyles.body(16, color: Colors.white);
+    final textTheme = AppTextStyles.body(
+      16,
+      weight: FontWeight.w500,
+      color: Colors.white,
+    );
     final profileText = profileLabel ?? context.t.profileEdit;
     final settingsText = settingsLabel ?? context.t.settings;
     final imageUrl = user?.profilePictureUrl;
@@ -69,7 +73,17 @@ class ProfileDialogCard extends StatelessWidget {
               children: [
                 Text(name, style: textTheme),
                 const SizedBox(height: 6),
-                Text(subtitle, style: textTheme),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 2,
+                  child: Text(
+                    subtitle,
+                    style: AppTextStyles.body(
+                      12,
+                      weight: FontWeight.normal,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
                 const SizedBox(height: 16),
                 Row(
                   children: [
@@ -78,7 +92,11 @@ class ProfileDialogCard extends StatelessWidget {
                     Flexible(
                       child: Text(
                         countryLabel,
-                        style: textTheme,
+                        style: AppTextStyles.body(
+                          13,
+                          weight: FontWeight.w500,
+                          color: Colors.white60,
+                        ),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
@@ -88,12 +106,19 @@ class ProfileDialogCard extends StatelessWidget {
                       width: 16,
                       height: 16,
                       colorFilter: const ColorFilter.mode(
-                        Colors.white70,
+                        Colors.white60,
                         BlendMode.srcIn,
                       ),
                     ),
                     const SizedBox(width: 6),
-                    Text(genderLabel, style: textTheme),
+                    Text(
+                      genderLabel,
+                      style: AppTextStyles.body(
+                        13,
+                        weight: FontWeight.w500,
+                        color: Colors.white60,
+                      ),
+                    ),
                   ],
                 ),
               ],

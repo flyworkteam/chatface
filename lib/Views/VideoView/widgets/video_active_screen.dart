@@ -40,6 +40,7 @@ class VideoCharacterStage extends StatelessWidget {
           imagePath: imagePath,
           isNetworkImage: character.isNetworkImage,
           riveAssetPath: rivePath,
+          contentScale: 0.7,
           isTalking: isCompanionSpeaking,
           visemeId: activeVisemeId,
           visemeDurationMs: activeVisemeDurationMs,

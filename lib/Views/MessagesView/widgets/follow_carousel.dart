@@ -11,7 +11,7 @@ class FollowCarousel extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final pageController = usePageController(viewportFraction: 0.52);
+    final pageController = usePageController(viewportFraction: 0.46);
     final personasAsync = ref.watch(followedPersonaListProvider);
 
     final characters = personasAsync.maybeWhen(
@@ -24,7 +24,7 @@ class FollowCarousel extends HookConsumerWidget {
     }
 
     return SizedBox(
-      height: 210,
+      height: 190,
       child: PageView.builder(
         controller: pageController,
         padEnds: false,
@@ -32,7 +32,7 @@ class FollowCarousel extends HookConsumerWidget {
         itemCount: characters.length,
         itemBuilder: (context, i) {
           return Padding(
-            padding: EdgeInsets.only(left: i == 0 ? 20 : 8, right: 8),
+            padding: EdgeInsets.only(left: i == 0 ? 20 : 12, right: 12),
             child: CharacterCard(character: characters[i]),
           );
         },

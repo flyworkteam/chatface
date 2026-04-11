@@ -7,6 +7,7 @@ import 'package:chatface/Riverpod/Providers/call_session_controller_provider.dar
 import 'package:chatface/Riverpod/Providers/persona_provider.dart';
 import 'package:chatface/Riverpod/Providers/stt_controller_provider.dart';
 import 'package:chatface/Riverpod/Providers/tts_playback_provider.dart';
+import 'package:chatface/Riverpod/Providers/user_provider.dart';
 import 'package:chatface/Services/secure_storage_service.dart';
 import 'package:chatface/Services/streaming_stt_service.dart';
 import 'package:chatface/Views/CallView/widgets/call_avatar.dart';
@@ -29,6 +30,8 @@ import 'package:chatface/utils/permission_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
+import 'package:purchases_ui_flutter/purchases_ui_flutter.dart';
 
 class VideoView extends HookConsumerWidget {
   const VideoView({super.key, this.initialCharacter});
@@ -45,8 +48,11 @@ class VideoView extends HookConsumerWidget {
     final callSessionNotifier = ref.read(
       callSessionControllerProvider.notifier,
     );
+    final user = ref.watch(userProfileProvider);
     final sttResumeTimer = useRef<Timer?>(null);
     final lastAutoLaunchedInitialCharacterId = useState<String?>(null);
+    final offerings = useState<Offerings?>(null);
+    final isFetchingOfferings = useState<bool>(false);
 
     String normalizeConversationLanguage(String? value) {
       final normalized = value?.trim().toLowerCase();
@@ -81,10 +87,19 @@ class VideoView extends HookConsumerWidget {
         subscription.close();
       };
     }, const []);
-    if (personasAsync.isLoading || filteredPersonasAsync.isLoading) {
+    final isInitialPersonasLoading =
+        personasAsync.isLoading && !personasAsync.hasValue;
+    final isInitialFilteredLoading =
+        filteredPersonasAsync.isLoading && !filteredPersonasAsync.hasValue;
+    if (isInitialPersonasLoading || isInitialFilteredLoading) {
       return const Center(child: CircularProgressIndicator());
     }
-    if (personasAsync.hasError || filteredPersonasAsync.hasError) {
+
+    final hasBlockingPersonasError =
+        personasAsync.hasError && !personasAsync.hasValue;
+    final hasBlockingFilteredError =
+        filteredPersonasAsync.hasError && !filteredPersonasAsync.hasValue;
+    if (hasBlockingPersonasError || hasBlockingFilteredError) {
       return Center(
         child: Text(
           "${context.t.videoView.errorLoad}${personasAsync.error ?? filteredPersonasAsync.error}",
@@ -416,6 +431,17 @@ class VideoView extends HookConsumerWidget {
         return;
       }
 
+      final isPremiumUser = user.asData?.value?.user.isPremium ?? false;
+      if (!isPremiumUser) {
+        final paywallResult = await RevenueCatUI.presentPaywall(
+          offering: offerings.value?.current,
+        );
+        if (paywallResult == PaywallResult.purchased) {
+          await ref.read(userProfileProvider.notifier).refresh();
+        }
+        return;
+      }
+
       if (callState.value != CallState.active &&
           callState.value != CallState.connecting) {
         return;
@@ -473,7 +499,45 @@ class VideoView extends HookConsumerWidget {
       }
     }
 
+    Future<void> fetchOfferings() async {
+      if (isFetchingOfferings.value) return;
+      isFetchingOfferings.value = true;
+      try {
+        final fetchedOfferings = await Purchases.getOfferings();
+        if (!context.mounted) return;
+        offerings.value = fetchedOfferings;
+      } catch (_) {
+        // Intentionally ignored: paywall can still be shown with default offerings.
+      } finally {
+        isFetchingOfferings.value = false;
+      }
+    }
+
+    useEffect(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        fetchOfferings();
+      });
+      return null;
+    }, const []);
+    Future<void> handlePremiumBannerTap() async {
+      if (offerings.value == null) {
+        await fetchOfferings();
+      }
+
+      final paywallResult = await RevenueCatUI.presentPaywall(
+        offering: offerings.value?.current,
+      );
+
+      if (paywallResult == PaywallResult.purchased) {
+        await ref.read(userProfileProvider.notifier).refresh();
+      }
+    }
+
     void startNewChat() {
+      if (!user.requireValue!.user.isPremium) {
+        handlePremiumBannerTap();
+        return;
+      }
       final source = swipeSourceCharacters();
       if (source.isEmpty) return;
       final target = selectNextCharacterForNewChat(
@@ -642,118 +706,118 @@ class VideoView extends HookConsumerWidget {
       final result = await showModalBottomSheet<AwesomeFilter>(
         context: context,
         backgroundColor: Colors.transparent,
+        barrierColor: Colors.black.withValues(alpha: 0.55),
         isScrollControlled: true,
-        builder: (context) {
-          return SafeArea(
-            bottom: true,
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-              decoration: BoxDecoration(
-                color: const Color(0xFF16161A).withValues(alpha: 0.95),
-                borderRadius: BorderRadius.circular(32),
-                border: Border.all(color: Colors.white.withValues(alpha: 0.15)),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.black54,
-                    blurRadius: 20,
-                    spreadRadius: 5,
+        builder: (bottomSheetContext) {
+          var pendingFilter = currentFilter;
+          return StatefulBuilder(
+            builder: (modalContext, setModalState) {
+              return SafeArea(
+                top: false,
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(20),
+                    ),
+                    gradient: const RadialGradient(
+                      // CSS equivalent:
+                      // radial-gradient(114.68% 114.68% at 113.74% -29.8%, #774487 0%, #000000 100%)
+                      center: Alignment(1.2748, -1.596),
+                      radius: 1.1468,
+                      colors: [Color(0xFF774487), Color(0xFF000000)],
+                      stops: [0.0, 1.0],
+                    ),
+                    border: Border(
+                      top: BorderSide(
+                        color: Colors.white.withValues(alpha: 0.14),
+                      ),
+                    ),
                   ),
-                ],
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(32),
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(24, 24, 24, 32),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Center(
-                        child: Container(
-                          width: 48,
-                          height: 6,
-                          decoration: BoxDecoration(
-                            color: Colors.white24,
-                            borderRadius: BorderRadius.circular(10),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 10, 16, 12),
+                        child: Center(
+                          child: Container(
+                            width: 44,
+                            height: 4,
+                            decoration: BoxDecoration(
+                              color: Colors.white.withValues(alpha: 0.32),
+                              borderRadius: BorderRadius.circular(999),
+                            ),
                           ),
                         ),
                       ),
-                      const SizedBox(height: 24),
-                      Text(
-                        context.t.videoView.title,
-                        style: AppTextStyles.body(
-                          20,
-                          color: Colors.white,
-                          weight: FontWeight.w700,
+                      const SizedBox(height: 10),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 10, 16, 4),
+                        child: Text(
+                          context.t.videoView.title,
+                          style: AppTextStyles.body(
+                            20,
+                            color: Colors.white,
+                            weight: FontWeight.w500,
+                          ),
                         ),
                       ),
-                      const SizedBox(height: 6),
-                      Text(
-                        context.t.videoView.subtitle,
-                        style: AppTextStyles.body(14, color: Colors.white70),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+                        child: Text(
+                          context.t.videoView.subtitle,
+                          style: AppTextStyles.body(
+                            16,
+                            weight: FontWeight.w400,
+                            color: Colors.white54,
+                          ),
+                        ),
                       ),
-                      const SizedBox(height: 24),
+                      const SizedBox(height: 12),
                       SizedBox(
-                        height: 90,
-                        child: ListView.builder(
+                        height: 46,
+                        child: ListView.separated(
                           scrollDirection: Axis.horizontal,
                           physics: const BouncingScrollPhysics(),
                           itemCount: cameraAwesomeFilters.length,
-                          itemBuilder: (context, index) {
+                          separatorBuilder: (_, _) => const SizedBox(width: 10),
+                          itemBuilder: (_, index) {
                             final filter = cameraAwesomeFilters[index];
-                            final isSelected = filter.id == currentFilter.id;
+                            final isSelected = filter.id == pendingFilter.id;
                             return GestureDetector(
-                              onTap: () => Navigator.of(context).pop(filter),
+                              onTap: () {
+                                setModalState(() {
+                                  pendingFilter = filter;
+                                });
+                              },
                               child: AnimatedContainer(
-                                duration: const Duration(milliseconds: 250),
-                                curve: Curves.easeOutCubic,
-                                margin: const EdgeInsets.only(right: 12),
+                                duration: const Duration(milliseconds: 180),
+                                curve: Curves.easeOut,
                                 padding: const EdgeInsets.symmetric(
-                                  horizontal: 20,
-                                  vertical: 12,
+                                  horizontal: 18,
                                 ),
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  gradient: isSelected
-                                      ? const LinearGradient(
-                                          colors: [
-                                            Color(0xFF8A2BE2),
-                                            Color(0xFF4B0082),
-                                          ],
-                                        )
-                                      : null,
                                   color: isSelected
-                                      ? null
-                                      : Colors.white.withValues(alpha: 0.08),
-                                  borderRadius: BorderRadius.circular(20),
+                                      ? Colors.white.withValues(alpha: 0.11)
+                                      : Colors.black.withValues(alpha: 0.25),
+                                  borderRadius: BorderRadius.circular(999),
                                   border: Border.all(
                                     color: isSelected
-                                        ? Colors.white.withValues(alpha: 0.5)
-                                        : Colors.transparent,
-                                    width: 1.5,
+                                        ? Colors.white
+                                        : Colors.white.withValues(alpha: 0.3),
+                                    width: 1.3,
                                   ),
-                                  boxShadow: isSelected
-                                      ? [
-                                          BoxShadow(
-                                            color: const Color(
-                                              0xFF8A2BE2,
-                                            ).withValues(alpha: 0.4),
-                                            blurRadius: 12,
-                                            spreadRadius: 2,
-                                          ),
-                                        ]
-                                      : [],
                                 ),
                                 child: Text(
                                   filterDisplayName(filter),
                                   style: AppTextStyles.body(
-                                    14,
-                                    color: isSelected
-                                        ? Colors.white
-                                        : Colors.white70,
+                                    16,
+                                    color: Colors.white,
                                     weight: isSelected
                                         ? FontWeight.w700
-                                        : FontWeight.w600,
+                                        : FontWeight.w500,
                                   ),
                                 ),
                               ),
@@ -761,11 +825,46 @@ class VideoView extends HookConsumerWidget {
                           },
                         ),
                       ),
+                      const SizedBox(height: 12),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 10, 16, 12),
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: FilledButton(
+                            onPressed: () {
+                              Navigator.of(
+                                bottomSheetContext,
+                              ).pop(pendingFilter);
+                            },
+                            style: FilledButton.styleFrom(
+                              backgroundColor: const Color(0xFF753066),
+                              foregroundColor: Colors.white,
+                              minimumSize: const Size.fromHeight(56),
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                  color: Colors.white.withValues(alpha: 0.2),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(28),
+                              ),
+                            ),
+                            child: Text(
+                              context.t.videoView.saveFilter,
+                              style: AppTextStyles.body(
+                                16,
+                                color: Colors.white,
+                                letterSpacing: -0.05,
+                                weight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
-              ),
-            ),
+              );
+            },
           );
         },
       );

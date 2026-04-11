@@ -88,6 +88,7 @@ class HomeMoreCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: AppTextStyles.body(
                         12,
+                        letterSpacing: -0.05,
                         weight: FontWeight.w300,
                         color: Colors.white70,
                       ),

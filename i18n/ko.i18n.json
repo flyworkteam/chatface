@@ -362,6 +362,7 @@
             "WALDEN": "Walden",
             "WILLOW": "Willow",
             "XPROII": "XProII"
-        }
+        },
+        "saveFilter": "필터 저장"
     }
 }

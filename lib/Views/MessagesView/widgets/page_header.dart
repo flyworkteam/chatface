@@ -26,7 +26,7 @@ class MessagesPageHeader extends ConsumerWidget {
             error: (error, stackTrace) => SvgPicture.asset(AppIcons.warning),
           ),
           const Spacer(),
-          if (isPremium) PremiumBadge(isPremium: isPremium),
+          if (!isPremium) PremiumBadge(isPremium: isPremium),
         ],
       ),
     );

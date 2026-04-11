@@ -33,6 +33,9 @@ class OnboardingView extends HookConsumerWidget {
     final currentStep = useState<int>(0);
     final hasHydratedFromProfile = useState<bool>(false);
     final hasResolvedInitialStep = useState<bool>(false);
+    final isStepTransitioning = useState<bool>(false);
+    final hasStartedCompletionFlow = useState<bool>(false);
+    final hasReachedFinalStep = useState<bool>(false);
 
     final loadingProgress = useState<double>(0.0);
 
@@ -94,22 +97,42 @@ class OnboardingView extends HookConsumerWidget {
     }
 
     Future<void> goToStep(int step, {bool animate = true}) async {
+      if (hasStartedCompletionFlow.value && step < _kLoadingStep) {
+        return;
+      }
+
+      if (hasReachedFinalStep.value && step < _kFinalStep) {
+        return;
+      }
+
+      if (isStepTransitioning.value) {
+        return;
+      }
+
+      isStepTransitioning.value = true;
+
       if (!pageController.hasClients) {
         currentStep.value = step;
+        isStepTransitioning.value = false;
         return;
       }
 
       if (animate) {
-        await pageController.animateToPage(
-          step,
-          duration: const Duration(milliseconds: 350),
-          curve: Curves.easeInOut,
-        );
+        try {
+          await pageController.animateToPage(
+            step,
+            duration: const Duration(milliseconds: 350),
+            curve: Curves.easeInOut,
+          );
+        } finally {
+          isStepTransitioning.value = false;
+        }
         return;
       }
 
       currentStep.value = step;
       pageController.jumpToPage(step);
+      isStepTransitioning.value = false;
     }
 
     useEffect(() {
@@ -288,6 +311,34 @@ class OnboardingView extends HookConsumerWidget {
                     controller: pageController,
                     physics: const NeverScrollableScrollPhysics(),
                     onPageChanged: (index) {
+                      if (index >= _kLoadingStep) {
+                        hasStartedCompletionFlow.value = true;
+                      }
+
+                      if (hasStartedCompletionFlow.value &&
+                          index < _kLoadingStep) {
+                        final target = hasReachedFinalStep.value
+                            ? _kFinalStep
+                            : _kLoadingStep;
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          if (!pageController.hasClients) return;
+                          pageController.jumpToPage(target);
+                        });
+                        return;
+                      }
+
+                      if (index == _kFinalStep) {
+                        hasReachedFinalStep.value = true;
+                      }
+
+                      if (hasReachedFinalStep.value && index < _kFinalStep) {
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          if (!pageController.hasClients) return;
+                          pageController.jumpToPage(_kFinalStep);
+                        });
+                        return;
+                      }
+
                       if (currentStep.value != index) {
                         currentStep.value = index;
                       }
@@ -323,7 +374,11 @@ class OnboardingView extends HookConsumerWidget {
                       // Loading
                       LoadingScreen(
                         isActive: isLoadingScreen,
-                        onComplete: () => goToStep(_kFinalStep, animate: false),
+                        onComplete: () {
+                          hasStartedCompletionFlow.value = true;
+                          hasReachedFinalStep.value = true;
+                          goToStep(_kFinalStep, animate: false);
+                        },
                         onProgressChanged: (progress) {
                           loadingProgress.value = progress;
                         },

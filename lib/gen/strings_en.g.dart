@@ -658,6 +658,9 @@ class TranslationsVideoViewEn {
 	String get noComps => 'No companions available yet.';
 
 	late final TranslationsVideoViewFiltersEn filters = TranslationsVideoViewFiltersEn._(_root);
+
+	/// en: 'Save Filter'
+	String get saveFilter => 'Save Filter';
 }
 
 // Path: termOfService.privacyPolicy
@@ -1590,6 +1593,7 @@ extension on Translations {
 			'videoView.filters.WALDEN' => 'Walden',
 			'videoView.filters.WILLOW' => 'Willow',
 			'videoView.filters.XPROII' => 'XProII',
+			'videoView.saveFilter' => 'Save Filter',
 			_ => null,
 		};
 	}

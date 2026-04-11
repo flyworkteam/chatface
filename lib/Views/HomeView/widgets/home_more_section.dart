@@ -28,9 +28,9 @@ class HomeMoreSection extends StatelessWidget {
             Text(
               context.t.home.more,
               style: AppTextStyles.body(
-                22,
-                weight: FontWeight.w600,
-                letterSpacing: 0.05 / 22,
+                18,
+                weight: FontWeight.w500,
+                letterSpacing: -0.05,
                 height: 22 * 1.15,
                 color: Colors.white,
               ),
@@ -43,10 +43,10 @@ class HomeMoreSection extends StatelessWidget {
                   Text(
                     context.t.home.seeAll,
                     style: AppTextStyles.body(
-                      14,
-                      weight: FontWeight.w600,
-                      letterSpacing: 0.1 / 14,
-                      height: 14 * 1.25,
+                      13,
+                      weight: FontWeight.w500,
+                      letterSpacing: -0.05,
+                      height: 14,
                       color: Colors.white,
                     ),
                   ),

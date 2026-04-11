@@ -363,6 +363,7 @@ class _TranslationsVideoViewHi implements TranslationsVideoViewEn {
 	@override String get errorLoad => 'साथियों को लोड करने में विफल: ';
 	@override String get noComps => 'अभी तक कोई साथी उपलब्ध नहीं है।';
 	@override late final _TranslationsVideoViewFiltersHi filters = _TranslationsVideoViewFiltersHi._(_root);
+	@override String get saveFilter => 'फ़िल्टर सहेजें';
 }
 
 // Path: termOfService.privacyPolicy
@@ -987,6 +988,7 @@ extension on TranslationsHi {
 			'videoView.filters.WALDEN' => 'Walden',
 			'videoView.filters.WILLOW' => 'Willow',
 			'videoView.filters.XPROII' => 'XProII',
+			'videoView.saveFilter' => 'फ़िल्टर सहेजें',
 			_ => null,
 		};
 	}

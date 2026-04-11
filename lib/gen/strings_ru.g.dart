@@ -363,6 +363,7 @@ class _TranslationsVideoViewRu implements TranslationsVideoViewEn {
 	@override String get errorLoad => 'Не удалось загрузить компаньонов: ';
 	@override String get noComps => 'Пока нет доступных компаньонов.';
 	@override late final _TranslationsVideoViewFiltersRu filters = _TranslationsVideoViewFiltersRu._(_root);
+	@override String get saveFilter => 'Сохранить фильтр';
 }
 
 // Path: termOfService.privacyPolicy
@@ -987,6 +988,7 @@ extension on TranslationsRu {
 			'videoView.filters.WALDEN' => 'Walden',
 			'videoView.filters.WILLOW' => 'Willow',
 			'videoView.filters.XPROII' => 'XProII',
+			'videoView.saveFilter' => 'Сохранить фильтр',
 			_ => null,
 		};
 	}

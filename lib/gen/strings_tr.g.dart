@@ -363,6 +363,7 @@ class _TranslationsVideoViewTr implements TranslationsVideoViewEn {
 	@override String get errorLoad => 'Karakterler yüklenemedi: ';
 	@override String get noComps => 'Henüz hiç karakter yok.';
 	@override late final _TranslationsVideoViewFiltersTr filters = _TranslationsVideoViewFiltersTr._(_root);
+	@override String get saveFilter => 'Filtreyi Kaydet';
 }
 
 // Path: termOfService.privacyPolicy
@@ -987,6 +988,7 @@ extension on TranslationsTr {
 			'videoView.filters.WALDEN' => 'Walden',
 			'videoView.filters.WILLOW' => 'Willow',
 			'videoView.filters.XPROII' => 'XProII',
+			'videoView.saveFilter' => 'Filtreyi Kaydet',
 			_ => null,
 		};
 	}

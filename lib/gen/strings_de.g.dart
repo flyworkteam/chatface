@@ -363,6 +363,7 @@ class _TranslationsVideoViewDe implements TranslationsVideoViewEn {
 	@override String get errorLoad => 'Gefährten konnten nicht geladen werden: ';
 	@override String get noComps => 'Noch keine Gefährten verfügbar.';
 	@override late final _TranslationsVideoViewFiltersDe filters = _TranslationsVideoViewFiltersDe._(_root);
+	@override String get saveFilter => 'Filter speichern';
 }
 
 // Path: termOfService.privacyPolicy
@@ -987,6 +988,7 @@ extension on TranslationsDe {
 			'videoView.filters.WALDEN' => 'Walden',
 			'videoView.filters.WILLOW' => 'Willow',
 			'videoView.filters.XPROII' => 'XProII',
+			'videoView.saveFilter' => 'Filter speichern',
 			_ => null,
 		};
 	}
