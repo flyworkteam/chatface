@@ -4,10 +4,7 @@ import 'package:chatface/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class FinalScreen extends StatelessWidget {
-  const FinalScreen({
-    super.key,
-    required this.photoGridAnimation,
-  });
+  const FinalScreen({super.key, required this.photoGridAnimation});
 
   final Animation<double> photoGridAnimation;
 
